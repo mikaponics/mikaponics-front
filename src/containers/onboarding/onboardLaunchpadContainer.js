@@ -5,6 +5,44 @@ import { connect } from 'react-redux';
 import { attemptLogout } from "../../actions/loginAction"
 
 
+class OnboardWelcomeComponent extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            referrer: '',
+            user: this.props.user
+        }
+
+        this.onBeginClick = this.onBeginClick.bind(this);
+    }
+
+    onBeginClick() {
+        alert("Begin");
+    }
+
+    render() {
+        return (
+            <div className="Onboarding-Greetings">
+                <div className="row">
+                    <div className="col-sm-12">
+
+                        <div className="jumbotron">
+                            <h1 className="display-4">Welcome!</h1>
+                            <p className="lead">Before you begin, you will need to purchase a subscription and the telemetry device. Once purchased, you will be granted access to your dashboard.</p>
+                            <hr className="my-4" />
+                            <p>Click here to begin the purchase.</p>
+                            <button type="button" className="btn btn-primary" onClick={this.onBeginClick}>Begin</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
+
+
 class OnboardLaunchpadContainer extends Component {
     constructor(props) {
         super(props);
@@ -43,13 +81,16 @@ class OnboardLaunchpadContainer extends Component {
         }
 
         return (
-            <div className="row">
-                <div className="col-md-4 offset-md-4">
-                    <form onSubmit={this.onSubmit}>
-                        <h1>Join our community</h1>
-                        <button onClick={this.onLogoutClick}>Logout</button>
-                    </form>
-                </div>
+            <div>
+                <nav aria-label="breadcrumb">
+                    <ol className="breadcrumb">
+                        <li className="breadcrumb-item active" aria-current="page">Home</li>
+                    </ol>
+                </nav>
+
+                <OnboardWelcomeComponent />
+
+
             </div>
         );
     }
