@@ -7,7 +7,7 @@ class IndexContainer extends Component {
     render() {
         return (
             <div className="row">
-                <div className="col-md-4 col-md-offset-4">
+                <div className="col-md-4 offset-md-4">
                 <h1>Welcome</h1>
                 <Link to="/login">Login</Link><br />
                 <Link to="/register">Register</Link>

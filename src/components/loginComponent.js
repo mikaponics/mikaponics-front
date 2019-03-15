@@ -9,7 +9,7 @@ class LoginComponent extends Component {
     const { email, password, onChange, onSubmit, errors = {}, isLoading } = this.props;
     return (
         <div className="row">
-            <div className="col-md-4 col-md-offset-4">
+            <div className="col-md-4 offset-md-4">
                 <form onSubmit={onSubmit}>
                      <h1>Login</h1>
 

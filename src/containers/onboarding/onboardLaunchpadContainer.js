@@ -15,16 +15,6 @@ class OnboardLaunchpadContainer extends Component {
         }
 
         this.onLogoutClick = this.onLogoutClick.bind(this);
-        this.onAnnualSubscriptionClick = this.onAnnualSubscriptionClick.bind(this);
-        this.onMonthlySubscriptionClick = this.onMonthlySubscriptionClick.bind(this);
-    }
-
-    onAnnualSubscriptionClick() {
-        alert("Annual");
-    }
-
-    onMonthlySubscriptionClick() {
-        alert("Monthly");
     }
 
     onLogoutClick() {
@@ -38,6 +28,10 @@ class OnboardLaunchpadContainer extends Component {
         })
     }
 
+    onSubmit() {
+
+    }
+
     render() {
 
         const { referrer, user } = this.state;
@@ -49,12 +43,13 @@ class OnboardLaunchpadContainer extends Component {
         }
 
         return (
-            <div className="App">
-                <h1>Onboard</h1>
-                Hello {user.first_name}<br />
-                <button onClick={this.onMonthlySubscriptionClick}>Monthly Subscription</button>
-                <button onClick={this.onAnnualSubscriptionClick}>Annual Subscription</button>
-                <button onClick={this.onLogoutClick}>Logout</button>
+            <div className="row">
+                <div className="col-md-4 offset-md-4">
+                    <form onSubmit={this.onSubmit}>
+                        <h1>Join our community</h1>
+                        <button onClick={this.onLogoutClick}>Logout</button>
+                    </form>
+                </div>
             </div>
         );
     }
