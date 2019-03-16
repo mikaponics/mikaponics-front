@@ -11,7 +11,25 @@ class OnboardPurchaseContainer extends Component {
         super(props);
 
         this.state = {
-            numberOfDevices: "1",
+            numberOfDevices: 1,
+            billingFirstName:"",
+            billingLastName:"",
+            billingCountry:"",
+            billingProvince:"",
+            billingCity:"",
+            billingPostal:"",
+            billingEmail:"",
+            billingTelephone:"",
+
+            shippingFirstName:"",
+            shippingLastName:"",
+            shippingCountry:"",
+            shippingProvince:"",
+            shippingCity:"",
+            shippingPostal:"",
+            shippingEmail:"",
+            shippingTelephone:"",
+
             user: this.props.user
         }
 
@@ -20,7 +38,7 @@ class OnboardPurchaseContainer extends Component {
     }
 
     onSubmit() {
-
+        alert("test");
     }
 
     onChange(e) {
