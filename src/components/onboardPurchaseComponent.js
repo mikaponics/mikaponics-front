@@ -11,9 +11,9 @@ class OnboardPurchaseComponent extends React.Component {
         const {
             numberOfDevices,
 
-            billingFirstName, billingLastName, billingCountry,
-            billingProvince, billingCity, billingPostal, billingEmail,
-            billingTelephone,
+            billingGivenName, billingLastName, billingAddressCountry,
+            billingAddressRegion, billingAddressLocality, billingPostalCode, billingEmail,
+            billingTelephone, billingStreetAddress,
 
             shippingFirstName, shippingLastName, shippingCountry,
             shippingProvince, shippingCity, shippingPostal, shippingEmail,
@@ -21,6 +21,9 @@ class OnboardPurchaseComponent extends React.Component {
 
             errors, onChange, onSubmit, isLoading
         } = this.props;
+
+        console.log("--------------", errors, "-------------------");
+
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -51,11 +54,11 @@ class OnboardPurchaseComponent extends React.Component {
                                />
 
                                <TextFieldGroup
-                                    error={errors.billingFirstName}
+                                    error={errors.billingGivenName}
                                     label="Billing first name (*)"
                                     onChange={onChange}
-                                    value={billingFirstName}
-                                    field="billingFirstName"
+                                    value={billingGivenName}
+                                    field="billingGivenName"
                                     type="text"
                                />
 
@@ -69,38 +72,47 @@ class OnboardPurchaseComponent extends React.Component {
                                />
 
                                <TextFieldGroup
-                                    error={errors.billingCountry}
+                                    error={errors.billingAddressCountry}
                                     label="Billing country (*)"
                                     onChange={onChange}
-                                    value={billingCountry}
-                                    field="billingCountry"
+                                    value={billingAddressCountry}
+                                    field="billingAddressCountry"
                                     type="text"
                                />
 
                                <TextFieldGroup
-                                    error={errors.billingProvince}
+                                    error={errors.billingAddressRegion}
                                     label="Billing province / state (*)"
                                     onChange={onChange}
-                                    value={billingProvince}
-                                    field="billingProvince"
+                                    value={billingAddressRegion}
+                                    field="billingAddressRegion"
                                     type="text"
                                />
 
                                <TextFieldGroup
-                                    error={errors.billingCity}
+                                    error={errors.billingAddressLocality}
                                     label="Billing city (*)"
                                     onChange={onChange}
-                                    value={billingCity}
-                                    field="billingCity"
+                                    value={billingAddressLocality}
+                                    field="billingAddressLocality"
                                     type="text"
                                />
 
                                <TextFieldGroup
-                                    error={errors.billingPostal}
+                                    error={errors.billingAddressLocality}
+                                    label="Billing street address (*)"
+                                    onChange={onChange}
+                                    value={billingStreetAddress}
+                                    field="billingStreetAddress"
+                                    type="text"
+                               />
+
+                               <TextFieldGroup
+                                    error={errors.billingPostalCode}
                                     label="Billing postal / zip (*)"
                                     onChange={onChange}
-                                    value={billingPostal}
-                                    field="billingPostal"
+                                    value={billingPostalCode}
+                                    field="billingPostalCode"
                                     type="text"
                                />
 

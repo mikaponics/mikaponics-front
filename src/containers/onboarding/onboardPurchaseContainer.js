@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
+import { camelCase, snakeCase } from 'lodash';
 
 import { MIKAPONICS_ONBOARDING_VALIDATE_API_URL } from "../../constants/api";
 import { attemptLogout } from "../../actions/loginAction";
@@ -14,12 +15,13 @@ class OnboardPurchaseContainer extends Component {
 
         this.state = {
             numberOfDevices: "1",
-            billingFirstName:"",
+            billingGivenName:"",
             billingLastName:"",
-            billingCountry:"",
-            billingProvince:"",
-            billingCity:"",
-            billingPostal:"",
+            billingAddressCountry:"",
+            billingAddressRegion:"",
+            billingAddressLocality:"",
+            billingStreetAddress:"",
+            billingPostalCode:"",
             billingEmail:"",
             billingTelephone:"",
 
@@ -32,7 +34,9 @@ class OnboardPurchaseContainer extends Component {
             shippingEmail:"",
             shippingTelephone:"",
 
-            user: this.props.user
+            user: this.props.user,
+
+            errors: {},
         }
 
         this.onSubmit = this.onSubmit.bind(this);
@@ -44,12 +48,13 @@ class OnboardPurchaseContainer extends Component {
         const numberOfDevices = this.state.numberOfDevices;
         const user = this.state.user;
 
-        const billingFirstName = this.state.billingFirstName;
+        const billingGivenName = this.state.billingGivenName;
         const billingLastName = this.state.billingLastName;
-        const billingCountry = this.state.billingCountry;
-        const billingProvince = this.state.billingProvince;
-        const billingCity = this.state.billingCity;
-        const billingPostal = this.state.billingPostal;
+        const billingAddressCountry = this.state.billingAddressCountry;
+        const billingAddressRegion = this.state.billingAddressRegion;
+        const billingAddressLocality = this.state.billingAddressLocality;
+        const billingStreetAddress = this.state.billingStreetAddress;
+        const billingPostalCode = this.state.billingPostalCode;
         const billingEmail = this.state.billingEmail;
         const billingTelephone = this.state.billingTelephone;
 
@@ -66,27 +71,17 @@ class OnboardPurchaseContainer extends Component {
             headers: {'Authorization': "Bearer " + user.token}
         };
 
-        var bodyParameters = {
-            numberOfDevices: numberOfDevices,
+        // Convert our fields to be the fields required for the API service.
+        var bodyParameters = {};
 
-            billingFirstName: billingFirstName,
-            billingLastName: billingLastName,
-            billingCountry: billingCountry,
-            billingProvince: billingProvince,
-            billingCity: billingCity,
-            billingPostal: billingPostal,
-            billingEmail: billingEmail,
-            billingTelephone: billingTelephone,
-
-            shippingFirstName: shippingFirstName,
-            shippingLastName: shippingLastName,
-            shippingCountry: shippingCountry,
-            shippingProvince: shippingProvince,
-            shippingCity: shippingCity,
-            shippingPostal: shippingPostal,
-            shippingEmail: shippingEmail,
-            shippingTelephone: shippingTelephone,
-        };
+        // this.state.errors
+        const obj = this.state;
+        Object.keys(obj).forEach(key => {
+            let value = obj[key];
+            let snakeKey = snakeCase(key);
+            console.log(snakeKey, value);
+            bodyParameters[snakeKey] = value;
+        });
 
         axios.post(
             MIKAPONICS_ONBOARDING_VALIDATE_API_URL,
@@ -96,8 +91,20 @@ class OnboardPurchaseContainer extends Component {
             console.log(successResult);
             alert("GOOD!")
         }).catch( (errorResult) => {
-            console.log(errorResult);
-            alert("BAD!");
+            let errors = {};
+            // this.state.errors
+            const obj = errorResult.response.data;
+            Object.keys(obj).forEach(key => {
+                let value = obj[key];
+                let camelKey = camelCase(key);
+                // console.log(camelKey, value);
+                errors[camelKey] = value;
+            });
+
+            this.setState({
+                errors: errors
+            })
+
         }).then( () => {
             // Do nothing.
         });
@@ -112,24 +119,26 @@ class OnboardPurchaseContainer extends Component {
     render() {
 
         const {
-            numberOfDevices, billingFirstName, billingLastName,
-            billingCountry, billingProvince, billingCity, billingPostal,
+            numberOfDevices, billingGivenName, billingLastName,
+            billingAddressCountry, billingAddressRegion, billingAddressLocality,
+            billingPostalCode, billingStreetAddress,
             billingEmail, billingTelephone, shippingFirstName,
             shippingLastName, shippingCountry, shippingProvince,
             shippingCity, shippingPostal,shippingEmail, shippingTelephone,
-             user
+            errors, user
         } = this.state;
 
         return (
             <OnboardPurchaseComponent
                 numberOfDevices={numberOfDevices}
 
-                billingFirstName={billingFirstName}
+                billingGivenName={billingGivenName}
                 billingLastName={billingLastName}
-                billingCountry={billingCountry}
-                billingProvince={billingProvince}
-                billingCity={billingCity}
-                billingPostal={billingPostal}
+                billingAddressCountry={billingAddressCountry}
+                billingAddressRegion={billingAddressRegion}
+                billingAddressLocality={billingAddressLocality}
+                billingStreetAddress={billingStreetAddress}
+                billingPostalCode={billingPostalCode}
                 billingEmail={billingEmail}
                 billingTelephone={billingTelephone}
 
@@ -145,7 +154,7 @@ class OnboardPurchaseContainer extends Component {
                 onChange={this.onChange}
                 onSubmit={this.onSubmit}
                 user={user}
-                errors={user.errors}
+                errors={errors}
             />
         );
     }
