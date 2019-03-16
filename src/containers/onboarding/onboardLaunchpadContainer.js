@@ -13,12 +13,6 @@ class OnboardWelcomeComponent extends Component {
             referrer: '',
             user: this.props.user
         }
-
-        this.onBeginClick = this.onBeginClick.bind(this);
-    }
-
-    onBeginClick() {
-        alert("Begin");
     }
 
     render() {
@@ -34,6 +28,8 @@ class OnboardWelcomeComponent extends Component {
                             <p>Click here to begin the purchase.</p>
                             <Link to="/onboard/purchase" className="btn btn-primary">Begin</Link>
                         </div>
+
+                        <button className="btn btn-primary" onClick={this.props.onLogoutClick}>Logout</button>
 
                     </div>
                 </div>
@@ -66,12 +62,7 @@ class OnboardLaunchpadContainer extends Component {
         })
     }
 
-    onSubmit() {
-
-    }
-
     render() {
-
         const { referrer, user } = this.state;
 
         // If a `referrer` was set then that means we can redirect
@@ -88,8 +79,9 @@ class OnboardLaunchpadContainer extends Component {
                     </ol>
                 </nav>
 
-                <OnboardWelcomeComponent />
-
+                <OnboardWelcomeComponent
+                    onLogoutClick={this.onLogoutClick}
+                />
 
             </div>
         );

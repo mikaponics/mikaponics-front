@@ -9,7 +9,9 @@ import TextFieldGroup from "./textFieldGroup"
 class OnboardPurchaseComponent extends React.Component {
     render() {
         const {
-            numberOfDevices, billingFirstName, billingLastName, billingCountry,
+            numberOfDevices,
+
+            billingFirstName, billingLastName, billingCountry,
             billingProvince, billingCity, billingPostal, billingEmail,
             billingTelephone,
 
