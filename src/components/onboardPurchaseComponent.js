@@ -3,6 +3,7 @@ import { Redirect, Link } from "react-router-dom";
 import map from 'lodash/map';
 import classnames from 'classnames';
 
+import { BootstrapErrorsProcessingAlert } from "./bootstrap/bootstrapAlert";
 import TextFieldGroup from "./textFieldGroup"
 
 
@@ -41,7 +42,7 @@ class OnboardPurchaseComponent extends React.Component {
                                 <h1>Purchase</h1>
                                 <p>All fields which have the (*) symbol are required to be filled out.</p>
 
-                               {errors && <div className="alert alert-danger" role="alert">TODO: Implement render.</div>}
+                               <BootstrapErrorsProcessingAlert errors={errors} />
 
                                <TextFieldGroup
                                    error={errors.numberOfDevices}

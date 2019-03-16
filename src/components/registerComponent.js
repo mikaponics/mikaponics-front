@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 import map from 'lodash/map';
 import classnames from 'classnames';
 
+import { BootstrapErrorsProcessingAlert } from "./bootstrap/bootstrapAlert";
 import TextFieldGroup from "./textFieldGroup"
 import timezones from "../constants/timezones";
 
@@ -27,10 +28,10 @@ class RegisterComponent extends React.Component {
             <div className="row">
                 <div className="col-md-4 offset-md-4">
                     <form onSubmit={onSubmit}>
-                         <h1>Join our community</h1>
-                         <p>All fields which have the (*) symbol are required to be filled out.</p>
+                        <h1>Join our community</h1>
+                        <p>All fields which have the (*) symbol are required to be filled out.</p>
 
-                        {errors && <div className="alert alert-danger" role="alert">TODO: Implement render.</div>}
+                        <BootstrapErrorsProcessingAlert errors={errors} />
 
                         <TextFieldGroup
                             error={errors.email}

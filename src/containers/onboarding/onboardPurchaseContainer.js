@@ -62,7 +62,7 @@ class OnboardPurchaseContainer extends Component {
         Object.keys(obj).forEach(key => {
             let value = obj[key];
             let snakeKey = snakeCase(key);
-            console.log(snakeKey, value);
+            // console.log(snakeKey, value); // For debugging purposes.
             bodyParameters[snakeKey] = value;
         });
 
@@ -83,7 +83,7 @@ class OnboardPurchaseContainer extends Component {
             Object.keys(obj).forEach(key => {
                 let value = obj[key];
                 let camelKey = camelCase(key);
-                // console.log(camelKey, value);
+                // console.log(camelKey, value); // For debugging purposes.
                 errors[camelKey] = value;
             });
 
