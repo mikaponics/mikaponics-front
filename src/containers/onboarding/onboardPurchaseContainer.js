@@ -14,31 +14,30 @@ class OnboardPurchaseContainer extends Component {
         super(props);
 
         this.state = {
-            numberOfDevices: "1",
-            billingGivenName:"",
-            billingLastName:"",
-            billingAddressCountry:"",
-            billingAddressRegion:"",
-            billingAddressLocality:"",
-            billingStreetAddress:"",
-            billingPostalCode:"",
-            billingEmail:"",
-            billingTelephone:"",
+            numberOfDevices: this.props.onboarding.numberOfDevices,
 
-            shippingGivenName:"",
-            shippingLastName:"",
-            shippingAddressCountry:"",
-            shippingAddressRegion:"",
-            shippingAddressLocality:"",
-            shippinggStreetAddress:"",
-            shippingPostalCode:"",
-            shippingEmail:"",
-            shippingTelephone:"",
+            billingGivenName: this.props.onboarding.billingGivenName,
+            billingLastName: this.props.onboarding.billingLastName,
+            billingAddressCountry: this.props.onboarding.billingAddressCountry,
+            billingAddressRegion: this.props.onboarding.billingAddressRegion,
+            billingAddressLocality: this.props.onboarding.billingAddressLocality,
+            billingPostalCode: this.props.onboarding.billingPostalCode,
+            billingTelephone: this.props.onboarding.billingTelephone,
+            billingEmail: this.props.onboarding.billingEmail,
+            billingStreetAddress: this.props.onboarding.billingStreetAddress,
 
-            user: this.props.user,
+            shippingGivenName: this.props.onboarding.shippingGivenName,
+            shippingLastName: this.props.onboarding.shippingLastName,
+            shippingAddressCountry: this.props.onboarding.shippingAddressCountry,
+            shippingAddressRegion: this.props.onboarding.shippingAddressRegion,
+            shippingAddressLocality: this.props.onboarding.shippingAddressLocality,
+            shippingPostalCode: this.props.onboarding.shippingPostalCode,
+            shippingTelephone: this.props.onboarding.shippingTelephone,
+            shippingEmail: this.props.onboarding.shippingEmail,
+            shippingStreetAddress: this.props.onboarding.shippingStreetAddress,
+
             referrer: '',
-
-            errors: {},
+            errors: {}
         }
 
         this.onSubmit = this.onSubmit.bind(this);
@@ -47,9 +46,7 @@ class OnboardPurchaseContainer extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-
-        // Get our `user` from the state.
-        const user = this.state.user;
+        const { user } = this.props;
 
         // Create our oAuth 2.0 authenticated API header to use with our
         // submission.
@@ -57,11 +54,10 @@ class OnboardPurchaseContainer extends Component {
             headers: {'Authorization': "Bearer " + user.token}
         };
 
-        // Convert our fields to be the fields required for the API service.
+        // CONVERT OUR "CAMCELCASE" FIELDS TO BE "SNAKE_CASE" FIELDS.
         var bodyParameters = {};
-        const obj = this.state;
-        Object.keys(obj).forEach(key => {
-            let value = obj[key];
+        Object.keys(this.state).forEach(key => {
+            let value = this.state[key];
             let snakeKey = snakeCase(key);
             // console.log(snakeKey, value); // For debugging purposes.
             bodyParameters[snakeKey] = value;
@@ -73,8 +69,7 @@ class OnboardPurchaseContainer extends Component {
             bodyParameters,
             config
         ).then( (successResult) => { // SUCCESS
-            console.log(successResult);
-            this.props.setOnboardingPurchaseInfo(bodyParameters);
+            this.props.setOnboardingPurchaseInfo(this.state);
             this.setState({
                 referrer: '/onboard/checkout'
             })
@@ -84,15 +79,15 @@ class OnboardPurchaseContainer extends Component {
             // KEYS IN THE DICTIONARY TO BE "SNAKE CASE" KEYS TO SUPPORT
             // THE STANDARD OF OUR API-WEB SERVICE.
             let errors = {};
-            const obj = errorResult.response.data;
-            Object.keys(obj).forEach(key => {
-                let value = obj[key];
+            const responseData = errorResult.response.data;
+            Object.keys(responseData).forEach(key => {
+                let value = responseData[key];
                 let camelKey = camelCase(key);
                 // console.log(camelKey, value); // For debugging purposes.
                 errors[camelKey] = value;
             });
 
-            // SAVE OUR ERROR.
+            // SAVE OUR ERRORS LOCALLY.
             this.setState({
                 errors: errors
             })
@@ -110,17 +105,21 @@ class OnboardPurchaseContainer extends Component {
 
     render() {
 
-        const { referrer } = this.state;
+        const { referrer, errors } = this.state;
         const {
-            numberOfDevices, billingGivenName, billingLastName,
+            numberOfDevices,
+
+            billingGivenName, billingLastName,
             billingAddressCountry, billingAddressRegion, billingAddressLocality,
             billingPostalCode, billingStreetAddress,
-            billingEmail, billingTelephone, shippingGivenName,
+            billingEmail, billingTelephone,
+
+            shippingGivenName,
             shippingLastName, shippingAddressCountry, shippingAddressRegion,
             shippingAddressLocality, shippingStreetAddress,
             shippingPostalCode,shippingEmail, shippingTelephone,
-            errors, user
-        } = this.state;
+        } = this.props.onboarding;
+        const { user } = this.props;
 
         // If a `referrer` was set then that means we can redirect
         // to a different page in our application.
@@ -163,7 +162,8 @@ class OnboardPurchaseContainer extends Component {
 
 const mapStateToProps = function(store) {
     return {
-        user: store.userState
+        user: store.userState,
+        onboarding: store.onboardingState
     };
 }
 

@@ -7,6 +7,7 @@ import RegisterContainer from "./registerContainer";
 import DashboardContainer from "./dashboardContainer";
 import OnboardLaunchpadContainer from "./onboarding/onboardLaunchpadContainer";
 import OnboardPurchaseContainer from "./onboarding/onboardPurchaseContainer";
+import OnboardCheckoutContainer from "./onboarding/onboardCheckoutContainer";
 
 
 import NavigationBar from '../components/navigationBar.js';
@@ -24,6 +25,7 @@ class AppContainer extends React.Component {
                         <Route path="/dashboard" exact component={DashboardContainer} />
                         <Route path="/onboard" exact component={OnboardLaunchpadContainer} />
                         <Route path="/onboard/purchase" exact component={OnboardPurchaseContainer} />
+                        <Route path="/onboard/checkout" exact component={OnboardCheckoutContainer} />
                     </Switch>
                 </div>
            </Router>

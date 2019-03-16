@@ -17,7 +17,9 @@ const onboardingReducer = function(state = [], action = {}) {
             return Object.assign({}, state, action.payload);
 
         default:
-           return state;
+           return {
+               errors: {}
+           };
     }
 }
 
