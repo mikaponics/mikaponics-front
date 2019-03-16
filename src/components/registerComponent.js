@@ -79,7 +79,7 @@ class RegisterComponent extends React.Component {
                         <div className={classnames("form-group", { 'has-error': errors.timezone } )}>
                             <label className="control-label">Timezone (*)</label>
                             <select
-                                className="form-control"
+                                className={classnames('form-control', { 'is-invalid': errors.timezone })}
                                 name="timezone"
                                 onChange={onChange}
                                 value={timezone}

@@ -5,16 +5,17 @@ import classnames from 'classnames';
 const TextFieldGroup = ({ field, value, label, error, type, onChange, checkUserExists }) => {
   return (
     <div className={classnames('form-group', { 'has-error': error })}>
-      <label className="control-label">{label}</label>
+      <label className="control-label" for={field}>{label}</label>
       <input
         onChange={onChange}
         onBlur={checkUserExists}
         value={value}
         type={type}
         name={field}
-        className="form-control"
+        id={field}
+        className={classnames('form-control', { 'is-invalid': error })}
       />
-    {error && <span className="help-block">{error}</span>}
+    {error && <div className="invalid-feedback">{error}</div>}
     </div>  );
 }
 
