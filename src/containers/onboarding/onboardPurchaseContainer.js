@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { camelCase, snakeCase } from 'lodash';
 
 import { MIKAPONICS_ONBOARDING_VALIDATE_API_URL } from "../../constants/api";
-import { attemptLogout } from "../../actions/loginAction";
+import { setOnboardingPurchaseInfo } from "../../actions/onboardingActions";
 import OnboardPurchaseComponent from "../../components/onboardPurchaseComponent";
 
 
@@ -36,6 +36,7 @@ class OnboardPurchaseContainer extends Component {
             shippingTelephone:"",
 
             user: this.props.user,
+            referrer: '',
 
             errors: {},
         }
@@ -73,7 +74,11 @@ class OnboardPurchaseContainer extends Component {
             config
         ).then( (successResult) => { // SUCCESS
             console.log(successResult);
-            alert("GOOD!")
+            this.props.setOnboardingPurchaseInfo(bodyParameters);
+            this.setState({
+                referrer: '/onboard/checkout'
+            })
+
         }).catch( (errorResult) => { // ERROR
             // THE FOLLOWING CODE WILL CONVERT ALL THE "CAMCEL CASE"
             // KEYS IN THE DICTIONARY TO BE "SNAKE CASE" KEYS TO SUPPORT
@@ -105,6 +110,7 @@ class OnboardPurchaseContainer extends Component {
 
     render() {
 
+        const { referrer } = this.state;
         const {
             numberOfDevices, billingGivenName, billingLastName,
             billingAddressCountry, billingAddressRegion, billingAddressLocality,
@@ -115,6 +121,12 @@ class OnboardPurchaseContainer extends Component {
             shippingPostalCode,shippingEmail, shippingTelephone,
             errors, user
         } = this.state;
+
+        // If a `referrer` was set then that means we can redirect
+        // to a different page in our application.
+        if (referrer) {
+            return <Redirect to={referrer} />;
+        }
 
         return (
             <OnboardPurchaseComponent
@@ -157,9 +169,9 @@ const mapStateToProps = function(store) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        attemptLogout: () => {
+        setOnboardingPurchaseInfo: (info) => {
             dispatch(
-                attemptLogout()
+                setOnboardingPurchaseInfo(info)
             )
         }
     }

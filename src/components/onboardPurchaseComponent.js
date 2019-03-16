@@ -1,7 +1,5 @@
 import React from 'react';
-import { Redirect, Link } from "react-router-dom";
-import map from 'lodash/map';
-import classnames from 'classnames';
+import { Link } from "react-router-dom";
 
 import { BootstrapErrorsProcessingAlert } from "./bootstrap/bootstrapAlert";
 import TextFieldGroup from "./textFieldGroup"

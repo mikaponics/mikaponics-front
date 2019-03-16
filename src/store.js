@@ -5,10 +5,12 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { APP_STATE } from "./constants/redux";
 import { LOGIN_SUCCESS, LOGOUT_SUCCESS } from "./constants/actionTypes";
 import userReducer from "./reducers/userReducer";
+import onboardingReducer from "./reducers/onboardingReducer";
 
 
 // Combine Reducers
 const rootReducer = combineReducers({
+    onboardingState: onboardingReducer,
     userState: userReducer,
 });
 
