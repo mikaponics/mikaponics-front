@@ -25,12 +25,13 @@ class OnboardPurchaseContainer extends Component {
             billingEmail:"",
             billingTelephone:"",
 
-            shippingFirstName:"",
+            shippingGivenName:"",
             shippingLastName:"",
-            shippingCountry:"",
-            shippingProvince:"",
-            shippingCity:"",
-            shippingPostal:"",
+            shippingAddressCountry:"",
+            shippingAddressRegion:"",
+            shippingAddressLocality:"",
+            shippinggStreetAddress:"",
+            shippingPostalCode:"",
             shippingEmail:"",
             shippingTelephone:"",
 
@@ -45,36 +46,18 @@ class OnboardPurchaseContainer extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        const numberOfDevices = this.state.numberOfDevices;
+
+        // Get our `user` from the state.
         const user = this.state.user;
 
-        const billingGivenName = this.state.billingGivenName;
-        const billingLastName = this.state.billingLastName;
-        const billingAddressCountry = this.state.billingAddressCountry;
-        const billingAddressRegion = this.state.billingAddressRegion;
-        const billingAddressLocality = this.state.billingAddressLocality;
-        const billingStreetAddress = this.state.billingStreetAddress;
-        const billingPostalCode = this.state.billingPostalCode;
-        const billingEmail = this.state.billingEmail;
-        const billingTelephone = this.state.billingTelephone;
-
-        const shippingFirstName = this.state.shippingFirstName;
-        const shippingLastName = this.state.shippingLastName;
-        const shippingCountry = this.state.shippingCountry;
-        const shippingProvince = this.state.shippingProvince;
-        const shippingCity = this.state.shippingCity;
-        const shippingPostal = this.state.shippingPostal;
-        const shippingEmail = this.state.shippingEmail;
-        const shippingTelephone = this.state.shippingTelephone;
-
+        // Create our oAuth 2.0 authenticated API header to use with our
+        // submission.
         const config = {
             headers: {'Authorization': "Bearer " + user.token}
         };
 
         // Convert our fields to be the fields required for the API service.
         var bodyParameters = {};
-
-        // this.state.errors
         const obj = this.state;
         Object.keys(obj).forEach(key => {
             let value = obj[key];
@@ -83,16 +66,19 @@ class OnboardPurchaseContainer extends Component {
             bodyParameters[snakeKey] = value;
         });
 
+        // Make the authenticated call to our web-service.
         axios.post(
             MIKAPONICS_ONBOARDING_VALIDATE_API_URL,
             bodyParameters,
             config
-        ).then( (successResult) => {
+        ).then( (successResult) => { // SUCCESS
             console.log(successResult);
             alert("GOOD!")
-        }).catch( (errorResult) => {
+        }).catch( (errorResult) => { // ERROR
+            // THE FOLLOWING CODE WILL CONVERT ALL THE "CAMCEL CASE"
+            // KEYS IN THE DICTIONARY TO BE "SNAKE CASE" KEYS TO SUPPORT
+            // THE STANDARD OF OUR API-WEB SERVICE.
             let errors = {};
-            // this.state.errors
             const obj = errorResult.response.data;
             Object.keys(obj).forEach(key => {
                 let value = obj[key];
@@ -101,11 +87,12 @@ class OnboardPurchaseContainer extends Component {
                 errors[camelKey] = value;
             });
 
+            // SAVE OUR ERROR.
             this.setState({
                 errors: errors
             })
 
-        }).then( () => {
+        }).then( () => { // FINALLY
             // Do nothing.
         });
     }
@@ -122,9 +109,10 @@ class OnboardPurchaseContainer extends Component {
             numberOfDevices, billingGivenName, billingLastName,
             billingAddressCountry, billingAddressRegion, billingAddressLocality,
             billingPostalCode, billingStreetAddress,
-            billingEmail, billingTelephone, shippingFirstName,
-            shippingLastName, shippingCountry, shippingProvince,
-            shippingCity, shippingPostal,shippingEmail, shippingTelephone,
+            billingEmail, billingTelephone, shippingGivenName,
+            shippingLastName, shippingAddressCountry, shippingAddressRegion,
+            shippingAddressLocality, shippingStreetAddress,
+            shippingPostalCode,shippingEmail, shippingTelephone,
             errors, user
         } = this.state;
 
@@ -142,12 +130,13 @@ class OnboardPurchaseContainer extends Component {
                 billingEmail={billingEmail}
                 billingTelephone={billingTelephone}
 
-                shippingFirstName={shippingFirstName}
+                shippingGivenName={shippingGivenName}
                 shippingLastName={shippingLastName}
-                shippingCountry={shippingCountry}
-                shippingProvince={shippingProvince}
-                shippingCity={shippingCity}
-                shippingPostal={shippingPostal}
+                shippingAddressCountry={shippingAddressCountry}
+                shippingAddressRegion={shippingAddressRegion}
+                shippingAddressLocality={shippingAddressLocality}
+                shippingStreetAddress={shippingStreetAddress}
+                shippingPostalCode={shippingPostalCode}
                 shippingEmail={shippingEmail}
                 shippingTelephone={shippingTelephone}
 

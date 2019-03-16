@@ -15,14 +15,13 @@ class OnboardPurchaseComponent extends React.Component {
             billingAddressRegion, billingAddressLocality, billingPostalCode, billingEmail,
             billingTelephone, billingStreetAddress,
 
-            shippingFirstName, shippingLastName, shippingCountry,
-            shippingProvince, shippingCity, shippingPostal, shippingEmail,
+            shippingGivenName, shippingLastName, shippingAddressCountry,
+            shippingAddressRegion, shippingAddressLocality, shippingStreetAddress,
+            shippingPostalCode, shippingEmail,
             shippingTelephone,
 
             errors, onChange, onSubmit, isLoading
         } = this.props;
-
-        console.log("--------------", errors, "-------------------");
 
         return (
             <div>
@@ -135,11 +134,11 @@ class OnboardPurchaseComponent extends React.Component {
                                />
 
                                <TextFieldGroup
-                                    error={errors.shippingFirstName}
+                                    error={errors.shippingGivenName}
                                     label="Shipping first name (*)"
                                     onChange={onChange}
-                                    value={shippingFirstName}
-                                    field="shippingFirstName"
+                                    value={shippingGivenName}
+                                    field="shippingGivenName"
                                     type="text"
                                />
 
@@ -153,38 +152,47 @@ class OnboardPurchaseComponent extends React.Component {
                                />
 
                                <TextFieldGroup
-                                    error={errors.shippingCountry}
+                                    error={errors.shippingAddressCountry}
                                     label="Shipping country (*)"
                                     onChange={onChange}
-                                    value={shippingCountry}
-                                    field="shippingCountry"
+                                    value={shippingAddressCountry}
+                                    field="shippingAddressCountry"
                                     type="text"
                                />
 
                                <TextFieldGroup
-                                    error={errors.shippingProvince}
+                                    error={errors.shippingAddressRegion}
                                     label="Shipping province / state (*)"
                                     onChange={onChange}
-                                    value={shippingProvince}
-                                    field="shippingProvince"
+                                    value={shippingAddressRegion}
+                                    field="shippingAddressRegion"
                                     type="text"
                                />
 
                                <TextFieldGroup
-                                    error={errors.shippingCity}
+                                    error={errors.shippingAddressLocality}
                                     label="Shipping city (*)"
                                     onChange={onChange}
-                                    value={shippingCity}
-                                    field="shippingCity"
+                                    value={shippingAddressLocality}
+                                    field="shippingAddressLocality"
                                     type="text"
                                />
 
                                <TextFieldGroup
-                                    error={errors.shippingPostal}
+                                    error={errors.shippingStreetAddress}
+                                    label="Shipping street address (*)"
+                                    onChange={onChange}
+                                    value={shippingStreetAddress}
+                                    field="shippingStreetAddress"
+                                    type="text"
+                               />
+
+                               <TextFieldGroup
+                                    error={errors.shippingPostalCode}
                                     label="Shipping postal / zip (*)"
                                     onChange={onChange}
-                                    value={shippingPostal}
-                                    field="shippingPostal"
+                                    value={shippingPostalCode}
+                                    field="shippingPostalCode"
                                     type="text"
                                />
 
