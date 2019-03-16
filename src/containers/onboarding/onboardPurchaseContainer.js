@@ -118,7 +118,7 @@ class OnboardPurchaseContainer extends Component {
             shippingLastName, shippingAddressCountry, shippingAddressRegion,
             shippingAddressLocality, shippingStreetAddress,
             shippingPostalCode,shippingEmail, shippingTelephone,
-        } = this.props.onboarding;
+        } = this.state;
         const { user } = this.props;
 
         // If a `referrer` was set then that means we can redirect

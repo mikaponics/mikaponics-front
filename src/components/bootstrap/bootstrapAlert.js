@@ -61,7 +61,7 @@ export const BootstrapErrorsProcessingAlert = ({ errors }) => {
     // STEP 5: Render our processed error list.
     return (
         <div className="alert alert-danger" role="alert">
-            <h4 class="alert-heading">Error(s):</h4>
+            <h4 className="alert-heading">Error(s):</h4>
             {array}
             <hr />
             <p>Please make sure the above error(s) have been fixed before submitting again</p>
@@ -70,8 +70,7 @@ export const BootstrapErrorsProcessingAlert = ({ errors }) => {
 }
 
 BootstrapErrorsProcessingAlert.propTypes = {
-    value: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
+    errors: PropTypes.object.isRequired,
 }
 
 BootstrapErrorsProcessingAlert.defaultProps = {

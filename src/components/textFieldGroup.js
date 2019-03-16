@@ -5,7 +5,7 @@ import classnames from 'classnames';
 const TextFieldGroup = ({ field, value, label, error, type, onChange, checkUserExists }) => {
   return (
     <div className={classnames('form-group', { 'has-error': error })}>
-      <label className="control-label" for={field}>{label}</label>
+      <label className="control-label" htmlFor={field}>{label}</label>
       <input
         onChange={onChange}
         onBlur={checkUserExists}
@@ -21,7 +21,7 @@ const TextFieldGroup = ({ field, value, label, error, type, onChange, checkUserE
 
 TextFieldGroup.propTypes = {
     field: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
+    value: PropTypes.string,
     label: PropTypes.string.isRequired,
     error: PropTypes.string,
     type: PropTypes.string.isRequired,
