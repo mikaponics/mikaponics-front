@@ -8,7 +8,7 @@ import TextFieldGroup from "./textFieldGroup"
 class OnboardCheckoutComponent extends React.Component {
     render() {
         const {
-            errors, onChange, onSubmit, isLoading
+            errors, onChange, onSubmit, isLoading, monthlyFee
         } = this.props;
 
         return (
@@ -32,7 +32,17 @@ class OnboardCheckoutComponent extends React.Component {
                                 <h1>Checkout</h1>
                                 <p>All fields which have the (*) symbol are required to be filled out.</p>
 
-                               <BootstrapErrorsProcessingAlert errors={errors} />
+                                <BootstrapErrorsProcessingAlert errors={errors} />
+
+                                <form>
+                                <div class="form-group">
+ <label for="exampleInputEmail1">Email address</label>
+ <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
+ <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+</div>
+                                </form>
+
+
 
 
                            </form>

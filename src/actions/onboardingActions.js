@@ -1,23 +1,7 @@
-import {
-    SET_ONBOARDING_PURCHASE_INFO,
-    SET_ONBOARDING_CHECKOUT_INFO,
-    SET_ONBOARDING_PAYMENT_INFO
-} from '../constants/actionTypes';
+import { SET_ONBOARDING } from '../constants/actionTypes';
 
 
-export const setOnboardingPurchaseInfo = (info) => ({
-    type: SET_ONBOARDING_PURCHASE_INFO,
-    payload: info,
-});
-
-
-export const setOnboardingCheckoutInfo = (info) => ({
-    type: SET_ONBOARDING_CHECKOUT_INFO,
-    payload: info,
-});
-
-
-export const setOnboardingPaymentInfo = (info) => ({
-    type: SET_ONBOARDING_PAYMENT_INFO,
+export const setOnboardingInfo = (info) => ({
+    type: SET_ONBOARDING,
     payload: info,
 });

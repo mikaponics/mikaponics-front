@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { camelCase, snakeCase } from 'lodash';
 
 import { MIKAPONICS_ONBOARDING_VALIDATE_API_URL } from "../../constants/api";
-import { setOnboardingPurchaseInfo } from "../../actions/onboardingActions";
+import { setOnboardingInfo } from "../../actions/onboardingActions";
 import OnboardPurchaseComponent from "../../components/onboardPurchaseComponent";
 
 
@@ -69,7 +69,7 @@ class OnboardPurchaseContainer extends Component {
             bodyParameters,
             config
         ).then( (successResult) => { // SUCCESS
-            this.props.setOnboardingPurchaseInfo(this.state);
+            this.props.setOnboardingInfo(this.state);
             this.setState({
                 referrer: '/onboard/checkout'
             })
@@ -101,6 +101,15 @@ class OnboardPurchaseContainer extends Component {
         this.setState({
             [e.target.name]: e.target.value,
         })
+    }
+
+    componentWillUnmount() {
+        // This code will fix the "ReactJS & Redux: Can't perform a React state
+        // update on an unmounted component" issue as explained in:
+        // https://stackoverflow.com/a/53829700
+        this.setState = (state,callback)=>{
+            return;
+        };
     }
 
     render() {
@@ -169,9 +178,9 @@ const mapStateToProps = function(store) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        setOnboardingPurchaseInfo: (info) => {
+        setOnboardingInfo: (info) => {
             dispatch(
-                setOnboardingPurchaseInfo(info)
+                setOnboardingInfo(info)
             )
         }
     }

@@ -3,7 +3,7 @@ import  { createStore, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { APP_STATE } from "./constants/redux";
-import { LOGIN_SUCCESS, LOGOUT_SUCCESS } from "./constants/actionTypes";
+import { LOGIN_SUCCESS, LOGOUT_SUCCESS, SET_ONBOARDING } from "./constants/actionTypes";
 import userReducer from "./reducers/userReducer";
 import onboardingReducer from "./reducers/onboardingReducer";
 
@@ -24,7 +24,7 @@ const rootReducer = combineReducers({
 const localStorageMiddleware = ({ getState }) => {
     return next => action => {
         const result = next(action);
-        if ([ LOGIN_SUCCESS, LOGOUT_SUCCESS ].includes(result.type)) {
+        if ([ LOGIN_SUCCESS, LOGOUT_SUCCESS, SET_ONBOARDING ].includes(result.type)) {
             console.log("De-hydrating store...");
             localStorage.setItem(APP_STATE, JSON.stringify(getState()))
         }
@@ -43,7 +43,9 @@ const reHydrateStore = () => {
     const data = localStorage.getItem(APP_STATE);
     if (data) {
         console.log("Re-hydrating Store...");
-        return JSON.parse(data);
+        const jsonData = JSON.parse(data);
+        console.log("Store Contents:", jsonData); // For debugging purposes only.
+        return jsonData;
     }
     return undefined;
 };
