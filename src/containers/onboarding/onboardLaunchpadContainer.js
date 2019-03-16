@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { connect } from 'react-redux';
 
 import { attemptLogout } from "../../actions/loginAction"
@@ -32,7 +32,7 @@ class OnboardWelcomeComponent extends Component {
                             <p className="lead">Before you begin, you will need to purchase a subscription and the telemetry device. Once purchased, you will be granted access to your dashboard.</p>
                             <hr className="my-4" />
                             <p>Click here to begin the purchase.</p>
-                            <button type="button" className="btn btn-primary" onClick={this.onBeginClick}>Begin</button>
+                            <Link to="/onboard/purchase" className="btn btn-primary">Begin</Link>
                         </div>
 
                     </div>
