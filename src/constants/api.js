@@ -10,6 +10,7 @@ export const MIKAPONICS_LOGIN_API_URL = 'http://127.0.0.1:8000/api/login';
 export const MIKAPONICS_REGISTER_API_URL = 'http://127.0.0.1:8000/api/register';
 export const MIKAPONICS_ONBOARDING_CALCULATOR_API_URL = 'http://127.0.0.1:8000/api/onboarding/calculator';
 export const MIKAPONICS_ONBOARDING_VALIDATE_API_URL = 'http://127.0.0.1:8000/api/onboarding/validation';
+export const MIKAPONICS_ONBOARDING_SUBMISSION_API_URL = 'http://127.0.0.1:8000/api/onboarding/submission';
 
 /**
  *  The available choices for the ``subscription_status`` field in the user API.
