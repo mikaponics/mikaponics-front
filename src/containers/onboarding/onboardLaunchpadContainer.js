@@ -10,8 +10,7 @@ class OnboardWelcomeComponent extends Component {
         super(props);
 
         this.state = {
-            referrer: '',
-            user: this.props.user
+            referrer: ''
         }
     }
 
@@ -63,7 +62,7 @@ class OnboardLaunchpadContainer extends Component {
     }
 
     render() {
-        const { referrer, user } = this.state;
+        const { referrer } = this.state;
 
         // If a `referrer` was set then that means we can redirect
         // to a different page in our application.

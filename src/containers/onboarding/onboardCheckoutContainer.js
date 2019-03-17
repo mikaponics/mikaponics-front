@@ -7,6 +7,14 @@ import { camelCase, snakeCase } from 'lodash';
 import { MIKAPONICS_ONBOARDING_CALCULATOR_API_URL } from "../../constants/api";
 import { setOnboardingPurchaseInfo } from "../../actions/onboardingActions";
 import OnboardCheckoutComponent from "../../components/onboardCheckoutComponent";
+import StripeComponent from "../../components/stripeComponent";
+
+const STRIPE_PUBLISHABLE = "pk_test_fw1OJnoeXL2Zp8zMTvxD3s5M";
+const PAYMENT_SERVER_URL = "http://127.0.0.1:8080";
+const CURRENCY = 'CAD';
+const DESCRIPTION = "this is a test.";
+
+const fromCadToCent = amount => amount * 100;
 
 
 class OnboardCheckoutContainer extends Component {
@@ -29,19 +37,6 @@ class OnboardCheckoutContainer extends Component {
             credit: 0,
             grandTotal: 0,
         }
-
-        this.onSubmit = this.onSubmit.bind(this);
-        this.onChange = this.onChange.bind(this);
-    }
-
-    onSubmit(e) {
-        e.preventDefault();
-    }
-
-    onChange(e) {
-        this.setState({
-            [e.target.name]: e.target.value,
-        })
     }
 
     componentDidMount() {
@@ -85,6 +80,15 @@ class OnboardCheckoutContainer extends Component {
         });
     }
 
+    /**
+     *  Function used to callback to this parent from the ``Stripe`` compoent
+     *  when the transaction was successful and the token was returned.
+     */
+    onToken = (token) => {
+        console.log(token);
+        alert("good!");
+    }
+
     render() {
 
         const { referrer, errors,
@@ -100,6 +104,10 @@ class OnboardCheckoutContainer extends Component {
         } = this.state;
         const { user } = this.props;
 
+        const {
+            billingEmail
+        } = this.props.onboarding;
+
         // If a `referrer` was set then that means we can redirect
         // to a different page in our application.
         if (referrer) {
@@ -107,20 +115,28 @@ class OnboardCheckoutContainer extends Component {
         }
 
         return (
-            <OnboardCheckoutComponent
-                monthlyFee={monthlyFee}
-                numberOfDevices={numberOfDevices}
-                pricePerDevice={pricePerDevice}
-                totalBeforeTax={totalBeforeTax}
-                tax={tax}
-                totalAfterTax={totalAfterTax}
-                shipping={shipping}
-                credit={credit}
-                grandTotal={grandTotal}
-                errors={errors}
-                onSubmit={this.onSubmit}
-                onChange={this.onChange}
-            />
+            <div>
+                <OnboardCheckoutComponent
+                    monthlyFee={monthlyFee}
+                    numberOfDevices={numberOfDevices}
+                    pricePerDevice={pricePerDevice}
+                    totalBeforeTax={totalBeforeTax}
+                    tax={tax}
+                    totalAfterTax={totalAfterTax}
+                    shipping={shipping}
+                    credit={credit}
+                    grandTotal={grandTotal}
+                    errors={errors}
+
+                    name="Mikaponics Onboarding"
+                    description=""
+                    onToken={(token) => this.onToken(token)}
+                    billingEmail={billingEmail}
+                    amountInCents={fromCadToCent(grandTotal)}
+                    currency={CURRENCY}
+                    stripeKey={STRIPE_PUBLISHABLE}
+                />
+            </div>
         );
     }
 }

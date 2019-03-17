@@ -3,13 +3,16 @@ import { Link } from "react-router-dom";
 
 import { BootstrapErrorsProcessingAlert } from "./bootstrap/bootstrapAlert";
 import TextFieldGroup from "./textFieldGroup"
+import StripeComponent from "./stripeComponent";
 
 
 class OnboardCheckoutComponent extends React.Component {
     render() {
         const {
             errors, onChange, onSubmit, isLoading,
-            monthlyFee, numberOfDevices, pricePerDevice, totalBeforeTax, tax, totalAfterTax, shipping, credit, grandTotal
+            monthlyFee, numberOfDevices, pricePerDevice, totalBeforeTax, tax, totalAfterTax, shipping, credit, grandTotal,
+
+            name, description, billingEmail, amountInCents, currency, stripeKey
         } = this.props;
 
         return (
@@ -62,12 +65,18 @@ class OnboardCheckoutComponent extends React.Component {
                                 <h2>Payment</h2>
                                 <p>All fields which have the (*) symbol are required to be filled out.</p>
 
-                                <BootstrapErrorsProcessingAlert errors={errors} />
-
-
-
+                                <StripeComponent
+                                    name={name}
+                                    description={description}
+                                    onToken={(token) => this.props.onToken(token)}
+                                    billingEmail={billingEmail}
+                                    amountInCents={amountInCents}
+                                    currency={currency}
+                                    stripeKey={stripeKey}
+                                />
 
                            </form>
+
                        </div>
                    </div>
                 </div>
