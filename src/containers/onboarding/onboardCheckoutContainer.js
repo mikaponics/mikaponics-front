@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { camelCase, snakeCase } from 'lodash';
 
 import { MIKAPONICS_ONBOARDING_CALCULATOR_API_URL } from "../../constants/api";
-import { setOnboardingPurchaseInfo } from "../../actions/onboardingActions";
+import { setOnboardingInfo } from "../../actions/onboardingActions";
 import OnboardCheckoutComponent from "../../components/onboarding/onboardCheckoutComponent";
 import StripeComponent from "../../components/stripeComponent";
 
@@ -85,8 +85,17 @@ class OnboardCheckoutContainer extends Component {
      *  when the transaction was successful and the token was returned.
      */
     onToken = (token) => {
-        console.log(token);
-        alert("TODO: SUBMIT TOKEN TO BACKEND.");
+        console.log(token); // For debugging purposes only.
+
+        // Update our global application state to save the results returned
+        // by Stripe.com payment gateway & merchant services. This payment
+        // details we will submit to our API web-service.
+        this.props.setOnboardingInfo({
+            paymentDetail: token,
+        });
+
+        // Save our state to be the success page so our component will
+        // redirect to the onboarding success page.
         this.setState({
             'referrer': '/onboard/success'
         });
@@ -153,7 +162,9 @@ const mapStateToProps = function(store) {
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        setOnboardingInfo: (info) => {
+            dispatch(setOnboardingInfo(info))
+        },
     }
 }
 
