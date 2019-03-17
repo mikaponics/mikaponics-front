@@ -86,7 +86,10 @@ class OnboardCheckoutContainer extends Component {
      */
     onToken = (token) => {
         console.log(token);
-        alert("good!");
+        alert("TODO: SUBMIT TOKEN TO BACKEND.");
+        this.setState({
+            'referrer': '/onboard/success'
+        });
     }
 
     render() {

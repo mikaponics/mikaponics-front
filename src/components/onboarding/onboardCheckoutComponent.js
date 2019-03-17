@@ -1,15 +1,12 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
-import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
-import TextFieldGroup from "../textFieldGroup"
 import StripeComponent from "../stripeComponent";
 
 
 class OnboardCheckoutComponent extends React.Component {
     render() {
         const {
-            errors, onChange, onSubmit, isLoading,
             monthlyFee, numberOfDevices, pricePerDevice, totalBeforeTax, tax, totalAfterTax, shipping, credit, grandTotal,
 
             name, description, billingEmail, amountInCents, currency, stripeKey
@@ -32,7 +29,7 @@ class OnboardCheckoutComponent extends React.Component {
                 <div className="Onboarding-Purchase">
                    <div className="row">
                        <div className="col-md-4 offset-md-4">
-                           <form onSubmit={onSubmit}>
+                           <form>
                                 <h1>Checkout</h1>
                                 Monthly fee:
                                 <input class="form-control" type="text" placeholder="0" value={monthlyFee} readonly="true" />
