@@ -6,7 +6,7 @@ import { camelCase, snakeCase } from 'lodash';
 
 import { MIKAPONICS_ONBOARDING_CALCULATOR_API_URL } from "../../constants/api";
 import { setOnboardingPurchaseInfo } from "../../actions/onboardingActions";
-import OnboardCheckoutComponent from "../../components/onboardCheckoutComponent";
+import OnboardCheckoutComponent from "../../components/onboarding/onboardCheckoutComponent";
 import StripeComponent from "../../components/stripeComponent";
 
 const STRIPE_PUBLISHABLE = "pk_test_fw1OJnoeXL2Zp8zMTvxD3s5M";

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
-import { BootstrapErrorsProcessingAlert } from "./bootstrap/bootstrapAlert";
-import TextFieldGroup from "./textFieldGroup"
-import StripeComponent from "./stripeComponent";
+import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
+import TextFieldGroup from "../textFieldGroup"
+import StripeComponent from "../stripeComponent";
 
 
 class OnboardCheckoutComponent extends React.Component {
@@ -34,7 +34,6 @@ class OnboardCheckoutComponent extends React.Component {
                        <div className="col-md-4 offset-md-4">
                            <form onSubmit={onSubmit}>
                                 <h1>Checkout</h1>
-                                <h2>Summary</h2>
                                 Monthly fee:
                                 <input class="form-control" type="text" placeholder="0" value={monthlyFee} readonly="true" />
 
@@ -62,8 +61,8 @@ class OnboardCheckoutComponent extends React.Component {
                                 Grand total:
                                 <input class="form-control" type="text" placeholder="0" value={grandTotal} readonly="true" />
 
-                                <h2>Payment</h2>
-                                <p>All fields which have the (*) symbol are required to be filled out.</p>
+                                <br />
+
 
                                 <StripeComponent
                                     name={name}

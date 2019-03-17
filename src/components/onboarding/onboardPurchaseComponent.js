@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
-import { BootstrapErrorsProcessingAlert } from "./bootstrap/bootstrapAlert";
-import TextFieldGroup from "./textFieldGroup"
+import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
+import TextFieldGroup from "../textFieldGroup"
 
 
 class OnboardPurchaseComponent extends React.Component {

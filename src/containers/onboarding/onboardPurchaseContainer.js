@@ -6,7 +6,7 @@ import { camelCase, snakeCase } from 'lodash';
 
 import { MIKAPONICS_ONBOARDING_VALIDATE_API_URL } from "../../constants/api";
 import { setOnboardingInfo } from "../../actions/onboardingActions";
-import OnboardPurchaseComponent from "../../components/onboardPurchaseComponent";
+import OnboardPurchaseComponent from "../../components/onboarding/onboardPurchaseComponent";
 
 
 class OnboardPurchaseContainer extends Component {
