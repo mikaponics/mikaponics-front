@@ -14,8 +14,6 @@ const PAYMENT_SERVER_URL = "http://127.0.0.1:8080";
 const CURRENCY = 'CAD';
 const DESCRIPTION = "this is a test.";
 
-const fromCadToCent = amount => amount * 100;
-
 
 class OnboardCheckoutContainer extends Component {
     constructor(props) {
@@ -36,6 +34,7 @@ class OnboardCheckoutContainer extends Component {
             shipping: 0,
             credit: 0,
             grandTotal: 0,
+            grandTotalInCents: 0,
         }
     }
 
@@ -71,6 +70,7 @@ class OnboardCheckoutContainer extends Component {
                 shipping: successResult.data.calculation.shipping,
                 credit: successResult.data.calculation.credit,
                 grandTotal: successResult.data.calculation.grandTotal,
+                grandTotalInCents: successResult.data.calculation.grandTotalInCents,
             })
         }).catch( (errorResult) => { // ERROR
             console.log(errorResult);
@@ -112,7 +112,8 @@ class OnboardCheckoutContainer extends Component {
             totalAfterTax,
             shipping,
             credit,
-            grandTotal
+            grandTotal,
+            grandTotalInCents
         } = this.state;
         const { user } = this.props;
 
@@ -144,7 +145,7 @@ class OnboardCheckoutContainer extends Component {
                     description=""
                     onToken={(token) => this.onToken(token)}
                     billingEmail={billingEmail}
-                    amountInCents={fromCadToCent(grandTotal)}
+                    amountInCents={grandTotalInCents}
                     currency={CURRENCY}
                     stripeKey={STRIPE_PUBLISHABLE}
                 />
