@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import { snakeCase } from 'lodash';
 
@@ -30,9 +30,7 @@ class OnboardWelcomeComponent extends Component {
                             <hr className="my-4" />
                             <p>Please check your email periodically to get the latest information about your shipment.</p>
                         </div>
-
-                        <button className="btn btn-primary" onClick={this.props.onLogoutClick}>Logout</button>
-
+                        
                     </div>
                 </div>
             </div>
@@ -49,19 +47,6 @@ class OnboardSuccessContainer extends Component {
             referrer: '',
             user: this.props.user
         }
-
-        this.onLogoutClick = this.onLogoutClick.bind(this);
-    }
-
-    onLogoutClick() {
-        // Update the global state of the application to store our
-        // user's details for the application.
-        this.props.attemptLogout()
-
-        // Re-direct.
-        this.setState({
-            referrer: '/'
-        })
     }
 
     componentDidMount() {
@@ -128,13 +113,14 @@ class OnboardSuccessContainer extends Component {
             <div>
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
-                        <li className="breadcrumb-item active" aria-current="page">Home</li>
+                        <li className="breadcrumb-item">
+                            <Link to="/onboard">Home</Link>
+                        </li>
+                        <li className="breadcrumb-item active" aria-current="page">Success</li>
                     </ol>
                 </nav>
 
-                <OnboardWelcomeComponent
-                    onLogoutClick={this.onLogoutClick}
-                />
+                <OnboardWelcomeComponent />
 
             </div>
         );
