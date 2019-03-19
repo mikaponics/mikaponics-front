@@ -3,7 +3,8 @@ import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 import store from '../store';
 
-import { attemptLogout } from "../actions/loginAction"
+import { attemptLogout } from "../actions/loginAction";
+import DashboardComponent from "../components/dashboardComponent";
 
 
 class DashboardContainer extends Component {
@@ -42,10 +43,9 @@ class DashboardContainer extends Component {
         }
 
         return (
-            <div className="App">
-                <h1>Dashboard</h1>
-                <button onClick={this.onLogoutClick}>Logout</button>
-            </div>
+            <DashboardComponent
+                onClick={this.onLogoutClick}
+            />
         );
     }
 }
