@@ -1,6 +1,6 @@
 import axios from 'axios';
 import store from '../store';
-import { camelCase, snakeCase } from 'lodash';
+import { camelCase } from 'lodash';
 
 import { PROFILE_REQUEST, PROFILE_SUCCESS, PROFILE_FAILURE } from "../constants/actionTypes";
 import { MIKAPONICS_GET_PROFILE_API_URL } from "../constants/api";

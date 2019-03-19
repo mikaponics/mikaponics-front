@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
-import { camelCase, snakeCase } from 'lodash';
+import { snakeCase } from 'lodash';
 
 import { attemptLogout } from "../../actions/loginAction"
 import { refreshUser } from "../../actions/profileAction";

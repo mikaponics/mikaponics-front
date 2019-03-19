@@ -1,5 +1,6 @@
 import axios from 'axios';
 import store from '../store';
+import { camelCase } from 'lodash';
 
 import { LOGIN_REST_FORM, LOGIN_REQUEST, LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT_SUCCESS } from "../constants/actionTypes"
 import { MIKAPONICS_LOGIN_API_URL } from "../constants/api"
@@ -53,40 +54,26 @@ export function attemptLogin(email, password) {
             'email': email,
             'password': password,
         }).then( (successResult) => {
+            // console.log(successResult); // For debugging purposes.
+
+            const responseData = successResult.data;
+            let profile = {};
+            Object.keys(responseData).forEach(key => {
+                let value = responseData[key];
+                let camelKey = camelCase(key);
+                // console.log(camelKey, value); // For debugging purposes.
+                profile[camelKey] = value;
+            });
+
+            // Extra.
+            profile['isAPIRequestRunning'] = false;
+            profile['errors'] = {};
 
             // Update the global state of the application to store our
             // user profile for the application.
             store.dispatch(
-                setLoginSuccess({
-                    id: successResult.data.id,
-                    token: successResult.data.token,
-                    scope: successResult.data.scope,
-                    firstName: successResult.data.first_name,
-                    lastName: successResult.data.last_name,
-
-
-                    isAPIRequestRunning: false,
-                    errors: {},
-                    /**
-                    ,"report_email_frequency":"2"
-                    ,"type_of":"0",
-                    "customer_id":null,
-                    "customer_data":null,
-                    "subscription_status":"not_interested",
-                    "email":"bart@mikasoftware.com",
-                    "first_name":"Bart","middle_name":null,
-                    "last_name":"Mika",
-                    "avatar":"","birthdate":null,"nationality":null,"gender":null,
-                    "billing_country":null,"billing_region":null,"billing_locality":null,"billing_street_address":null,
-                    "billing_street_address_extra":null,"billing_postal_code":null,"billing_post_office_box_number":null,
-                    "billing_email":null,"billing_telephone":null,"shipping_country":null,"shipping_region":null,
-                    "shipping_locality":null,"shipping_street_address":null,"shipping_street_address_extra":null,
-                    "shipping_postal_code":null,"shipping_post_office_box_number":null,"shipping_email":null,
-                    "shipping_telephone":null}
-                    */
-                })
+                setLoginSuccess(profile)
             );
-
         }).catch( (errorResult) => {
             store.dispatch(
                 setLoginFailure({
