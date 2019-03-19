@@ -7,36 +7,7 @@ import { snakeCase } from 'lodash';
 import { attemptLogout } from "../../actions/loginAction"
 import { refreshUser } from "../../actions/profileAction";
 import { MIKAPONICS_ONBOARDING_SUBMISSION_API_URL, NOT_INTERESTED_SUBSCRIPTION_STATUS } from "../../constants/api";
-
-
-class OnboardWelcomeComponent extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            referrer: ''
-        }
-    }
-
-    render() {
-        return (
-            <div className="Onboarding-Greetings">
-                <div className="row">
-                    <div className="col-sm-12">
-
-                        <div className="jumbotron">
-                            <h1 className="display-4">Success!</h1>
-                            <p className="lead">Your order has been placed.</p>
-                            <hr className="my-4" />
-                            <p>Please check your email periodically to get the latest information about your shipment.</p>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-        );
-    }
-}
+import OnboardSuccessComponent from "../../components/onboarding/onboardSuccessComponent";
 
 
 class OnboardSuccessContainer extends Component {
@@ -120,7 +91,7 @@ class OnboardSuccessContainer extends Component {
                     </ol>
                 </nav>
 
-                <OnboardWelcomeComponent />
+                <OnboardSuccessComponent />
 
             </div>
         );
