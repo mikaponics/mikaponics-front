@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import store from '../store';
 
 import { attemptLogout } from "../actions/loginAction";
+import { pullDashboard } from "../actions/dashboardActions";
 import DashboardComponent from "../components/dashboardComponent";
 
 
@@ -12,7 +13,6 @@ class DashboardContainer extends Component {
         super(props);
 
         this.state = {
-            dashboard: {},
             referrer: '',
         }
 
@@ -32,6 +32,11 @@ class DashboardContainer extends Component {
         })
     }
 
+    componentDidMount() {
+        // Update dashboard content with data from API web-service.
+        this.props.pullDashboard(this.props.user);
+    } // end FUNC.
+
     render() {
 
         const { referrer } = this.state;
@@ -44,6 +49,7 @@ class DashboardContainer extends Component {
 
         return (
             <DashboardComponent
+                dashboard={this.props.dashboard}
                 onClick={this.onLogoutClick}
             />
         );
@@ -52,8 +58,28 @@ class DashboardContainer extends Component {
 
 const mapStateToProps = function(store) {
     return {
-        user: store.userState.user
+        user: store.userState,
+        dashboard: store.dashboardState,
     };
 }
 
-export default connect(mapStateToProps)(DashboardContainer);
+const mapDispatchToProps = dispatch => {
+    return {
+        attemptLogout: () => {
+            dispatch(
+                attemptLogout()
+            )
+        },
+        pullDashboard: (user) => {
+            dispatch(
+                pullDashboard(user)
+            )
+        },
+    }
+}
+
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(DashboardContainer);
