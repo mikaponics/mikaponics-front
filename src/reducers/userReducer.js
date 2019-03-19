@@ -7,7 +7,10 @@ import {
     REGISTER_REST_FORM,
     REGISTER_REQUEST,
     REGISTER_SUCCESS,
-    REGISTER_FAILURE
+    REGISTER_FAILURE,
+    PROFILE_REQUEST,
+    PROFILE_FAILURE,
+    PROFILE_SUCCESS
 } from '../constants/actionTypes';
 
 
@@ -38,6 +41,15 @@ const userReducer = function(state = [], action = {}) {
             return Object.assign({}, state, action.payload);
 
         case REGISTER_FAILURE:
+            return Object.assign({}, state, action.payload);
+
+        case PROFILE_REQUEST:
+            return Object.assign({}, state, action.payload);
+
+        case PROFILE_FAILURE:
+            return Object.assign({}, state, action.payload);
+
+        case PROFILE_SUCCESS:
             return Object.assign({}, state, action.payload);
 
         default:

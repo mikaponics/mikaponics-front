@@ -59,6 +59,8 @@ export function refreshUser(user) {
             profile['isAPIRequestRunning'] = false;
             profile['errors'] = {};
 
+            // console.log(profile); // For debugging purposes.
+
             // Update the global state of the application to store our
             // user profile for the application.
             store.dispatch(
@@ -66,7 +68,8 @@ export function refreshUser(user) {
             );
 
         }).catch( (errorResult) => { // ERROR
-            console.log(errorResult);
+            // console.log(errorResult);
+            alert("Error fetching latest profile");
 
             const responseData = errorResult.response.data;
             let errors = {};

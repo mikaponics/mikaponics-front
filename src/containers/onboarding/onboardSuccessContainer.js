@@ -63,7 +63,7 @@ class OnboardSuccessContainer extends Component {
 
             }).catch( (errorResult) => { // ERROR
                 console.log(errorResult);
-                // alert("ERROR WITH ONBOARDING CALCULATOR");
+                alert("ERROR WITH ONBOARDING SUBMISSION.");
             }).then( () => { // FINALLY
                 // Do nothing.
             });

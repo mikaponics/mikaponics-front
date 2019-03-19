@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import { attemptLogout } from "../../actions/loginAction"
 import { clearOnboarding } from "../../actions/onboardingActions"
+import { refreshUser } from "../../actions/profileAction"
 import OnboardWelcomeComponent from "../../components/onboarding/onboardWelcomeComponent";
 
 
@@ -33,8 +34,16 @@ class OnboardWelcomeContainer extends Component {
         })
     }
 
+    componentDidMount() {
+        // Run the async code to fetch the latest profile information from the
+        // server and save the latest user's details into our global state.
+        // Make the authenticated call to our web-service.
+        this.props.refreshUser(this.props.user);
+    } // end FUNC.
+
     render() {
         const { referrer } = this.state;
+        const { user } = this.props;
 
         // If a `referrer` was set then that means we can redirect
         // to a different page in our application.
@@ -52,6 +61,7 @@ class OnboardWelcomeContainer extends Component {
 
                 <OnboardWelcomeComponent
                     onLogoutClick={this.onLogoutClick}
+                    user={user}
                 />
 
             </div>
@@ -61,7 +71,8 @@ class OnboardWelcomeContainer extends Component {
 
 const mapStateToProps = function(store) {
     return {
-        user: store.userState
+        user: store.userState,
+        onboarding: store.onboardingState,
     };
 }
 
@@ -72,9 +83,14 @@ const mapDispatchToProps = dispatch => {
                 attemptLogout()
             )
         },
-        clearOnboarding: (info) => {
+        refreshUser: (user) => {
             dispatch(
-                clearOnboarding(info)
+                refreshUser(user)
+            )
+        },
+        clearOnboarding: () => {
+            dispatch(
+                clearOnboarding()
             )
         }
     }
