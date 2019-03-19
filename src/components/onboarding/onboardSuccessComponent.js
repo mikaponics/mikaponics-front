@@ -1,8 +1,4 @@
-import axios from 'axios';
 import React, { Component } from 'react';
-import { Redirect, Link } from "react-router-dom";
-import { connect } from 'react-redux';
-import { snakeCase } from 'lodash';
 
 
 class OnboardSuccessComponent extends Component {
