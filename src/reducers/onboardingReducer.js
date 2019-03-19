@@ -1,4 +1,4 @@
-import { SET_ONBOARDING } from '../constants/actionTypes';
+import { SET_ONBOARDING, CLEAR_ONBOARDING } from '../constants/actionTypes';
 
 
 const onboardingReducer = function(state = [], action = {}) {
@@ -6,8 +6,11 @@ const onboardingReducer = function(state = [], action = {}) {
         case SET_ONBOARDING:
             return Object.assign({}, state, action.payload);
 
+        case CLEAR_ONBOARDING:
+            return action.payload;
+
         default:
-           return state;
+            return state;
     }
 }
 

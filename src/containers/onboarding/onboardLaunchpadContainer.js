@@ -3,6 +3,7 @@ import { Redirect, Link } from "react-router-dom";
 import { connect } from 'react-redux';
 
 import { attemptLogout } from "../../actions/loginAction"
+import { clearOnboarding } from "../../actions/onboardingActions"
 
 
 class OnboardWelcomeComponent extends Component {
@@ -51,6 +52,9 @@ class OnboardLaunchpadContainer extends Component {
     }
 
     onLogoutClick() {
+        // Reset the onboarding state.
+        this.props.clearOnboarding();
+
         // Update the global state of the application to store our
         // user's details for the application.
         this.props.attemptLogout()
@@ -98,6 +102,11 @@ const mapDispatchToProps = dispatch => {
         attemptLogout: () => {
             dispatch(
                 attemptLogout()
+            )
+        },
+        clearOnboarding: (info) => {
+            dispatch(
+                clearOnboarding(info)
             )
         }
     }
