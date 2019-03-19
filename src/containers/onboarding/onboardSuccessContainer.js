@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { attemptLogout } from "../../actions/loginAction"
 import { refreshUser } from "../../actions/profileAction";
-import { MIKAPONICS_ONBOARDING_SUBMISSION_API_URL } from "../../constants/api";
+import { MIKAPONICS_ONBOARDING_SUBMISSION_API_URL, NOT_INTERESTED_SUBSCRIPTION_STATUS } from "../../constants/api";
 
 
 class OnboardWelcomeComponent extends Component {
@@ -64,65 +64,71 @@ class OnboardSuccessContainer extends Component {
     }
 
     componentDidMount() {
+        // Deconstruct the props to get our user and only run the following
+        // code if the user has not been subscribed.
         const { user, onboarding } = this.props;
+        if (user.subscription_status === NOT_INTERESTED_SUBSCRIPTION_STATUS) {
 
-        // Create our oAuth 2.0 authenticated API header to use with our
-        // submission.
-        const config = {
-            headers: {'Authorization': "Bearer " + user.token}
-        };
+            // Create our oAuth 2.0 authenticated API header to use with our
+            // submission.
+            const config = {
+                headers: {'Authorization': "Bearer " + user.token}
+            };
 
-        const bodyParameters = {
-            // --- Purchase ---
-            number_of_devices: onboarding.numberOfDevices,
-            payment_token: onboarding.paymentDetail.id,
-            payment_created_at: onboarding.paymentDetail.created,
+            // Create the data we will be submitting.
+            const bodyParameters = {
+                // --- Purchase ---
+                number_of_devices: onboarding.numberOfDevices,
+                payment_token: onboarding.paymentDetail.id,
+                payment_created_at: onboarding.paymentDetail.created,
 
-            // --- Billing address ---
-            billing_given_name: onboarding.billingGivenName,
-            billing_last_name: onboarding.billingLastName,
-            billing_address_country: onboarding.billingAddressCountry,
-            billing_address_region: onboarding.billingAddressRegion,
-            billing_address_locality: onboarding.billingAddressLocality,
-            billing_postal_code: onboarding.billingPostalCode,
-            billing_street_address: onboarding.billingStreetAddress,
-            billing_post_office_box_number: '',
-            billing_email: onboarding.billingEmail,
-            billing_telephone: onboarding.billingTelephone,
+                // --- Billing address ---
+                billing_given_name: onboarding.billingGivenName,
+                billing_last_name: onboarding.billingLastName,
+                billing_address_country: onboarding.billingAddressCountry,
+                billing_address_region: onboarding.billingAddressRegion,
+                billing_address_locality: onboarding.billingAddressLocality,
+                billing_postal_code: onboarding.billingPostalCode,
+                billing_street_address: onboarding.billingStreetAddress,
+                billing_post_office_box_number: '',
+                billing_email: onboarding.billingEmail,
+                billing_telephone: onboarding.billingTelephone,
 
-            // --- Shipping address ---
-            shipping_given_name: onboarding.shippingGivenName,
-            shipping_last_name: onboarding.shippingLastName,
-            shipping_address_country: onboarding.shippingAddressCountry,
-            shipping_address_region: onboarding.shippingAddressRegion,
-            shipping_address_locality: onboarding.shippingAddressLocality,
-            shipping_postal_code: onboarding.shippingPostalCode,
-            shipping_street_address: onboarding.shippingStreetAddress,
-            shipping_post_office_box_number: '',
-            shipping_email: onboarding.shippingEmail,
-            shipping_telephone: onboarding.shippingTelephone,
-        }
+                // --- Shipping address ---
+                shipping_given_name: onboarding.shippingGivenName,
+                shipping_last_name: onboarding.shippingLastName,
+                shipping_address_country: onboarding.shippingAddressCountry,
+                shipping_address_region: onboarding.shippingAddressRegion,
+                shipping_address_locality: onboarding.shippingAddressLocality,
+                shipping_postal_code: onboarding.shippingPostalCode,
+                shipping_street_address: onboarding.shippingStreetAddress,
+                shipping_post_office_box_number: '',
+                shipping_email: onboarding.shippingEmail,
+                shipping_telephone: onboarding.shippingTelephone,
+            }
 
-        // Make the authenticated call to our web-service.
-        axios.post(
-            MIKAPONICS_ONBOARDING_SUBMISSION_API_URL,
-            bodyParameters,
-            config
-        ).then( (successResult) => { // SUCCESS
-            console.log(successResult);
-
-            // Run the async code to fetch the latest profile information from the
-            // server and save the latest user's details into our global state.
             // Make the authenticated call to our web-service.
-            this.props.refreshUser(user);
+            axios.post(
+                MIKAPONICS_ONBOARDING_SUBMISSION_API_URL,
+                bodyParameters,
+                config
+            ).then( (successResult) => { // SUCCESS
+                console.log(successResult);
 
-        }).catch( (errorResult) => { // ERROR
-            console.log(errorResult);
-            // alert("ERROR WITH ONBOARDING CALCULATOR");
-        }).then( () => { // FINALLY
-            // Do nothing.
-        });
-    }
+                // Run the async code to fetch the latest profile information from the
+                // server and save the latest user's details into our global state.
+                // Make the authenticated call to our web-service.
+                this.props.refreshUser(user);
+
+            }).catch( (errorResult) => { // ERROR
+                console.log(errorResult);
+                // alert("ERROR WITH ONBOARDING CALCULATOR");
+            }).then( () => { // FINALLY
+                // Do nothing.
+            });
+
+        } // end IF
+    } // end FUNC.
 
     render() {
         const { referrer } = this.state;
