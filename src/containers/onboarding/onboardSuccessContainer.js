@@ -68,7 +68,7 @@ class OnboardSuccessContainer extends Component {
         // Deconstruct the props to get our user and only run the following
         // code if the user has not been subscribed.
         const { user, onboarding } = this.props;
-        if (user.subscription_status === NOT_INTERESTED_SUBSCRIPTION_STATUS) {
+        if (user.subscriptionStatus === NOT_INTERESTED_SUBSCRIPTION_STATUS) {
 
             // Create our oAuth 2.0 authenticated API header to use with our
             // submission.
@@ -78,8 +78,8 @@ class OnboardSuccessContainer extends Component {
 
             // Create the data we will be submitting.
             let bodyParameters = {};
-            Object.keys(this.onboarding).forEach(key => {
-                let value = this.onboarding[key];
+            Object.keys(onboarding).forEach(key => {
+                let value = onboarding[key];
                 let snakeKey = snakeCase(key);
                 // console.log(snakeKey, value); // For debugging purposes.
                 bodyParameters[snakeKey] = value;
@@ -88,6 +88,9 @@ class OnboardSuccessContainer extends Component {
             // Add extra fields that our API requires.
             bodyParameters['payment_token'] = onboarding.paymentDetail.id;
             bodyParameters['payment_created_at'] = onboarding.paymentDetail.created;
+
+            // // For debugging purposes only.
+            // console.log(bodyParameters);
 
             // Make the authenticated call to our web-service.
             axios.post(
