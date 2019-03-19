@@ -4,42 +4,10 @@ import { connect } from 'react-redux';
 
 import { attemptLogout } from "../../actions/loginAction"
 import { clearOnboarding } from "../../actions/onboardingActions"
+import OnboardWelcomeComponent from "../../components/onboarding/onboardWelcomeComponent";
 
 
-class OnboardWelcomeComponent extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            referrer: ''
-        }
-    }
-
-    render() {
-        return (
-            <div className="Onboarding-Greetings">
-                <div className="row">
-                    <div className="col-sm-12">
-
-                        <div className="jumbotron">
-                            <h1 className="display-4">Welcome!</h1>
-                            <p className="lead">Before you begin, you will need to purchase a subscription and the telemetry device. Once purchased, you will be granted access to your dashboard.</p>
-                            <hr className="my-4" />
-                            <p>Click here to begin the purchase.</p>
-                            <Link to="/onboard/purchase" className="btn btn-primary">Begin</Link>
-                        </div>
-
-                        <button className="btn btn-primary" onClick={this.props.onLogoutClick}>Logout</button>
-
-                    </div>
-                </div>
-            </div>
-        );
-    }
-}
-
-
-class OnboardLaunchpadContainer extends Component {
+class OnboardWelcomeContainer extends Component {
     constructor(props) {
         super(props);
 
@@ -115,4 +83,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(OnboardLaunchpadContainer);
+)(OnboardWelcomeContainer);

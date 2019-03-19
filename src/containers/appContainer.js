@@ -5,7 +5,7 @@ import IndexContainer from './indexContainer';
 import LoginContainer from "./loginContainer";
 import RegisterContainer from "./registerContainer";
 import DashboardContainer from "./dashboardContainer";
-import OnboardLaunchpadContainer from "./onboarding/onboardLaunchpadContainer";
+import OnboardWelcomeContainer from "./onboarding/onboardWelcomeContainer";
 import OnboardPurchaseContainer from "./onboarding/onboardPurchaseContainer";
 import OnboardCheckoutContainer from "./onboarding/onboardCheckoutContainer";
 import OnboardSuccessContainer from "./onboarding/onboardSuccessContainer";
@@ -24,7 +24,7 @@ class AppContainer extends React.Component {
                         <Route path="/login" exact component={LoginContainer} />
                         <Route path="/register" exact component={RegisterContainer} />
                         <Route path="/dashboard" exact component={DashboardContainer} />
-                        <Route path="/onboard" exact component={OnboardLaunchpadContainer} />
+                        <Route path="/onboard" exact component={OnboardWelcomeContainer} />
                         <Route path="/onboard/purchase" exact component={OnboardPurchaseContainer} />
                         <Route path="/onboard/checkout" exact component={OnboardCheckoutContainer} />
                         <Route path="/onboard/success" exact component={OnboardSuccessContainer} />
