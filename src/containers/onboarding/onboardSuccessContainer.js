@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 
 import { attemptLogout } from "../../actions/loginAction"
+import { refreshUser } from "../../actions/profileAction";
 import { MIKAPONICS_ONBOARDING_SUBMISSION_API_URL } from "../../constants/api";
 
 
@@ -109,6 +110,12 @@ class OnboardSuccessContainer extends Component {
             config
         ).then( (successResult) => { // SUCCESS
             console.log(successResult);
+
+            // Run the async code to fetch the latest profile information from the
+            // server and save the latest user's details into our global state.
+            // Make the authenticated call to our web-service.
+            this.props.refreshUser(user);
+
         }).catch( (errorResult) => { // ERROR
             console.log(errorResult);
             // alert("ERROR WITH ONBOARDING CALCULATOR");
@@ -156,6 +163,9 @@ const mapDispatchToProps = dispatch => {
             dispatch(
                 attemptLogout()
             )
+        },
+        refreshUser: (user) => {
+            dispatch(refreshUser(user))
         }
     }
 }

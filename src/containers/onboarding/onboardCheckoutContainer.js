@@ -6,6 +6,7 @@ import { camelCase, snakeCase } from 'lodash';
 
 import { MIKAPONICS_ONBOARDING_CALCULATOR_API_URL } from "../../constants/api";
 import { setOnboardingInfo } from "../../actions/onboardingActions";
+import { refreshUser } from "../../actions/profileAction";
 import OnboardCheckoutComponent from "../../components/onboarding/onboardCheckoutComponent";
 import StripeComponent from "../../components/stripeComponent";
 
@@ -78,6 +79,11 @@ class OnboardCheckoutContainer extends Component {
         }).then( () => { // FINALLY
             // Do nothing.
         });
+
+        // Run the async code to fetch the latest profile information from the
+        // server and save the latest user's details into our global state.
+        // Make the authenticated call to our web-service.
+        this.props.refreshUser(user);
     }
 
     /**
@@ -166,6 +172,9 @@ const mapDispatchToProps = dispatch => {
         setOnboardingInfo: (info) => {
             dispatch(setOnboardingInfo(info))
         },
+        refreshUser: (user) => {
+            dispatch(refreshUser(user))
+        }
     }
 }
 
