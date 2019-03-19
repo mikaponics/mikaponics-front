@@ -51,6 +51,11 @@ class OnboardWelcomeContainer extends Component {
             return <Redirect to={referrer} />;
         }
 
+        // If the user was onboarded then let us redirect to the dashboard.
+        if (user.wasOnboarded) {
+            return <Redirect to="/dashboard" />;
+        }
+
         return (
             <div>
                 <nav aria-label="breadcrumb">

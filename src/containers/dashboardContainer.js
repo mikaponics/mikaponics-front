@@ -11,9 +11,8 @@ class DashboardContainer extends Component {
         super(props);
 
         this.state = {
-            'dashboard': {},
+            dashboard: {},
             referrer: '',
-            profile: this.props.profile
         }
 
         this.onLogoutClick = this.onLogoutClick.bind(this);
@@ -53,7 +52,7 @@ class DashboardContainer extends Component {
 
 const mapStateToProps = function(store) {
     return {
-        profile: store.profileState.profile
+        user: store.userState.user
     };
 }
 

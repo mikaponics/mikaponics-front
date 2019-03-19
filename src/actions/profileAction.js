@@ -71,7 +71,7 @@ export function refreshUser(user) {
             // console.log(errorResult);
             alert("Error fetching latest profile");
 
-            const responseData = errorResult.response.data;
+            const responseData = errorResult.data;
             let errors = {};
             Object.keys(responseData).forEach(key => {
                 let value = responseData[key];
