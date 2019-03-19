@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
+import { camelCase, snakeCase } from 'lodash';
 
 import { attemptLogout } from "../../actions/loginAction"
 import { refreshUser } from "../../actions/profileAction";
@@ -76,36 +77,17 @@ class OnboardSuccessContainer extends Component {
             };
 
             // Create the data we will be submitting.
-            const bodyParameters = {
-                // --- Purchase ---
-                number_of_devices: onboarding.numberOfDevices,
-                payment_token: onboarding.paymentDetail.id,
-                payment_created_at: onboarding.paymentDetail.created,
+            let bodyParameters = {};
+            Object.keys(this.onboarding).forEach(key => {
+                let value = this.onboarding[key];
+                let snakeKey = snakeCase(key);
+                // console.log(snakeKey, value); // For debugging purposes.
+                bodyParameters[snakeKey] = value;
+            });
 
-                // --- Billing address ---
-                billing_given_name: onboarding.billingGivenName,
-                billing_last_name: onboarding.billingLastName,
-                billing_address_country: onboarding.billingAddressCountry,
-                billing_address_region: onboarding.billingAddressRegion,
-                billing_address_locality: onboarding.billingAddressLocality,
-                billing_postal_code: onboarding.billingPostalCode,
-                billing_street_address: onboarding.billingStreetAddress,
-                billing_post_office_box_number: '',
-                billing_email: onboarding.billingEmail,
-                billing_telephone: onboarding.billingTelephone,
-
-                // --- Shipping address ---
-                shipping_given_name: onboarding.shippingGivenName,
-                shipping_last_name: onboarding.shippingLastName,
-                shipping_address_country: onboarding.shippingAddressCountry,
-                shipping_address_region: onboarding.shippingAddressRegion,
-                shipping_address_locality: onboarding.shippingAddressLocality,
-                shipping_postal_code: onboarding.shippingPostalCode,
-                shipping_street_address: onboarding.shippingStreetAddress,
-                shipping_post_office_box_number: '',
-                shipping_email: onboarding.shippingEmail,
-                shipping_telephone: onboarding.shippingTelephone,
-            }
+            // Add extra fields that our API requires.
+            bodyParameters['payment_token'] = onboarding.paymentDetail.id;
+            bodyParameters['payment_created_at'] = onboarding.paymentDetail.created;
 
             // Make the authenticated call to our web-service.
             axios.post(
