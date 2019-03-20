@@ -7,6 +7,7 @@ import { LOGIN_SUCCESS, LOGOUT_SUCCESS, SET_ONBOARDING } from "./constants/actio
 import userReducer from "./reducers/userReducer";
 import onboardingReducer from "./reducers/onboardingReducer";
 import dashboardReducer from "./reducers/dashboardReducer";
+import deviceReducer from "./reducers/deviceReducer";
 
 
 // Combine Reducers
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
     onboardingState: onboardingReducer,
     dashboardState: dashboardReducer,
     userState: userReducer,
+    deviceState: deviceReducer,
 });
 
 

@@ -5,6 +5,11 @@ import { Link } from "react-router-dom";
 
 class IndexContainer extends Component {
     render() {
+
+        // Clear the local storage.
+        localStorage.clear();
+
+        // Return our GUI.
         return (
             <div>
             <div className="row">
