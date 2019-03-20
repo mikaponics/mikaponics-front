@@ -1,6 +1,6 @@
 import axios from 'axios';
 import store from '../store';
-import { camelCase } from 'lodash';
+import { camelizeKeys } from 'humps';
 
 import { PROFILE_REQUEST, PROFILE_SUCCESS, PROFILE_FAILURE } from "../constants/actionTypes";
 import { MIKAPONICS_GET_PROFILE_API_URL } from "../constants/api";
@@ -47,13 +47,7 @@ export function refreshUser(user) {
             // console.log(successResult); // For debugging purposes.
 
             const responseData = successResult.data;
-            let profile = {};
-            Object.keys(responseData).forEach(key => {
-                let value = responseData[key];
-                let camelKey = camelCase(key);
-                // console.log(camelKey, value); // For debugging purposes.
-                profile[camelKey] = value;
-            });
+            let profile = camelizeKeys(responseData);
 
             // Extra.
             profile['isAPIRequestRunning'] = false;
@@ -72,13 +66,7 @@ export function refreshUser(user) {
             alert("Error fetching latest profile");
 
             const responseData = errorResult.data;
-            let errors = {};
-            Object.keys(responseData).forEach(key => {
-                let value = responseData[key];
-                let camelKey = camelCase(key);
-                // console.log(camelKey, value); // For debugging purposes.
-                errors[camelKey] = value;
-            });
+            let errors = camelizeKeys(responseData);
 
             store.dispatch(
                 setProfileFailure({

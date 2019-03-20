@@ -17,6 +17,7 @@ npm install --save redux
 npm install --save react-redux
 npm install --save redux-devtools-extension
 npm install --save redux-thunk
+npm install --save humps
 ```
 
 ## Chrome Plugins

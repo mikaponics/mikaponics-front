@@ -88,7 +88,7 @@ class RegisterComponent extends React.Component {
                                 <option value="" disabled>Choose your timezone</option>
                                 {options}
                             </select>
-                            {errors.last_name && <span className="help-block">{errors.timezone}</span>}
+                            {errors.timezone && <span className="help-block">{errors.timezone}</span>}
                         </div>
 
                         <div className="form-group">

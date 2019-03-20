@@ -12,10 +12,10 @@ const DashboardDeviceCard = ({ device }) => (
             </div>
             <ul className="list-group list-group-flush">
                 <li className="list-group-item"><strong>Status:</strong> {device.state}</li>
-                <li className="list-group-item"><strong>Last Updated at:</strong> {device.last_measured_timestamp}</li>
+                <li className="list-group-item"><strong>Last Updated at:</strong> {device.lastMeasuredTimestamp}</li>
             </ul>
             <div className="card-body">
-                <a className="btn btn-primary btn-sm" role="button" href={device.absolute_url}>View</a>
+                <a className="btn btn-primary btn-sm" role="button" href={device.absoluteUrl}>View</a>
             </div>
           </div>
     </div>

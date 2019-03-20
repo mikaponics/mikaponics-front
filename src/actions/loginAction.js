@@ -1,6 +1,6 @@
 import axios from 'axios';
 import store from '../store';
-import { camelCase } from 'lodash';
+import { camelizeKeys } from 'humps';
 
 import { LOGIN_REST_FORM, LOGIN_REQUEST, LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT_SUCCESS } from "../constants/actionTypes"
 import { MIKAPONICS_LOGIN_API_URL } from "../constants/api"
@@ -57,13 +57,7 @@ export function attemptLogin(email, password) {
             // console.log(successResult); // For debugging purposes.
 
             const responseData = successResult.data;
-            let profile = {};
-            Object.keys(responseData).forEach(key => {
-                let value = responseData[key];
-                let camelKey = camelCase(key);
-                // console.log(camelKey, value); // For debugging purposes.
-                profile[camelKey] = value;
-            });
+            let profile = camelizeKeys(responseData);
 
             // Extra.
             profile['isAPIRequestRunning'] = false;

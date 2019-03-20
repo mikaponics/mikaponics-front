@@ -1,6 +1,6 @@
 import axios from 'axios';
 import store from '../store';
-import { camelCase } from 'lodash';
+import { camelizeKeys } from 'humps';
 
 import { DASHBOARD_REQUEST, DASHBOARD_FAILURE, DASHBOARD_SUCCESS, CLEAR_DASHBOARD } from '../constants/actionTypes';
 import { MIKAPONICS_DASHBOARD_API_URL } from '../constants/api';
@@ -57,13 +57,7 @@ export function pullDashboard(user) {
             // console.log(successResult); // For debugging purposes.
 
             const responseData = successResult.data;
-            let profile = {};
-            Object.keys(responseData).forEach(key => {
-                let value = responseData[key];
-                let camelKey = camelCase(key);
-                // console.log(camelKey, value); // For debugging purposes.
-                profile[camelKey] = value;
-            });
+            let profile = camelizeKeys(responseData);
 
             // Extra.
             profile['isAPIRequestRunning'] = false;
@@ -82,14 +76,8 @@ export function pullDashboard(user) {
             alert("Error fetching latest profile");
 
             const responseData = errorResult.data;
-            let errors = {};
-            Object.keys(responseData).forEach(key => {
-                let value = responseData[key];
-                let camelKey = camelCase(key);
-                // console.log(camelKey, value); // For debugging purposes.
-                errors[camelKey] = value;
-            });
-
+            let errors = camelizeKeys(responseData);
+            
             store.dispatch(
                 setDashboardFailure({
                     isAPIRequestRunning: false,
