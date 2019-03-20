@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 class DeviceComponent extends Component {
     render() {
+        const { device } = this.props;
         return (
             <div>
                 <nav aria-label="breadcrumb">

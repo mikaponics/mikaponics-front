@@ -17,17 +17,14 @@ class DeviceContainer extends Component {
         }
     }
 
-    componentWillReceiveProps(incomingProps) {
-        // (1) Input ``user`` parameter which we got from the ``redux`` store.
-        // (2) Input the device ID.
-        // (3) Get our device and update our global state.
-        this.props.pullDevice(incomingProps.user, incomingProps.match.params);
+    componentDidMount() {
+        this.props.pullDevice(this.props.user, this.props.match.params.id);
     } // end FUNC.
 
     render() {
         return (
             <DeviceComponent
-                id={this.state.id}
+                device={this.props.device}
             />
         );
     }
