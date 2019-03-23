@@ -40,7 +40,7 @@ class IndexContainer extends Component {
                         <div class="card-body">
                             <h5 class="card-title">Open-source telemetry</h5>
                             <p class="card-text">We believe sharing our code-base is important for you data and your business. You are welcome to view the code and create similar projects based off our code.</p>
-                            <a href="https://github.com/mikaponics" class="btn btn-primary">Visit Github.com</a>
+                            <a href="https://github.com/mikaponics" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Visit Github.com</a>
                         </div>
                     </div>
                 </div>
@@ -52,8 +52,8 @@ class IndexContainer extends Component {
                         <div class="card-body">
                             <p class="card-text">
                             <ul>
-                                <li>Your privacy is important to us, please visit the <a href="#">privacy policy</a> while using our services.</li>
-                                <li>The the <a href="#">terms and services</a> page describes what we expect from you.</li>
+                                <li>Your privacy is important to us, please visit the <a href="https://github.com/mikaponics" target="_blank" rel="noopener noreferrer">privacy policy</a> while using our services.</li>
+                                <li>The the <a href="https://github.com/mikaponics" target="_blank" rel="noopener noreferrer">terms and services</a> page describes what we expect from you.</li>
                             </ul>
                             </p>
                         </div>

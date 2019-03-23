@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 
 const DashboardDeviceCard = ({ device }) => (
-    <div className="col-md-4">
+    <div className="col-md-4" key={ device.id }>
         <div className="card">
             <div className="card-body">
                 <h5 className="card-title">{device.name}</h5>

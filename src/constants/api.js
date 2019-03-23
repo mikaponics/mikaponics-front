@@ -6,14 +6,14 @@ export const APP_STATE = 'APP_STATE';
 /**
  *  The API web-services endpoints.
  */
-export const MIKAPONICS_LOGIN_API_URL = 'http://127.0.0.1:8000/api/login';
-export const MIKAPONICS_REGISTER_API_URL = 'http://127.0.0.1:8000/api/register';
-export const MIKAPONICS_ONBOARDING_CALCULATOR_API_URL = 'http://127.0.0.1:8000/api/onboarding/calculator';
-export const MIKAPONICS_ONBOARDING_VALIDATE_API_URL = 'http://127.0.0.1:8000/api/onboarding/validation';
-export const MIKAPONICS_ONBOARDING_SUBMISSION_API_URL = 'http://127.0.0.1:8000/api/onboarding/submission';
-export const MIKAPONICS_GET_PROFILE_API_URL = 'http://127.0.0.1:8000/api/profile';
-export const MIKAPONICS_DASHBOARD_API_URL = 'http://127.0.0.1:8000/api/dashboard';
-export const MIKAPONICS_GET_DEVICE_API_URL = 'http://127.0.0.1:8000/api/device';
+export const MIKAPONICS_LOGIN_API_URL = process.env.REACT_APP_API_HOST+'/api/login';
+export const MIKAPONICS_REGISTER_API_URL = process.env.REACT_APP_API_HOST+'/api/register';
+export const MIKAPONICS_ONBOARDING_CALCULATOR_API_URL = process.env.REACT_APP_API_HOST+'/api/onboarding/calculator';
+export const MIKAPONICS_ONBOARDING_VALIDATE_API_URL = process.env.REACT_APP_API_HOST+'/api/onboarding/validation';
+export const MIKAPONICS_ONBOARDING_SUBMISSION_API_URL = process.env.REACT_APP_API_HOST+'/api/onboarding/submission';
+export const MIKAPONICS_GET_PROFILE_API_URL = process.env.REACT_APP_API_HOST+'/api/profile';
+export const MIKAPONICS_DASHBOARD_API_URL = process.env.REACT_APP_API_HOST+'/api/dashboard';
+export const MIKAPONICS_GET_DEVICE_API_URL = process.env.REACT_APP_API_HOST+'/api/device';
 
 /**
  *  The available choices for the ``subscription_status`` field in the user API.
