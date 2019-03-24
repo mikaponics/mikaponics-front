@@ -14,6 +14,8 @@ export const MIKAPONICS_ONBOARDING_SUBMISSION_API_URL = process.env.REACT_APP_AP
 export const MIKAPONICS_GET_PROFILE_API_URL = process.env.REACT_APP_API_HOST+'/api/profile';
 export const MIKAPONICS_DASHBOARD_API_URL = process.env.REACT_APP_API_HOST+'/api/dashboard';
 export const MIKAPONICS_GET_DEVICE_API_URL = process.env.REACT_APP_API_HOST+'/api/device';
+export const MIKAPONICS_GET_INSTRUMENT_API_URL = process.env.REACT_APP_API_HOST+'/api/instrument';
+
 
 /**
  *  The available choices for the ``subscription_status`` field in the user API.

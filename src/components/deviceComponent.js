@@ -108,10 +108,21 @@ class DeviceComponent extends Component {
                 <h1>Device</h1>
                 <hr />
 
-                <Link to={`/device/${device.slug}/profile`}>Profile</Link>
+                {device.slug &&
+                    <Link to={`/device/${device.slug}/profile`}>Profile</Link>
+                }
+                <br />
 
-                TEMPERATURE INSTRUMENT
-                HUMIDITY INSTRUMENT
+                {device.humidity &&
+                    <Link to={`/instrument/${device.humidity.slug}`}>Humidity Instrument</Link>
+                }
+                <br />
+
+                {device.temperature &&
+                    <Link to={`/instrument/${device.temperature.slug}`}>Temperature Instrument</Link>
+                }
+                <br />
+                <br />
 
                 <h2>Device Summary</h2>
                 <DeviceSummaryTable device={device} />

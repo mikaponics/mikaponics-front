@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 
-class DeviceProfileComponent extends Component {
+class InstrumentComponent extends Component {
     render() {
-        const { device } = this.props;
+        const { instrument } = this.props;
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -13,12 +13,14 @@ class DeviceProfileComponent extends Component {
                            <Link to="/dashboard">Dashboard</Link>
                         </li>
                         <li class="breadcrumb-item">
-                           <Link to={`/device/${device.slug}`}>Device</Link>
+                            {instrument.absoluteParentUrl &&
+                                <Link to={`${instrument.absoluteParentUrl}`}>Device</Link>    
+                            }
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Profile</li>
+                        <li class="breadcrumb-item active" aria-current="page">Instrument</li>
                     </ol>
                 </nav>
-                <h1>Device Profile</h1>
+                <h1>Instrument</h1>
                 <hr />
                 <p>TODO: IMPLEMENT</p>
             </div>
@@ -26,4 +28,4 @@ class DeviceProfileComponent extends Component {
     }
 }
 
-export default DeviceProfileComponent;
+export default InstrumentComponent;
