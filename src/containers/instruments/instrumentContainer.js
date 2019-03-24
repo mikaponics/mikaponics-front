@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import InstrumentComponent from "../components/instrumentComponent";
-import { pullInstrument } from "../actions/instrumentActions";
+import InstrumentComponent from "../../components/instruments/instrumentComponent";
+import { pullInstrument } from "../../actions/instrumentActions";
 
 
 class InstrumentContainer extends Component {

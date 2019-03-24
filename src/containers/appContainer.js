@@ -11,7 +11,7 @@ import OnboardCheckoutContainer from "./onboarding/onboardCheckoutContainer";
 import OnboardSuccessContainer from "./onboarding/onboardSuccessContainer";
 import DeviceContainer from "./deviceContainer";
 import DeviceProfileContainer from "./deviceProfileContainer";
-import InstrumentContainer from "./instrumentContainer";
+import InstrumentContainer from "./instruments/instrumentContainer";
 
 
 import NavigationBar from '../components/navigationBar.js';
