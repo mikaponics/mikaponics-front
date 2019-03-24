@@ -17,6 +17,7 @@ import InstrumentAlertConfigContainer from "./instruments/instrumentAlertConfigC
 import InstrumentDataContainer from "./instruments/instrumentDataContainer";
 import InstrumentDataDownloadContainer from "./instruments/instrumentDataDownloadContainer";
 import InstrumentReportContainer from "./instruments/instrumentReportContainer";
+import AlertListContainer from "./alerts/alertListContainer";
 
 
 import NavigationBar from '../components/navigationBar.js';
@@ -44,6 +45,7 @@ class AppContainer extends React.Component {
                         <Route path="/instrument/:slug/data" exact component={InstrumentDataContainer} />
                         <Route path="/instrument/:slug/data/download" exact component={InstrumentDataDownloadContainer} />
                         <Route path="/instrument/:slug/report" exact component={InstrumentReportContainer} />
+                        <Route path="/alerts" exact component={AlertListContainer} />
                     </Switch>
                 </div>
            </Router>
