@@ -37,7 +37,7 @@ export const setClearDevice = () => ({
  *  Function will pull the ``device`` API endpoint and override our
  *  global application state for the 'dashboard'.
  */
-export function pullDevice(user, deviceID) {
+export function pullDevice(user, deviceSlug) {
     return dispatch => {
         // Change the global state to attempting to fetch latest user details.
         store.dispatch(
@@ -51,7 +51,7 @@ export function pullDevice(user, deviceID) {
         };
 
         axios.get(
-            MIKAPONICS_GET_DEVICE_API_URL+"/"+deviceID,
+            MIKAPONICS_GET_DEVICE_API_URL+"/"+deviceSlug,
             config
         ).then( (successResult) => { // SUCCESS
             // console.log(successResult); // For debugging purposes.

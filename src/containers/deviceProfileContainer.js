@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import DeviceComponent from "../components/deviceComponent";
+import DeviceProfileComponent from "../components/deviceProfileComponent";
 import { pullDevice } from "../actions/deviceActions";
 
 
@@ -11,19 +11,19 @@ class DeviceProfileContainer extends Component {
 
         // Since we are using the ``react-routes-dom`` library then we
         // fetch the URL argument as follows.
-        const { id } = this.props.match.params;
+        const { slug } = this.props.match.params;
         this.state = {
-            deviceID: id,
+            deviceSlug: slug,
         }
     }
 
     componentDidMount() {
-        this.props.pullDevice(this.props.user, this.props.match.params.id);
+        this.props.pullDevice(this.props.user, this.props.match.params.slug);
     } // end FUNC.
 
     render() {
         return (
-            <DeviceComponent
+            <DeviceProfileComponent
                 device={this.props.device}
             />
         );
@@ -39,9 +39,9 @@ const mapStateToProps = function(store) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        pullDevice: (user, deviceID) => {
+        pullDevice: (user, deviceSlug) => {
             dispatch(
-                pullDevice(user, deviceID)
+                pullDevice(user, deviceSlug)
             )
         },
     }

@@ -108,7 +108,7 @@ class DeviceComponent extends Component {
                 <h1>Device</h1>
                 <hr />
 
-                <Link to={`/device/${device.id}/profile`}>Profile</Link>
+                <Link to={`/device/${device.slug}/profile`}>Profile</Link>
 
                 TEMPERATURE INSTRUMENT
                 HUMIDITY INSTRUMENT

@@ -12,13 +12,15 @@ class DeviceProfileComponent extends Component {
                         <li class="breadcrumb-item">
                            <Link to="/dashboard">Dashboard</Link>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Device</li>
+                        <li class="breadcrumb-item">
+                           <Link to={`/device/${device.slug}`}>Device</Link>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Device {device.name}</li>
                     </ol>
                 </nav>
                 <h1>Device Profile</h1>
                 <hr />
-
-
+                <p>TODO: IMPLEMENT</p>
             </div>
         );
     }
