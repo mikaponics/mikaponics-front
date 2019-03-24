@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 class InstrumentTable extends Component {
     render() {
         function get(dict, key) {
+            if (dict === null || dict === undefined) {
+                return null;
+            }
             return dict.hasOwnProperty(key) ? dict[key] : null;
         }
 
@@ -104,6 +107,11 @@ class DeviceComponent extends Component {
                 </nav>
                 <h1>Device</h1>
                 <hr />
+
+                <Link to={`/device/${device.id}/profile`}>Profile</Link>
+
+                TEMPERATURE INSTRUMENT
+                HUMIDITY INSTRUMENT
 
                 <h2>Device Summary</h2>
                 <DeviceSummaryTable device={device} />

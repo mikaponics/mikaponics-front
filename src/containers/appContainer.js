@@ -10,6 +10,7 @@ import OnboardPurchaseContainer from "./onboarding/onboardPurchaseContainer";
 import OnboardCheckoutContainer from "./onboarding/onboardCheckoutContainer";
 import OnboardSuccessContainer from "./onboarding/onboardSuccessContainer";
 import DeviceContainer from "./deviceContainer";
+import DeviceProfileContainer from "./deviceProfileContainer"
 
 
 import NavigationBar from '../components/navigationBar.js';
@@ -30,6 +31,7 @@ class AppContainer extends React.Component {
                         <Route path="/onboard/checkout" exact component={OnboardCheckoutContainer} />
                         <Route path="/onboard/success" exact component={OnboardSuccessContainer} />
                         <Route path="/device/:id" component={DeviceContainer} />
+                        <Route path="/device/:id/profile" component={DeviceProfileContainer} />
                     </Switch>
                 </div>
            </Router>
