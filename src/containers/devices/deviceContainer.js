@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import DeviceComponent from "../components/deviceComponent";
-import { pullDevice } from "../actions/deviceActions";
+import DeviceComponent from "../../components/devices/deviceComponent";
+import { pullDevice } from "../../actions/deviceActions";
 
 
 class DeviceContainer extends Component {

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import DeviceProfileComponent from "../components/deviceProfileComponent";
-import { pullDevice } from "../actions/deviceActions";
+import DeviceProfileComponent from "../../components/devices/deviceProfileComponent";
+import { pullDevice } from "../../actions/deviceActions";
 
 
 class DeviceProfileContainer extends Component {
