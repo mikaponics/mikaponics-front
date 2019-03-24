@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 
-class InstrumentComponent extends Component {
+class InstrumentAlertComponent extends Component {
     render() {
         const { instrument } = this.props;
         return (
@@ -17,16 +17,21 @@ class InstrumentComponent extends Component {
                                 <Link to={`${instrument.absoluteParentUrl}`}>Device</Link>
                             }
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Instrument</li>
+                        {instrument.absoluteUrl &&
+                            <li class="breadcrumb-item">
+                                <Link to={`${instrument.absoluteUrl}`}>Instrument</Link>
+                            </li>
+                        }
+                        <li class="breadcrumb-item active" aria-current="page">Alerts</li>
                     </ol>
                 </nav>
-                <h1>Instrument</h1>
+                <h1>Alerts</h1>
                 <hr />
                 <p>TODO: IMPLEMENT</p>
-                <Link to={`/instrument/${instrument.slug}/alerts`}>Alerts</Link>
+                <Link to={`/instrument/${instrument.slug}/alerts/config`}>Configuration</Link>
             </div>
         );
     }
 }
 
-export default InstrumentComponent;
+export default InstrumentAlertComponent;

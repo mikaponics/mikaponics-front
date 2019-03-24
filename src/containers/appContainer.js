@@ -12,6 +12,8 @@ import OnboardSuccessContainer from "./onboarding/onboardSuccessContainer";
 import DeviceContainer from "./deviceContainer";
 import DeviceProfileContainer from "./deviceProfileContainer";
 import InstrumentContainer from "./instruments/instrumentContainer";
+import InstrumentAlertContainer from "./instruments/instrumentAlertContainer";
+import InstrumentAlertConfigContainer from "./instruments/instrumentAlertConfigContainer";
 
 
 import NavigationBar from '../components/navigationBar.js';
@@ -34,6 +36,8 @@ class AppContainer extends React.Component {
                         <Route path="/device/:slug" exact component={DeviceContainer} />
                         <Route path="/device/:slug/profile" exact component={DeviceProfileContainer} />
                         <Route path="/instrument/:slug" exact component={InstrumentContainer} />
+                        <Route path="/instrument/:slug/alerts" exact component={InstrumentAlertContainer} />
+                        <Route path="/instrument/:slug/alerts/config" exact component={InstrumentAlertConfigContainer} />
                     </Switch>
                 </div>
            </Router>
