@@ -55,6 +55,16 @@ class DashboardComponent extends Component {
                     <div className="col-md-12">
                         <h2>Alerts</h2>
                         <hr />
+                        <Link to="/alerts">See all ></Link>
+                    </div>
+                </div>
+
+                <br />
+                <div className="row">
+                    <div className="col-md-12">
+                        <h2>Profile</h2>
+                        <hr />
+                        <Link to="/profile">View profile ></Link>
                     </div>
                 </div>
 

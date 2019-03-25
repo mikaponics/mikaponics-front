@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 
-class AlertListComponent extends Component {
+class ProfileComponent extends Component {
     render() {
         // const { instrument } = this.props;
         return (
@@ -12,10 +12,10 @@ class AlertListComponent extends Component {
                         <li class="breadcrumb-item">
                            <Link to="/dashboard">Dashboard</Link>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Alerts</li>
+                        <li class="breadcrumb-item active" aria-current="page">Profile</li>
                     </ol>
                 </nav>
-                <h1>Alerts</h1>
+                <h1>Profile</h1>
                 <hr />
                 <p>TODO: IMPLEMENT</p>
             </div>
@@ -23,4 +23,4 @@ class AlertListComponent extends Component {
     }
 }
 
-export default AlertListComponent;
+export default ProfileComponent;
