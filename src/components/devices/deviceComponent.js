@@ -16,9 +16,9 @@ class InstrumentTable extends Component {
             return null;
         }
 
-        var lastMeasuredValue = get(instrument, "lastMeasuredValue");
-        var lastMeasuredAtUtc = get(instrument, "lastMeasuredAtUtc");
-        var unitOfMeasure = get(instrument, "unitOfMeasure");
+        var instrumentState = get(instrument, "state");
+        var lastMeasuredPrettyValue = get(instrument, "lastMeasuredPrettyValue");
+        var lastMeasuredPrettyAt = get(instrument, "lastMeasuredPrettyAt");
 
         return (
             <div>
@@ -34,15 +34,21 @@ class InstrumentTable extends Component {
                             </thead>
                             <tbody>
                                 <tr>
+                                    <th scope="row">State</th>
+                                    <td>
+                                        {instrumentState}
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th scope="row">Last measured value</th>
                                     <td>
-                                        {lastMeasuredValue} {unitOfMeasure}
+                                        {lastMeasuredPrettyValue}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Last measured time</th>
                                     <td>
-                                        {lastMeasuredAtUtc}
+                                        {lastMeasuredPrettyAt}
                                     </td>
                                 </tr>
                             </tbody>
@@ -74,15 +80,11 @@ class DeviceSummaryTable extends Component {
                             </tr>
                             <tr>
                                 <th scope="row">Last measured value</th>
-                                <td>{device.lastMeasuredValue} {device.lastMeasuredUnitOfMeasure}</td>
+                                <td>{device.lastMeasuredPrettyValue}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Last measured time</th>
-                                <td>{device.lastMeasuredTimestamp}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Last measured by</th>
-                                <td>{device.lastMeasuredInstrumentTypeOf}</td>
+                                <td>{device.lastMeasuredPrettyAt}</td>
                             </tr>
                         </tbody>
                     </table>
