@@ -69,6 +69,15 @@ class DashboardComponent extends Component {
                 </div>
 
                 <br />
+                <div className="row">
+                    <div className="col-md-12">
+                        <h2>Invoices</h2>
+                        <hr />
+                        <Link to="/invoices">View invoices ></Link>
+                    </div>
+                </div>
+
+                <br />
                 <button onClick={onLogoutClick}>Logout</button>
             </div>
         );
