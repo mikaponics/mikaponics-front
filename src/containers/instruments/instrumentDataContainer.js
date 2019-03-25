@@ -27,6 +27,7 @@ class InstrumentDataContainer extends Component {
         return (
             <InstrumentDataComponent
                 instrument={this.props.instrument}
+                timeSeriesData={this.props.data}
             />
         );
     }

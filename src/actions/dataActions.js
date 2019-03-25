@@ -2,12 +2,12 @@ import axios from 'axios';
 import store from '../store';
 import { camelizeKeys } from 'humps';
 
-import { INSTRUMENT_REQUEST, INSTRUMENT_FAILURE, INSTRUMENT_SUCCESS, CLEAR_INSTRUMENT } from '../constants/actionTypes';
+import { TIME_SERIES_DATA_REQUEST, TIME_SERIES_DATA_FAILURE, TIME_SERIES_DATA_SUCCESS, CLEAR_TIME_SERIES_DATA } from '../constants/actionTypes';
 import { MIKAPONICS_GET_TIME_SERIES_DATA_API_URL } from '../constants/api';
 
 
 export const setTimeSeriesDataRequest = () => ({
-    type: INSTRUMENT_REQUEST,
+    type: TIME_SERIES_DATA_REQUEST,
     payload: {
         isAPIRequestRunning: true,
         page: 1,
@@ -17,19 +17,19 @@ export const setTimeSeriesDataRequest = () => ({
 
 
 export const setTimeSeriesDataFailure = (info) => ({
-    type: INSTRUMENT_FAILURE,
+    type: TIME_SERIES_DATA_FAILURE,
     payload: info,
 });
 
 
 export const setTimeSeriesDataSuccess = (info) => ({
-    type: INSTRUMENT_SUCCESS,
+    type: TIME_SERIES_DATA_SUCCESS,
     payload: info,
 });
 
 
 export const setClearTimeSeriesData = () => ({
-    type: CLEAR_INSTRUMENT,
+    type: CLEAR_TIME_SERIES_DATA,
     payload: {},
 });
 
@@ -58,24 +58,24 @@ export function pullTimeSeriesData(user, instrumentSlug, page=1) {
             // console.log(successResult); // For debugging purposes.
 
             const responseData = successResult.data;
-            let profile = camelizeKeys(responseData);
+            let data = camelizeKeys(responseData);
 
             // Extra.
-            profile['isAPIRequestRunning'] = false;
-            profile['errors'] = {};
-            profile['page'] = page;
+            data['isAPIRequestRunning'] = false;
+            data['errors'] = {};
+            data['page'] = page;
 
-            // console.log(profile); // For debugging purposes.
+            // console.log(data); // For debugging purposes.
 
             // Update the global state of the application to store our
-            // user profile for the application.
+            // user data for the application.
             store.dispatch(
-                setTimeSeriesDataSuccess(profile)
+                setTimeSeriesDataSuccess(data)
             );
 
         }).catch( (errorResult) => { // ERROR
             // console.log(errorResult);
-            alert("Error fetching latest profile");
+            alert("Error fetching latest data");
 
             const responseData = errorResult.data;
             let errors = camelizeKeys(responseData);

@@ -2,9 +2,53 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 
+class InstrumentDatumRow extends Component {
+    render() {
+        const { value, timestamp } = this.props.rowData;
+        return (
+            <tr key={timestamp}>
+                <th scope="row">{value}</th>
+                <td>{timestamp}</td>
+            </tr>
+        )
+    }
+}
+
+
+class InstrumentDataTable extends Component {
+    render() {
+        const { tableData } = this.props;
+        if (tableData === undefined || tableData === null || tableData.results === null || tableData.results === undefined) {
+            return null;
+        }
+
+        let tableRows = [];
+        var arrayLength = tableData.results.length;
+        for (var i = 0; i < arrayLength; i++) {
+            let rowData =  tableData.results[i];
+            tableRows.push(<InstrumentDatumRow rowData={rowData} />);
+        }
+
+        return (
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Value</th>
+                    <th scope="col">Timestamp</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {tableRows}
+                </tbody>
+            </table>
+        )
+    }
+}
+
+
 class InstrumentDataComponent extends Component {
     render() {
-        const { instrument } = this.props;
+        const { instrument, timeSeriesData } = this.props;
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -27,7 +71,14 @@ class InstrumentDataComponent extends Component {
                 </nav>
                 <h1>Data</h1>
                 <hr />
-                <p>TODO: IMPLEMENT</p>
+
+                <InstrumentDataTable
+                    tableData={timeSeriesData}
+                />
+
+                <br />
+                <br />
+
                 <Link to={`/instrument/${instrument.slug}/data/download`}>Download</Link>
                 <br />
             </div>
