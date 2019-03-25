@@ -2,9 +2,22 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 
+class  InstrumentDownloadFormComponent extends Component {
+    render() {
+        const { instrument, onChange, onSubmit, errors, isLoading } = this.props;
+        return (
+            <div>
+                <form onSubmit={onSubmit}>
+                </form>
+            </div>
+        )
+    }
+}
+
+
 class InstrumentDataDownloadComponent extends Component {
     render() {
-        const { instrument } = this.props;
+        const { instrument, onChange, onSubmit, errors = {}, isLoading } = this.props;
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -32,7 +45,13 @@ class InstrumentDataDownloadComponent extends Component {
                 </nav>
                 <h1>Download</h1>
                 <hr />
-                <p>TODO: IMPLEMENT</p>
+                <InstrumentDownloadFormComponent
+                    instrument={instrument}
+                    onChange={onChange}
+                    onSubmit={onSubmit}
+                    errors={errors}
+                    isLoading={isLoading}
+                />
             </div>
         );
     }

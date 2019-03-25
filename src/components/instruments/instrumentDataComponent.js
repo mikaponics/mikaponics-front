@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 
-class InstrumentDatumRow extends Component {
+class InstrumentDatumRowComponent extends Component {
     render() {
         const { value, timestamp } = this.props.rowData;
         return (
@@ -15,7 +15,7 @@ class InstrumentDatumRow extends Component {
 }
 
 
-class InstrumentDataTable extends Component {
+class InstrumentDataTableComponent extends Component {
     render() {
         const { tableData } = this.props;
         if (tableData === undefined || tableData === null || tableData.results === null || tableData.results === undefined) {
@@ -26,7 +26,7 @@ class InstrumentDataTable extends Component {
         var arrayLength = tableData.results.length;
         for (var i = 0; i < arrayLength; i++) {
             let rowData =  tableData.results[i];
-            tableRows.push(<InstrumentDatumRow rowData={rowData} />);
+            tableRows.push(<InstrumentDatumRowComponent rowData={rowData} />);
         }
 
         return (
@@ -72,15 +72,15 @@ class InstrumentDataComponent extends Component {
                 <h1>Data</h1>
                 <hr />
 
-                <InstrumentDataTable
+                <br />
+                <Link to={`/instrument/${instrument.slug}/data/download`}>Download</Link>
+                <br /><br />
+                <br />
+
+                <InstrumentDataTableComponent
                     tableData={timeSeriesData}
                 />
 
-                <br />
-                <br />
-
-                <Link to={`/instrument/${instrument.slug}/data/download`}>Download</Link>
-                <br />
             </div>
         );
     }
