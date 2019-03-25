@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import InstrumentDataComponent from "../../components/instruments/instrumentDataComponent";
 import { pullInstrument } from "../../actions/instrumentActions";
+import { pullTimeSeriesData } from "../../actions/dataActions";
 
 
 class InstrumentDataContainer extends Component {
@@ -19,6 +20,7 @@ class InstrumentDataContainer extends Component {
 
     componentDidMount() {
         this.props.pullInstrument(this.props.user, this.props.match.params.slug);
+        this.props.pullTimeSeriesData(this.props.user, this.props.match.params.slug);
     } // end FUNC.
 
     render() {
@@ -34,6 +36,7 @@ const mapStateToProps = function(store) {
     return {
         user: store.userState,
         instrument: store.instrumentState,
+        data: store.dataState,
     };
 }
 
@@ -42,6 +45,11 @@ const mapDispatchToProps = dispatch => {
         pullInstrument: (user, instrumentSlug) => {
             dispatch(
                 pullInstrument(user, instrumentSlug)
+            )
+        },
+        pullTimeSeriesData: (user, instrumentSlug) => {
+            dispatch(
+                pullTimeSeriesData(user, instrumentSlug)
             )
         },
     }

@@ -9,6 +9,7 @@ import onboardingReducer from "./reducers/onboardingReducer";
 import dashboardReducer from "./reducers/dashboardReducer";
 import deviceReducer from "./reducers/deviceReducer";
 import instrumentReducer from "./reducers/instrumentReducer";
+import dataReducer from "./reducers/dataReducer";
 
 
 // Combine Reducers
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     userState: userReducer,
     deviceState: deviceReducer,
     instrumentState: instrumentReducer,
+    dataState: dataReducer,
 });
 
 

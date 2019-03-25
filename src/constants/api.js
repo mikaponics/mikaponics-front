@@ -15,6 +15,7 @@ export const MIKAPONICS_GET_PROFILE_API_URL = process.env.REACT_APP_API_HOST+'/a
 export const MIKAPONICS_DASHBOARD_API_URL = process.env.REACT_APP_API_HOST+'/api/dashboard';
 export const MIKAPONICS_GET_DEVICE_API_URL = process.env.REACT_APP_API_HOST+'/api/device';
 export const MIKAPONICS_GET_INSTRUMENT_API_URL = process.env.REACT_APP_API_HOST+'/api/instrument';
+export const MIKAPONICS_GET_TIME_SERIES_DATA_API_URL = process.env.REACT_APP_API_HOST+'/api/data';
 
 
 /**
