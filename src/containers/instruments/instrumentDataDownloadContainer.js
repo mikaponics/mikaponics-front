@@ -18,13 +18,24 @@ class InstrumentDataContainer extends Component {
             isLoading: false,
             instrumentSlug: slug,
         }
-
+        this.onToDateTimeChange = this.onToDateTimeChange.bind(this);
+        this.onFromDateTimeChange = this.onFromDateTimeChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    onChange(e) {
+    onToDateTimeChange(e) {
+        console.log("TO");
+        console.log(e);
         this.setState({
-            [e.target.name]: e.target.value,
+            // [e.target.name]: e.target.value,
+        })
+    }
+
+    onFromDateTimeChange(e) {
+        console.log("FROM");
+        console.log(e);
+        this.setState({
+            // [e.target.name]: e.target.value,
         })
     }
 
@@ -40,10 +51,14 @@ class InstrumentDataContainer extends Component {
 
     render() {
         const { errors, isLoading } = this.props;
+        const { toDateTime, fromDateTime } = this.props;
         return (
             <InstrumentDataDownloadComponent
+                toDateTime={toDateTime}
+                fromDateTime={fromDateTime}
                 instrument={this.props.instrument}
-                onChange={this.onChange}
+                onToDateTimeChange={this.onToDateTimeChange}
+                onFromDateTimeChange={this.onFromDateTimeChange}
                 onSubmit={this.onSubmit}
                 errors={errors}
                 isLoading={isLoading}

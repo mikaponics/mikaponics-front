@@ -18,6 +18,7 @@ npm install --save react-redux
 npm install --save redux-devtools-extension
 npm install --save redux-thunk
 npm install --save humps
+npm install --save react-datepicker
 ```
 
 ## Chrome Plugins

@@ -1,13 +1,43 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import DatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css";
 
 
 class  InstrumentDownloadFormComponent extends Component {
     render() {
-        const { instrument, onChange, onSubmit, errors, isLoading } = this.props;
+        const {
+            instrument,
+            onToDateTimeChange,
+            onFromDateTimeChange,
+            onSubmit,
+            errors, isLoading, toDateTime, fromDateTime } = this.props;
+        let startDate = new Date()
         return (
             <div>
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                TO
                 <form onSubmit={onSubmit}>
+                    <DatePicker
+                        selected={startDate}
+                        onChange={onToDateTimeChange}
+                    />
+                </form>
+
+                <br />
+                <br />
+                FROM
+                <form onSubmit={onSubmit}>
+                    <DatePicker
+                        selected={startDate}
+                        onChange={onFromDateTimeChange}
+                    />
                 </form>
             </div>
         )
@@ -17,7 +47,16 @@ class  InstrumentDownloadFormComponent extends Component {
 
 class InstrumentDataDownloadComponent extends Component {
     render() {
-        const { instrument, onChange, onSubmit, errors = {}, isLoading } = this.props;
+        const {
+            instrument,
+            onToDateTimeChange,
+            onFromDateTimeChange,
+            onSubmit,
+            errors = {},
+            isLoading,
+            toDateTime,
+            fromDateTime
+        } = this.props;
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -46,8 +85,9 @@ class InstrumentDataDownloadComponent extends Component {
                 <h1>Download</h1>
                 <hr />
                 <InstrumentDownloadFormComponent
+                    onToDateTimeChange={onToDateTimeChange}
+                    onFromDateTimeChange={onFromDateTimeChange}
                     instrument={instrument}
-                    onChange={onChange}
                     onSubmit={onSubmit}
                     errors={errors}
                     isLoading={isLoading}
