@@ -7,38 +7,34 @@ import "react-datepicker/dist/react-datepicker.css";
 class  InstrumentDownloadFormComponent extends Component {
     render() {
         const {
-            instrument,
             onToDateTimeChange,
             onFromDateTimeChange,
             onSubmit,
-            errors, isLoading, toDateTime, fromDateTime } = this.props;
-        let startDate = new Date()
+            isLoading,
+            toDateObj,
+            fromDateObj
+        } = this.props;
         return (
             <div>
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
                 TO
-                <form onSubmit={onSubmit}>
                     <DatePicker
-                        selected={startDate}
+                        selected={toDateObj}
                         onChange={onToDateTimeChange}
                     />
-                </form>
 
-                <br />
-                <br />
+                    <br />
+                    <br />
+
                 FROM
-                <form onSubmit={onSubmit}>
                     <DatePicker
-                        selected={startDate}
+                        selected={fromDateObj}
                         onChange={onFromDateTimeChange}
                     />
-                </form>
+
+                    <br />
+                    <br />
+                    <button onClick={onSubmit} disabled={isLoading}>Submit</button>
+
             </div>
         )
     }
@@ -52,10 +48,9 @@ class InstrumentDataDownloadComponent extends Component {
             onToDateTimeChange,
             onFromDateTimeChange,
             onSubmit,
-            errors = {},
             isLoading,
-            toDateTime,
-            fromDateTime
+            toDateObj,
+            fromDateObj
         } = this.props;
         return (
             <div>
@@ -85,11 +80,11 @@ class InstrumentDataDownloadComponent extends Component {
                 <h1>Download</h1>
                 <hr />
                 <InstrumentDownloadFormComponent
+                    toDateObj={toDateObj}
+                    fromDateObj={fromDateObj}
                     onToDateTimeChange={onToDateTimeChange}
                     onFromDateTimeChange={onFromDateTimeChange}
-                    instrument={instrument}
                     onSubmit={onSubmit}
-                    errors={errors}
                     isLoading={isLoading}
                 />
             </div>
