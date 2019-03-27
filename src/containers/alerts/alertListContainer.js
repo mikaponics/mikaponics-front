@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import AlertListComponent from "../../components/alerts/alertListComponent";
-// import { pullInstrument } from "../../actions/instrumentActions";
+import { pullInstrumentAlertList } from "../../actions/instrumentAlertListActions";
 
 
 class AlertListContainer extends Component {
@@ -18,7 +18,7 @@ class AlertListContainer extends Component {
     }
 
     componentDidMount() {
-        // this.props.pullInstrument(this.props.user, this.props.match.params.slug);
+        this.props.pullInstrumentAlertList(this.props.user, this.props.match.params.slug);
     } // end FUNC.
 
     render() {
@@ -33,17 +33,18 @@ class AlertListContainer extends Component {
 const mapStateToProps = function(store) {
     return {
         user: store.userState,
-        // instrument: store.instrumentState,
+        instrument: store.instrumentState,
+        instrumentAlertList: store.instrumentAlertListState,
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        // pullInstrument: (user, instrumentSlug) => {
-        //     dispatch(
-        //         pullInstrument(user, instrumentSlug)
-        //     )
-        // },
+        pullInstrumentAlertList: (user, instrumentSlug) => {
+            dispatch(
+                pullInstrumentAlertList(user, instrumentSlug, 1)
+            )
+        },
     }
 }
 

@@ -13,6 +13,7 @@ import dashboardReducer from "./reducers/dashboardReducer";
 import deviceReducer from "./reducers/deviceReducer";
 import instrumentReducer from "./reducers/instrumentReducer";
 import dataReducer from "./reducers/dataReducer";
+import instrumentAlertListReducer from "./reducers/instrumentAlertListReducer";
 
 
 // Combine Reducers
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
     deviceState: deviceReducer,
     instrumentState: instrumentReducer,
     dataState: dataReducer,
+    instrumentAlertListState: instrumentAlertListReducer,
 });
 
 

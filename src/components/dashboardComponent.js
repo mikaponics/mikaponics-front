@@ -45,7 +45,7 @@ class DashboardComponent extends Component {
                 <div className="row">
                     <div className="col-md-12">
                         <h2>Devices</h2>
-                        <Link className="btn btn-success btn-sm" role="button" to="/device/purchase">Purchase Device</Link>
+                        <Link className="btn btn-success btn-sm" role="button" to="/dashboard">Purchase Device</Link>
                         <hr />
                     </div>
                     {deviceCards}
