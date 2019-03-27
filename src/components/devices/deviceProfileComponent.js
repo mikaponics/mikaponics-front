@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
+import { BootstrapInput } from "../bootstrap/bootstrapInput";
+import { BootstrapTextarea } from "../bootstrap/bootstrapTextarea";
+
 
 class DeviceProfileComponent extends Component {
     render() {
-        const { device } = this.props;
+        const { device, name, description, errors, isLoading, onChange, onClick } = this.props;
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -20,7 +23,39 @@ class DeviceProfileComponent extends Component {
                 </nav>
                 <h1>Device Profile</h1>
                 <hr />
-                <p>TODO: IMPLEMENT</p>
+                <div className="row">
+                    <div className="col-md-12">
+                        <BootstrapInput
+                            id="id_name"
+                            field="name"
+                            type="text"
+                            label="Name"
+                            placeholder="Please set the device name"
+                            value={name}
+                            helpText="This is the name of the device."
+                            onChange={onChange}
+                            error={errors.name}
+                        />
+                        <BootstrapTextarea
+                            id="id_desc"
+                            field="description"
+                            type="textarea"
+                            label="Description"
+                            placeholder="Please set the device description"
+                            rows="5"
+                            value={description}
+                            helpText="This is the description of the device."
+                            onChange={onChange}
+                            error={errors.description}
+                        />
+                        <button
+                            type="button"
+                            className="btn btn-primary"
+                            disabled={isLoading}
+                            onClick={onClick}>Save
+                        </button>
+                    </div>
+                </div>
             </div>
         );
     }
