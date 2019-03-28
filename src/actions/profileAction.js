@@ -27,7 +27,7 @@ export const setProfileFailure = profile => ({
 });
 
 
-export function refreshUser(user) {
+export function pullProfile(user) {
     return dispatch => {
         // Change the global state to attempting to fetch latest user details.
         store.dispatch(

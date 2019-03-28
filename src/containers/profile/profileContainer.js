@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import ProfileComponent from "../../components/profile/profileComponent";
-// import { pullInstrument } from "../../actions/instrumentActions";
+import { pullProfile } from "../../actions/profileAction";
 
 
 class ProfileContainer extends Component {
@@ -18,7 +18,12 @@ class ProfileContainer extends Component {
     }
 
     componentDidMount() {
-        // this.props.pullInstrument(this.props.user, this.props.match.params.slug);
+        const { user } = this.props;
+
+        // Run the async code to fetch the latest profile information from the
+        // server and save the latest user's details into our global state.
+        // Make the authenticated call to our web-service.
+        this.props.pullProfile(user);
     } // end FUNC.
 
     render() {
@@ -39,11 +44,9 @@ const mapStateToProps = function(store) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        // pullInstrument: (user, instrumentSlug) => {
-        //     dispatch(
-        //         pullInstrument(user, instrumentSlug)
-        //     )
-        // },
+        pullProfile: (user) => {
+            dispatch(pullProfile(user))
+        }
     }
 }
 

@@ -6,6 +6,9 @@ class InstrumentAlertTable extends Component {
     render() {
         let elements = [];
         const { results } = this.props.dataList;
+        if (results === undefined || results === null) { // Defensive code.
+            return null;
+        }
         const dataLength = results.length;
         for (let i = 0; i < dataLength; i++) {
             let datum = results[i];

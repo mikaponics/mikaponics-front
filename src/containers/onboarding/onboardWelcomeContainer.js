@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { attemptLogout } from "../../actions/loginAction"
 import { clearOnboarding } from "../../actions/onboardingActions"
-import { refreshUser } from "../../actions/profileAction"
+import { pullProfile } from "../../actions/profileAction"
 import OnboardWelcomeComponent from "../../components/onboarding/onboardWelcomeComponent";
 
 
@@ -38,7 +38,7 @@ class OnboardWelcomeContainer extends Component {
         // Run the async code to fetch the latest profile information from the
         // server and save the latest user's details into our global state.
         // Make the authenticated call to our web-service.
-        this.props.refreshUser(this.props.user);
+        this.props.pullProfile(this.props.user);
     } // end FUNC.
 
     render() {
@@ -88,9 +88,9 @@ const mapDispatchToProps = dispatch => {
                 attemptLogout()
             )
         },
-        refreshUser: (user) => {
+        pullProfile: (user) => {
             dispatch(
-                refreshUser(user)
+                pullProfile(user)
             )
         },
         clearOnboarding: () => {

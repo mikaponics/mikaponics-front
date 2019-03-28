@@ -16,7 +16,6 @@ class InstrumentTable extends Component {
             return null;
         }
 
-        var instrumentState = get(instrument, "state");
         var lastMeasuredPrettyValue = get(instrument, "lastMeasuredPrettyValue");
         var lastMeasuredPrettyAt = get(instrument, "lastMeasuredPrettyAt");
 

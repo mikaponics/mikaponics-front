@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { snakeCase } from 'lodash';
 
 import { attemptLogout } from "../../actions/loginAction"
-import { refreshUser } from "../../actions/profileAction";
+import { pullProfile } from "../../actions/profileAction";
 import { MIKAPONICS_ONBOARDING_SUBMISSION_API_URL, NOT_INTERESTED_SUBSCRIPTION_STATUS } from "../../constants/api";
 import OnboardSuccessComponent from "../../components/onboarding/onboardSuccessComponent";
 
@@ -59,7 +59,7 @@ class OnboardSuccessContainer extends Component {
                 // Run the async code to fetch the latest profile information from the
                 // server and save the latest user's details into our global state.
                 // Make the authenticated call to our web-service.
-                this.props.refreshUser(user);
+                this.props.pullProfile(user);
 
             }).catch( (errorResult) => { // ERROR
                 console.log(errorResult);
@@ -112,8 +112,8 @@ const mapDispatchToProps = dispatch => {
                 attemptLogout()
             )
         },
-        refreshUser: (user) => {
-            dispatch(refreshUser(user))
+        pullProfile: (user) => {
+            dispatch(pullProfile(user))
         }
     }
 }
