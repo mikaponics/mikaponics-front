@@ -20,9 +20,11 @@ class DeviceProfileContainer extends Component {
             name: name,
             description: description,
             dataIntervalInSeconds: dataIntervalInSeconds,
+            wasSubmissionOK: false,
         }
         this.onChange = this.onChange.bind(this);
         this.onClick = this.onClick.bind(this);
+        this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
     }
 
     onChange(e) {
@@ -31,10 +33,21 @@ class DeviceProfileContainer extends Component {
         })
     }
 
+    /**
+     *  Function will be called when the API submission was successfull without
+     *  errors.
+     */
+    onSuccessfulSubmissionCallback() {
+        this.setState({ wasSubmissionOK: true });
+    }
+
     onClick(e) {
         e.preventDefault();
+
+        this.setState({ wasSubmissionOK: false });
+
         // Asynchronously submit our ``update`` to our API endpoint.
-        this.props.putDevice(this.props.user, this.props.match.params.slug, this.state);
+        this.props.putDevice(this.props.user, this.props.match.params.slug, this.state, this.onSuccessfulSubmissionCallback);
     }
 
     componentDidMount() {
@@ -42,7 +55,7 @@ class DeviceProfileContainer extends Component {
     } // end FUNC.
 
     render() {
-        const { name, description, dataIntervalInSeconds } = this.state;
+        const { name, description, dataIntervalInSeconds, wasSubmissionOK } = this.state;
         const { isAPIRequestRunning, errors } = this.props.device;
         return (
             <DeviceProfileComponent
@@ -52,6 +65,7 @@ class DeviceProfileContainer extends Component {
                 dataIntervalInSeconds={dataIntervalInSeconds}
                 errors={errors}
                 isLoading={isAPIRequestRunning}
+                wasSubmissionOK={wasSubmissionOK}
                 onChange={this.onChange}
                 onClick={this.onClick}
             />
@@ -68,9 +82,9 @@ const mapStateToProps = function(store) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        putDevice: (user, deviceSlug, data) => {
+        putDevice: (user, deviceSlug, data, okCallback) => {
             dispatch(
-                putDevice(user, deviceSlug, data)
+                putDevice(user, deviceSlug, data, okCallback)
             )
         },
     }

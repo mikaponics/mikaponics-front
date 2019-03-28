@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 
 import { BootstrapInput } from "../bootstrap/bootstrapInput";
 import { BootstrapTextarea } from "../bootstrap/bootstrapTextarea";
+import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
 
 
 class DeviceProfileComponent extends Component {
     render() {
-        const { device, name, description, errors, isLoading, onChange, onClick } = this.props;
+        const { device, name, description, errors, isLoading, wasSubmissionOK, onChange, onClick } = this.props;
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -25,6 +26,8 @@ class DeviceProfileComponent extends Component {
                 <hr />
                 <div className="row">
                     <div className="col-md-12">
+                        {wasSubmissionOK && <div class="alert alert-success" role="alert"><strong>Device</strong> was successfully updated.</div>}
+                        <BootstrapErrorsProcessingAlert errors={errors} />
                         <BootstrapInput
                             id="id_name"
                             field="name"
