@@ -8,23 +8,17 @@ import { pullInstrumentAlertList } from "../../actions/instrumentAlertListAction
 class AlertListContainer extends Component {
     constructor(props) {
         super(props);
-
-        // Since we are using the ``react-routes-dom`` library then we
-        // fetch the URL argument as follows.
-        const { slug } = this.props.match.params;
-        this.state = {
-            instrumentSlug: slug,
-        }
+        this.state = {}
     }
 
     componentDidMount() {
-        this.props.pullInstrumentAlertList(this.props.user, this.props.match.params.slug);
+        this.props.pullInstrumentAlertList(this.props.user);
     } // end FUNC.
 
     render() {
         return (
             <AlertListComponent
-                instrument={this.props.instrument}
+                instrumentAlertList={this.props.instrumentAlertList}
             />
         );
     }
@@ -33,16 +27,15 @@ class AlertListContainer extends Component {
 const mapStateToProps = function(store) {
     return {
         user: store.userState,
-        instrument: store.instrumentState,
         instrumentAlertList: store.instrumentAlertListState,
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        pullInstrumentAlertList: (user, instrumentSlug) => {
+        pullInstrumentAlertList: (user) => {
             dispatch(
-                pullInstrumentAlertList(user, instrumentSlug, 1)
+                pullInstrumentAlertList(user, null, 1)
             )
         },
     }

@@ -38,7 +38,7 @@ export const setClearInstrumentAlertList = () => ({
  *  Function will pull the ``instrument`` API endpoint and override our
  *  global application state for the 'dashboard'.
  */
-export function pullInstrumentAlertList(user, instrumentSlug, page=1) {
+export function pullInstrumentAlertList(user, instrumentSlug=null, page=1) {
     return dispatch => {
         // Change the global state to attempting to fetch latest user details.
         store.dispatch(
@@ -51,8 +51,17 @@ export function pullInstrumentAlertList(user, instrumentSlug, page=1) {
             headers: {'Authorization': "Bearer " + user.token}
         };
 
+        // Generate the URL.
+        let aURL = "";
+        if (instrumentSlug) {
+            aURL = MIKAPONICS_INSTRUMENT_ALERT_LIST_API_URL+"?instrument_slug="+instrumentSlug+"&page="+page;
+        } else {
+            aURL = MIKAPONICS_INSTRUMENT_ALERT_LIST_API_URL+"?page="+page;
+        }
+
+        // Make the API call.
         axios.get(
-            MIKAPONICS_INSTRUMENT_ALERT_LIST_API_URL+"?instrument_slug="+instrumentSlug+"&page="+page,
+            aURL,
             config
         ).then( (successResult) => { // SUCCESS
             // console.log(successResult); // For debugging purposes.
