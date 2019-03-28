@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import { BootstrapInput } from "../bootstrap/bootstrapInput";
 import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
+import { BootstrapSelect } from "../bootstrap/bootstrapSelect";
 
 
 class InstrumentAlertConfigComponent extends Component {
@@ -10,7 +11,10 @@ class InstrumentAlertConfigComponent extends Component {
         const {
             instrument, redAboveValue, redBelowValue,
             orangeAboveValue, orangeBelowValue, yellowAboveValue, yellowBelowValue,
-            errors = {}, wasSubmissionOK, isLoading, onChange, onClick } = this.props;
+            errors = {}, wasSubmissionOK, isLoading, onChange, onSelectChange,
+            onClick, options
+        } = this.props;
+
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -64,6 +68,18 @@ class InstrumentAlertConfigComponent extends Component {
                             helpText="Minimum value cannot be smaller then some ℃."
                             onChange={onChange}
                             error={errors.redBelowValue}
+                        />
+                        <BootstrapSelect
+                            id="idRD"
+                            name="redAlertDelayInSeconds"
+                            label="After delay"
+                            allowMultipleSelect={true}
+                            defaultOptionLabel="Please select..."
+                            selectedValues={[]}
+                            options={options}
+                            helpText="The time that red alerts will be sent from the last time the red alert was sent."
+                            error={errors.redAlertDelayInSeconds}
+                            onChange={onSelectChange}
                         />
 
                         <br />

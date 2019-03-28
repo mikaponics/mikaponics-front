@@ -3,10 +3,6 @@ import React from 'react';
 import classnames from 'classnames';
 
 
-/**
- * Primitive bootstrap alert wnich can be populated with any text. Primarly used
- * as a banner in our application.
- */
 export const BootstrapTextarea = ({ id, field, type, label, placeholder, rows, value, helpText, onChange, error }) => {
     const helpID = id + "-help";
     return (
