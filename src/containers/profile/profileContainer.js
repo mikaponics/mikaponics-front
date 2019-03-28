@@ -29,7 +29,7 @@ class ProfileContainer extends Component {
     render() {
         return (
             <ProfileComponent
-                instrument={this.props.instrument}
+                profile={this.props.user}
             />
         );
     }
