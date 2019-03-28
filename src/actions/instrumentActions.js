@@ -91,3 +91,68 @@ export function pullInstrument(user, instrumentSlug) {
 
     }
 }
+
+
+export function putInstrument(user, instrumentSlug, data, okCallback) {
+    return dispatch => {
+        // Change the global state to attempting to log in.
+        store.dispatch(
+            setInstrumentRequest()
+        );
+
+        // Create our oAuth 2.0 authenticated API header to use with our
+        // submission.
+        const config = {
+            headers: {'Authorization': "Bearer " + user.token}
+        };
+
+        console.log(data);
+
+        axios.put(MIKAPONICS_GET_INSTRUMENT_API_URL+"/"+instrumentSlug, {
+            'red_above_value': data.redAboveValue,
+            'red_below_value': data.redBelowValue,
+            'red_alert_delay_in_seconds': data.redAlertDelayInSeconds,
+
+            'orange_above_value': data.orangeAboveValue,
+            'orange_below_value': data.orangeBelowValue,
+            'orange_alert_delay_in_seconds': data.orangeAlertDelayInSeconds,
+
+            'yellow_above_value': data.yellowAboveValue,
+            'yellow_below_value': data.yellowBelowValue,
+            'yellow_alert_delay_in_seconds': data.yellowAlertDelayInSeconds,
+        }, config).then( (successResult) => {
+
+            const responseData = successResult.data;
+            let device = camelizeKeys(responseData);
+
+            // Extra.
+            device['isAPIRequestRunning'] = false;
+            device['errors'] = {};
+
+            // Run our success callback function.
+            okCallback(device);
+
+            // Update the global state of the application to store our
+            // user device for the application.
+            store.dispatch(
+                setInstrumentSuccess(device)
+            );
+        }).catch( (errorResult) => {
+            console.log(errorResult);
+            const responseData = errorResult.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
+            let errors = camelizeKeys(responseData);
+            // console.log(errors)
+
+            store.dispatch(
+                setInstrumentFailure({
+                    isAPIRequestRunning: false,
+                    errors: errors
+                })
+            );
+
+        }).then( () => {
+            // Do nothing.
+        });
+
+    }
+}

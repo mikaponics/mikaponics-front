@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import InstrumentAlertConfigComponent from "../../components/instruments/instrumentAlertConfigComponent";
-import { pullInstrument } from "../../actions/instrumentActions";
+import { pullInstrument, putInstrument } from "../../actions/instrumentActions";
 
 
 class InstrumentAlertConfigContainer extends Component {
@@ -71,6 +71,7 @@ class InstrumentAlertConfigContainer extends Component {
         this.onRedAlertDelayInSecondsChange = this.onRedAlertDelayInSecondsChange.bind(this);
         this.onOrangeAlertDelayInSecondsChange = this.onOrangeAlertDelayInSecondsChange.bind(this);
         this.onYellowAlertDelayInSecondsChange = this.onYellowAlertDelayInSecondsChange.bind(this);
+        this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
         this.onClick = this.onClick.bind(this);
     }
 
@@ -102,8 +103,22 @@ class InstrumentAlertConfigContainer extends Component {
         console.log("yellowAlertDelayInSeconds:", option.value)
     }
 
+    /**
+     *  Function will be called when the API submission was successfull without
+     *  errors.
+     */
+    onSuccessfulSubmissionCallback() {
+        this.setState({ wasSubmissionOK: true });
+    }
+
     onClick() {
-        alert("--- Clicked ---");
+        // Asynchronously submit our ``update`` to our API endpoint.
+        this.props.putInstrument(
+            this.props.user,
+            this.props.match.params.slug,
+            this.state,
+            this.onSuccessfulSubmissionCallback
+        );
     }
 
     componentDidMount() {
@@ -165,6 +180,11 @@ const mapDispatchToProps = dispatch => {
         pullInstrument: (user, instrumentSlug) => {
             dispatch(
                 pullInstrument(user, instrumentSlug)
+            )
+        },
+        putInstrument: (user, instrumentSlug, data, okCallback) => {
+            dispatch(
+                putInstrument(user, instrumentSlug, data, okCallback)
             )
         },
     }
