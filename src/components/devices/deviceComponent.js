@@ -22,7 +22,6 @@ class InstrumentTable extends Component {
 
         return (
             <div>
-
                 <div className="row">
                     <div className="col-md-12">
                         <table class="table">
@@ -33,12 +32,6 @@ class InstrumentTable extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">State</th>
-                                    <td>
-                                        {instrumentState}
-                                    </td>
-                                </tr>
                                 <tr>
                                     <th scope="row">Last measured value</th>
                                     <td>
