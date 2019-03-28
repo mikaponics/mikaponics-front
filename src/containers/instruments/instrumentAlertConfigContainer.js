@@ -14,7 +14,32 @@ class InstrumentAlertConfigContainer extends Component {
         const { slug } = this.props.match.params;
         this.state = {
             instrumentSlug: slug,
+            isLoading: false,
+            wasSubmissionOK: false,
+            redAboveValue: this.props.instrument.redAboveValue,
+            orangeAboveValue: this.props.instrument.orangeAboveValue,
+            yellowAboveValue: this.props.instrument.yellowAboveValue,
+            yellowBelowValue: this.props.instrument.yellowBelowValue,
+            orangeBelowValue: this.props.instrument.orangeBelowValue,
+            redBelowValue: this.props.instrument.redBelowValue,
+            redAlertDelayInSeconds: this.props.instrument.redAlertDelayInSeconds,
+            orangeAlertDelayInSeconds: this.props.instrument.orangeAlertDelayInSeconds,
+            yellowAlertDelayInSeconds: this.props.instrument.yellowAlertDelayInSeconds,
         }
+
+        // Bind all our component functions.
+        this.onChange = this.onChange.bind(this);
+        this.onClick = this.onClick.bind(this);
+    }
+
+    onChange(e) {
+        this.setState({
+            [e.target.name]: e.target.value,
+        })
+    }
+
+    onClick() {
+        alert("--- Clicked ---");
     }
 
     componentDidMount() {
@@ -25,6 +50,12 @@ class InstrumentAlertConfigContainer extends Component {
         return (
             <InstrumentAlertConfigComponent
                 instrument={this.props.instrument}
+                isLoading={this.state.isLoading}
+                wasSubmissionOK={this.state.wasSubmissionOK}
+                redAboveValue={this.state.redAboveValue}
+                onChange={this.onChange}
+                onClick={this.onClick}
+                errors={this.props.errors}
             />
         );
     }

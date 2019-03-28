@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
+import { BootstrapInput } from "../bootstrap/bootstrapInput";
+import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
+
 
 class InstrumentAlertConfigComponent extends Component {
     render() {
-        const { instrument } = this.props;
+        const {
+            instrument, redAboveValue, redBelowValue,
+            orangeAboveValue, orangeBelowValue, yellowAboveValue, yellowBelowValue,
+            errors = {}, wasSubmissionOK, isLoading, onChange, onClick } = this.props;
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -29,8 +35,102 @@ class InstrumentAlertConfigComponent extends Component {
                     </ol>
                 </nav>
                 <h1>Alerts Configuration</h1>
-                <hr />
-                <p>TODO: IMPLEMENT</p>
+
+                <div className="row">
+                    <div className="col-md-12">
+                        {wasSubmissionOK && <div class="alert alert-success" role="alert"><strong>Instrument alarm</strong> was successfully updated.</div>}
+                        <BootstrapErrorsProcessingAlert errors={errors} />
+
+                        <h2>Red Alarm</h2>
+                        <hr />
+                        <BootstrapInput
+                            id="idRAV"
+                            field="redAboveValue"
+                            type="number"
+                            label="Above value"
+                            placeholder="℃"
+                            value={redAboveValue}
+                            helpText="Maximum value cannot be larger then some ℃."
+                            onChange={onChange}
+                            error={errors.redAboveValue}
+                        />
+                        <BootstrapInput
+                            id="idRBV"
+                            field="redBelowValue"
+                            type="number"
+                            label="Below value"
+                            placeholder="℃"
+                            value={redBelowValue}
+                            helpText="Minimum value cannot be smaller then some ℃."
+                            onChange={onChange}
+                            error={errors.redBelowValue}
+                        />
+
+                        <br />
+                        <h2>Orange Alarm</h2>
+                        <hr />
+                        <BootstrapInput
+                            id="idOAV"
+                            field="orangeAboveValue"
+                            type="number"
+                            label="Above value"
+                            placeholder="℃"
+                            value={orangeAboveValue}
+                            helpText="Maximum value cannot be larger then some ℃."
+                            onChange={onChange}
+                            error={errors.orangeAboveValue}
+                        />
+                        <BootstrapInput
+                            id="IDOBV"
+                            field="orangeBelowValue"
+                            type="number"
+                            label="Below value"
+                            placeholder="℃"
+                            value={orangeBelowValue}
+                            helpText="Minimum value cannot be smaller then some ℃."
+                            onChange={onChange}
+                            error={errors.orangeBelowValue}
+                        />
+
+                        <br />
+                        <h2>Yellow Alarm</h2>
+                        <hr />
+                        <BootstrapInput
+                            id="idYAV"
+                            field="yellowAboveValue"
+                            type="number"
+                            label="Above value"
+                            placeholder="℃"
+                            value={yellowAboveValue}
+                            helpText="Maximum value cannot be larger then some ℃."
+                            onChange={onChange}
+                            error={errors.yellowAboveValue}
+                        />
+                        <BootstrapInput
+                            id="idYBV"
+                            field="yellowBelowValue"
+                            type="number"
+                            label="Below value"
+                            placeholder="℃"
+                            value={yellowBelowValue}
+                            helpText="Minimum value cannot be smaller then some ℃."
+                            onChange={onChange}
+                            error={errors.yellowBelowValue}
+                        />
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col-md-12">
+                        <button
+                            type="button"
+                            className="btn btn-primary"
+                            disabled={isLoading}
+                            onClick={onClick}>Save
+                        </button>
+                    </div>
+                </div>
+
             </div>
         );
     }

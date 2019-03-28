@@ -23,8 +23,8 @@ class InstrumentAlertTable extends Component {
                 <thead>
                     <tr>
                         <th scope="col">State</th>
-                        <th scope="col">Value</th>
-                        <th scope="col">Timestamp</th>
+                        <th scope="col">Measured value</th>
+                        <th scope="col">Measured at</th>
                     </tr>
                 </thead>
                 <tbody>
