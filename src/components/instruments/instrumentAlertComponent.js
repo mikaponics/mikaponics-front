@@ -2,9 +2,43 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 
+class InstrumentAlertTable extends Component {
+    render() {
+        let elements = [];
+        const { results } = this.props.dataList;
+        const dataLength = results.length;
+        for (let i = 0; i < dataLength; i++) {
+            let datum = results[i];
+            console.log(datum)
+            elements.push(
+                <tr>
+                    <th scope="row">{datum.state}</th>
+                    <td>{datum.datumValue}</td>
+                    <td>{datum.datumTimestamp}</td>
+                </tr>
+            );
+        }
+        return (
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">State</th>
+                        <th scope="col">Value</th>
+                        <th scope="col">Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {elements}
+                </tbody>
+            </table>
+        )
+    }
+}
+
+
 class InstrumentAlertComponent extends Component {
     render() {
-        const { instrument } = this.props;
+        const { instrument, dataList } = this.props;
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -26,9 +60,16 @@ class InstrumentAlertComponent extends Component {
                     </ol>
                 </nav>
                 <h1>Alerts</h1>
-                <hr />
-                <p>TODO: IMPLEMENT</p>
+                <br />
                 <Link to={`/instrument/${instrument.slug}/alerts/config`}>Configuration</Link>
+                <br />
+                <br />
+                <br />
+                <div className="row">
+                    <div className="col-md-12">
+                        <InstrumentAlertTable dataList={dataList} />
+                    </div>
+                </div>
             </div>
         );
     }

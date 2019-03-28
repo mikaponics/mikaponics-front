@@ -25,6 +25,7 @@ class InstrumentAlertContainer extends Component {
         return (
             <InstrumentAlertComponent
                 instrument={this.props.instrument}
+                dataList={this.props.instrumentAlertList}
             />
         );
     }
@@ -34,6 +35,7 @@ const mapStateToProps = function(store) {
     return {
         user: store.userState,
         instrument: store.instrumentState,
+        instrumentAlertList: store.instrumentAlertListState,
     };
 }
 
