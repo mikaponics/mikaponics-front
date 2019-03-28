@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Scroll from 'react-scroll';
 import { connect } from 'react-redux';
 
 import InstrumentAlertConfigComponent from "../../components/instruments/instrumentAlertConfigComponent";
@@ -109,6 +110,12 @@ class InstrumentAlertConfigContainer extends Component {
      */
     onSuccessfulSubmissionCallback() {
         this.setState({ wasSubmissionOK: true });
+
+        // The following code will cause the screen to scroll to the top of
+        // the page. Please see ``react-scroll`` for more information:
+        // https://github.com/fisshy/react-scroll
+        var scroll = Scroll.animateScroll;
+        scroll.scrollToTop();
     }
 
     onClick() {

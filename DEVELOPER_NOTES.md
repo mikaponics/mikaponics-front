@@ -20,6 +20,7 @@ npm install --save redux-thunk
 npm install --save humps
 npm install --save react-datepicker
 npm install --save react-select
+npm install --save react-scroll
 ```
 
 ## Chrome Plugins
