@@ -68,7 +68,9 @@ class InstrumentAlertConfigContainer extends Component {
 
         // Bind all our component functions.
         this.onChange = this.onChange.bind(this);
-        this.onSelectChange = this.onSelectChange.bind(this);
+        this.onRedAlertDelayInSecondsChange = this.onRedAlertDelayInSecondsChange.bind(this);
+        this.onOrangeAlertDelayInSecondsChange = this.onOrangeAlertDelayInSecondsChange.bind(this);
+        this.onYellowAlertDelayInSecondsChange = this.onYellowAlertDelayInSecondsChange.bind(this);
         this.onClick = this.onClick.bind(this);
     }
 
@@ -79,16 +81,25 @@ class InstrumentAlertConfigContainer extends Component {
         })
     }
 
-    onSelectChange(e) {
-        // Special thanks to https://stackoverflow.com/a/28625477
-        var options = e.target.options;
-        var value = [];
-        for (var i = 0, l = options.length; i < l; i++) {
-            if (options[i].selected) {
-                value.push(options[i].value);
-            }
-        }
-        console.log(value);
+    onRedAlertDelayInSecondsChange(option) {
+        this.setState({
+            redAlertDelayInSeconds: option.value
+        });
+        console.log("redAlertDelayInSeconds:", option.value)
+    }
+
+    onOrangeAlertDelayInSecondsChange(option) {
+        this.setState({
+            orangeAlertDelayInSeconds: option.value
+        });
+        console.log("orangeAlertDelayInSeconds:", option.value)
+    }
+
+    onYellowAlertDelayInSecondsChange(option) {
+        this.setState({
+            yellowAlertDelayInSeconds: option.value
+        });
+        console.log("yellowAlertDelayInSeconds:", option.value)
     }
 
     onClick() {
@@ -100,12 +111,38 @@ class InstrumentAlertConfigContainer extends Component {
     } // end FUNC.
 
     render() {
+        function getSelectedOption(options, value) {
+            const optionsLength = options.length;
+            for (let i = 0; i < optionsLength; i++ ) {
+                let option = options[i];
+                if (option.value === value) {
+                    return option
+                }
+            }
+            return null;
+        }
+
         return (
             <InstrumentAlertConfigComponent
                 instrument={this.props.instrument}
                 isLoading={this.state.isLoading}
                 wasSubmissionOK={this.state.wasSubmissionOK}
+
                 redAboveValue={this.state.redAboveValue}
+                redBelowValue={this.state.redBelowValue}
+                redAlertDelayInSecondsOption={getSelectedOption(this.state.alertDelayInSecondsOptions, this.state.redAlertDelayInSeconds)}
+                onRedAlertDelayInSecondsChange={this.onRedAlertDelayInSecondsChange}
+
+                orangeAboveValue={this.state.orangeAboveValue}
+                orangeBelowValue={this.state.orangeBelowValue}
+                orangeAlertDelayInSecondsOption={getSelectedOption(this.state.alertDelayInSecondsOptions, this.state.orangeAlertDelayInSeconds)}
+                onOrangeAlertDelayInSecondsChange={this.onOrangeAlertDelayInSecondsChange}
+
+                yellowAboveValue={this.state.yellowAboveValue}
+                yellowBelowValue={this.state.yellowBelowValue}
+                yellowAlertDelayInSecondsOption={getSelectedOption(this.state.alertDelayInSecondsOptions, this.state.yellowAlertDelayInSeconds)}
+                onYellowAlertDelayInSecondsChange={this.onYellowAlertDelayInSecondsChange}
+
                 onChange={this.onChange}
                 onSelectChange={this.onSelectChange}
                 onClick={this.onClick}

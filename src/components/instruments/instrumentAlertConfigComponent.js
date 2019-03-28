@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import Select from 'react-select';
 
 import { BootstrapInput } from "../bootstrap/bootstrapInput";
 import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
-import { BootstrapSelect } from "../bootstrap/bootstrapSelect";
 
 
 class InstrumentAlertConfigComponent extends Component {
     render() {
         const {
-            instrument, redAboveValue, redBelowValue,
-            orangeAboveValue, orangeBelowValue, yellowAboveValue, yellowBelowValue,
-            errors = {}, wasSubmissionOK, isLoading, onChange, onSelectChange,
-            onClick, options
+            instrument, options,
+
+            redAboveValue, redBelowValue, redAlertDelayInSecondsOption, onRedAlertDelayInSecondsChange,
+
+            orangeAboveValue, orangeBelowValue, orangeAlertDelayInSecondsOption, onOrangeAlertDelayInSecondsChange,
+
+            yellowAboveValue, yellowBelowValue, yellowAlertDelayInSecondsOption, onYellowAlertDelayInSecondsChange,
+
+            errors = {}, wasSubmissionOK, isLoading, onChange,
+            onClick
         } = this.props;
 
         return (
@@ -69,18 +75,21 @@ class InstrumentAlertConfigComponent extends Component {
                             onChange={onChange}
                             error={errors.redBelowValue}
                         />
-                        <BootstrapSelect
-                            id="idRD"
-                            name="redAlertDelayInSeconds"
-                            label="After delay"
-                            allowMultipleSelect={true}
-                            defaultOptionLabel="Please select..."
-                            selectedValues={[]}
-                            options={options}
-                            helpText="The time that red alerts will be sent from the last time the red alert was sent."
-                            error={errors.redAlertDelayInSeconds}
-                            onChange={onSelectChange}
-                        />
+                        <div class="form-group">
+                            <label for="redAlertDelayInSeconds">Above value</label>
+                            <Select
+                                className="basic-single"
+                                classNamePrefix="select"
+                                value={redAlertDelayInSecondsOption}
+                                onChange={onRedAlertDelayInSecondsChange}
+                                name="redAlertDelayInSeconds"
+                                placeholder="Please select..."
+                                options={options}
+                                clearableValue={false}
+                            />
+                            <small id="redAlertDelayInSeconds" class="form-text text-muted">The time that red alerts will be sent from the last time the red alert was sent.</small>
+                            {errors.redAlertDelayInSeconds && <div className="invalid-feedback">{errors.redAlertDelayInSeconds}</div>}
+                        </div>
 
                         <br />
                         <h2>Orange Alarm</h2>
@@ -107,6 +116,21 @@ class InstrumentAlertConfigComponent extends Component {
                             onChange={onChange}
                             error={errors.orangeBelowValue}
                         />
+                        <div class="form-group">
+                            <label for="orangeAlertDelayInSeconds">Above value</label>
+                            <Select
+                                className="basic-single"
+                                classNamePrefix="select"
+                                value={orangeAlertDelayInSecondsOption}
+                                onChange={onOrangeAlertDelayInSecondsChange}
+                                name="orangeAlertDelayInSeconds"
+                                placeholder="Please select..."
+                                options={options}
+                                clearableValue={false}
+                            />
+                            <small id="orangeAlertDelayInSeconds" class="form-text text-muted">The time that orange alerts will be sent from the last time the orange alert was sent.</small>
+                            {errors.orangeAlertDelayInSeconds && <div className="invalid-feedback">{errors.orangeAlertDelayInSeconds}</div>}
+                        </div>
 
                         <br />
                         <h2>Yellow Alarm</h2>
@@ -133,6 +157,21 @@ class InstrumentAlertConfigComponent extends Component {
                             onChange={onChange}
                             error={errors.yellowBelowValue}
                         />
+                        <div class="form-group">
+                            <label for="yellowAlertDelayInSeconds">Above value</label>
+                            <Select
+                                className="basic-single"
+                                classNamePrefix="select"
+                                value={yellowAlertDelayInSecondsOption}
+                                onChange={onYellowAlertDelayInSecondsChange}
+                                name="yellowAlertDelayInSeconds"
+                                placeholder="Please select..."
+                                options={options}
+                                clearableValue={false}
+                            />
+                            <small id="yellowAlertDelayInSeconds" class="form-text text-muted">The time that yellow alerts will be sent from the last time the yellow alert was sent.</small>
+                            {errors.yellowAlertDelayInSeconds && <div className="invalid-feedback">{errors.yellowAlertDelayInSeconds}</div>}
+                        </div>
                     </div>
                 </div>
 
