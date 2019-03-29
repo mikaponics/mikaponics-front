@@ -27,8 +27,12 @@ class InstrumentReportComponent extends Component {
                 </nav>
                 <h1>Report</h1>
                 <hr />
-                <p>TODO: IMPLEMENT</p>
-                <br />
+                <div className="row">
+                    <div className="col-md-12">
+                        <p>TODO: IMPLEMENT</p>
+                        <br />
+                    </div>
+                </div>
             </div>
         );
     }

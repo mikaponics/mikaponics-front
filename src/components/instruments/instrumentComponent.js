@@ -23,11 +23,15 @@ class InstrumentComponent extends Component {
                 <h1>Instrument</h1>
                 <hr />
                 <p>TODO: IMPLEMENT</p>
-                <Link to={`/instrument/${instrument.slug}/alerts`}>Alerts</Link>
-                <br />
-                <Link to={`/instrument/${instrument.slug}/report`}>Reports</Link>
-                <br />
-                <Link to={`/instrument/${instrument.slug}/data`}>Data</Link>
+                <div className="row">
+                    <div className="col-md-12">
+                        <Link to={`/instrument/${instrument.slug}/alerts`}>Alerts</Link>
+                        <br />
+                        <Link to={`/instrument/${instrument.slug}/report`}>Reports</Link>
+                        <br />
+                        <Link to={`/instrument/${instrument.slug}/data`}>Data</Link>
+                    </div>
+                </div>
             </div>
         );
     }

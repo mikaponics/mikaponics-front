@@ -77,10 +77,13 @@ class InstrumentDataComponent extends Component {
                 <br /><br />
                 <br />
 
-                <InstrumentDataTableComponent
-                    tableData={timeSeriesData}
-                />
-
+                <div className="row">
+                    <div className="col-md-12">
+                        <InstrumentDataTableComponent
+                            tableData={timeSeriesData}
+                        />
+                    </div>
+                </div>
             </div>
         );
     }

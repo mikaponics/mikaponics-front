@@ -79,14 +79,18 @@ class InstrumentDataDownloadComponent extends Component {
                 </nav>
                 <h1>Download</h1>
                 <hr />
-                <InstrumentDownloadFormComponent
-                    toDateObj={toDateObj}
-                    fromDateObj={fromDateObj}
-                    onToDateTimeChange={onToDateTimeChange}
-                    onFromDateTimeChange={onFromDateTimeChange}
-                    onSubmit={onSubmit}
-                    isLoading={isLoading}
-                />
+                <div className="row">
+                    <div className="col-md-12">
+                    <InstrumentDownloadFormComponent
+                        toDateObj={toDateObj}
+                        fromDateObj={fromDateObj}
+                        onToDateTimeChange={onToDateTimeChange}
+                        onFromDateTimeChange={onFromDateTimeChange}
+                        onSubmit={onSubmit}
+                        isLoading={isLoading}
+                    />
+                    </div>
+                </div>
             </div>
         );
     }

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import InvoiceListComponent from "../../components/invoices/invoiceListComponent";
-import { pullInvoiceList } from "../../actions/invoiceActions";
+import InvoiceDetailComponent from "../../components/invoices/invoiceDetailComponent";
+// import { pullInvoiceList } from "../../actions/invoiceActions";
 
 
-class InvoiceListContainer extends Component {
+class InvoiceDetailContainer extends Component {
     constructor(props) {
         super(props);
 
@@ -13,19 +13,18 @@ class InvoiceListContainer extends Component {
         // fetch the URL argument as follows.
         const { slug } = this.props.match.params;
         this.state = {
-            pageIndex: 1
+            invoiceSlug: null
         }
     }
 
     componentDidMount() {
         window.scrollTo(0, 0);  // Start the page at the top of the page.
-        this.props.pullInvoiceList(this.props.user, this.state.pageIndex);
+        // this.props.pullInvoiceList(this.props.user, this.state.pageIndex);
     } // end FUNC.
 
     render() {
         return (
-            <InvoiceListComponent
-                dataArr={this.props.invoiceList}
+            <InvoiceDetailComponent
             />
         );
     }
@@ -34,17 +33,17 @@ class InvoiceListContainer extends Component {
 const mapStateToProps = function(store) {
     return {
         user: store.userState,
-        invoiceList: store.invoiceListState,
+        // invoiceList: store.invoiceListState,
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        pullInvoiceList: (user, pageIndex) => {
-            dispatch(
-                pullInvoiceList(user, pageIndex)
-            )
-        },
+        // pullInvoiceList: (user, pageIndex) => {
+        //     dispatch(
+        //         pullInvoiceList(user, pageIndex)
+        //     )
+        // },
     }
 }
 
@@ -52,4 +51,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(InvoiceListContainer);
+)(InvoiceDetailContainer);

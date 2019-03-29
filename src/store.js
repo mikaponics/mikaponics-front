@@ -4,8 +4,12 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { APP_STATE } from "./constants/redux";
 import {
-    LOGIN_SUCCESS, LOGOUT_SUCCESS, SET_ONBOARDING, DASHBOARD_SUCCESS,
-    DEVICE_SUCCESS, INSTRUMENT_SUCCESS
+    LOGIN_SUCCESS,
+    LOGOUT_SUCCESS,
+    SET_ONBOARDING,
+    DASHBOARD_SUCCESS,
+    DEVICE_SUCCESS,
+    INSTRUMENT_SUCCESS
 } from "./constants/actionTypes";
 import userReducer from "./reducers/userReducer";
 import onboardingReducer from "./reducers/onboardingReducer";
@@ -15,6 +19,7 @@ import instrumentReducer from "./reducers/instrumentReducer";
 import dataReducer from "./reducers/dataReducer";
 import instrumentAlertListReducer from "./reducers/instrumentAlertListReducer";
 import flashMessageReducer from "./reducers/flashMessageReducer";
+import invoiceListReducer from "./reducers/invoiceListReducer";
 
 
 // Combine Reducers
@@ -27,6 +32,7 @@ const rootReducer = combineReducers({
     dataState: dataReducer,
     instrumentAlertListState: instrumentAlertListReducer,
     flashMessageState: flashMessageReducer,
+    invoiceListState: invoiceListReducer,
 });
 
 
