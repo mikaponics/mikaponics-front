@@ -93,7 +93,7 @@ export function pullInstrument(user, instrumentSlug) {
 }
 
 
-export function putInstrument(user, instrumentSlug, data, okCallback) {
+export function putInstrument(user, instrumentSlug, data, successCallback, failedCallback) {
     return dispatch => {
         // Change the global state to attempting to log in.
         store.dispatch(
@@ -105,8 +105,6 @@ export function putInstrument(user, instrumentSlug, data, okCallback) {
         const config = {
             headers: {'Authorization': "Bearer " + user.token}
         };
-
-        console.log(data);
 
         axios.put(MIKAPONICS_GET_INSTRUMENT_API_URL+"/"+instrumentSlug, {
             'red_above_value': data.redAboveValue,
@@ -130,7 +128,7 @@ export function putInstrument(user, instrumentSlug, data, okCallback) {
             device['errors'] = {};
 
             // Run our success callback function.
-            okCallback(device);
+            successCallback(device);
 
             // Update the global state of the application to store our
             // user device for the application.
@@ -142,6 +140,9 @@ export function putInstrument(user, instrumentSlug, data, okCallback) {
             const responseData = errorResult.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
             let errors = camelizeKeys(responseData);
             // console.log(errors)
+
+            // Run our failure callback function.
+            failedCallback(errors);
 
             store.dispatch(
                 setInstrumentFailure({

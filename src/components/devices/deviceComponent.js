@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import { FlashMessageComponent } from "../flashMessageComponent";
 
+
 class InstrumentTable extends Component {
     render() {
         function get(dict, key) {

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import InstrumentAlertComponent from "../../components/instruments/instrumentAlertComponent";
 import { pullInstrumentAlertList } from "../../actions/instrumentAlertListActions";
+import { clearFlashMessage } from "../../actions/flashMessageActions";
 
 
 class InstrumentAlertContainer extends Component {
@@ -21,10 +22,15 @@ class InstrumentAlertContainer extends Component {
         this.props.pullInstrumentAlertList(this.props.user, this.props.match.params.slug);
     } // end FUNC.
 
+    componentWillUnmount() {
+        this.props.clearFlashMessage();
+    }
+
     render() {
         return (
             <InstrumentAlertComponent
                 instrument={this.props.instrument}
+                flashMessage={this.props.flashMessage}
                 dataList={this.props.instrumentAlertList}
             />
         );
@@ -36,6 +42,7 @@ const mapStateToProps = function(store) {
         user: store.userState,
         instrument: store.instrumentState,
         instrumentAlertList: store.instrumentAlertListState,
+        flashMessage: store.flashMessageState,
     };
 }
 
@@ -46,6 +53,9 @@ const mapDispatchToProps = dispatch => {
                 pullInstrumentAlertList(user, instrumentSlug)
             )
         },
+        clearFlashMessage: () => {
+            dispatch(clearFlashMessage())
+        }
     }
 }
 

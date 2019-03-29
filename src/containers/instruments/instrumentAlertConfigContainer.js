@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import Scroll from 'react-scroll';
 import { connect } from 'react-redux';
+import { Redirect } from "react-router-dom";
 
 import InstrumentAlertConfigComponent from "../../components/instruments/instrumentAlertConfigComponent";
 import { pullInstrument, putInstrument } from "../../actions/instrumentActions";
+import { setFlashMessage } from "../../actions/flashMessageActions";
 
 
 class InstrumentAlertConfigContainer extends Component {
@@ -16,7 +18,6 @@ class InstrumentAlertConfigContainer extends Component {
         this.state = {
             instrumentSlug: slug,
             isLoading: false,
-            wasSubmissionOK: false,
             redAboveValue: this.props.instrument.redAboveValue,
             orangeAboveValue: this.props.instrument.orangeAboveValue,
             yellowAboveValue: this.props.instrument.yellowAboveValue,
@@ -64,7 +65,8 @@ class InstrumentAlertConfigContainer extends Component {
                     value: 86400,
                     label: "Every 24 hours"
                 }
-            ]
+            ],
+            referrer: null,
         }
 
         // Bind all our component functions.
@@ -73,6 +75,7 @@ class InstrumentAlertConfigContainer extends Component {
         this.onOrangeAlertDelayInSecondsChange = this.onOrangeAlertDelayInSecondsChange.bind(this);
         this.onYellowAlertDelayInSecondsChange = this.onYellowAlertDelayInSecondsChange.bind(this);
         this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
+        this.onFailedSubmissionCallback = this.onFailedSubmissionCallback.bind(this);
         this.onClick = this.onClick.bind(this);
     }
 
@@ -109,8 +112,13 @@ class InstrumentAlertConfigContainer extends Component {
      *  errors.
      */
     onSuccessfulSubmissionCallback() {
-        this.setState({ wasSubmissionOK: true });
+        this.props.setFlashMessage("success", "Instrument was successfully updated.");
+        this.setState({
+            referrer: this.props.instrument.absoluteUrl+"/alerts"
+        });
+    }
 
+    onFailedSubmissionCallback() {
         // The following code will cause the screen to scroll to the top of
         // the page. Please see ``react-scroll`` for more information:
         // https://github.com/fisshy/react-scroll
@@ -124,7 +132,8 @@ class InstrumentAlertConfigContainer extends Component {
             this.props.user,
             this.props.match.params.slug,
             this.state,
-            this.onSuccessfulSubmissionCallback
+            this.onSuccessfulSubmissionCallback,
+            this.onFailedSubmissionCallback
         );
     }
 
@@ -133,6 +142,8 @@ class InstrumentAlertConfigContainer extends Component {
     } // end FUNC.
 
     render() {
+        const { referrer } = this.state;
+
         function getSelectedOption(options, value) {
             const optionsLength = options.length;
             for (let i = 0; i < optionsLength; i++ ) {
@@ -144,11 +155,14 @@ class InstrumentAlertConfigContainer extends Component {
             return null;
         }
 
+        if (referrer) {
+            return <Redirect to={referrer} />;
+        }
+
         return (
             <InstrumentAlertConfigComponent
                 instrument={this.props.instrument}
                 isLoading={this.state.isLoading}
-                wasSubmissionOK={this.state.wasSubmissionOK}
 
                 redAboveValue={this.state.redAboveValue}
                 redBelowValue={this.state.redBelowValue}
@@ -194,6 +208,9 @@ const mapDispatchToProps = dispatch => {
                 putInstrument(user, instrumentSlug, data, okCallback)
             )
         },
+        setFlashMessage: (typeOf, text) => {
+            dispatch(setFlashMessage(typeOf, text))
+        }
     }
 }
 

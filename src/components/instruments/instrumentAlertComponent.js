@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
+import { FlashMessageComponent } from "../flashMessageComponent";
+
 
 class InstrumentAlertTable extends Component {
     render() {
@@ -41,7 +43,7 @@ class InstrumentAlertTable extends Component {
 
 class InstrumentAlertComponent extends Component {
     render() {
-        const { instrument, dataList } = this.props;
+        const { instrument, flashMessage, dataList } = this.props;
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -70,6 +72,7 @@ class InstrumentAlertComponent extends Component {
                 <br />
                 <div className="row">
                     <div className="col-md-12">
+                        <FlashMessageComponent object={flashMessage} />
                         <InstrumentAlertTable dataList={dataList} />
                     </div>
                 </div>
