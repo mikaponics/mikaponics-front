@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
 
 import ProfileEditComponent from "../../components/profile/profileEditComponent";
-import { pullProfile } from "../../actions/profileAction";
+import { putProfile } from "../../actions/profileAction";
 import { setFlashMessage } from "../../actions/flashMessageActions";
 
 
@@ -42,6 +42,23 @@ class ProfileEditContainer extends Component {
 
         this.onChange = this.onChange.bind(this);
         this.onClick = this.onClick.bind(this);
+        this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
+        this.onFailedSubmissionCallback = this.onFailedSubmissionCallback.bind(this);
+    }
+
+    onSuccessfulSubmissionCallback() {
+        this.props.setFlashMessage("success", "The device has been successfully updated.");
+        this.setState({
+            referrer: "/profile"
+        })
+    }
+
+    onFailedSubmissionCallback() {
+        // The following code will cause the screen to scroll to the top of
+        // the page. Please see ``react-scroll`` for more information:
+        // https://github.com/fisshy/react-scroll
+        var scroll = Scroll.animateScroll;
+        scroll.scrollToTop();
     }
 
     onChange(e){
@@ -51,20 +68,18 @@ class ProfileEditContainer extends Component {
     }
 
     onClick(e){
-        this.props.setFlashMessage("success", "Profile was successfully updated.");
-        this.setState({
-            referrer: '/profile'
-        });
+        e.preventDefault();
+
+        // Asynchronously submit our ``update`` to our API endpoint.
+        this.props.putProfile(
+            this.props.user,
+            this.state,
+            this.onSuccessfulSubmissionCallback,
+            this.onFailedSubmissionCallback
+        );
     }
 
     componentDidMount() {
-        const { user } = this.props;
-
-        // Run the async code to fetch the latest profile information from the
-        // server and save the latest user's details into our global state.
-        // Make the authenticated call to our web-service.
-        this.props.pullProfile(user);
-
         // Start the page at the top of the page.
         window.scrollTo(0, 0);
     } // end FUNC.
@@ -133,8 +148,8 @@ const mapStateToProps = function(store) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        pullProfile: (user) => {
-            dispatch(pullProfile(user))
+        putProfile: (user, data, successCallback, failedCallback) => {
+            dispatch(putProfile(user, data, successCallback, failedCallback))
         },
         setFlashMessage: (typeOf, text) => {
             dispatch(setFlashMessage(typeOf, text))

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import store from '../store';
-import { camelizeKeys } from 'humps';
+import { camelizeKeys, decamelizeKeys } from 'humps';
 
 import { PROFILE_REQUEST, PROFILE_SUCCESS, PROFILE_FAILURE } from "../constants/actionTypes";
 import { MIKAPONICS_GET_PROFILE_API_URL } from "../constants/api";
@@ -76,6 +76,65 @@ export function pullProfile(user) {
             );
 
         }).then( () => { // FINALLY
+            // Do nothing.
+        });
+
+    }
+}
+
+
+export function putProfile(user, data, successCallback, failedCallback) {
+    return dispatch => {
+        // Change the global state to attempting to log in.
+        store.dispatch(
+            setProfileRequest()
+        );
+
+        // Create our oAuth 2.0 authenticated API header to use with our
+        // submission.
+        const config = {
+            headers: {'Authorization': "Bearer " + user.token}
+        };
+
+        // The following code will convert the `camelized` data into `snake case`
+        // data so our API endpoint will be able to read it.
+        let decamelizedData = decamelizeKeys(data);
+
+        // Perform our API submission.
+        axios.put(MIKAPONICS_GET_PROFILE_API_URL, decamelizedData, config).then( (successResult) => {
+
+            const responseData = successResult.data;
+            let device = camelizeKeys(responseData);
+
+            // Extra.
+            device['isAPIRequestRunning'] = false;
+            device['errors'] = {};
+
+            // Run our success callback function.
+            successCallback(device);
+
+            // Update the global state of the application to store our
+            // user device for the application.
+            store.dispatch(
+                setProfileSuccess(device)
+            );
+        }).catch( (errorResult) => {
+            console.log(errorResult);
+            const responseData = errorResult.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
+            let errors = camelizeKeys(responseData);
+            // console.log(errors)
+
+            // Run our failure callback function.
+            failedCallback(errors);
+
+            store.dispatch(
+                setProfileFailure({
+                    isAPIRequestRunning: false,
+                    errors: errors
+                })
+            );
+
+        }).then( () => {
             // Do nothing.
         });
 
