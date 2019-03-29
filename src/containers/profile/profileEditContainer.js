@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 
 import ProfileEditComponent from "../../components/profile/profileEditComponent";
 import { pullProfile } from "../../actions/profileAction";
+import { setFlashMessage } from "../../actions/flashMessageActions";
 
 
 class ProfileEditContainer extends Component {
@@ -29,9 +30,10 @@ class ProfileEditContainer extends Component {
     }
 
     onClick(e){
+        this.props.setFlashMessage("success", "Profile was successfully updated.");
         this.setState({
             referrer: '/profile'
-        })
+        });
     }
 
     componentDidMount() {
@@ -61,7 +63,7 @@ class ProfileEditContainer extends Component {
 const mapStateToProps = function(store) {
     return {
         user: store.userState,
-        // instrument: store.instrumentState,
+        flashMessage: store.flashMessageState,
     };
 }
 
@@ -69,6 +71,9 @@ const mapDispatchToProps = dispatch => {
     return {
         pullProfile: (user) => {
             dispatch(pullProfile(user))
+        },
+        setFlashMessage: (typeOf, text) => {
+            dispatch(setFlashMessage(typeOf, text))
         }
     }
 }

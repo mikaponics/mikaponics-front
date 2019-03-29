@@ -41,7 +41,18 @@ class ProfileTable extends Component {
 
 class ProfileComponent extends Component {
     render() {
-        const { profile } = this.props;
+        const { profile, flashMessage } = this.props;
+
+        // The following code will check to see if we have a flash message and
+        // if we do then render it here.
+        let flashMessageElement = null;
+        if (flashMessage !== undefined && flashMessage !== null) {
+            const alertClassName = "alert alert-" + flashMessage.typeOf;
+            flashMessageElement = (
+                <div className={alertClassName} role="alert">{flashMessage.text}</div>
+            );
+        }
+
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -56,6 +67,7 @@ class ProfileComponent extends Component {
                 <hr />
                 <div className="row">
                     <div className="col-md-12">
+                        {flashMessageElement}
                         <ProfileTable profile={profile} />
                     </div>
                 </div>

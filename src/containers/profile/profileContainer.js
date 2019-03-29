@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import ProfileComponent from "../../components/profile/profileComponent";
 import { pullProfile } from "../../actions/profileAction";
+import { clearFlashMessage } from "../../actions/flashMessageActions";
 
 
 class ProfileContainer extends Component {
@@ -26,10 +27,16 @@ class ProfileContainer extends Component {
         this.props.pullProfile(user);
     } // end FUNC.
 
+    componentWillUnmount() {
+        this.props.clearFlashMessage();
+    }
+
     render() {
+        const { flashMessage } = this.props;
         return (
             <ProfileComponent
                 profile={this.props.user}
+                flashMessage={flashMessage}
             />
         );
     }
@@ -38,7 +45,7 @@ class ProfileContainer extends Component {
 const mapStateToProps = function(store) {
     return {
         user: store.userState,
-        // instrument: store.instrumentState,
+        flashMessage: store.flashMessageState,
     };
 }
 
@@ -46,6 +53,9 @@ const mapDispatchToProps = dispatch => {
     return {
         pullProfile: (user) => {
             dispatch(pullProfile(user))
+        },
+        clearFlashMessage: () => {
+            dispatch(clearFlashMessage())
         }
     }
 }
