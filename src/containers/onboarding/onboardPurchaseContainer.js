@@ -103,6 +103,10 @@ class OnboardPurchaseContainer extends Component {
         })
     }
 
+    componentDidMount() {
+        window.scrollTo(0, 0);  // Start the page at the top of the page.
+    }
+
     componentWillUnmount() {
         // This code will fix the "ReactJS & Redux: Can't perform a React state
         // update on an unmounted component" issue as explained in:

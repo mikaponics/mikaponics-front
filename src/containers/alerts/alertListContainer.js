@@ -13,6 +13,7 @@ class AlertListContainer extends Component {
 
     componentDidMount() {
         this.props.pullInstrumentAlertList(this.props.user);
+        window.scrollTo(0, 0);  // Start the page at the top of the page.
     } // end FUNC.
 
     render() {

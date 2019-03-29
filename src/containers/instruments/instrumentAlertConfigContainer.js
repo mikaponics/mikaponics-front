@@ -139,6 +139,7 @@ class InstrumentAlertConfigContainer extends Component {
 
     componentDidMount() {
         this.props.pullInstrument(this.props.user, this.props.match.params.slug);
+        window.scrollTo(0, 0);  // Start the page at the top of the page.
     } // end FUNC.
 
     render() {

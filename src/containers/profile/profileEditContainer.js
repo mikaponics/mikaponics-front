@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Scroll from 'react-scroll';
 import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
 
@@ -63,6 +64,9 @@ class ProfileEditContainer extends Component {
         // server and save the latest user's details into our global state.
         // Make the authenticated call to our web-service.
         this.props.pullProfile(user);
+
+        // Start the page at the top of the page.
+        window.scrollTo(0, 0);
     } // end FUNC.
 
     render() {

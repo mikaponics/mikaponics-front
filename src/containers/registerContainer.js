@@ -35,6 +35,7 @@ class RegisterContainer extends React.Component {
                 this.props.attemptRestRegisterForm();
             }
         }
+        window.scrollTo(0, 0);  // Start the page at the top of the page.
     }
 
     onChange(e) {

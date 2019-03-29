@@ -20,6 +20,7 @@ class InstrumentAlertContainer extends Component {
 
     componentDidMount() {
         this.props.pullInstrumentAlertList(this.props.user, this.props.match.params.slug);
+        window.scrollTo(0, 0);  // Start the page at the top of the page.
     } // end FUNC.
 
     componentWillUnmount() {

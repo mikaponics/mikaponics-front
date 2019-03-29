@@ -25,6 +25,9 @@ class ProfileContainer extends Component {
         // server and save the latest user's details into our global state.
         // Make the authenticated call to our web-service.
         this.props.pullProfile(user);
+
+        // Start the page at the top of the page.
+        window.scrollTo(0, 0);
     } // end FUNC.
 
     componentWillUnmount() {

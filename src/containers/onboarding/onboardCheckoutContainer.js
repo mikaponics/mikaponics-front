@@ -40,6 +40,8 @@ class OnboardCheckoutContainer extends Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0, 0);  // Start the page at the top of the page.
+        
         const { user, onboarding } = this.props;
 
         // Create our oAuth 2.0 authenticated API header to use with our

@@ -21,6 +21,8 @@ class OnboardSuccessContainer extends Component {
     }
 
     componentDidMount() {
+        window.scrollTo(0, 0);  // Start the page at the top of the page.
+        
         // Deconstruct the props to get our user and only run the following
         // code if the user has not been subscribed.
         const { user, onboarding } = this.props;

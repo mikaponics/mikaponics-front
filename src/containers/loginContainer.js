@@ -66,6 +66,7 @@ class LoginContainer extends Component {
                 this.props.attemptLoginRestForm();
             }
         }
+        window.scrollTo(0, 0);  // Start the page at the top of the page.
     }
 
     render() {

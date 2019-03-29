@@ -70,7 +70,7 @@ class DeviceProfileContainer extends Component {
     }
 
     componentDidMount() {
-        // Do nothing.
+        window.scrollTo(0, 0);  // Start the page at the top of the page.
     } // end FUNC.
 
     render() {
