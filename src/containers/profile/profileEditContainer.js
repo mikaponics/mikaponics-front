@@ -17,6 +17,26 @@ class ProfileEditContainer extends Component {
         this.state = {
             instrumentSlug: slug,
             referrer: null,
+
+            firstName: this.props.user.firstName,
+            lastName: this.props.user.lastName,
+            email: this.props.user.email,
+            billingCountry: this.props.user.billingCountry,
+            billingRegion: this.props.user.billingRegion,
+            billingLocality: this.props.user.billingLocality,
+            billingStreetAddress: this.props.user.billingStreetAddress,
+            billingPostalCode: this.props.user.billingPostalCode,
+            billingEmail: this.props.user.billingEmail,
+            billingTelephone: this.props.user.billingTelephone,
+            shippingCountry: this.props.user.shippingCountry,
+            shippingRegion: this.props.user.shippingRegion,
+            shippingLocality: this.props.user.shippingLocality,
+            shippingStreetAddress: this.props.user.shippingStreetAddress,
+            shippingStreetAddressExtra: this.props.user.shippingStreetAddressExtra,
+            shippingPostalCode: this.props.user.shippingPostalCode,
+            shippingPostOfficeBoxNumber: this.props.user.shippingPostOfficeBoxNumber,
+            shippingEmail: this.props.user.shippingEmail,
+            shippingTelephone: this.props.user.shippingTelephone,
         }
 
         this.onChange = this.onChange.bind(this);
@@ -46,13 +66,53 @@ class ProfileEditContainer extends Component {
     } // end FUNC.
 
     render() {
-        const { referrer } = this.state;
+        const {
+            referrer,
+            firstName,
+            lastName,
+            email,
+            billingCountry,
+            billingRegion,
+            billingLocality,
+            billingStreetAddress,
+            billingPostalCode,
+            billingEmail,
+            billingTelephone,
+            shippingCountry,
+            shippingRegion,
+            shippingLocality,
+            shippingStreetAddress,
+            shippingStreetAddressExtra,
+            shippingPostalCode,
+            shippingPostOfficeBoxNumber,
+            shippingEmail,
+            shippingTelephone,
+        } = this.state;
         if (referrer) {
             return <Redirect to={"/profile"} />;
         }
         return (
             <ProfileEditComponent
                 profile={this.props.user}
+                firstName={firstName}
+                lastName={lastName}
+                email={email}
+                billingCountry={billingCountry}
+                billingRegion={billingRegion}
+                billingLocality={billingLocality}
+                billingStreetAddress={billingStreetAddress}
+                billingPostalCode={billingPostalCode}
+                billingEmail={billingEmail}
+                billingTelephone={billingTelephone}
+                shippingCountry={shippingCountry}
+                shippingRegion={shippingRegion}
+                shippingLocality={shippingLocality}
+                shippingStreetAddress={shippingStreetAddress}
+                shippingStreetAddressExtra={shippingStreetAddressExtra}
+                shippingPostalCode={shippingPostalCode}
+                shippingPostOfficeBoxNumber={shippingPostOfficeBoxNumber}
+                shippingEmail={shippingEmail}
+                shippingTelephone={shippingTelephone}
                 onChange={this.onChange}
                 onClick={this.onClick}
             />
