@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import DeviceComponent from "../../components/devices/deviceComponent";
 import { pullDevice } from "../../actions/deviceActions";
+import { clearFlashMessage } from "../../actions/flashMessageActions";
 
 
 class DeviceContainer extends Component {
@@ -21,10 +22,16 @@ class DeviceContainer extends Component {
         this.props.pullDevice(this.props.user, this.props.match.params.slug);
     } // end FUNC.
 
+    componentWillUnmount() {
+        this.props.clearFlashMessage();
+    }
+
     render() {
+        const { flashMessage } = this.props;
         return (
             <DeviceComponent
                 device={this.props.device}
+                flashMessage={flashMessage}
             />
         );
     }
@@ -34,6 +41,7 @@ const mapStateToProps = function(store) {
     return {
         user: store.userState,
         device: store.deviceState,
+        flashMessage: store.flashMessageState,
     };
 }
 
@@ -44,6 +52,9 @@ const mapDispatchToProps = dispatch => {
                 pullDevice(user, deviceSlug)
             )
         },
+        clearFlashMessage: () => {
+            dispatch(clearFlashMessage())
+        }
     }
 }
 

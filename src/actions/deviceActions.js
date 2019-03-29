@@ -93,7 +93,7 @@ export function pullDevice(user, deviceSlug) {
 }
 
 
-export function putDevice(user, deviceSlug, data, okCallback) {
+export function putDevice(user, deviceSlug, data, successCallback, errorCallback) {
     return dispatch => {
         // Change the global state to attempting to log in.
         store.dispatch(
@@ -120,18 +120,22 @@ export function putDevice(user, deviceSlug, data, okCallback) {
             device['errors'] = {};
 
             // Run our success callback function.
-            okCallback(device);
+            successCallback(device);
 
             // Update the global state of the application to store our
             // user device for the application.
             store.dispatch(
                 setDeviceSuccess(device)
             );
+
         }).catch( (errorResult) => {
             console.log(errorResult);
             const responseData = errorResult.response.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
             let errors = camelizeKeys(responseData);
             // console.log(errors)
+
+            // Run our success callback function.
+            errorCallback(errors);
 
             store.dispatch(
                 setDeviceFailure({

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
+import { FlashMessageComponent } from "../flashMessageComponent";
+
 class InstrumentTable extends Component {
     render() {
         function get(dict, key) {
@@ -88,7 +90,8 @@ class DeviceSummaryTable extends Component {
 
 class DeviceComponent extends Component {
     render() {
-        const { device } = this.props;
+        const { device, flashMessage } = this.props;
+        console.log("flashMessage", flashMessage);
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -101,6 +104,8 @@ class DeviceComponent extends Component {
                 </nav>
                 <h1>Device</h1>
                 <hr />
+
+                <FlashMessageComponent object={flashMessage} />
 
                 {device.slug &&
                     <Link to={`/device/${device.slug}/profile`}>Profile</Link>

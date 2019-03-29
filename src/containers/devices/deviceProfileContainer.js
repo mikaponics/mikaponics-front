@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import Scroll from 'react-scroll';
 import { connect } from 'react-redux';
+import { Redirect } from "react-router-dom";
 
 import DeviceProfileComponent from "../../components/devices/deviceProfileComponent";
 import { putDevice } from "../../actions/deviceActions";
+import { setFlashMessage } from "../../actions/flashMessageActions";
 
 
 class DeviceProfileContainer extends Component {
@@ -21,11 +23,12 @@ class DeviceProfileContainer extends Component {
             name: name,
             description: description,
             dataIntervalInSeconds: dataIntervalInSeconds,
-            wasSubmissionOK: false,
+            referrer: null,
         }
         this.onChange = this.onChange.bind(this);
         this.onClick = this.onClick.bind(this);
         this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
+        this.onFailedSubmissionCallback = this.onFailedSubmissionCallback.bind(this);
     }
 
     onChange(e) {
@@ -39,8 +42,13 @@ class DeviceProfileContainer extends Component {
      *  errors.
      */
     onSuccessfulSubmissionCallback() {
-        this.setState({ wasSubmissionOK: true });
-        
+        this.props.setFlashMessage("success", "The device has been successfully updated.");
+        this.setState({
+            referrer: this.props.device.absoluteUrl
+        })
+    }
+
+    onFailedSubmissionCallback() {
         // The following code will cause the screen to scroll to the top of
         // the page. Please see ``react-scroll`` for more information:
         // https://github.com/fisshy/react-scroll
@@ -51,10 +59,14 @@ class DeviceProfileContainer extends Component {
     onClick(e) {
         e.preventDefault();
 
-        this.setState({ wasSubmissionOK: false });
-
         // Asynchronously submit our ``update`` to our API endpoint.
-        this.props.putDevice(this.props.user, this.props.match.params.slug, this.state, this.onSuccessfulSubmissionCallback);
+        this.props.putDevice(
+            this.props.user,
+            this.props.match.params.slug,
+            this.state,
+            this.onSuccessfulSubmissionCallback,
+            this.onFailedSubmissionCallback
+        );
     }
 
     componentDidMount() {
@@ -62,8 +74,13 @@ class DeviceProfileContainer extends Component {
     } // end FUNC.
 
     render() {
-        const { name, description, dataIntervalInSeconds, wasSubmissionOK } = this.state;
+        const { name, description, dataIntervalInSeconds, referrer } = this.state;
         const { isAPIRequestRunning, errors } = this.props.device;
+
+        if (referrer) {
+            return <Redirect to={referrer} />;
+        }
+
         return (
             <DeviceProfileComponent
                 device={this.props.device}
@@ -72,7 +89,6 @@ class DeviceProfileContainer extends Component {
                 dataIntervalInSeconds={dataIntervalInSeconds}
                 errors={errors}
                 isLoading={isAPIRequestRunning}
-                wasSubmissionOK={wasSubmissionOK}
                 onChange={this.onChange}
                 onClick={this.onClick}
             />
@@ -89,11 +105,14 @@ const mapStateToProps = function(store) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        putDevice: (user, deviceSlug, data, okCallback) => {
+        putDevice: (user, deviceSlug, data, successCallback, errorCallback) => {
             dispatch(
-                putDevice(user, deviceSlug, data, okCallback)
+                putDevice(user, deviceSlug, data, successCallback, errorCallback)
             )
         },
+        setFlashMessage: (typeOf, text) => {
+            dispatch(setFlashMessage(typeOf, text))
+        }
     }
 }
 
