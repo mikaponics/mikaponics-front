@@ -20,6 +20,7 @@ import InstrumentReportContainer from "./instruments/instrumentReportContainer";
 import AlertListContainer from "./alerts/alertListContainer";
 import InvoiceListContainer from "./invoices/invoiceListContainer";
 import ProfileContainer from "./profile/profileContainer";
+import ProfileEditContainer from "./profile/profileEditContainer";
 
 
 import NavigationBar from '../components/navigationBar.js';
@@ -50,6 +51,7 @@ class AppContainer extends React.Component {
                         <Route path="/alerts" exact component={AlertListContainer} />
                         <Route path="/invoices" exact component={InvoiceListContainer} />
                         <Route path="/profile" exact component={ProfileContainer} />
+                        <Route path="/profile/edit" exact component={ProfileEditContainer} />
                     </Switch>
                 </div>
            </Router>

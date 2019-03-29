@@ -32,6 +32,7 @@ class ProfileTable extends Component {
                 <p>Post Office Box Number: {profile.shippingPostOfficeBoxNumber}</p>
                 <p>Email: {profile.shippingEmail}</p>
                 <p>Telephone: {profile.shippingTelephone}</p>
+                <Link to="/profile/edit">Edit</Link>
             </div>
         )
     }
