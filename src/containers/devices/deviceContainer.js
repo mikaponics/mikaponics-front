@@ -24,6 +24,7 @@ class DeviceContainer extends Component {
 
     componentWillUnmount() {
         this.props.clearFlashMessage();
+        this.setState({})
     }
 
     render() {

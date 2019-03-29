@@ -10,6 +10,7 @@ class ProfileTable extends Component {
         const {
             firstName, lastName, email,
             billingCountry, billingRegion, billingLocality, billingStreetAddress, billingPostalCode, billingEmail, billingTelephone,
+            shippingCountry, shippingRegion, shippingLocality, shippingStreetAddress, shippingStreetAddressExtra, shippingPostalCode, shippingPostOfficeBoxNumber, shippingEmail, shippingTelephone,
             onChange, onClick, errors
         } = this.props;
         return (
@@ -127,8 +128,107 @@ class ProfileTable extends Component {
                     onChange={onChange}
                     error={errors.billingTelephone}
                 />
-                
+
                 <h3>Shipping</h3>
+                <BootstrapInput
+                    id="idShippingCountry"
+                    field="shippingCountry"
+                    type="text"
+                    label="Country"
+                    placeholder="Please set your shipping country"
+                    value={shippingCountry}
+                    helpText={null}
+                    onChange={onChange}
+                    error={errors.shippingCountry}
+                />
+                <BootstrapInput
+                    id="idShippingRegion"
+                    field="shippingRegion"
+                    type="text"
+                    label="Region"
+                    placeholder="Please set your shipping region"
+                    value={shippingRegion}
+                    helpText={null}
+                    onChange={onChange}
+                    error={errors.shippingRegion}
+                />
+                <BootstrapInput
+                    id="idShippingLocality"
+                    field="shippingLocality"
+                    type="text"
+                    label="Locality"
+                    placeholder="Please set your shipping locality"
+                    value={shippingLocality}
+                    helpText={null}
+                    onChange={onChange}
+                    error={errors.shippingLocality}
+                />
+                <BootstrapInput
+                    id="idShippingStreetAddress"
+                    field="shippingStreetAddress"
+                    type="text"
+                    label="Street address"
+                    placeholder="Please set your shipping street address"
+                    value={shippingStreetAddress}
+                    helpText={null}
+                    onChange={onChange}
+                    error={errors.shippingStreetAddress}
+                />
+                <BootstrapInput
+                    id="idShippingStreetAddressExtra"
+                    field="shippingStreetAddressExtra"
+                    type="text"
+                    label="Street address (extra)"
+                    placeholder="Please set your shipping street address (extra)"
+                    value={shippingStreetAddressExtra}
+                    helpText={null}
+                    onChange={onChange}
+                    error={errors.shippingStreetAddressExtra}
+                />
+                <BootstrapInput
+                    id="idShippingPostalCode"
+                    field="shippingPostalCode"
+                    type="text"
+                    label="Postal code"
+                    placeholder="Please set your shipping postal code"
+                    value={shippingPostalCode}
+                    helpText={null}
+                    onChange={onChange}
+                    error={errors.shippingPostalCode}
+                />
+                <BootstrapInput
+                    id="idShippingPostOfficeBoxNumber"
+                    field="shippingPostOfficeBoxNumber"
+                    type="text"
+                    label="Post office box #"
+                    placeholder="Please set your shipping post office box number"
+                    value={shippingPostOfficeBoxNumber}
+                    helpText={null}
+                    onChange={onChange}
+                    error={errors.shippingPostOfficeBoxNumber}
+                />
+                <BootstrapInput
+                    id="idShippingEmail"
+                    field="shippingEmail"
+                    type="text"
+                    label="Email"
+                    placeholder="Please set your shipping email address"
+                    value={shippingEmail}
+                    helpText={null}
+                    onChange={onChange}
+                    error={errors.shippingEmail}
+                />
+                <BootstrapInput
+                    id="idShippingTelephone"
+                    field="shippingTelephone"
+                    type="text"
+                    label="Telephone"
+                    placeholder="Please set your shipping telephone"
+                    value={shippingTelephone}
+                    helpText={null}
+                    onChange={onChange}
+                    error={errors.shippingTelephone}
+                />
 
             </div>
         )
