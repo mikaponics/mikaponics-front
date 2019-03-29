@@ -83,7 +83,7 @@ export function pullProfile(user) {
 }
 
 
-export function putProfile(user, data, successCallback, failedCallback) {
+export function postProfile(user, data, successCallback, failedCallback) {
     return dispatch => {
         // Change the global state to attempting to log in.
         store.dispatch(
@@ -101,7 +101,7 @@ export function putProfile(user, data, successCallback, failedCallback) {
         let decamelizedData = decamelizeKeys(data);
 
         // Perform our API submission.
-        axios.put(MIKAPONICS_GET_PROFILE_API_URL, decamelizedData, config).then( (successResult) => {
+        axios.post(MIKAPONICS_GET_PROFILE_API_URL, decamelizedData, config).then( (successResult) => {
 
             const responseData = successResult.data;
             let device = camelizeKeys(responseData);
@@ -119,10 +119,9 @@ export function putProfile(user, data, successCallback, failedCallback) {
                 setProfileSuccess(device)
             );
         }).catch( (errorResult) => {
-            console.log(errorResult);
-            const responseData = errorResult.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
+            const responseData = errorResult.response.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
             let errors = camelizeKeys(responseData);
-            // console.log(errors)
+            // console.log(errors);
 
             // Run our failure callback function.
             failedCallback(errors);

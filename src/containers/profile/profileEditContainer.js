@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
 
 import ProfileEditComponent from "../../components/profile/profileEditComponent";
-import { putProfile } from "../../actions/profileAction";
+import { postProfile } from "../../actions/profileAction";
 import { setFlashMessage } from "../../actions/flashMessageActions";
 
 
@@ -71,7 +71,7 @@ class ProfileEditContainer extends Component {
         e.preventDefault();
 
         // Asynchronously submit our ``update`` to our API endpoint.
-        this.props.putProfile(
+        this.props.postProfile(
             this.props.user,
             this.state,
             this.onSuccessfulSubmissionCallback,
@@ -85,8 +85,8 @@ class ProfileEditContainer extends Component {
     } // end FUNC.
 
     render() {
+        const { referrer } = this.state;
         const {
-            referrer,
             firstName,
             lastName,
             email,
@@ -106,7 +106,8 @@ class ProfileEditContainer extends Component {
             shippingPostOfficeBoxNumber,
             shippingEmail,
             shippingTelephone,
-        } = this.state;
+            errors,
+        } = this.props.user;
         if (referrer) {
             return <Redirect to={"/profile"} />;
         }
@@ -132,6 +133,7 @@ class ProfileEditContainer extends Component {
                 shippingPostOfficeBoxNumber={shippingPostOfficeBoxNumber}
                 shippingEmail={shippingEmail}
                 shippingTelephone={shippingTelephone}
+                errors={errors}
                 onChange={this.onChange}
                 onClick={this.onClick}
             />
@@ -148,8 +150,8 @@ const mapStateToProps = function(store) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        putProfile: (user, data, successCallback, failedCallback) => {
-            dispatch(putProfile(user, data, successCallback, failedCallback))
+        postProfile: (user, data, successCallback, failedCallback) => {
+            dispatch(postProfile(user, data, successCallback, failedCallback))
         },
         setFlashMessage: (typeOf, text) => {
             dispatch(setFlashMessage(typeOf, text))
