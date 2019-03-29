@@ -7,8 +7,9 @@ import { startCase } from 'lodash';
  * as a banner in our application.
  */
 export const BootstrapAlert = ({ value, type }) => {
+    const theClassName = "alert alert-" + type;
     return (
-        <div className="alert alert-{type}" role="alert">
+        <div className={theClassName} role="alert">
             {value}
         </div>
     )
