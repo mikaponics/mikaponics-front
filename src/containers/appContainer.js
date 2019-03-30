@@ -17,6 +17,7 @@ import InstrumentAlertConfigContainer from "./instruments/instrumentAlertConfigC
 import InstrumentDataContainer from "./instruments/instrumentDataContainer";
 import InstrumentDataDownloadContainer from "./instruments/instrumentDataDownloadContainer";
 import InstrumentAnalysisListContainer from "./instruments/instrumentAnalysisListContainer";
+import InstrumentAnalysisDetailContainer from "./instruments/instrumentAnalysisDetailContainer";
 import AlertListContainer from "./alerts/alertListContainer";
 import InvoiceListContainer from "./invoices/invoiceListContainer";
 import InvoiceDetailContainer from "./invoices/invoiceDetailContainer";
@@ -49,6 +50,7 @@ class AppContainer extends React.Component {
                         <Route path="/instrument/:slug/data" exact component={InstrumentDataContainer} />
                         <Route path="/instrument/:slug/data/download" exact component={InstrumentDataDownloadContainer} />
                         <Route path="/instrument/:slug/analyses" exact component={InstrumentAnalysisListContainer} />
+                        <Route path="/instrument/analysis/:slug" exact component={InstrumentAnalysisDetailContainer} />
                         <Route path="/alerts" exact component={AlertListContainer} />
                         <Route path="/invoices" exact component={InvoiceListContainer} />
                         <Route path="/invoice/:slug" exact component={InvoiceDetailContainer} />

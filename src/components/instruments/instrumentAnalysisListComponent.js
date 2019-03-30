@@ -18,7 +18,9 @@ class InstrumentReportTable extends Component {
                     <th scope="row">{row.createdAt}</th>
                     <th scope="row">{row.startDt}</th>
                     <th scope="row">{row.finishDt}</th>
-                    <th scope="row">View</th>
+                    <th scope="row">
+                        <Link to={row.absoluteUrl}>View</Link>
+                    </th>
                 </tr>
             );
         }
