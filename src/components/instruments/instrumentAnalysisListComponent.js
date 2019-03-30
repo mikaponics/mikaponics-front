@@ -41,7 +41,7 @@ class InstrumentReportTable extends Component {
 }
 
 
-class InstrumentReportListComponent extends Component {
+class InstrumentAnalysisListComponent extends Component {
     render() {
         const { instrument, instrumentAnalysisList } = this.props;
         return (
@@ -61,10 +61,10 @@ class InstrumentReportListComponent extends Component {
                                 <Link to={`${instrument.absoluteUrl}`}>Instrument</Link>
                             </li>
                         }
-                        <li class="breadcrumb-item active" aria-current="page">Reports</li>
+                        <li class="breadcrumb-item active" aria-current="page">Analyses</li>
                     </ol>
                 </nav>
-                <h1>Reports</h1>
+                <h1>Analyses</h1>
                 <hr />
                 <div className="row">
                     <div className="col-md-12">
@@ -76,4 +76,4 @@ class InstrumentReportListComponent extends Component {
     }
 }
 
-export default InstrumentReportListComponent;
+export default InstrumentAnalysisListComponent;

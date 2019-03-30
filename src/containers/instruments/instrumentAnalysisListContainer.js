@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import InstrumentReportListComponent from "../../components/instruments/instrumentReportListComponent";
+import InstrumentAnalysisListComponent from "../../components/instruments/instrumentAnalysisListComponent";
 import { pullInstrumentAnalysisList } from "../../actions/instrumentAnalysisListActions";
 
 
@@ -28,7 +28,7 @@ class InstrumentReportContainer extends Component {
 
     render() {
         return (
-            <InstrumentReportListComponent
+            <InstrumentAnalysisListComponent
                 instrument={this.props.instrument}
                 instrumentAnalysisList={this.props.instrumentAnalysisList}
             />
