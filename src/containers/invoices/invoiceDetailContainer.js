@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import InvoiceDetailComponent from "../../components/invoices/invoiceDetailComponent";
-// import { pullInvoiceList } from "../../actions/invoiceActions";
+import { pullInvoiceDetail } from "../../actions/invoiceDetailActions";
 
 
 class InvoiceDetailContainer extends Component {
@@ -13,18 +13,19 @@ class InvoiceDetailContainer extends Component {
         // fetch the URL argument as follows.
         const { slug } = this.props.match.params;
         this.state = {
-            invoiceSlug: null
+            invoiceSlug: slug
         }
     }
 
     componentDidMount() {
         window.scrollTo(0, 0);  // Start the page at the top of the page.
-        // this.props.pullInvoiceList(this.props.user, this.state.pageIndex);
+        this.props.pullInvoiceDetail(this.props.user, this.props.match.params.slug);
     } // end FUNC.
 
     render() {
         return (
             <InvoiceDetailComponent
+               invoiceDetail={this.props.invoiceDetail}
             />
         );
     }
@@ -33,17 +34,17 @@ class InvoiceDetailContainer extends Component {
 const mapStateToProps = function(store) {
     return {
         user: store.userState,
-        // invoiceList: store.invoiceListState,
+        invoiceDetail: store.invoiceDetailState,
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        // pullInvoiceList: (user, pageIndex) => {
-        //     dispatch(
-        //         pullInvoiceList(user, pageIndex)
-        //     )
-        // },
+        pullInvoiceDetail: (user, invoiceSlug) => {
+            dispatch(
+                pullInvoiceDetail(user, invoiceSlug)
+            )
+        },
     }
 }
 

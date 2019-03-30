@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import InvoiceListComponent from "../../components/invoices/invoiceListComponent";
-import { pullInvoiceList } from "../../actions/invoiceActions";
+import { pullInvoiceList } from "../../actions/invoiceListActions";
 
 
 class InvoiceListContainer extends Component {

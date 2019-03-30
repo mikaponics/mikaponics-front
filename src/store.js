@@ -20,6 +20,7 @@ import dataReducer from "./reducers/dataReducer";
 import instrumentAlertListReducer from "./reducers/instrumentAlertListReducer";
 import flashMessageReducer from "./reducers/flashMessageReducer";
 import invoiceListReducer from "./reducers/invoiceListReducer";
+import invoiceDetailReducer from "./reducers/invoiceDetailReducer";
 
 
 // Combine Reducers
@@ -33,6 +34,7 @@ const rootReducer = combineReducers({
     instrumentAlertListState: instrumentAlertListReducer,
     flashMessageState: flashMessageReducer,
     invoiceListState: invoiceListReducer,
+    invoiceDetailState: invoiceDetailReducer,
 });
 
 
