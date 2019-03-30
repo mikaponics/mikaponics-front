@@ -20,6 +20,8 @@ export const MIKAPONICS_GET_TIME_SERIES_DATA_CSV_DOWNLOAD_API_URL = process.env.
 export const MIKAPONICS_INSTRUMENT_ALERT_LIST_API_URL = process.env.REACT_APP_API_HOST+'/api/instrument-alerts';
 export const MIKAPONICS_INVOICE_LIST_API_URL = process.env.REACT_APP_API_HOST+'/api/invoices';
 export const MIKAPONICS_INVOICE_DETAIL_API_URL = process.env.REACT_APP_API_HOST+'/api/invoice/';
+export const MIKAPONICS_INSTRUMENT_ANALYSIS_LIST_CREATE_API_URL = process.env.REACT_APP_API_HOST+'/api/instrument/analyses';
+
 
 /**
  *  The available choices for the ``subscription_status`` field in the user API.

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import InstrumentReportComponent from "../../components/instruments/instrumentReportComponent";
-import { pullInstrument } from "../../actions/instrumentActions";
+import InstrumentReportListComponent from "../../components/instruments/instrumentReportListComponent";
+import { pullInstrumentAnalysisList } from "../../actions/instrumentAnalysisListActions";
 
 
 class InstrumentReportContainer extends Component {
@@ -18,14 +18,19 @@ class InstrumentReportContainer extends Component {
     }
 
     componentDidMount() {
-        this.props.pullInstrument(this.props.user, this.props.match.params.slug);
+        this.props.pullInstrumentAnalysisList(
+            this.props.user,
+            this.props.match.params.slug,
+            1
+        );
         window.scrollTo(0, 0);  // Start the page at the top of the page.
     } // end FUNC.
 
     render() {
         return (
-            <InstrumentReportComponent
+            <InstrumentReportListComponent
                 instrument={this.props.instrument}
+                instrumentAnalysisList={this.props.instrumentAnalysisList}
             />
         );
     }
@@ -35,14 +40,15 @@ const mapStateToProps = function(store) {
     return {
         user: store.userState,
         instrument: store.instrumentState,
+        instrumentAnalysisList: store.instrumentAnalysisListState,
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        pullInstrument: (user, instrumentSlug) => {
+        pullInstrumentAnalysisList: (user, instrumentSlug, pageIndex) => {
             dispatch(
-                pullInstrument(user, instrumentSlug)
+                pullInstrumentAnalysisList(user, instrumentSlug, pageIndex)
             )
         },
     }

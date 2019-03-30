@@ -18,6 +18,7 @@ import deviceReducer from "./reducers/deviceReducer";
 import instrumentReducer from "./reducers/instrumentReducer";
 import dataReducer from "./reducers/dataReducer";
 import instrumentAlertListReducer from "./reducers/instrumentAlertListReducer";
+import instrumentAnalysisListReducer from "./reducers/instrumentAnalysisListReducer";
 import flashMessageReducer from "./reducers/flashMessageReducer";
 import invoiceListReducer from "./reducers/invoiceListReducer";
 import invoiceDetailReducer from "./reducers/invoiceDetailReducer";
@@ -32,6 +33,7 @@ const rootReducer = combineReducers({
     instrumentState: instrumentReducer,
     dataState: dataReducer,
     instrumentAlertListState: instrumentAlertListReducer,
+    instrumentAnalysisListState: instrumentAnalysisListReducer,
     flashMessageState: flashMessageReducer,
     invoiceListState: invoiceListReducer,
     invoiceDetailState: invoiceDetailReducer,

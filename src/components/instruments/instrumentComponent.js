@@ -27,7 +27,7 @@ class InstrumentComponent extends Component {
                     <div className="col-md-12">
                         <Link to={`/instrument/${instrument.slug}/alerts`}>Alerts</Link>
                         <br />
-                        <Link to={`/instrument/${instrument.slug}/report`}>Reports</Link>
+                        <Link to={`/instrument/${instrument.slug}/reports`}>Reports</Link>
                         <br />
                         <Link to={`/instrument/${instrument.slug}/data`}>Data</Link>
                     </div>
