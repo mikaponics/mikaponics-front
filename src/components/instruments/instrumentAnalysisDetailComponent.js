@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 
 class InstrumentAnalysisDetailComponent extends Component {
     render() {
-        const { instrument, instrumentAnalysisDetail } = this.props;
+        const { instrument, detail } = this.props;
+        console.log(detail.modeValues)
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -34,7 +35,21 @@ class InstrumentAnalysisDetailComponent extends Component {
                 <hr />
                 <div className="row">
                     <div className="col-md-12">
-
+                        <p>Start Date: {detail.startDt}</p>
+                        <p>Finish Date: {detail.finishDt}</p>
+                        <p>Minimum value: {detail.minValue}</p>
+                        <p>Minimum timestamp: {detail.minTimestamp}</p>
+                        <p>Maximum value: {detail.maxValue}</p>
+                        <p>Maximum timestamp: {detail.maxTimestamp}</p>
+                        <p>Mean value: {detail.meanValue}</p>
+                        <p>Mean value: {detail.medianValue}</p>
+                        <p>Mode value: {detail.modeValue}</p>
+                        <p>Mode values: </p>
+                        <p>Range value: {detail.rangeValue}</p>
+                        <p>Standard deviation value: {detail.stedvValue}</p>
+                        <p>Variance value: {detail.varianceValue}</p>
+                        <p>Created at: {detail.createdAt}</p>
+                        <p>Last modified at: {detail.lastModifiedAt}</p>
                     </div>
                 </div>
             </div>

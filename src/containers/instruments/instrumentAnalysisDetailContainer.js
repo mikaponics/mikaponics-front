@@ -30,7 +30,7 @@ class InstrumentAnalysisDetailContainer extends Component {
         return (
             <InstrumentAnalysisDetailComponent
                 instrument={this.props.instrument}
-                instrumentAnalysisDetail={this.props.instrumentAnalysisDetail}
+                detail={this.props.instrumentAnalysisDetail}
             />
         );
     }
