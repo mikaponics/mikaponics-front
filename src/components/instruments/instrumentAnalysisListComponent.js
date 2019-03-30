@@ -70,6 +70,8 @@ class InstrumentAnalysisListComponent extends Component {
                 <hr />
                 <div className="row">
                     <div className="col-md-12">
+                        <Link to={`${instrument.absoluteUrl}/create-analysis`}>Create Analysis</Link>
+
                         <InstrumentReportTable instrumentAnalysisList={instrumentAnalysisList} />
                     </div>
                 </div>
