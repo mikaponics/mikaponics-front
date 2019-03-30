@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import DatePicker from "react-datepicker"
 
 
 class InstrumentAnalysisCreateComponent extends Component {
     render() {
-        const { instrument } = this.props;
+        const {
+            instrument,
+            onToDateTimeChange,
+            onFromDateTimeChange,
+            onSubmit,
+            isLoading,
+            toDateObj,
+            fromDateObj
+        } = this.props;
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -34,8 +43,24 @@ class InstrumentAnalysisCreateComponent extends Component {
                 <hr />
                 <div className="row">
                     <div className="col-md-12">
-                        <p>Start Date: </p>
-                        <p>Finish Date:</p>
+                        TO
+                            <DatePicker
+                                selected={toDateObj}
+                                onChange={onToDateTimeChange}
+                            />
+
+                            <br />
+                            <br />
+
+                        FROM
+                            <DatePicker
+                                selected={fromDateObj}
+                                onChange={onFromDateTimeChange}
+                            />
+
+                            <br />
+                            <br />
+                            <button onClick={onSubmit} disabled={isLoading}>Submit</button>
                     </div>
                 </div>
             </div>
