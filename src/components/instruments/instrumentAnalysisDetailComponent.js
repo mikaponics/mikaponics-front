@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
+import { FlashMessageComponent } from "../flashMessageComponent";
+
 
 class InstrumentAnalysisDetailComponent extends Component {
     render() {
-        const { instrument, detail } = this.props;
+        const { instrument, detail, flashMessage=null } = this.props;
         console.log(detail.modeValues)
         return (
             <div>
@@ -35,6 +37,7 @@ class InstrumentAnalysisDetailComponent extends Component {
                 <hr />
                 <div className="row">
                     <div className="col-md-12">
+                        <FlashMessageComponent object={flashMessage} />
                         <p>Start Date: {detail.startDt}</p>
                         <p>Finish Date: {detail.finishDt}</p>
                         <p>Minimum value: {detail.minValue}</p>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import InstrumentAnalysisListComponent from "../../components/instruments/instrumentAnalysisListComponent";
+import { setClearInstrumentAnalysisCreate } from "../../actions/instrumentAnalysisCreateActions";
 import { pullInstrumentAnalysisList } from "../../actions/instrumentAnalysisListActions";
 
 
@@ -26,6 +27,12 @@ class InstrumentReportContainer extends Component {
         window.scrollTo(0, 0);  // Start the page at the top of the page.
     } // end FUNC.
 
+    componentWillUnmount() {
+        this.props.setClearInstrumentAnalysisCreate();
+        this.setState({});
+    }
+
+
     render() {
         return (
             <InstrumentAnalysisListComponent
@@ -49,6 +56,11 @@ const mapDispatchToProps = dispatch => {
         pullInstrumentAnalysisList: (user, instrumentSlug, pageIndex) => {
             dispatch(
                 pullInstrumentAnalysisList(user, instrumentSlug, pageIndex)
+            )
+        },
+        setClearInstrumentAnalysisCreate: () => {
+            dispatch(
+                setClearInstrumentAnalysisCreate()
             )
         },
     }

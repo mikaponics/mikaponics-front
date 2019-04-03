@@ -37,19 +37,12 @@ export const setClearInstrumentAnalysisCreate = () => ({
  *  Function will pull the ``instrument`` API endpoint and override our
  *  global application state for the 'dashboard'.
  */
-export function postInstrumentAnalysisCreate(user, instrumentSlug, data, successCallback=null, failedCallback=null) {
+export function postInstrumentAnalysisCreate(user, instrumentSlug, data) {
     return dispatch => {
         // Change the global state to attempting to fetch latest user details.
         store.dispatch(
             setInstrumentAnalysisCreateRequest()
         );
-
-        console.log("--- postInstrumentAnalysisCreate ---");
-        console.log("instrumentSlug >", instrumentSlug);
-        console.log("data >", data);
-        console.log("successCallback >", successCallback);
-        console.log("failedCallback >", failedCallback);
-        console.log("------------------------------------");
 
         // Create our oAuth 2.0 authenticated API header to use with our
         // submission.
@@ -75,11 +68,6 @@ export function postInstrumentAnalysisCreate(user, instrumentSlug, data, success
             data['isAPIRequestRunning'] = false;
             data['errors'] = {};
 
-            // Run our success callback function.
-            if (successCallback) {
-                successCallback(data);
-            }
-
             // console.log(data); // For debugging purposes.
 
             // Update the global state of the application to store our
@@ -92,12 +80,8 @@ export function postInstrumentAnalysisCreate(user, instrumentSlug, data, success
             console.log(errorResult);
             // alert("Error fetching latest data");
 
-            const responseData = errorResult.data;
+            const responseData = errorResult.response.data;
             let errors = camelizeKeys(responseData);
-
-            if (failedCallback) {
-                failedCallback(errors);
-            }
 
             store.dispatch(
                 setInstrumentAnalysisCreateFailure({

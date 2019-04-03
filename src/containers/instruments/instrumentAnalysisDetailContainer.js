@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import InstrumentAnalysisDetailComponent from "../../components/instruments/instrumentAnalysisDetailComponent";
 import { pullInstrumentAnalysisDetail } from "../../actions/instrumentAnalysisDetailActions";
+import { setClearInstrumentAnalysisCreate } from "../../actions/instrumentAnalysisCreateActions";
+import { clearFlashMessage } from "../../actions/flashMessageActions";
 
 
 class InstrumentAnalysisDetailContainer extends Component {
@@ -26,11 +28,18 @@ class InstrumentAnalysisDetailContainer extends Component {
         window.scrollTo(0, 0);  // Start the page at the top of the page.
     } // end FUNC.
 
+    componentWillUnmount() {
+        this.props.setClearInstrumentAnalysisCreate();
+        this.props.clearFlashMessage();
+        this.setState({});
+    }
+
     render() {
         return (
             <InstrumentAnalysisDetailComponent
                 instrument={this.props.instrument}
                 detail={this.props.instrumentAnalysisDetail}
+                flashMessage={this.props.flashMessage}
             />
         );
     }
@@ -41,6 +50,7 @@ const mapStateToProps = function(store) {
         user: store.userState,
         instrument: store.instrumentState,
         instrumentAnalysisDetail: store.instrumentAnalysisDetailState,
+        flashMessage: store.flashMessageState,
     };
 }
 
@@ -51,6 +61,12 @@ const mapDispatchToProps = dispatch => {
                 pullInstrumentAnalysisDetail(user, instrumentSlug)
             )
         },
+        setClearInstrumentAnalysisCreate: () => {
+            dispatch(setClearInstrumentAnalysisCreate())
+        },
+        clearFlashMessage: () => {
+            dispatch(clearFlashMessage())
+        }
     }
 }
 

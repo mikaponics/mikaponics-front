@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker"
 
+import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
+
 
 class InstrumentAnalysisCreateComponent extends Component {
     render() {
@@ -12,7 +14,8 @@ class InstrumentAnalysisCreateComponent extends Component {
             onSubmit,
             isLoading,
             toDateObj,
-            fromDateObj
+            fromDateObj,
+            errors=null,
         } = this.props;
         return (
             <div>
@@ -43,20 +46,34 @@ class InstrumentAnalysisCreateComponent extends Component {
                 <hr />
                 <div className="row">
                     <div className="col-md-12">
-                        TO
-                            <DatePicker
-                                selected={toDateObj}
-                                onChange={onToDateTimeChange}
-                            />
-
-                            <br />
-                            <br />
-
+                        {errors &&
+                            <BootstrapErrorsProcessingAlert errors={errors} />
+                        }
                         FROM
                             <DatePicker
                                 selected={fromDateObj}
                                 onChange={onFromDateTimeChange}
+                                showTimeInput
+                                dateFormat="MM/dd/yyyy h:mm aa"
+                                isClearable={true}
+                                placeholderText="From date"
+                                withPortal
                             />
+
+                            TO
+                                <DatePicker
+                                    selected={toDateObj}
+                                    onChange={onToDateTimeChange}
+                                    showTimeInput
+                                    dateFormat="MM/dd/yyyy h:mm aa"
+                                    todayButton={"Today"}
+                                    isClearable={true}
+                                    placeholderText="To date"
+                                    withPortal
+                                />
+
+                                <br />
+                                <br />
 
                             <br />
                             <br />

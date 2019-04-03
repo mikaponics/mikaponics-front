@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
 
 import InstrumentAnalysisCreateComponent from "../../components/instruments/instrumentAnalysisCreateComponent";
-import { postInstrumentAnalysisCreate } from "../../actions/instrumentAnalysisCreateActions";
+import { postInstrumentAnalysisCreate, setClearInstrumentAnalysisCreate } from "../../actions/instrumentAnalysisCreateActions";
 import { setFlashMessage } from "../../actions/flashMessageActions";
 
 
@@ -26,8 +26,6 @@ class InstrumentAnalysisCreateContainer extends Component {
         this.onToDateTimeChange = this.onToDateTimeChange.bind(this);
         this.onFromDateTimeChange = this.onFromDateTimeChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-        this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
-        this.onFailedSubmissionCallback = this.onFailedSubmissionCallback.bind(this);
     }
 
     onToDateTimeChange(dateObj) {
@@ -47,27 +45,9 @@ class InstrumentAnalysisCreateContainer extends Component {
     } // end FUNC.
 
     componenWillUnmount() {
+        this.props.setClearInstrumentAnalysisCreate();
         this.setState({});
     } // end FUNC.
-
-    /**
-     *  Function will be called when the API submission was successfull without
-     *  errors.
-     */
-    onSuccessfulSubmissionCallback(e) {
-        this.props.setFlashMessage("success", "The instrument analysis has been successfully created.");
-        this.setState({
-            referrer: this.props.instrument.absoluteUrl+"/analyses"
-        })
-    }
-
-    onFailedSubmissionCallback(e) {
-        // The following code will cause the screen to scroll to the top of
-        // the page. Please see ``react-scroll`` for more information:
-        // https://github.com/fisshy/react-scroll
-        var scroll = Scroll.animateScroll;
-        scroll.scrollToTop();
-    }
 
     onSubmit(e) {
         e.preventDefault();
@@ -85,32 +65,43 @@ class InstrumentAnalysisCreateContainer extends Component {
 
         // Extract the selected options and convert to ISO string format, also
         // create our URL to be used for submission.
-        const toDateString = toDateObj.toISOString().slice(0, 10);
-        const fromDateString = fromDateObj.toISOString().slice(0, 10);
+        // const toDateString = toDateObj.toISOString().slice(0, 10);
+        // const fromDateString = fromDateObj.toISOString().slice(0, 10);
+        const toDateString = toDateObj.toISOString();
+        const fromDateString = fromDateObj.toISOString();
         const instrumentSlug = this.props.instrument.slug;
 
         // Submit
         const data = {
+            instrumentSlug: instrumentSlug,
             startDt: fromDateString,
             finishDt: toDateString
         };
-        const successFunc = this.onSuccessfulSubmissionCallback();
-        const errorFunc = this.onFailedSubmissionCallback();
         this.props.postInstrumentAnalysisCreate(
             this.props.user,
             this.props.match.params.slug,
             data,
-            successFunc,
-            errorFunc
         );
     }
 
     render() {
-        const { isLoading, toDateObj, fromDateObj, referrer } = this.state;
-        const { isAPIRequestRunning, errors } = this.props.instrumentAnalysisDetail;
+        const { isLoading, toDateObj, fromDateObj } = this.state;
+        const { isAPIRequestRunning, errors, absoluteUrl } = this.props.instrumentAnalysisCreate;
 
-        if (referrer) {
-            return <Redirect to={referrer} />;
+        // If we have CREATED a new analysis then we can clear the GUI,
+        // create our notification and return to our listing page.
+        if (absoluteUrl) {
+            this.props.setClearInstrumentAnalysisCreate();
+            this.props.setFlashMessage("success", "The instrument analysis has been successfully created.");
+            return <Redirect to={absoluteUrl} />;
+        }
+
+        if (errors) {
+            // The following code will cause the screen to scroll to the top of
+            // the page. Please see ``react-scroll`` for more information:
+            // https://github.com/fisshy/react-scroll
+            var scroll = Scroll.animateScroll;
+            scroll.scrollToTop();
         }
 
         return (
@@ -132,7 +123,7 @@ const mapStateToProps = function(store) {
     return {
         user: store.userState,
         instrument: store.instrumentState,
-        instrumentAnalysisDetail: store.instrumentAnalysisDetailState,
+        instrumentAnalysisCreate: store.instrumentAnalysisCreateState,
     };
 }
 
@@ -141,6 +132,11 @@ const mapDispatchToProps = dispatch => {
         postInstrumentAnalysisCreate: (user, instrumentSlug, data) => {
             dispatch(
                 postInstrumentAnalysisCreate(user, instrumentSlug, data)
+            )
+        },
+        setClearInstrumentAnalysisCreate: () => {
+            dispatch(
+                setClearInstrumentAnalysisCreate()
             )
         },
         setFlashMessage: (typeOf, text) => {

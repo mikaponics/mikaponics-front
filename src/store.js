@@ -18,6 +18,7 @@ import deviceReducer from "./reducers/deviceReducer";
 import instrumentReducer from "./reducers/instrumentReducer";
 import dataReducer from "./reducers/dataReducer";
 import instrumentAlertListReducer from "./reducers/instrumentAlertListReducer";
+import instrumentAnalysisCreateReducer from "./reducers/instrumentAnalysisCreateReducer.js";
 import instrumentAnalysisListReducer from "./reducers/instrumentAnalysisListReducer";
 import instrumentAnalysisDetailReducer from "./reducers/instrumentAnalysisDetailReducer";
 import flashMessageReducer from "./reducers/flashMessageReducer";
@@ -34,6 +35,7 @@ const rootReducer = combineReducers({
     instrumentState: instrumentReducer,
     dataState: dataReducer,
     instrumentAlertListState: instrumentAlertListReducer,
+    instrumentAnalysisCreateState: instrumentAnalysisCreateReducer,
     instrumentAnalysisListState: instrumentAnalysisListReducer,
     instrumentAnalysisDetailState: instrumentAnalysisDetailReducer,
     flashMessageState: flashMessageReducer,
