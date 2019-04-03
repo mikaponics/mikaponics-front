@@ -22,7 +22,6 @@ class InstrumentComponent extends Component {
                 </nav>
                 <h1>Instrument</h1>
                 <hr />
-                <p>TODO: IMPLEMENT</p>
                 <div className="row">
                     <div className="col-md-12">
                         <Link to={`/instrument/${instrument.slug}/alerts`}>Alerts</Link>
