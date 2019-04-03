@@ -4,9 +4,9 @@ import { Redirect } from "react-router-dom";
 import map from 'lodash/map';
 import classnames from 'classnames';
 
-import { BootstrapErrorsProcessingAlert } from "./bootstrap/bootstrapAlert";
-import TextFieldGroup from "./textFieldGroup"
-import timezones from "../constants/timezones";
+import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
+import TextFieldGroup from "../textFieldGroup"
+import timezones from "../../constants/timezones";
 
 
 class RegisterComponent extends React.Component {

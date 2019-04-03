@@ -85,19 +85,21 @@ export const BootstrapInputGroup = (
 }
 
 
-// BootstrapInputGroup.propTypes = {
-//     id: PropTypes.string.isRequired,
-//     field: PropTypes.string.isRequired,
-//     type: PropTypes.string.isRequired,
-//     label: PropTypes.string.isRequired,
-//     placeholder: PropTypes.string,
-//     value: PropTypes.string,
-//     helpText: PropTypes.string,
-//     onChange: PropTypes.func.isRequired,
-//     error: PropTypes.string,
-//     // checkUserExists: PropTypes.func
-// }
-//
-// BootstrapInputGroup.defaultProps = {
-//     type: 'text'
-// }
+BootstrapInputGroup.propTypes = {
+    layoutSize:  PropTypes.string,
+    labelIconClassName: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    placeholder: PropTypes.string,
+    value: PropTypes.string,
+    helpText: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
+    error: PropTypes.string,
+    // checkUserExists: PropTypes.func
+    disabled: PropTypes.boolean
+}
+
+
+BootstrapInputGroup.defaultProps = {
+    type: 'text'
+}

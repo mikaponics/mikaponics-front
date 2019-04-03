@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
 
-import RegisterComponent from '../components/registerComponent';
+import RegisterComponent from '../../components/account/registerComponent';
 // import validateInput from "../validations/register";
-import { ACTIVE_SUBSCRIPTION_STATUS } from "../constants/api"
-import { attemptRegister, attemptRestRegisterForm } from "../actions/registerAction";
+import { ACTIVE_SUBSCRIPTION_STATUS } from "../../constants/api"
+import { attemptRegister, attemptRestRegisterForm } from "../../actions/registerAction";
 
 
 class RegisterContainer extends React.Component {
