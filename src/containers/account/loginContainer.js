@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
 
-import LoginComponent from '../components/loginComponent'
-import validateInput from "../validations/login"
-import { attemptLoginRestForm, attemptLogin } from "../actions/loginAction"
+import LoginComponent from '../../components/account/loginComponent';
+import validateInput from "../../validations/login";
+import { attemptLoginRestForm, attemptLogin } from "../../actions/loginAction";
 
 
 class LoginContainer extends Component {

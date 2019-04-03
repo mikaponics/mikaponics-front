@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, withRouter, Switch } from "react-router-dom";
 
 import IndexContainer from './indexContainer';
-import LoginContainer from "./loginContainer";
+import LoginContainer from "./account/loginContainer";
 import RegisterContainer from "./registerContainer";
 import DashboardContainer from "./dashboardContainer";
 import OnboardWelcomeContainer from "./onboarding/onboardWelcomeContainer";

@@ -21,6 +21,7 @@ npm install --save humps
 npm install --save react-datepicker
 npm install --save react-select
 npm install --save react-scroll
+npm install --save shortid
 ```
 
 ## Chrome Plugins
