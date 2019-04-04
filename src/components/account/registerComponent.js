@@ -40,7 +40,7 @@ class RegisterComponent extends React.Component {
                                 label="Email (*)"
                                 onChange={onChange}
                                 value={email}
-                                field="email"
+                                name="email"
                             />
 
                             <BootstrapInput
@@ -49,7 +49,7 @@ class RegisterComponent extends React.Component {
                                 label="Password (*)"
                                 onChange={onChange}
                                 value={password}
-                                field="password"
+                                name="password"
                                 type="password"
                             />
 
@@ -59,7 +59,7 @@ class RegisterComponent extends React.Component {
                                 label="Password Confirmation (*)"
                                 onChange={onChange}
                                 value={passwordConfirmation}
-                                field="passwordConfirmation"
+                                name="passwordConfirmation"
                                 type="password"
                             />
 
@@ -69,7 +69,7 @@ class RegisterComponent extends React.Component {
                                 label="First Name (*)"
                                 onChange={onChange}
                                 value={firstName}
-                                field="firstName"
+                                name="firstName"
                                 type="text"
                             />
 
@@ -79,8 +79,8 @@ class RegisterComponent extends React.Component {
                                 label="Last Name (*)"
                                 onChange={onChange}
                                 value={lastName}
-                                field="lastName"
-                                type="text"                             
+                                name="lastName"
+                                type="text"
                             />
 
                             <div className={classnames("form-group", { 'has-error': errors.timezone } )}>

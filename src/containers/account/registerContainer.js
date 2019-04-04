@@ -1,11 +1,12 @@
 import React from 'react';
+import Scroll from 'react-scroll';
 import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
 
 import RegisterComponent from '../../components/account/registerComponent';
 // import validateInput from "../validations/register";
 import { ACTIVE_SUBSCRIPTION_STATUS } from "../../constants/api"
-import { attemptRegister, attemptRestRegisterForm } from "../../actions/registerAction";
+import { postRegister, attemptRestRegisterForm } from "../../actions/registerAction";
 
 
 class RegisterContainer extends React.Component {
@@ -44,26 +45,23 @@ class RegisterContainer extends React.Component {
         })
     }
 
-    // isValid() {
-    //     const { errors, isValid } = validateInput(this.state);
-    //
-    //     if (!isValid) {
-    //         this.setState({
-    //             errors: errors,
-    //             isLoading: false
-    //         })
-    //     }
-    //
-    //     return isValid;
-    // }
-
     onSubmit(e) {
         e.preventDefault();
-        this.props.attemptRegister(this.state);
+        this.props.postRegister(
+            this.state,
+            (data) => {
+                console.log(data); // Do nothing.
+            },
+            (data) => {
+                console.log(data);
 
-        // if (this.isValid()) {
-        //     this.props.attemptRegister(this.state);
-        // }
+                // The following code will cause the screen to scroll to the top of
+                // the page. Please see ``react-scroll`` for more information:
+                // https://github.com/fisshy/react-scroll
+                var scroll = Scroll.animateScroll;
+                scroll.scrollToTop();
+            }
+        );
     }
 
     render () {
@@ -106,8 +104,8 @@ const mapStateToProps = function(store) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        attemptRegister: (userData) => {
-            dispatch(attemptRegister(userData))
+        postRegister: (userData, successCallback, failureCallback) => {
+            dispatch(postRegister(userData, successCallback, failureCallback))
         },
         attemptRestRegisterForm: () => {
             dispatch(attemptRestRegisterForm())

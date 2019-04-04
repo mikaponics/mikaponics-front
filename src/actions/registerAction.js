@@ -1,7 +1,12 @@
 import axios from 'axios';
 import store from '../store';
 
-import { REGISTER_REST_FORM, REGISTER_REQUEST, REGISTER_FAILURE, REGISTER_SUCCESS } from "../constants/actionTypes"
+import {
+    REGISTER_REST_FORM,
+    REGISTER_REQUEST,
+    REGISTER_FAILURE,
+    REGISTER_SUCCESS
+} from "../constants/actionTypes"
 import { MIKAPONICS_REGISTER_API_URL } from "../constants/api"
 
 
@@ -42,7 +47,7 @@ export const setRegisterFailure = payload => ({
 });
 
 
-export function attemptRegister(userData) {
+export function postRegister(userData, successCallback=null, failureCallback=null) {
     return dispatch => {
         // Change the global state to attempting to log in.
         store.dispatch(
@@ -71,6 +76,8 @@ export function attemptRegister(userData) {
                 })
             );
 
+            successCallback(successResult.data);
+
         }).catch( (errorResult) => {
             console.log(errorResult);
             store.dispatch(
@@ -87,6 +94,8 @@ export function attemptRegister(userData) {
                     }
                 })
             );
+
+            failureCallback(errorResult.response.data);
 
         }).then( () => {
             // Do nothing.

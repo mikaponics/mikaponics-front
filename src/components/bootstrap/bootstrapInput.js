@@ -1,21 +1,22 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import classnames from 'classnames';
+import shortid from "shortid";
 
 
 /**
  * Primitive bootstrap alert wnich can be populated with any text. Primarly used
  * as a banner in our application.
  */
-export const BootstrapInput = ({ id, field, type, label, placeholder, value, helpText, onChange, error, className = "form-group" }) => {
-    const helpID = id + "-help";
+export const BootstrapInput = ({ name, type, label, placeholder, value, helpText, onChange, error, className = "form-group" }) => {
+    const helpID = shortid.generate + "-help";
     return (
         <div className={classnames('form-group', { 'has-error': error })}>
-            <label htmlFor={field} className="control-label">{label}</label>
+            <label htmlFor={name} className="control-label">{label}</label>
             <input
                 className={classnames(className, { 'is-invalid': error })}
-                id={id}
-                name={field}
+                id={shortid.generate}
+                name={name}
                 type={type}
                 aria-describedby={helpID}
                 placeholder={placeholder}
@@ -30,8 +31,7 @@ export const BootstrapInput = ({ id, field, type, label, placeholder, value, hel
 
 
 BootstrapInput.propTypes = {
-    id: PropTypes.string.isRequired,
-    field: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     placeholder: PropTypes.string,
