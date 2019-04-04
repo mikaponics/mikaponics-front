@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
 
 import RegisterComponent from '../../components/account/registerComponent';
-// import validateInput from "../validations/register";
-import { ACTIVE_SUBSCRIPTION_STATUS } from "../../constants/api"
 import { postRegister, attemptRestRegisterForm } from "../../actions/registerAction";
 
 
@@ -72,11 +70,7 @@ class RegisterContainer extends React.Component {
         const errors = user.errors ? user.errors : {};
 
         if (user !== undefined && user.token !== undefined && user.token !== null) {
-            if (user.subscription_status === ACTIVE_SUBSCRIPTION_STATUS) {
-                return <Redirect to={"/dashboard"} />;
-            } else {
-                return <Redirect to={"/onboard"} />;
-            }
+            return <Redirect to={"/register-success"} />;
         }
 
         return (

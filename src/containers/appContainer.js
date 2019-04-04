@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, withRouter, Switch } from "react-router
 import IndexContainer from './indexContainer';
 import LoginContainer from "./account/loginContainer";
 import RegisterContainer from "./account/registerContainer";
+import RegisterSuccessContainer from "./account/registerSuccessContainer";
+import ActivateContainer from "./account/activateContainer";
 import DashboardContainer from "./dashboardContainer";
 import OnboardWelcomeContainer from "./onboarding/onboardWelcomeContainer";
 import OnboardPurchaseContainer from "./onboarding/onboardPurchaseContainer";
@@ -38,6 +40,8 @@ class AppContainer extends React.Component {
                         <Route path="/" exact component={IndexContainer} />
                         <Route path="/login" exact component={LoginContainer} />
                         <Route path="/register" exact component={RegisterContainer} />
+                        <Route path="/register-success" exact component={RegisterSuccessContainer} />
+                        <Route path="/activate/:code" exact component={ActivateContainer} />
                         <Route path="/dashboard" exact component={DashboardContainer} />
                         <Route path="/onboard" exact component={OnboardWelcomeContainer} />
                         <Route path="/onboard/purchase" exact component={OnboardPurchaseContainer} />
