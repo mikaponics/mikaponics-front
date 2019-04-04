@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { BootstrapInputGroup } from '../bootstrap/bootstrapInputGroup';
-import { BootstrapErrorsProcessingAlert } from '../bootstrap/bootstrapAlert';
 
 
 class AlertComponent extends Component {
     render() {
         const { wasLoggedOut = false } = this.props;
-        if (wasLoggedOut == false) {
+        if (wasLoggedOut === false) {
             return null
         }
         return (

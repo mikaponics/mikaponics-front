@@ -5,7 +5,7 @@ import map from 'lodash/map';
 import classnames from 'classnames';
 
 import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
-import TextFieldGroup from "../textFieldGroup"
+import { BootstrapInput } from "../bootstrap/bootstrapInput";
 import timezones from "../../constants/timezones";
 
 
@@ -25,81 +25,88 @@ class RegisterComponent extends React.Component {
         );
 
         return (
-            <div className="row">
-                <div className="col-md-4 offset-md-4">
-                    <form onSubmit={onSubmit}>
-                        <h1>Join our community</h1>
-                        <p>All fields which have the (*) symbol are required to be filled out.</p>
+            <main id="main" role="main">
+                <div className="row">
+                    <div className="col-md-5 mx-auto mt-2">
+                        <form onSubmit={onSubmit}>
+                            <h1>Join and grow with us</h1>
+                            <p>All fields which have the (*) symbol are required to be filled out.</p>
 
-                        <BootstrapErrorsProcessingAlert errors={errors} />
+                            <BootstrapErrorsProcessingAlert errors={errors} />
 
-                        <TextFieldGroup
-                            error={errors.email}
-                            label="Email (*)"
-                            onChange={onChange}
-                            value={email}
-                            field="email"
-                        />
-
-                        <TextFieldGroup
-                            error={errors.password}
-                            label="Password (*)"
-                            onChange={onChange}
-                            value={password}
-                            field="password"
-                            type="password"
-                        />
-
-                        <TextFieldGroup
-                          error={errors.passwordConfirmation}
-                          label="Password Confirmation (*)"
-                          onChange={onChange}
-                          value={passwordConfirmation}
-                          field="passwordConfirmation"
-                          type="password"
-                        />
-
-                        <TextFieldGroup
-                          error={errors.firstName}
-                          label="First Name (*)"
-                          onChange={onChange}
-                          value={firstName}
-                          field="firstName"
-                          type="text"
-                        />
-
-                        <TextFieldGroup
-                          error={errors.lastName}
-                          label="Last Name (*)"
-                          onChange={onChange}
-                          value={lastName}
-                          field="lastName"
-                          type="text"
-                        />
-
-                        <div className={classnames("form-group", { 'has-error': errors.timezone } )}>
-                            <label className="control-label">Timezone (*)</label>
-                            <select
-                                className={classnames('form-control', { 'is-invalid': errors.timezone })}
-                                name="timezone"
+                            <BootstrapInput
+                                className="form-control form-control-lg"
+                                error={errors.email}
+                                label="Email (*)"
                                 onChange={onChange}
-                                value={timezone}
-                            >
-                                <option value="" disabled>Choose your timezone</option>
-                                {options}
-                            </select>
-                            {errors.timezone && <span className="help-block">{errors.timezone}</span>}
-                        </div>
+                                value={email}
+                                field="email"
+                            />
 
-                        <div className="form-group">
-                            <button className="btn btn-primary btn-lg" disabled={isLoading}>
-                                Sign up
-                            </button>
-                        </div>
+                            <BootstrapInput
+                                className="form-control form-control-lg"
+                                error={errors.password}
+                                label="Password (*)"
+                                onChange={onChange}
+                                value={password}
+                                field="password"
+                                type="password"
+                            />
 
-                    </form>
+                            <BootstrapInput
+                                className="form-control form-control-lg"
+                                error={errors.passwordConfirmation}
+                                label="Password Confirmation (*)"
+                                onChange={onChange}
+                                value={passwordConfirmation}
+                                field="passwordConfirmation"
+                                type="password"
+                            />
+
+                            <BootstrapInput
+                                className="form-control form-control-lg"
+                                error={errors.firstName}
+                                label="First Name (*)"
+                                onChange={onChange}
+                                value={firstName}
+                                field="firstName"
+                                type="text"
+                            />
+
+                            <BootstrapInput
+                                className="form-control form-control-lg"
+                                error={errors.lastName}
+                                label="Last Name (*)"
+                                onChange={onChange}
+                                value={lastName}
+                                field="lastName"
+                                type="text"                             
+                            />
+
+                            <div className={classnames("form-group", { 'has-error': errors.timezone } )}>
+                                <label className="control-label">Timezone (*)</label>
+                                <select
+                                    className={classnames('form-control', { 'is-invalid': errors.timezone })}
+                                    name="timezone"
+                                    onChange={onChange}
+                                    value={timezone}
+                                >
+                                    <option value="" disabled>Choose your timezone</option>
+                                    {options}
+                                </select>
+                                {errors.timezone && <span className="help-block">{errors.timezone}</span>}
+                            </div>
+
+                            <div className="form-group">
+                                <button className="btn btn-primary btn-lg" disabled={isLoading}>
+                                    Sign up
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
                 </div>
-            </div>
+            </main>
         );
     }
 }

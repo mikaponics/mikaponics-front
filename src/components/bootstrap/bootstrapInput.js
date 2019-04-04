@@ -7,13 +7,13 @@ import classnames from 'classnames';
  * Primitive bootstrap alert wnich can be populated with any text. Primarly used
  * as a banner in our application.
  */
-export const BootstrapInput = ({ id, field, type, label, placeholder, value, helpText, onChange, error }) => {
+export const BootstrapInput = ({ id, field, type, label, placeholder, value, helpText, onChange, error, className = "form-group" }) => {
     const helpID = id + "-help";
     return (
         <div className={classnames('form-group', { 'has-error': error })}>
             <label htmlFor={field} className="control-label">{label}</label>
             <input
-                className={classnames('form-control', { 'is-invalid': error })}
+                className={classnames(className, { 'is-invalid': error })}
                 id={id}
                 name={field}
                 type={type}
@@ -28,6 +28,7 @@ export const BootstrapInput = ({ id, field, type, label, placeholder, value, hel
     )
 }
 
+
 BootstrapInput.propTypes = {
     id: PropTypes.string.isRequired,
     field: PropTypes.string.isRequired,
@@ -39,7 +40,9 @@ BootstrapInput.propTypes = {
     onChange: PropTypes.func.isRequired,
     error: PropTypes.string,
     // checkUserExists: PropTypes.func
+    className: PropTypes.string.isRequired,
 }
+
 
 BootstrapInput.defaultProps = {
     type: 'text'
