@@ -3,7 +3,10 @@ import store from '../store';
 import { camelizeKeys, decamelizeKeys } from 'humps';
 
 import { PROFILE_REQUEST, PROFILE_SUCCESS, PROFILE_FAILURE } from "../constants/actionTypes";
-import { MIKAPONICS_GET_PROFILE_API_URL } from "../constants/api";
+import {
+    MIKAPONICS_GET_PROFILE_API_URL,
+    MIKAPONICS_ACTIVATE_API_URL
+} from "../constants/api";
 
 
 export const setProfileRequest = () => ({
@@ -132,6 +135,56 @@ export function postProfile(user, data, successCallback, failedCallback) {
                     errors: errors
                 })
             );
+
+        }).then( () => {
+            // Do nothing.
+        });
+
+    }
+}
+
+
+export function postActivateProfile(accessCode, successCallback, failedCallback) {
+    return dispatch => {
+        // Change the global state to attempting to log in.
+        store.dispatch(
+            setProfileRequest()
+        );
+
+        axios.post(MIKAPONICS_ACTIVATE_API_URL, {
+            'pr_access_code': accessCode
+        }).then( (successResult) => {
+            // console.log(successResult); // For debugging purposes.
+
+            const responseData = successResult.data;
+            let profile = camelizeKeys(responseData);
+
+            // Extra.
+            profile['isAPIRequestRunning'] = false;
+            profile['errors'] = {};
+
+            // Update the global state of the application to store our
+            // user profile for the application.
+            store.dispatch(
+                setProfileSuccess(profile)
+            );
+
+            successCallback(profile);
+
+        }).catch( (errorResult) => {
+            const responseData = errorResult.response.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
+            let errors = camelizeKeys(responseData);
+            // console.log(errors);
+
+            store.dispatch(
+                setProfileFailure({
+                    isAPIRequestRunning: false,
+                    errors: errors
+                })
+            );
+
+            // Run our failure callback function.
+            failedCallback(errors);
 
         }).then( () => {
             // Do nothing.

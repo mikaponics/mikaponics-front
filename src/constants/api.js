@@ -8,6 +8,7 @@ export const APP_STATE = 'APP_STATE';
  */
 export const MIKAPONICS_LOGIN_API_URL = process.env.REACT_APP_API_HOST+'/api/login';
 export const MIKAPONICS_REGISTER_API_URL = process.env.REACT_APP_API_HOST+'/api/register';
+export const MIKAPONICS_ACTIVATE_API_URL = process.env.REACT_APP_API_HOST+'/api/activate';
 export const MIKAPONICS_ONBOARDING_CALCULATOR_API_URL = process.env.REACT_APP_API_HOST+'/api/onboarding/calculator';
 export const MIKAPONICS_ONBOARDING_VALIDATE_API_URL = process.env.REACT_APP_API_HOST+'/api/onboarding/validation';
 export const MIKAPONICS_ONBOARDING_SUBMISSION_API_URL = process.env.REACT_APP_API_HOST+'/api/onboarding/submission';
