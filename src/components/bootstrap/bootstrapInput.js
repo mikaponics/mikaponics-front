@@ -15,7 +15,7 @@ export const BootstrapInput = ({ name, type, label, placeholder, value, helpText
             <label htmlFor={name} className="control-label">{label}</label>
             <input
                 className={classnames(className, { 'is-invalid': error })}
-                id={shortid.generate}
+                key={shortid.generate}
                 name={name}
                 type={type}
                 aria-describedby={helpID}

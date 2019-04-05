@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
+import { BootstrapInput } from '../bootstrap/bootstrapInput';
 import StripeComponent from "../stripeComponent";
 
 
@@ -13,99 +14,83 @@ class OnboardCheckoutComponent extends React.Component {
         } = this.props;
 
         return (
-            <div>
-                <nav aria-label="breadcrumb">
-                    <ol className="breadcrumb">
-                        <li className="breadcrumb-item active">
-                            <Link to="/onboard">Home</Link>
-                        </li>
-                        <li className="breadcrumb-item active">
-                            <Link to="/onboard/purchase">Purchase</Link>
-                        </li>
-                        <li className="breadcrumb-item active" aria-current="page">Checkout</li>
-                    </ol>
-                </nav>
+            <div className="container">
+                <main>
 
-                <div className="Onboarding-Purchase">
-                    <div className="row">
-                        <div className="col-md-4 offset-md-4">
-                            <h1>Checkout</h1>
-                        </div>
-                    </div>
+                    <nav aria-label="breadcrumb">
+                        <ol className="breadcrumb">
+                            <li className="breadcrumb-item active">
+                                <Link to="/onboard"><i className="fas fa-tachometer-alt"></i>&nbsp;Home</Link>
+                            </li>
+                            <li className="breadcrumb-item active">
+                                <Link to="/onboard/purchase"><i className="fas fa-shopping-cart"></i>&nbsp;Purchase</Link>
+                            </li>
+                            <li className="breadcrumb-item active" aria-current="page"><i className="fas fa-barcode"></i>&nbsp;Checkout</li>
+                        </ol>
+                    </nav>
 
-                    <div className="row">
-                        <div className="col-md-4 offset-md-4">
-                            <div className="card">
-                                <div className="card-header">
-                                    Monthly Subscription
-                                </div>
-                                <div className="card-body">
-                                    <h5 className="card-title">{monthlyFee} / monthy</h5>
-                                    <p className="card-text">You will be automatically enrolled in the subscription plan. Your bill will start next month.</p>
-                                </div>
+
+                    <h1><i className="fas fa-barcode"></i>&nbsp;Checkout</h1>
+                    <div className="col-md-5 mx-auto mt-2">
+
+                        <div className="card">
+                            <div className="card-header">
+                                Monthly Subscription
+                            </div>
+                            <div className="card-body">
+                                <h5 className="card-title">{monthlyFee} / monthy</h5>
+                                <p className="card-text">You will be automatically enrolled in the subscription plan. Your bill will start next month.</p>
                             </div>
                         </div>
+
+                        <h3 className="pt-4 pb-2 text-center">Summary</h3>
+
+                        <form>
+                             Number of device(s) purchasing:
+                             <input className="form-control" type="text" placeholder="0" value={numberOfDevices} readOnly={true} />
+
+                             Price per device:
+                             <input className="form-control" type="text" placeholder="0" value={pricePerDevice} readOnly={true} />
+
+                             Total before tax:
+                             <input className="form-control" type="text" placeholder="0" value={totalBeforeTax} readOnly={true} />
+
+                             Tax:
+                             <input className="form-control" type="text" placeholder="0" value={tax} readOnly={true} />
+
+                             Total after tax:
+                             <input className="form-control" type="text" placeholder="0" value={totalAfterTax} readOnly={true} />
+
+                             Shipping:
+                             <input className="form-control" type="text" placeholder="0" value={shipping} readOnly={true} />
+
+                             Credit:
+                             <input className="form-control" type="text" placeholder="0" value={credit} readOnly={true} />
+
+                             Grand total:
+                             <input className="form-control" type="text" placeholder="0" value={grandTotal} readOnly={true} />
+
+                             <br />
+
+
+                             <StripeComponent
+                                 name={name}
+                                 description={description}
+                                 onToken={(token) => this.props.onToken(token)}
+                                 billingEmail={billingEmail}
+                                 amountInCents={amountInCents}
+                                 currency={currency}
+                                 stripeKey={stripeKey}
+                             />
+
+                        </form>
+
+
                     </div>
 
-                    <br />
-
-                    <div className="row">
-                        <div className="col-md-4 offset-md-4">
-                            <div className="card">
-                                <div className="card-header">
-                                    Product Purchase
-                                </div>
-                                <div className="card-body">
-                                    <h5 className="card-title">Mikapod Device</h5>
-                                    <p className="card-text">
-
-                                        <form>
-                                             Number of device(s) purchasing:
-                                             <input className="form-control" type="text" placeholder="0" value={numberOfDevices} readonly="true" />
-
-                                             Price per device:
-                                             <input className="form-control" type="text" placeholder="0" value={pricePerDevice} readonly="true" />
-
-                                             Total before tax:
-                                             <input className="form-control" type="text" placeholder="0" value={totalBeforeTax} readonly="true" />
-
-                                             Tax:
-                                             <input className="form-control" type="text" placeholder="0" value={tax} readonly="true" />
-
-                                             Total after tax:
-                                             <input className="form-control" type="text" placeholder="0" value={totalAfterTax} readonly="true" />
-
-                                             Shipping:
-                                             <input className="form-control" type="text" placeholder="0" value={shipping} readonly="true" />
-
-                                             Credit:
-                                             <input className="form-control" type="text" placeholder="0" value={credit} readonly="true" />
-
-                                             Grand total:
-                                             <input className="form-control" type="text" placeholder="0" value={grandTotal} readonly="true" />
-
-                                             <br />
 
 
-                                             <StripeComponent
-                                                 name={name}
-                                                 description={description}
-                                                 onToken={(token) => this.props.onToken(token)}
-                                                 billingEmail={billingEmail}
-                                                 amountInCents={amountInCents}
-                                                 currency={currency}
-                                                 stripeKey={stripeKey}
-                                             />
-
-                                        </form>
-
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+                </main>
             </div>
         );
     }

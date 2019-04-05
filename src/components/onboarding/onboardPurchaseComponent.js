@@ -24,7 +24,7 @@ class OnboardPurchaseComponent extends React.Component {
 
         return (
             <div className="container">
-                <main id="main">
+                <main>
 
                     <nav aria-label="breadcrumb">
                         <ol className="breadcrumb">

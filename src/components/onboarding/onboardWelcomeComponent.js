@@ -12,7 +12,7 @@ class OnboardWelcomeComponent extends Component {
         function notPaidView(onLogoutClick) {
             return (
                 <div className="container">
-                    <main id="main">
+                    <main>
                         <h1><i className="fas fa-tachometer-alt"></i> Dashboard</h1>
 
                         <div className="jumbotron">
