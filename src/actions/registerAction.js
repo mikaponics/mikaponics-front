@@ -1,5 +1,6 @@
 import axios from 'axios';
 import store from '../store';
+import { camelizeKeys, decamelizeKeys } from 'humps';
 
 import {
     REGISTER_REST_FORM,
@@ -10,7 +11,7 @@ import {
 import { MIKAPONICS_REGISTER_API_URL } from "../constants/api"
 
 
-export const setRegisterRestForm = () => ({
+export const setClearRegister = () => ({
     type: REGISTER_REST_FORM,
     payload: {
         isAPIRequestRunning: false,
@@ -18,10 +19,10 @@ export const setRegisterRestForm = () => ({
     },
 });
 
-export function attemptRestRegisterForm() {
+export function clearRegister() {
     return dispatch => {
         store.dispatch(
-            setRegisterRestForm()
+            setClearRegister()
         );
     }
 }
@@ -65,12 +66,7 @@ export function postRegister(userData, successCallback=null, failureCallback=nul
 
             store.dispatch(
                 setRegisterSuccess({
-                    id: successResult.data.id,
-                    token: successResult.data.token,
-                    scope: successResult.data.scope,
-                    firstName: successResult.data.first_name,
-                    lastName: successResult.data.last_name,
-
+                    detail: successResult.data.detail,
                     isAPIRequestRunning: false,
                     errors: {},
                 })
@@ -79,22 +75,18 @@ export function postRegister(userData, successCallback=null, failureCallback=nul
             successCallback(successResult.data);
 
         }).catch( (errorResult) => {
-            console.log(errorResult);
+            const responseData = errorResult.response.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
+            let errors = camelizeKeys(responseData);
+            // console.log(errors);
+
             store.dispatch(
                 setRegisterFailure({
                     isAPIRequestRunning: false,
-                    errors: {
-                        email: errorResult.response.data.email,
-                        password: errorResult.response.data.password,
-                        passwordConfirmation: errorResult.response.data.password_repeat,
-                        firstName: errorResult.response.data.first_name,
-                        lastName: errorResult.response.data.last_name,
-                        timezone: errorResult.response.data.timezone,
-                        nonFieldErrors: errorResult.response.data.non_field_errors
-                    }
+                    errors: errors
                 })
             );
 
+            // Run our failure callback function.
             failureCallback(errorResult.response.data);
 
         }).then( () => {

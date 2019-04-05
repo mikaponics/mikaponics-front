@@ -40,7 +40,7 @@ class LoginComponent extends Component {
                     <h2 className="text-center mb-3">Sign In</h2>
                     <form id="sign-in" className="form-signin needs-validation" onSubmit={onSubmit}>
 
-                        {errors.nonFieldErrors && <div class="alert alert-danger" role="alert">Wrong password or email.</div>}
+                        {errors.nonFieldErrors && <div class="alert alert-danger" role="alert">{errors.nonFieldErrors}</div>}
 
                         <BootstrapInputGroup
                             layoutSize="large"

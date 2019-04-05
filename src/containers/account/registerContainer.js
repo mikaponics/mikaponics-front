@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
 
 import RegisterComponent from '../../components/account/registerComponent';
-import { postRegister, attemptRestRegisterForm } from "../../actions/registerAction";
+import { postRegister, clearRegister } from "../../actions/registerAction";
 
 
 class RegisterContainer extends React.Component {
@@ -31,10 +31,14 @@ class RegisterContainer extends React.Component {
         if (this.props.user.errors !== undefined && this.props.user.errors !== null) {
             var keyCount = Object.keys(this.props.user.errors).length;
             if (keyCount > 0) {
-                this.props.attemptRestRegisterForm();
+                this.props.clearRegister();
             }
         }
         window.scrollTo(0, 0);  // Start the page at the top of the page.
+    }
+
+    componentWillUnmount() {
+        this.props.clearRegister();
     }
 
     onChange(e) {
@@ -69,8 +73,17 @@ class RegisterContainer extends React.Component {
         const isLoading = user.isAPIRequestRunning ? true : false;
         const errors = user.errors ? user.errors : {};
 
-        if (user !== undefined && user.token !== undefined && user.token !== null) {
-            return <Redirect to={"/register-success"} />;
+        // The following code will check to see what the user details are and
+        // if we have a "Your account was been registered" text has been
+        // detected then we move the user to the success page.
+        if (user !== undefined && user !== null) {
+            const userLength = Object.keys(user).length;
+            if (userLength > 0) {
+                var myJSON = JSON.stringify(user);
+                if (myJSON.includes("Your account has been registered") === true) {
+                    return <Redirect to={"/register-success"} />;
+                }
+            }
         }
 
         return (
@@ -101,8 +114,8 @@ const mapDispatchToProps = dispatch => {
         postRegister: (userData, successCallback, failureCallback) => {
             dispatch(postRegister(userData, successCallback, failureCallback))
         },
-        attemptRestRegisterForm: () => {
-            dispatch(attemptRestRegisterForm())
+        clearRegister: () => {
+            dispatch(clearRegister())
         }
     }
 }
