@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Scroll from 'react-scroll';
 import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
@@ -91,6 +92,12 @@ class OnboardPurchaseContainer extends Component {
             this.setState({
                 errors: errors
             })
+
+            // The following code will cause the screen to scroll to the top of
+            // the page. Please see ``react-scroll`` for more information:
+            // https://github.com/fisshy/react-scroll
+            var scroll = Scroll.animateScroll;
+            scroll.scrollToTop();
 
         }).then( () => { // FINALLY
             // Do nothing.
