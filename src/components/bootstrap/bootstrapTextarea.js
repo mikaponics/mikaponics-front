@@ -19,7 +19,7 @@ export const BootstrapTextarea = ({ id, field, type, label, placeholder, rows, v
                 value={value}
                 onChange={onChange}
             />
-            <small id={helpID} class="form-text text-muted">{helpText}</small>
+            <small id={helpID} className="form-text text-muted">{helpText}</small>
             {error && <div className="invalid-feedback">{error}</div>}
         </div>
     )

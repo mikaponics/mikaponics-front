@@ -1,6 +1,6 @@
 import axios from 'axios';
 import store from '../store';
-import { camelizeKeys, decamelizeKeys } from 'humps';
+import { camelizeKeys } from 'humps';
 
 import {
     REGISTER_REST_FORM,

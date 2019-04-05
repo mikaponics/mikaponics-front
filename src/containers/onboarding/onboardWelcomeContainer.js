@@ -36,7 +36,7 @@ class OnboardWelcomeContainer extends Component {
 
     componentDidMount() {
         window.scrollTo(0, 0);  // Start the page at the top of the page.
-        
+
         // Run the async code to fetch the latest profile information from the
         // server and save the latest user's details into our global state.
         // Make the authenticated call to our web-service.
@@ -59,19 +59,10 @@ class OnboardWelcomeContainer extends Component {
         }
 
         return (
-            <div>
-                <nav aria-label="breadcrumb">
-                    <ol className="breadcrumb">
-                        <li className="breadcrumb-item active" aria-current="page">Home</li>
-                    </ol>
-                </nav>
-
-                <OnboardWelcomeComponent
-                    onLogoutClick={this.onLogoutClick}
-                    user={user}
-                />
-
-            </div>
+            <OnboardWelcomeComponent
+                onLogoutClick={this.onLogoutClick}
+                user={user}
+            />
         );
     }
 }

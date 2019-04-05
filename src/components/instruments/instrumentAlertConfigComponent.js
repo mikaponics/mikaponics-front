@@ -24,31 +24,31 @@ class InstrumentAlertConfigComponent extends Component {
         return (
             <div>
                 <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item">
+                    <ol className="breadcrumb">
+                        <li className="breadcrumb-item">
                            <Link to="/dashboard">Dashboard</Link>
                         </li>
-                        <li class="breadcrumb-item">
+                        <li className="breadcrumb-item">
                             {instrument.absoluteParentUrl &&
                                 <Link to={`${instrument.absoluteParentUrl}`}>Device</Link>
                             }
                         </li>
                         {instrument.absoluteUrl &&
-                            <li class="breadcrumb-item">
+                            <li className="breadcrumb-item">
                                 <Link to={`${instrument.absoluteUrl}`}>Instrument</Link>
                             </li>
                         }
-                        <li class="breadcrumb-item">
+                        <li className="breadcrumb-item">
                             <Link to={`${instrument.absoluteUrl}/alerts`}>Alerts</Link>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Configuration</li>
+                        <li className="breadcrumb-item active" aria-current="page">Configuration</li>
                     </ol>
                 </nav>
                 <h1>Alerts Configuration</h1>
 
                 <div className="row">
                     <div className="col-md-12">
-                        {wasSubmissionOK && <div class="alert alert-success" role="alert"><strong>Instrument alarm</strong> was successfully updated.</div>}
+                        {wasSubmissionOK && <div className="alert alert-success" role="alert"><strong>Instrument alarm</strong> was successfully updated.</div>}
                         <BootstrapErrorsProcessingAlert errors={errors} />
 
                         <h2>Red Alarm</h2>
@@ -75,7 +75,7 @@ class InstrumentAlertConfigComponent extends Component {
                             onChange={onChange}
                             error={errors.redBelowValue}
                         />
-                        <div class="form-group">
+                        <div className="form-group">
                             <label for="redAlertDelayInSeconds">Above value</label>
                             <Select
                                 className="basic-single"
@@ -87,7 +87,7 @@ class InstrumentAlertConfigComponent extends Component {
                                 options={options}
                                 clearableValue={false}
                             />
-                            <small id="redAlertDelayInSeconds" class="form-text text-muted">The time that red alerts will be sent from the last time the red alert was sent.</small>
+                            <small id="redAlertDelayInSeconds" className="form-text text-muted">The time that red alerts will be sent from the last time the red alert was sent.</small>
                             {errors.redAlertDelayInSeconds && <div className="invalid-feedback">{errors.redAlertDelayInSeconds}</div>}
                         </div>
 
@@ -116,7 +116,7 @@ class InstrumentAlertConfigComponent extends Component {
                             onChange={onChange}
                             error={errors.orangeBelowValue}
                         />
-                        <div class="form-group">
+                        <div className="form-group">
                             <label for="orangeAlertDelayInSeconds">Above value</label>
                             <Select
                                 className="basic-single"
@@ -128,7 +128,7 @@ class InstrumentAlertConfigComponent extends Component {
                                 options={options}
                                 clearableValue={false}
                             />
-                            <small id="orangeAlertDelayInSeconds" class="form-text text-muted">The time that orange alerts will be sent from the last time the orange alert was sent.</small>
+                            <small id="orangeAlertDelayInSeconds" className="form-text text-muted">The time that orange alerts will be sent from the last time the orange alert was sent.</small>
                             {errors.orangeAlertDelayInSeconds && <div className="invalid-feedback">{errors.orangeAlertDelayInSeconds}</div>}
                         </div>
 
@@ -157,7 +157,7 @@ class InstrumentAlertConfigComponent extends Component {
                             onChange={onChange}
                             error={errors.yellowBelowValue}
                         />
-                        <div class="form-group">
+                        <div className="form-group">
                             <label for="yellowAlertDelayInSeconds">Above value</label>
                             <Select
                                 className="basic-single"
@@ -169,7 +169,7 @@ class InstrumentAlertConfigComponent extends Component {
                                 options={options}
                                 clearableValue={false}
                             />
-                            <small id="yellowAlertDelayInSeconds" class="form-text text-muted">The time that yellow alerts will be sent from the last time the yellow alert was sent.</small>
+                            <small id="yellowAlertDelayInSeconds" className="form-text text-muted">The time that yellow alerts will be sent from the last time the yellow alert was sent.</small>
                             {errors.yellowAlertDelayInSeconds && <div className="invalid-feedback">{errors.yellowAlertDelayInSeconds}</div>}
                         </div>
                     </div>

@@ -41,11 +41,12 @@ class OnboardPurchaseContainer extends Component {
             errors: {}
         }
 
-        this.onSubmit = this.onSubmit.bind(this);
+        this.onNextClick = this.onNextClick.bind(this);
+        this.onCancelClick = this.onCancelClick.bind(this);
         this.onChange = this.onChange.bind(this);
     }
 
-    onSubmit(e) {
+    onNextClick(e) {
         e.preventDefault();
         const { user } = this.props;
 
@@ -101,6 +102,13 @@ class OnboardPurchaseContainer extends Component {
 
         }).then( () => { // FINALLY
             // Do nothing.
+        });
+    }
+
+    onCancelClick(e) {
+        e.preventDefault();
+        this.setState({
+            referrer: '/onboard'
         });
     }
 
@@ -172,7 +180,8 @@ class OnboardPurchaseContainer extends Component {
                 shippingTelephone={shippingTelephone}
 
                 onChange={this.onChange}
-                onSubmit={this.onSubmit}
+                onNextClick={this.onNextClick}
+                onCancelClick={this.onCancelClick}
                 user={user}
                 errors={errors}
             />

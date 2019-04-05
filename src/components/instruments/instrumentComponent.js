@@ -8,16 +8,16 @@ class InstrumentComponent extends Component {
         return (
             <div>
                 <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item">
+                    <ol className="breadcrumb">
+                        <li className="breadcrumb-item">
                            <Link to="/dashboard">Dashboard</Link>
                         </li>
-                        <li class="breadcrumb-item">
+                        <li className="breadcrumb-item">
                             {instrument.absoluteParentUrl &&
                                 <Link to={`${instrument.absoluteParentUrl}`}>Device</Link>
                             }
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Instrument</li>
+                        <li className="breadcrumb-item active" aria-current="page">Instrument</li>
                     </ol>
                 </nav>
                 <h1>Instrument</h1>

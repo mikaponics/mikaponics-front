@@ -45,13 +45,13 @@ export const BootstrapSelect = ({
 
     // Render our output for this component.
     return (
-        <div class="form-group">
+        <div className="form-group">
             <label for={id}>{label}</label>
-            <select multiple={allowMultipleSelect} class="form-control" id={id} name={field} onChange={onChange}>
+            <select multiple={allowMultipleSelect} className="form-control" id={id} name={field} onChange={onChange}>
                 {defaultOptionLabel&&<option>{defaultOptionLabel}</option>}
                 {elements}
             </select>
-            <small id={helpID} class="form-text text-muted">{helpText}</small>
+            <small id={helpID} className="form-text text-muted">{helpText}</small>
             {error && <div className="invalid-feedback">{error}</div>}
         </div>
     )

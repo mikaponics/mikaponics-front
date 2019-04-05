@@ -266,14 +266,14 @@ class ProfileEditComponent extends Component {
         return (
             <div>
                 <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item">
+                    <ol className="breadcrumb">
+                        <li className="breadcrumb-item">
                            <Link to="/dashboard">Dashboard</Link>
                         </li>
-                        <li class="breadcrumb-item" aria-current="page">
+                        <li className="breadcrumb-item" aria-current="page">
                             <Link to="/profile">Profile</Link>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Profile</li>
+                        <li className="breadcrumb-item active" aria-current="page">Profile</li>
                     </ol>
                 </nav>
                 <h1>Profile</h1>

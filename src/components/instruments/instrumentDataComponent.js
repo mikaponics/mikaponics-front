@@ -30,7 +30,7 @@ class InstrumentDataTableComponent extends Component {
         }
 
         return (
-            <table class="table">
+            <table className="table">
                 <thead>
                 <tr>
                     <th scope="col">Value</th>
@@ -52,21 +52,21 @@ class InstrumentDataComponent extends Component {
         return (
             <div>
                 <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item">
+                    <ol className="breadcrumb">
+                        <li className="breadcrumb-item">
                            <Link to="/dashboard">Dashboard</Link>
                         </li>
-                        <li class="breadcrumb-item">
+                        <li className="breadcrumb-item">
                             {instrument.absoluteParentUrl &&
                                 <Link to={`${instrument.absoluteParentUrl}`}>Device</Link>
                             }
                         </li>
                         {instrument.absoluteUrl &&
-                            <li class="breadcrumb-item">
+                            <li className="breadcrumb-item">
                                 <Link to={`${instrument.absoluteUrl}`}>Instrument</Link>
                             </li>
                         }
-                        <li class="breadcrumb-item active" aria-current="page">Data</li>
+                        <li className="breadcrumb-item active" aria-current="page">Data</li>
                     </ol>
                 </nav>
                 <h1>Data</h1>

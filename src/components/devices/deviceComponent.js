@@ -26,7 +26,7 @@ class InstrumentTable extends Component {
             <div>
                 <div className="row">
                     <div className="col-md-12">
-                        <table class="table">
+                        <table className="table">
                             <thead>
                                 <tr>
                                     <th scope="col"></th>
@@ -61,7 +61,7 @@ class DeviceSummaryTable extends Component {
         return (
             <div className="row">
                 <div className="col-md-12">
-                    <table class="table">
+                    <table className="table">
                         <thead>
                             <tr>
                                 <th scope="col"></th>
@@ -96,11 +96,11 @@ class DeviceComponent extends Component {
         return (
             <div>
                 <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item">
+                    <ol className="breadcrumb">
+                        <li className="breadcrumb-item">
                            <Link to="/dashboard">Dashboard</Link>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Device</li>
+                        <li className="breadcrumb-item active" aria-current="page">Device</li>
                     </ol>
                 </nav>
                 <h1>Device</h1>

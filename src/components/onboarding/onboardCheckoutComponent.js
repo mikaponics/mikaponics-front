@@ -35,13 +35,13 @@ class OnboardCheckoutComponent extends React.Component {
 
                     <div className="row">
                         <div className="col-md-4 offset-md-4">
-                            <div class="card">
-                                <div class="card-header">
+                            <div className="card">
+                                <div className="card-header">
                                     Monthly Subscription
                                 </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">{monthlyFee} / monthy</h5>
-                                    <p class="card-text">You will be automatically enrolled in the subscription plan. Your bill will start next month.</p>
+                                <div className="card-body">
+                                    <h5 className="card-title">{monthlyFee} / monthy</h5>
+                                    <p className="card-text">You will be automatically enrolled in the subscription plan. Your bill will start next month.</p>
                                 </div>
                             </div>
                         </div>
@@ -51,38 +51,38 @@ class OnboardCheckoutComponent extends React.Component {
 
                     <div className="row">
                         <div className="col-md-4 offset-md-4">
-                            <div class="card">
-                                <div class="card-header">
+                            <div className="card">
+                                <div className="card-header">
                                     Product Purchase
                                 </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">Mikapod Device</h5>
-                                    <p class="card-text">
+                                <div className="card-body">
+                                    <h5 className="card-title">Mikapod Device</h5>
+                                    <p className="card-text">
 
                                         <form>
                                              Number of device(s) purchasing:
-                                             <input class="form-control" type="text" placeholder="0" value={numberOfDevices} readonly="true" />
+                                             <input className="form-control" type="text" placeholder="0" value={numberOfDevices} readonly="true" />
 
                                              Price per device:
-                                             <input class="form-control" type="text" placeholder="0" value={pricePerDevice} readonly="true" />
+                                             <input className="form-control" type="text" placeholder="0" value={pricePerDevice} readonly="true" />
 
                                              Total before tax:
-                                             <input class="form-control" type="text" placeholder="0" value={totalBeforeTax} readonly="true" />
+                                             <input className="form-control" type="text" placeholder="0" value={totalBeforeTax} readonly="true" />
 
                                              Tax:
-                                             <input class="form-control" type="text" placeholder="0" value={tax} readonly="true" />
+                                             <input className="form-control" type="text" placeholder="0" value={tax} readonly="true" />
 
                                              Total after tax:
-                                             <input class="form-control" type="text" placeholder="0" value={totalAfterTax} readonly="true" />
+                                             <input className="form-control" type="text" placeholder="0" value={totalAfterTax} readonly="true" />
 
                                              Shipping:
-                                             <input class="form-control" type="text" placeholder="0" value={shipping} readonly="true" />
+                                             <input className="form-control" type="text" placeholder="0" value={shipping} readonly="true" />
 
                                              Credit:
-                                             <input class="form-control" type="text" placeholder="0" value={credit} readonly="true" />
+                                             <input className="form-control" type="text" placeholder="0" value={credit} readonly="true" />
 
                                              Grand total:
-                                             <input class="form-control" type="text" placeholder="0" value={grandTotal} readonly="true" />
+                                             <input className="form-control" type="text" placeholder="0" value={grandTotal} readonly="true" />
 
                                              <br />
 

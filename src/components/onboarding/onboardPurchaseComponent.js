@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 
 import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
-import TextFieldGroup from "../textFieldGroup"
+import { BootstrapInput } from '../bootstrap/bootstrapInput';
 
 
 class OnboardPurchaseComponent extends React.Component {
@@ -19,211 +19,242 @@ class OnboardPurchaseComponent extends React.Component {
             shippingPostalCode, shippingEmail,
             shippingTelephone,
 
-            errors, onChange, onSubmit, isLoading
+            errors, onChange, onNextClick, onCancelClick, isLoading
         } = this.props;
 
         return (
-            <div>
-                <nav aria-label="breadcrumb">
-                    <ol className="breadcrumb">
-                        <li className="breadcrumb-item active">
-                            <Link to="/onboard">Home</Link>
-                        </li>
-                        <li className="breadcrumb-item active" aria-current="page">Purchase</li>
-                    </ol>
-                </nav>
+            <div className="container">
+                <main id="main">
 
-                <div className="Onboarding-Purchase">
-                   <div className="row">
-                       <div className="col-md-4 offset-md-4">
-                           <form onSubmit={onSubmit}>
-                                <h1>Purchase</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol className="breadcrumb">
+                            <li className="breadcrumb-item active">
+                                <Link to="/onboard"><i className="fas fa-tachometer-alt"></i>&nbsp;Home</Link>
+                            </li>
+                            <li className="breadcrumb-item active" aria-current="page"><i className="fas fa-shopping-cart"></i>&nbsp;Purchase</li>
+                        </ol>
+                    </nav>
+
+                    <h1><i className="fas fa-shopping-cart"></i>&nbsp;Purchase</h1>
+                    <h3 className="pt-4 pb-2 text-center">Purchase Form</h3>
+                    <div className="row">
+                        <div className="col-md-5 mx-auto mt-2">
+                            <form className="needs-validation" noValidate>
+
                                 <p>All fields which have the (*) symbol are required to be filled out.</p>
 
-                               <BootstrapErrorsProcessingAlert errors={errors} />
+                                <BootstrapErrorsProcessingAlert errors={errors} />
 
-                               <TextFieldGroup
-                                   error={errors.numberOfDevices}
-                                   label="# of devices"
-                                   onChange={onChange}
-                                   value={numberOfDevices}
-                                   field="numberOfDevices"
-                                   type="number"
-                               />
+                                <p className="border-bottom mb-3 pb-1 text-secondary">Device(s)</p>
 
-                               <TextFieldGroup
+                                <BootstrapInput
+                                    className="form-control"
+                                    error={errors.numberOfDevices}
+                                    label="# of devices (*)"
+                                    onChange={onChange}
+                                    value={numberOfDevices}
+                                    name="numberOfDevices"
+                                    type="number"
+                                />
+
+                                <p className="border-bottom mb-3 pb-1 text-secondary">Billing Details</p>
+
+                                <BootstrapInput
+                                    className="form-control"
                                     error={errors.billingGivenName}
-                                    label="Billing first name (*)"
+                                    label="First name (*)"
                                     onChange={onChange}
                                     value={billingGivenName}
-                                    field="billingGivenName"
+                                    name="billingGivenName"
                                     type="text"
-                               />
+                                />
 
-                               <TextFieldGroup
+                                <BootstrapInput
+                                    className="form-control"
                                     error={errors.billingLastName}
-                                    label="Billing last name (*)"
+                                    label="Last name (*)"
                                     onChange={onChange}
                                     value={billingLastName}
-                                    field="billingLastName"
+                                    name="billingLastName"
                                     type="text"
-                               />
+                                />
 
-                               <TextFieldGroup
+                                <BootstrapInput
+                                    className="form-control"
                                     error={errors.billingAddressCountry}
-                                    label="Billing country (*)"
+                                    label="Country (*)"
                                     onChange={onChange}
                                     value={billingAddressCountry}
-                                    field="billingAddressCountry"
+                                    name="billingAddressCountry"
                                     type="text"
-                               />
+                                />
 
-                               <TextFieldGroup
+                                <BootstrapInput
+                                    className="form-control"
                                     error={errors.billingAddressRegion}
-                                    label="Billing province / state (*)"
+                                    label="Province / state (*)"
                                     onChange={onChange}
                                     value={billingAddressRegion}
-                                    field="billingAddressRegion"
+                                    name="billingAddressRegion"
                                     type="text"
-                               />
+                                />
 
-                               <TextFieldGroup
+                                <BootstrapInput
+                                    className="form-control"
                                     error={errors.billingAddressLocality}
-                                    label="Billing city (*)"
+                                    label="City (*)"
                                     onChange={onChange}
                                     value={billingAddressLocality}
-                                    field="billingAddressLocality"
+                                    name="billingAddressLocality"
                                     type="text"
-                               />
+                                />
 
-                               <TextFieldGroup
+                                <BootstrapInput
+                                    className="form-control"
                                     error={errors.billingAddressLocality}
-                                    label="Billing street address (*)"
+                                    label="Street address (*)"
                                     onChange={onChange}
                                     value={billingStreetAddress}
-                                    field="billingStreetAddress"
+                                    name="billingStreetAddress"
                                     type="text"
-                               />
+                                />
 
-                               <TextFieldGroup
+                                <BootstrapInput
+                                    className="form-control"
                                     error={errors.billingPostalCode}
-                                    label="Billing postal / zip (*)"
+                                    label="Postal / zip (*)"
                                     onChange={onChange}
                                     value={billingPostalCode}
-                                    field="billingPostalCode"
+                                    name="billingPostalCode"
                                     type="text"
-                               />
+                                />
 
-                               <TextFieldGroup
+                                <BootstrapInput
+                                    className="form-control"
                                     error={errors.billingEmail}
-                                    label="Billing email (*)"
+                                    label="Email (*)"
                                     onChange={onChange}
                                     value={billingEmail}
-                                    field="billingEmail"
+                                    name="billingEmail"
                                     type="text"
-                               />
+                                />
 
-                               <TextFieldGroup
+                                <BootstrapInput
+                                    className="form-control"
                                     error={errors.billingTelephone}
-                                    label="Billing telephone (*)"
+                                    label="Telephone (*)"
                                     onChange={onChange}
                                     value={billingTelephone}
-                                    field="billingTelephone"
+                                    name="billingTelephone"
                                     type="text"
-                               />
+                                />
 
-                               <TextFieldGroup
+                                <p className="border-bottom mb-3 pb-1 text-secondary">Shipping Details</p>
+
+                                <BootstrapInput
+                                    className="form-control"
                                     error={errors.shippingGivenName}
-                                    label="Shipping first name (*)"
+                                    label="First name (*)"
                                     onChange={onChange}
                                     value={shippingGivenName}
-                                    field="shippingGivenName"
+                                    name="shippingGivenName"
                                     type="text"
-                               />
+                                />
 
-                               <TextFieldGroup
+                                <BootstrapInput
+                                    className="form-control"
                                     error={errors.shippingLastName}
-                                    label="Shipping last name (*)"
+                                    label="Last name (*)"
                                     onChange={onChange}
                                     value={shippingLastName}
-                                    field="shippingLastName"
+                                    name="shippingLastName"
                                     type="text"
-                               />
+                                />
 
-                               <TextFieldGroup
+                                <BootstrapInput
+                                    className="form-control"
                                     error={errors.shippingAddressCountry}
-                                    label="Shipping country (*)"
+                                    label="Country (*)"
                                     onChange={onChange}
                                     value={shippingAddressCountry}
-                                    field="shippingAddressCountry"
+                                    name="shippingAddressCountry"
                                     type="text"
-                               />
+                                />
 
-                               <TextFieldGroup
+                                <BootstrapInput
+                                    className="form-control"
                                     error={errors.shippingAddressRegion}
-                                    label="Shipping province / state (*)"
+                                    label="Province / state (*)"
                                     onChange={onChange}
                                     value={shippingAddressRegion}
-                                    field="shippingAddressRegion"
+                                    name="shippingAddressRegion"
                                     type="text"
-                               />
+                                />
 
-                               <TextFieldGroup
+                                <BootstrapInput
+                                    className="form-control"
                                     error={errors.shippingAddressLocality}
-                                    label="Shipping city (*)"
+                                    label="City (*)"
                                     onChange={onChange}
                                     value={shippingAddressLocality}
-                                    field="shippingAddressLocality"
+                                    name="shippingAddressLocality"
                                     type="text"
-                               />
+                                />
 
-                               <TextFieldGroup
+                                <BootstrapInput
+                                    className="form-control"
                                     error={errors.shippingStreetAddress}
-                                    label="Shipping street address (*)"
+                                    label="Street address (*)"
                                     onChange={onChange}
                                     value={shippingStreetAddress}
-                                    field="shippingStreetAddress"
+                                    name="shippingStreetAddress"
                                     type="text"
-                               />
+                                />
 
-                               <TextFieldGroup
+                                <BootstrapInput
+                                    className="form-control"
                                     error={errors.shippingPostalCode}
-                                    label="Shipping postal / zip (*)"
+                                    label="Postal / zip (*)"
                                     onChange={onChange}
                                     value={shippingPostalCode}
-                                    field="shippingPostalCode"
+                                    name="shippingPostalCode"
                                     type="text"
-                               />
+                                />
 
-                               <TextFieldGroup
+                                <BootstrapInput
+                                    className="form-control"
                                     error={errors.shippingEmail}
-                                    label="Shipping email (*)"
+                                    label="Email (*)"
                                     onChange={onChange}
                                     value={shippingEmail}
-                                    field="shippingEmail"
+                                    name="shippingEmail"
                                     type="text"
-                               />
+                                />
 
-                               <TextFieldGroup
+                                <BootstrapInput
+                                    className="form-control"
                                     error={errors.shippingTelephone}
-                                    label="Shipping telephone (*)"
+                                    label="Telephone (*)"
                                     onChange={onChange}
                                     value={shippingTelephone}
-                                    field="shippingTelephone"
+                                    name="shippingTelephone"
                                     type="text"
-                               />
+                                />
 
-                               <div className="form-group">
-                                   <button className="btn btn-primary btn-lg" disabled={isLoading}>
-                                       Next
-                                   </button>
-                               </div>
+                                <div className="form-group">
+                                    <button type="text" className="btn btn-lg float-left pl-4 pr-4 btn-secondary" disabled={isLoading} onClick={onCancelClick}>
+                                        <i className="fas fa-times"></i>&nbsp;Cancel
+                                    </button>
+                                    <button type="text" className="btn btn-lg float-right pl-4 pr-4 btn-primary" disabled={isLoading} onClick={onNextClick}>
+                                        Next&nbsp;<i className="fas fa-arrow-right"></i>
+                                    </button>
+                                </div>
 
-                           </form>
-                       </div>
-                   </div>
-                </div>
+                            </form>
+                        </div>
+                    </div>
 
+                </main>
             </div>
         );
     }
