@@ -16,6 +16,7 @@ export default class StripeComponent extends React.Component {
             amountInCents: this.props.amountInCents,
             currency: this.props.currency,
             stripeKey: this.props.stripeKey,
+            buttonClassName: this.props.buttonClassName,
         };
 
         // onStripeUpdate must be bound or else clicking on button will produce error.
@@ -83,12 +84,12 @@ export default class StripeComponent extends React.Component {
     }
 
     render() {
-        const { stripeLoading, loading } = this.state;
+        const { stripeLoading, loading, buttonClassName } = this.state;
         return (
             <div>
                 {(loading || stripeLoading)
                     ? <p>loading..</p>
-                    : <button onClick={this.onStripeUpdate}>Checkout</button>
+                    : <button className={buttonClassName} onClick={this.onStripeUpdate}>Checkout</button>
                 }
             </div>
         );

@@ -37,11 +37,12 @@ class OnboardCheckoutContainer extends Component {
             grandTotal: 0,
             grandTotalInCents: 0,
         }
+        this.onBackClick = this.onBackClick.bind(this);
     }
 
     componentDidMount() {
         window.scrollTo(0, 0);  // Start the page at the top of the page.
-        
+
         const { user, onboarding } = this.props;
 
         // Create our oAuth 2.0 authenticated API header to use with our
@@ -109,6 +110,13 @@ class OnboardCheckoutContainer extends Component {
         });
     }
 
+    onBackClick(e) {
+        e.preventDefault();
+        this.setState({
+            referrer: '/onboard/purchase'
+        });
+    }
+
     render() {
 
         const { referrer, errors,
@@ -148,6 +156,7 @@ class OnboardCheckoutContainer extends Component {
                     credit={credit}
                     grandTotal={grandTotal}
                     errors={errors}
+                    onBackClick={this.onBackClick}
 
                     name="Mikaponics Onboarding"
                     description=""
