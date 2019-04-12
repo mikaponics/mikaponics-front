@@ -36,6 +36,7 @@ class RegisterComponent extends React.Component {
 
                             <BootstrapInput
                                 className="form-control form-control-lg"
+                                borderColour="border-primary"
                                 error={errors.email}
                                 label="Email (*)"
                                 onChange={onChange}
@@ -45,6 +46,7 @@ class RegisterComponent extends React.Component {
 
                             <BootstrapInput
                                 className="form-control form-control-lg"
+                                borderColour="border-primary"
                                 error={errors.password}
                                 label="Password (*)"
                                 onChange={onChange}
@@ -55,16 +57,18 @@ class RegisterComponent extends React.Component {
 
                             <BootstrapInput
                                 className="form-control form-control-lg"
-                                error={errors.passwordConfirmation}
-                                label="Password Confirmation (*)"
+                                borderColour="border-primary"
+                                error={errors.passwordRepeat}
+                                label="Repeat Password (*)"
                                 onChange={onChange}
                                 value={passwordConfirmation}
-                                name="passwordConfirmation"
+                                name="passwordRepeat"
                                 type="password"
                             />
 
                             <BootstrapInput
                                 className="form-control form-control-lg"
+                                borderColour="border-primary"
                                 error={errors.firstName}
                                 label="First Name (*)"
                                 onChange={onChange}
@@ -75,6 +79,7 @@ class RegisterComponent extends React.Component {
 
                             <BootstrapInput
                                 className="form-control form-control-lg"
+                                borderColour="border-primary"
                                 error={errors.lastName}
                                 label="Last Name (*)"
                                 onChange={onChange}
@@ -86,7 +91,7 @@ class RegisterComponent extends React.Component {
                             <div className={classnames("form-group", { 'has-error': errors.timezone } )}>
                                 <label className="control-label">Timezone (*)</label>
                                 <select
-                                    className={classnames('form-control', { 'is-invalid': errors.timezone })}
+                                    className={classnames('form-control', { 'is-invalid': errors.timezone }, { 'border-primary': !errors.timezone } )}
                                     name="timezone"
                                     onChange={onChange}
                                     value={timezone}

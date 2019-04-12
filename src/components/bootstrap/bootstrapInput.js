@@ -7,14 +7,22 @@ import shortid from "shortid";
 /**
  * Primitive bootstrap alert wnich can be populated with any text. Primarly used
  * as a banner in our application.
+ *
+ * boarderColour - Value sets whether to render the input field as having either
+ *                 a blue boarder if required or a green boarder if successful
+ *                 validation or optional field. Note that if validation failed
+ *                 then the border colour will be red.
  */
-export const BootstrapInput = ({ name, type, label, placeholder, value, helpText, onChange, error, className = "form-group" }) => {
+export const BootstrapInput = ({
+    name, type, label, placeholder, value, helpText, onChange, error, className = "form-group", borderColour = ''
+}) => {
     const helpID = shortid.generate + "-help";
+    let borderColor = 'border-success';
     return (
         <div className={classnames('form-group', { 'has-error': error })}>
             <label htmlFor={name} className="control-label">{label}</label>
             <input
-                className={classnames(className, { 'is-invalid': error })}
+                className={classnames(className, { 'is-invalid': error }, { 'border-success': !error && borderColour === 'border-success' }, { 'border-primary': !error && borderColour === 'border-primary' } )}
                 key={shortid.generate}
                 name={name}
                 type={type}
@@ -41,6 +49,7 @@ BootstrapInput.propTypes = {
     error: PropTypes.string,
     // checkUserExists: PropTypes.func
     className: PropTypes.string.isRequired,
+    borderColour: PropTypes.string,
 }
 
 
