@@ -36,33 +36,31 @@ class AppContainer extends React.Component {
             <Router>
                 <div>
                     <NavigationBar />
-                    <Switch>
-                        <Route path="/" exact component={IndexContainer} />
-                        <Route path="/login" exact component={LoginContainer} />
-                        <Route path="/register" exact component={RegisterContainer} />
-                        <Route path="/register-success" exact component={RegisterSuccessContainer} />
-                        <Route path="/activate/:code" exact component={ActivateContainer} />
-                        <Route path="/dashboard" exact component={DashboardContainer} />
-                        <Route path="/onboard" exact component={OnboardWelcomeContainer} />
-                        <Route path="/onboard/purchase" exact component={OnboardPurchaseContainer} />
-                        <Route path="/onboard/checkout" exact component={OnboardCheckoutContainer} />
-                        <Route path="/onboard/success" exact component={OnboardSuccessContainer} />
-                        <Route path="/device/:slug" exact component={DeviceContainer} />
-                        <Route path="/device/:slug/profile" exact component={DeviceProfileContainer} />
-                        <Route path="/instrument/:slug" exact component={InstrumentContainer} />
-                        <Route path="/instrument/:slug/alerts" exact component={InstrumentAlertContainer} />
-                        <Route path="/instrument/:slug/alerts/config" exact component={InstrumentAlertConfigContainer} />
-                        <Route path="/instrument/:slug/data" exact component={InstrumentDataContainer} />
-                        <Route path="/instrument/:slug/data/download" exact component={InstrumentDataDownloadContainer} />
-                        <Route path="/instrument/:slug/analyses" exact component={InstrumentAnalysisListContainer} />
-                        <Route path="/instrument/:slug/create-analysis" exact component={InstrumentAnalysisCreateContainer} />
-                        <Route path="/instrument/analysis/:slug" exact component={InstrumentAnalysisDetailContainer} />
-                        <Route path="/alerts" exact component={AlertListContainer} />
-                        <Route path="/invoices" exact component={InvoiceListContainer} />
-                        <Route path="/invoice/:slug" exact component={InvoiceDetailContainer} />
-                        <Route path="/profile" exact component={ProfileContainer} />
-                        <Route path="/profile/edit" exact component={ProfileEditContainer} />
-                    </Switch>
+                    <Route path="/" exact component={IndexContainer} />
+                    <Route path="/login" exact component={LoginContainer} />
+                    <Route path="/register" exact component={RegisterContainer} />
+                    <Route path="/register-success" exact component={RegisterSuccessContainer} />
+                    <Route path="/activate/:code" exact component={ActivateContainer} />
+                    <Route path="/dashboard" exact component={DashboardContainer} />
+                    <Route path="/onboard" exact component={OnboardWelcomeContainer} />
+                    <Route path="/onboard/purchase" exact component={OnboardPurchaseContainer} />
+                    <Route path="/onboard/checkout" exact component={OnboardCheckoutContainer} />
+                    <Route path="/onboard/success" exact component={OnboardSuccessContainer} />
+                    <Route path="/device/:slug" exact component={DeviceContainer} />
+                    <Route path="/device/:slug/profile" exact component={DeviceProfileContainer} />
+                    <Route path="/instrument/:slug" exact component={InstrumentContainer} />
+                    <Route path="/instrument/:slug/alerts" exact component={InstrumentAlertContainer} />
+                    <Route path="/instrument/:slug/alerts/config" exact component={InstrumentAlertConfigContainer} />
+                    <Route path="/instrument/:slug/data" exact component={InstrumentDataContainer} />
+                    <Route path="/instrument/:slug/data/download" exact component={InstrumentDataDownloadContainer} />
+                    <Route path="/instrument/:slug/analyses" exact component={InstrumentAnalysisListContainer} />
+                    <Route path="/instrument/:slug/create-analysis" exact component={InstrumentAnalysisCreateContainer} />
+                    <Route path="/instrument/analysis/:slug" exact component={InstrumentAnalysisDetailContainer} />
+                    <Route path="/alerts" exact component={AlertListContainer} />
+                    <Route path="/invoices" exact component={InvoiceListContainer} />
+                    <Route path="/invoice/:slug" exact component={InvoiceDetailContainer} />
+                    <Route path="/profile" exact component={ProfileContainer} />
+                    <Route path="/profile/edit" exact component={ProfileEditContainer} />
                 </div>
            </Router>
        </div>
