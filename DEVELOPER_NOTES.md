@@ -24,6 +24,12 @@ npm install --save react-scroll
 npm install --save shortid
 ```
 
+Upgrade doing the following:
+
+```bash
+npm i -g npm-check-updates && ncu -u && npm i
+```
+
 ## Chrome Plugins
 
 1. [Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd)
