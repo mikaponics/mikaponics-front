@@ -49,6 +49,7 @@ class OnboardPurchaseComponent extends React.Component {
 
                                 <BootstrapInput
                                     className="form-control"
+                                    borderColour="border-primary"
                                     error={errors.numberOfDevices}
                                     label="# of devices (*)"
                                     onChange={onChange}
@@ -61,6 +62,7 @@ class OnboardPurchaseComponent extends React.Component {
 
                                 <BootstrapInput
                                     className="form-control"
+                                    borderColour="border-primary"
                                     error={errors.billingGivenName}
                                     label="First name (*)"
                                     onChange={onChange}
@@ -71,6 +73,7 @@ class OnboardPurchaseComponent extends React.Component {
 
                                 <BootstrapInput
                                     className="form-control"
+                                    borderColour="border-primary"
                                     error={errors.billingLastName}
                                     label="Last name (*)"
                                     onChange={onChange}
@@ -81,6 +84,7 @@ class OnboardPurchaseComponent extends React.Component {
 
                                 <BootstrapInput
                                     className="form-control"
+                                    borderColour="border-primary"
                                     error={errors.billingAddressCountry}
                                     label="Country (*)"
                                     onChange={onChange}
@@ -91,6 +95,7 @@ class OnboardPurchaseComponent extends React.Component {
 
                                 <BootstrapInput
                                     className="form-control"
+                                    borderColour="border-primary"
                                     error={errors.billingAddressRegion}
                                     label="Province / state (*)"
                                     onChange={onChange}
@@ -101,6 +106,7 @@ class OnboardPurchaseComponent extends React.Component {
 
                                 <BootstrapInput
                                     className="form-control"
+                                    borderColour="border-primary"
                                     error={errors.billingAddressLocality}
                                     label="City (*)"
                                     onChange={onChange}
@@ -111,6 +117,7 @@ class OnboardPurchaseComponent extends React.Component {
 
                                 <BootstrapInput
                                     className="form-control"
+                                    borderColour="border-primary"
                                     error={errors.billingAddressLocality}
                                     label="Street address (*)"
                                     onChange={onChange}
@@ -121,6 +128,7 @@ class OnboardPurchaseComponent extends React.Component {
 
                                 <BootstrapInput
                                     className="form-control"
+                                    borderColour="border-primary"
                                     error={errors.billingPostalCode}
                                     label="Postal / zip (*)"
                                     onChange={onChange}
@@ -131,6 +139,7 @@ class OnboardPurchaseComponent extends React.Component {
 
                                 <BootstrapInput
                                     className="form-control"
+                                    borderColour="border-primary"
                                     error={errors.billingEmail}
                                     label="Email (*)"
                                     onChange={onChange}
@@ -141,6 +150,7 @@ class OnboardPurchaseComponent extends React.Component {
 
                                 <BootstrapInput
                                     className="form-control"
+                                    borderColour="border-primary"
                                     error={errors.billingTelephone}
                                     label="Telephone (*)"
                                     onChange={onChange}
@@ -153,6 +163,7 @@ class OnboardPurchaseComponent extends React.Component {
 
                                 <BootstrapInput
                                     className="form-control"
+                                    borderColour="border-primary"
                                     error={errors.shippingGivenName}
                                     label="First name (*)"
                                     onChange={onChange}
@@ -163,6 +174,7 @@ class OnboardPurchaseComponent extends React.Component {
 
                                 <BootstrapInput
                                     className="form-control"
+                                    borderColour="border-primary"
                                     error={errors.shippingLastName}
                                     label="Last name (*)"
                                     onChange={onChange}
@@ -173,6 +185,7 @@ class OnboardPurchaseComponent extends React.Component {
 
                                 <BootstrapInput
                                     className="form-control"
+                                    borderColour="border-primary"
                                     error={errors.shippingAddressCountry}
                                     label="Country (*)"
                                     onChange={onChange}
@@ -183,6 +196,7 @@ class OnboardPurchaseComponent extends React.Component {
 
                                 <BootstrapInput
                                     className="form-control"
+                                    borderColour="border-primary"
                                     error={errors.shippingAddressRegion}
                                     label="Province / state (*)"
                                     onChange={onChange}
@@ -193,6 +207,7 @@ class OnboardPurchaseComponent extends React.Component {
 
                                 <BootstrapInput
                                     className="form-control"
+                                    borderColour="border-primary"
                                     error={errors.shippingAddressLocality}
                                     label="City (*)"
                                     onChange={onChange}
@@ -203,6 +218,7 @@ class OnboardPurchaseComponent extends React.Component {
 
                                 <BootstrapInput
                                     className="form-control"
+                                    borderColour="border-primary"
                                     error={errors.shippingStreetAddress}
                                     label="Street address (*)"
                                     onChange={onChange}
@@ -213,6 +229,7 @@ class OnboardPurchaseComponent extends React.Component {
 
                                 <BootstrapInput
                                     className="form-control"
+                                    borderColour="border-primary"
                                     error={errors.shippingPostalCode}
                                     label="Postal / zip (*)"
                                     onChange={onChange}
@@ -223,6 +240,7 @@ class OnboardPurchaseComponent extends React.Component {
 
                                 <BootstrapInput
                                     className="form-control"
+                                    borderColour="border-primary"
                                     error={errors.shippingEmail}
                                     label="Email (*)"
                                     onChange={onChange}
@@ -233,6 +251,7 @@ class OnboardPurchaseComponent extends React.Component {
 
                                 <BootstrapInput
                                     className="form-control"
+                                    borderColour="border-primary"
                                     error={errors.shippingTelephone}
                                     label="Telephone (*)"
                                     onChange={onChange}
