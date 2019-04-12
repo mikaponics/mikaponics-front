@@ -2,18 +2,16 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
-import { camelCase, snakeCase } from 'lodash';
 
 import { MIKAPONICS_ONBOARDING_CALCULATOR_API_URL } from "../../constants/api";
 import { setOnboardingInfo } from "../../actions/onboardingActions";
 import { pullProfile } from "../../actions/profileAction";
 import OnboardCheckoutComponent from "../../components/onboarding/onboardCheckoutComponent";
-import StripeComponent from "../../components/stripeComponent";
 
 const STRIPE_PUBLISHABLE = "pk_test_fw1OJnoeXL2Zp8zMTvxD3s5M";
-const PAYMENT_SERVER_URL = "http://127.0.0.1:8080";
+// const PAYMENT_SERVER_URL = "http://127.0.0.1:8080";
 const CURRENCY = 'CAD';
-const DESCRIPTION = "this is a test.";
+// const DESCRIPTION = "this is a test.";
 
 
 class OnboardCheckoutContainer extends Component {
@@ -131,7 +129,7 @@ class OnboardCheckoutContainer extends Component {
             grandTotal,
             grandTotalInCents
         } = this.state;
-        const { user } = this.props;
+        // const { user } = this.props;
 
         const {
             billingEmail

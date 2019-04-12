@@ -17,7 +17,6 @@ export const BootstrapInput = ({
     name, type, label, placeholder, value, helpText, onChange, error, className = "form-group", borderColour = ''
 }) => {
     const helpID = shortid.generate + "-help";
-    let borderColor = 'border-success';
     return (
         <div className={classnames('form-group', { 'has-error': error })}>
             <label htmlFor={name} className="control-label">{label}</label>

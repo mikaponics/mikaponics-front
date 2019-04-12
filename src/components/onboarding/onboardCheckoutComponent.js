@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
-import { BootstrapInput } from '../bootstrap/bootstrapInput';
 import StripeComponent from "../stripeComponent";
 
 
@@ -101,7 +100,7 @@ class OnboardCheckoutComponent extends React.Component {
                                 </button>
                                 <form>
                                      <StripeComponent
-                                        buttonClassName="btn btn-lg float-right pl-4 pr-4 btn-primary"
+                                        buttonClassName="btn btn-lg float-right pl-4 pr-4 btn-success"
                                         name={name}
                                         description={description}
                                         onToken={(token) => this.props.onToken(token)}
