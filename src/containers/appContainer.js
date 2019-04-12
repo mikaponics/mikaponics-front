@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, withRouter, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, withRouter, Switch } from "react-router-dom";
 
 import IndexContainer from './indexContainer';
 import LoginContainer from "./account/loginContainer";
