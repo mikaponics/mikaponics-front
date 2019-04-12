@@ -39,12 +39,13 @@ class DashboardComponent extends Component {
 
         return (
             <div className="Dashboard">
-                <h1>Dashboard</h1>
+                <h1><i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard</h1>
                 <hr />
 
+                
                 <div className="row">
                     <div className="col-md-12">
-                        <h2>Devices</h2>
+                        <h2><i className="fas fa-cubes"></i>&nbsp;Devices</h2>
                         <Link className="btn btn-success btn-sm" role="button" to="/dashboard">Purchase Device</Link>
                         <hr />
                     </div>
@@ -54,7 +55,7 @@ class DashboardComponent extends Component {
                 <br />
                 <div className="row">
                     <div className="col-md-12">
-                        <h2>Alerts</h2>
+                        <h2><i className="fas fa-bell"></i>&nbsp;Alerts</h2>
                         <hr />
                         <Link to="/alerts">See all ></Link>
                     </div>
@@ -63,7 +64,7 @@ class DashboardComponent extends Component {
                 <br />
                 <div className="row">
                     <div className="col-md-12">
-                        <h2>Profile</h2>
+                        <h2><i className="fas fa-user-circle"></i>&nbsp;Profile</h2>
                         <hr />
                         <Link to="/profile">View profile ></Link>
                     </div>
@@ -72,7 +73,7 @@ class DashboardComponent extends Component {
                 <br />
                 <div className="row">
                     <div className="col-md-12">
-                        <h2>Invoices</h2>
+                        <h2><i className="fas fa-book"></i>&nbsp;Invoices</h2>
                         <hr />
                         <Link to="/invoices">View invoices ></Link>
                     </div>

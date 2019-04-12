@@ -89,7 +89,7 @@ export default class StripeComponent extends React.Component {
             <div>
                 {(loading || stripeLoading)
                     ? <p>loading..</p>
-                    : <button className={buttonClassName} onClick={this.onStripeUpdate}>Checkout</button>
+                    : <button className={buttonClassName} onClick={this.onStripeUpdate}><i className="fas fa-credit-card"></i>&nbsp;Checkout</button>
                 }
             </div>
         );
