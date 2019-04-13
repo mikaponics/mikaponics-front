@@ -92,18 +92,20 @@ class DeviceSummaryTable extends Component {
 class DeviceComponent extends Component {
     render() {
         const { device, flashMessage } = this.props;
-        console.log("flashMessage", flashMessage);
         return (
             <div>
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item">
-                           <Link to="/dashboard">Dashboard</Link>
+                           <Link to="/dashboard"><i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard</Link>
                         </li>
-                        <li className="breadcrumb-item active" aria-current="page">Device</li>
+                        <li className="breadcrumb-item">
+                           <Link to="/devices"><i className="fas fa-cubes"></i>&nbsp;Devices</Link>
+                        </li>
+                        <li className="breadcrumb-item active" aria-current="page"><i className="fas fa-cube"></i>&nbsp;Device</li>
                     </ol>
                 </nav>
-                <h1>Device</h1>
+                <h1><i className="fas fa-cube"></i>&nbsp;Device</h1>
                 <hr />
 
                 <FlashMessageComponent object={flashMessage} />

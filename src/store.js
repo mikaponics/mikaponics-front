@@ -14,6 +14,7 @@ import {
 import userReducer from "./reducers/userReducer";
 import onboardingReducer from "./reducers/onboardingReducer";
 import dashboardReducer from "./reducers/dashboardReducer";
+import deviceListReducer from "./reducers/deviceListReducer";
 import deviceReducer from "./reducers/deviceReducer";
 import instrumentReducer from "./reducers/instrumentReducer";
 import dataReducer from "./reducers/dataReducer";
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
     onboardingState: onboardingReducer,
     dashboardState: dashboardReducer,
     userState: userReducer,
+    deviceListState: deviceListReducer,
     deviceState: deviceReducer,
     instrumentState: instrumentReducer,
     dataState: dataReducer,

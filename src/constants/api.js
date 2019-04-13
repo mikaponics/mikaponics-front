@@ -14,6 +14,7 @@ export const MIKAPONICS_ONBOARDING_VALIDATE_API_URL = process.env.REACT_APP_API_
 export const MIKAPONICS_ONBOARDING_SUBMISSION_API_URL = process.env.REACT_APP_API_HOST+'/api/onboarding/submission';
 export const MIKAPONICS_GET_PROFILE_API_URL = process.env.REACT_APP_API_HOST+'/api/profile';
 export const MIKAPONICS_DASHBOARD_API_URL = process.env.REACT_APP_API_HOST+'/api/dashboard';
+export const MIKAPONICS_DEVICE_LIST_API_URL = process.env.REACT_APP_API_HOST+'/api/devices';
 export const MIKAPONICS_GET_DEVICE_API_URL = process.env.REACT_APP_API_HOST+'/api/device';
 export const MIKAPONICS_GET_INSTRUMENT_API_URL = process.env.REACT_APP_API_HOST+'/api/instrument';
 export const MIKAPONICS_GET_TIME_SERIES_DATA_API_URL = process.env.REACT_APP_API_HOST+'/api/data';
