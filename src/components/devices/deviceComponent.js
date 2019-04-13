@@ -13,7 +13,7 @@ class InstrumentTable extends Component {
             return dict.hasOwnProperty(key) ? dict[key] : null;
         }
 
-        const { instrument } = this.props;
+        const { title, icon, instrument } = this.props;
 
         if (instrument === undefined) {
             return null;
@@ -26,25 +26,19 @@ class InstrumentTable extends Component {
             <div>
                 <div className="row">
                     <div className="col-md-12">
-                        <table className="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col"></th>
-                                    <th scope="col"></th>
-                                </tr>
-                            </thead>
+
+                        <table className="table table-bordered custom-cell-w">
                             <tbody>
-                                <tr>
-                                    <th scope="row">Last measured value</th>
-                                    <td>
-                                        {lastMeasuredPrettyValue}
-                                    </td>
+                                <tr className="bg-dark">
+                                    <th scope="row" colSpan="2" className="text-light"><i className={icon}></i>&nbsp;{title}</th>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Last measured time</th>
-                                    <td>
-                                        {lastMeasuredPrettyAt}
-                                    </td>
+                                    <th scope="row" className="bg-light">Last measured value</th>
+                                    <td>{lastMeasuredPrettyValue}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Last measured time</th>
+                                    <td>{lastMeasuredPrettyAt}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -61,28 +55,27 @@ class DeviceSummaryTable extends Component {
         return (
             <div className="row">
                 <div className="col-md-12">
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th scope="col"></th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
+
+                    <table className="table table-bordered custom-cell-w">
                         <tbody>
+                            <tr className="bg-dark">
+                                <th scope="row" colSpan="2" className="text-light"><i className="fas fa-cube"></i>&nbsp;Device Summary</th>
+                            </tr>
                             <tr>
-                                <th scope="row">Status</th>
+                                <th scope="row" className="bg-light">Status</th>
                                 <td>{device.state}</td>
                             </tr>
                             <tr>
-                                <th scope="row">Last measured value</th>
+                                <th scope="row" className="bg-light">Last measured value</th>
                                 <td>{device.lastMeasuredPrettyValue}</td>
                             </tr>
                             <tr>
-                                <th scope="row">Last measured time</th>
+                                <th scope="row" className="bg-light">Last measured time</th>
                                 <td>{device.lastMeasuredPrettyAt}</td>
                             </tr>
                         </tbody>
                     </table>
+
                 </div>
             </div>
         )
@@ -106,38 +99,74 @@ class DeviceComponent extends Component {
                     </ol>
                 </nav>
                 <h1><i className="fas fa-cube"></i>&nbsp;Device</h1>
-                <hr />
+
+                <div className="card-group row">
+                    <div className="col-sm-4">
+                        <div className="card box-shadow text-center mx-auto">
+                            <div className="card-custom-top-2">
+                                <i className="fas fa-info fa-3x"></i>
+                            </div>
+                            <div className="card-body">
+                                <h3 className="card-title">Profile</h3>
+                                <p className="card-text">Set the name and various operating details about this device.</p>
+                                {device.slug &&
+                                    <Link to={`/device/${device.slug}/profile`} className="btn btn-success btn-lg">
+                                        Go&nbsp;<i className="fas fa-arrow-circle-right"></i>
+                                    </Link>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-sm-4">
+                        <div className="card box-shadow text-center mx-auto">
+                            <div className="card-custom-top-2">
+                                <i className="fas fa-tint fa-3x"></i>
+                            </div>
+                            <div className="card-body">
+                                <h3 className="card-title">Humidity</h3>
+                                <p className="card-text">Set the name and various operating details about this device.</p>
+                                {device.humidity &&
+                                    <Link to={`/instrument/${device.humidity.slug}`} className="btn btn-success btn-lg">
+                                        Go&nbsp;<i className="fas fa-arrow-circle-right"></i>
+                                    </Link>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-sm-4">
+                        <div className="card box-shadow text-center mx-auto">
+                            <div className="card-custom-top-2">
+                                <i className="fas fa-thermometer-half fa-3x"></i>
+                            </div>
+                            <div className="card-body">
+                                <h3 className="card-title">Temperature</h3>
+                                <p className="card-text">Set the name and various operating details about this device.</p>
+                                {device.temperature &&
+                                    <Link to={`/instrument/${device.temperature.slug}`} className="btn btn-success btn-lg">
+                                        Go&nbsp;<i className="fas fa-arrow-circle-right"></i>
+                                    </Link>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
                 <FlashMessageComponent object={flashMessage} />
 
-                {device.slug &&
-                    <Link to={`/device/${device.slug}/profile`}>Profile</Link>
-                }
                 <br />
-
-                {device.humidity &&
-                    <Link to={`/instrument/${device.humidity.slug}`}>Humidity Instrument</Link>
-                }
-                <br />
-
-                {device.temperature &&
-                    <Link to={`/instrument/${device.temperature.slug}`}>Temperature Instrument</Link>
-                }
-                <br />
-                <br />
-
-                <h2>Device Summary</h2>
+                <h2><i className="fas fa-table"></i>&nbsp;Device Summary</h2>
                 <DeviceSummaryTable device={device} />
-
-                <br />
-
-                <h2>Humidity</h2>
-                <InstrumentTable instrument={device.humidity} />
-
-                <br />
-
-                <h2>Temperature</h2>
-                <InstrumentTable instrument={device.temperature} />
+                <InstrumentTable
+                    title="Humidty"
+                    icon="fas fa-tint"
+                    instrument={device.humidity}
+                />
+                <InstrumentTable
+                    title="Temperature"
+                    icon="fas fa-thermometer-half"
+                    instrument={device.temperature}
+                />
 
             </div>
         );
