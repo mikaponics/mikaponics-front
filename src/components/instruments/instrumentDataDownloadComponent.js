@@ -33,7 +33,7 @@ class  InstrumentDownloadFormComponent extends Component {
 
                     <br />
                     <br />
-                    <button onClick={onSubmit} disabled={isLoading} class="btn btn-success">Submit</button>
+                    <button onClick={onSubmit} disabled={isLoading} className="btn btn-success">Submit</button>
 
             </div>
         )

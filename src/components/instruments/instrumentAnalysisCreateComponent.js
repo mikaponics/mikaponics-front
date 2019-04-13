@@ -22,28 +22,36 @@ class InstrumentAnalysisCreateComponent extends Component {
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item">
-                           <Link to="/dashboard">Dashboard</Link>
+                           <Link to="/dashboard"><i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard</Link>
+                        </li>
+                        <li className="breadcrumb-item">
+                           <Link to="/devices"><i className="fas fa-cubes"></i>&nbsp;Devices</Link>
                         </li>
                         <li className="breadcrumb-item">
                             {instrument.absoluteParentUrl &&
-                                <Link to={`${instrument.absoluteParentUrl}`}>Device</Link>
+                                <Link to={`${instrument.absoluteParentUrl}`}><i className="fas fa-cube"></i>&nbsp;Device</Link>
                             }
                         </li>
                         {instrument.absoluteUrl &&
                             <li className="breadcrumb-item">
-                                <Link to={`${instrument.absoluteUrl}`}>Instrument</Link>
+                                <Link to={`${instrument.absoluteUrl}`}>
+                                    <i className={`fas fa-${instrument.icon}`}></i>&nbsp;Instrument
+                                </Link>
                             </li>
                         }
                         {instrument.absoluteUrl &&
                             <li className="breadcrumb-item">
-                                <Link to={`${instrument.absoluteUrl}/analyses`}>Analyses</Link>
+                                <Link to={`${instrument.absoluteUrl}/analyses`}>
+                                    <i className="fas fa-flask"></i>&nbsp;Analyses
+                                </Link>
                             </li>
                         }
-                        <li className="breadcrumb-item active" aria-current="page">Create Analysis</li>
+                        <li className="breadcrumb-item active" aria-current="page">
+                            <i className="fas fa-lightbulb"></i>&nbsp;Create Analysis
+                        </li>
                     </ol>
                 </nav>
-                <h1>Create Analysis</h1>
-                <hr />
+                <h1><i className="fas fa-lightbulb"></i>&nbsp;Create Analysis</h1>
                 <div className="row">
                     <div className="col-md-12">
                         {errors &&
@@ -73,11 +81,13 @@ class InstrumentAnalysisCreateComponent extends Component {
                                 />
 
                                 <br />
-                                <br />
 
-                            <br />
-                            <br />
-                            <button onClick={onSubmit} disabled={isLoading}>Submit</button>
+                            <button
+                                className="btn btn-success"
+                                onClick={onSubmit}
+                                disabled={isLoading}>
+                                Submit
+                            </button>
                     </div>
                 </div>
             </div>
