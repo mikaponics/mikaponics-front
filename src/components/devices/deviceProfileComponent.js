@@ -14,29 +14,33 @@ class DeviceProfileComponent extends Component {
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item">
-                           <Link to="/dashboard">Dashboard</Link>
+                           <Link to="/dashboard"><i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard</Link>
                         </li>
                         <li className="breadcrumb-item">
-                           <Link to={`/device/${device.slug}`}>Device</Link>
+                           <Link to="/devices"><i className="fas fa-cubes"></i>&nbsp;Devices</Link>
                         </li>
-                        <li className="breadcrumb-item active" aria-current="page">Profile</li>
+                        <li className="breadcrumb-item">
+                           <Link to={`/device/${device.slug}`}><i className="fas fa-cube"></i>&nbsp;Device</Link>
+                        </li>
+                        <li className="breadcrumb-item active" aria-current="page"><i className="fas fa-info"></i>&nbsp;Profile</li>
                     </ol>
                 </nav>
-                <h1>Device Profile</h1>
-                <hr />
+                <h1><i className="fas fa-info"></i>&nbsp;Device Profile</h1>
                 <div className="row">
                     <div className="col-md-12">
                         <BootstrapErrorsProcessingAlert errors={errors} />
+
                         <BootstrapInput
-                            id="id_name"
-                            field="name"
-                            type="text"
-                            label="Name"
-                            placeholder="Please set the device name"
-                            value={name}
-                            helpText="This is the name of the device."
+                            className="form-control form-control-lg"
+                            borderColour="border-primary"
+                            error={errors.email}
+                            label="Name (*)"
                             onChange={onChange}
-                            error={errors.name}
+                            value={name}
+                            name="name"
+                            helpText="This is the name of the device."
+                            placeholder="Please set the device name"
+                            type="text"
                         />
                         <BootstrapTextarea
                             id="id_desc"
