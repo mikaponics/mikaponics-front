@@ -43,9 +43,8 @@ class DeviceProfileComponent extends Component {
                             type="text"
                         />
                         <BootstrapTextarea
-                            id="id_desc"
-                            field="description"
-                            type="textarea"
+                            name="description"
+                            borderColour="border-primary"
                             label="Description"
                             placeholder="Please set the device description"
                             rows="5"

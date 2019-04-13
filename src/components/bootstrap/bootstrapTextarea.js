@@ -1,18 +1,20 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import classnames from 'classnames';
+import shortid from "shortid";
 
 
-export const BootstrapTextarea = ({ id, field, type, label, placeholder, rows, value, helpText, onChange, error }) => {
+export const BootstrapTextarea = ({ name, label, placeholder, rows, value, helpText, onChange, error,  borderColour = '' }) => {
+    const id = shortid.generate();
     const helpID = id + "-help";
     return (
         <div className={classnames('form-group', { 'has-error': error })}>
-            <label htmlFor={field} className="control-label">{label}</label>
+            <label htmlFor={name} className="control-label">{label}</label>
             <textarea
-                className={classnames('form-control', { 'is-invalid': error })}
-                id={id}
-                name={field}
-                type={type}
+                className={classnames('form-control', { 'is-invalid': error }, { 'border-success': !error && borderColour === 'border-success' }, { 'border-primary': !error && borderColour === 'border-primary' } )}
+                key={id}
+                name={name}
+                type="textarea"
                 aria-describedby={helpID}
                 placeholder={placeholder}
                 rows={rows}
@@ -26,9 +28,7 @@ export const BootstrapTextarea = ({ id, field, type, label, placeholder, rows, v
 }
 
 BootstrapTextarea.propTypes = {
-    id: PropTypes.string.isRequired,
-    field: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     placeholder: PropTypes.string,
     rows: PropTypes.number.isRequired,
@@ -36,7 +36,7 @@ BootstrapTextarea.propTypes = {
     helpText: PropTypes.string,
     onChange: PropTypes.func.isRequired,
     error: PropTypes.string,
-    // checkUserExists: PropTypes.func
+    borderColour: PropTypes.string,
 }
 
 BootstrapTextarea.defaultProps = {

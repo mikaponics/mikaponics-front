@@ -100,6 +100,8 @@ class DeviceComponent extends Component {
                 </nav>
                 <h1><i className="fas fa-cube"></i>&nbsp;Device</h1>
 
+                <FlashMessageComponent object={flashMessage} />
+
                 <div className="card-group row">
                     <div className="col-sm-4">
                         <div className="card box-shadow text-center mx-auto">
@@ -150,9 +152,6 @@ class DeviceComponent extends Component {
                         </div>
                     </div>
                 </div>
-
-
-                <FlashMessageComponent object={flashMessage} />
 
                 <br />
                 <h2><i className="fas fa-table"></i>&nbsp;Device Summary</h2>
