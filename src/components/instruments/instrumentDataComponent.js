@@ -30,17 +30,19 @@ class InstrumentDataTableComponent extends Component {
         }
 
         return (
-            <table className="table">
-                <thead>
-                <tr>
-                    <th scope="col">Value</th>
-                    <th scope="col">Timestamp</th>
-                </tr>
-                </thead>
-                <tbody>
-                    {tableRows}
-                </tbody>
-            </table>
+            <div className="table-responsive">
+                <table className="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Value</th>
+                            <th scope="col">Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {tableRows}
+                    </tbody>
+                </table>
+            </div>
         )
     }
 }
@@ -54,31 +56,47 @@ class InstrumentDataComponent extends Component {
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item">
-                           <Link to="/dashboard">Dashboard</Link>
+                            <Link to="/dashboard">
+                               <i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard
+                            </Link>
+                        </li>
+                        <li className="breadcrumb-item">
+                            <Link to="/devices"><i className="fas fa-cubes"></i>&nbsp;Devices</Link>
                         </li>
                         <li className="breadcrumb-item">
                             {instrument.absoluteParentUrl &&
-                                <Link to={`${instrument.absoluteParentUrl}`}>Device</Link>
+                                <Link to={`${instrument.absoluteParentUrl}`}>
+                                    <i className="fas fa-cube"></i>&nbsp;Device
+                                </Link>
                             }
                         </li>
                         {instrument.absoluteUrl &&
                             <li className="breadcrumb-item">
-                                <Link to={`${instrument.absoluteUrl}`}>Instrument</Link>
+                                <Link to={`${instrument.absoluteUrl}`}>
+                                    <i className={`fas fa-${instrument.icon}`}></i>&nbsp;Instrument
+                                </Link>
                             </li>
                         }
-                        <li className="breadcrumb-item active" aria-current="page">Data</li>
+                        <li className="breadcrumb-item active" aria-current="page">
+                           <i className="fas fa-cloud"></i>&nbsp;Data
+                        </li>
                     </ol>
                 </nav>
-                <h1>Data</h1>
-                <hr />
+                <h1><i className="fas fa-cloud"></i>&nbsp;Data</h1>
 
-                <br />
-                <Link to={`/instrument/${instrument.slug}/data/download`}>Download</Link>
-                <br /><br />
-                <br />
+                <div className="buttons-card">
+                    <section className="row text-center placeholders">
+                        <div className="rounded-circle circle-200 bg-pink text-center">
+                            <Link to={`/instrument/${instrument.slug}/data/download`} className="d-block link-ndecor" title="Add Client">
+                                <span className="r-circle"><i className="fas fa-cloud-download-alt fa-3x"></i></span>
+                            </Link>
+                        </div>
+                    </section>
+                </div>
 
                 <div className="row">
                     <div className="col-md-12">
+                        <h2>Time-Series Data</h2>
                         <InstrumentDataTableComponent
                             tableData={timeSeriesData}
                         />

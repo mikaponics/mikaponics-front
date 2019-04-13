@@ -33,7 +33,7 @@ class  InstrumentDownloadFormComponent extends Component {
 
                     <br />
                     <br />
-                    <button onClick={onSubmit} disabled={isLoading}>Submit</button>
+                    <button onClick={onSubmit} disabled={isLoading} class="btn btn-success">Submit</button>
 
             </div>
         )
@@ -57,28 +57,38 @@ class InstrumentDataDownloadComponent extends Component {
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item">
-                           <Link to="/dashboard">Dashboard</Link>
+                            <Link to="/dashboard">
+                               <i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard
+                            </Link>
+                        </li>
+                        <li className="breadcrumb-item">
+                            <Link to="/devices"><i className="fas fa-cubes"></i>&nbsp;Devices</Link>
                         </li>
                         <li className="breadcrumb-item">
                             {instrument.absoluteParentUrl &&
-                                <Link to={`${instrument.absoluteParentUrl}`}>Device</Link>
+                                <Link to={`${instrument.absoluteParentUrl}`}>
+                                    <i className="fas fa-cube"></i>&nbsp;Device
+                                </Link>
                             }
                         </li>
                         {instrument.absoluteUrl &&
                             <li className="breadcrumb-item">
-                                <Link to={`${instrument.absoluteUrl}`}>Instrument</Link>
+                                <Link to={`${instrument.absoluteUrl}`}>
+                                    <i className={`fas fa-${instrument.icon}`}></i>&nbsp;Instrument
+                                </Link>
                             </li>
                         }
-                        {instrument.absoluteUrl &&
-                            <li className="breadcrumb-item">
-                                <Link to={`${instrument.absoluteUrl}/data`}>Data</Link>
-                            </li>
-                        }
-                        <li className="breadcrumb-item active" aria-current="page">Download</li>
+                        <li className="breadcrumb-item">
+                            <Link to={`${instrument.absoluteUrl}/data`}>
+                                <i className="fas fa-cloud"></i>&nbsp;Data
+                            </Link>
+                        </li>
+                        <li className="breadcrumb-item active" aria-current="page">
+                            <i className="fas fa-cloud-download-alt"></i>&nbsp;Download
+                        </li>
                     </ol>
                 </nav>
-                <h1>Download</h1>
-                <hr />
+                <h1><i className="fas fa-cloud-download-alt"></i>&nbsp;Download</h1>
                 <div className="row">
                     <div className="col-md-12">
                     <InstrumentDownloadFormComponent
