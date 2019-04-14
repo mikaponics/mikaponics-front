@@ -20,24 +20,31 @@ class InstrumentAlertTable extends Component {
                     <th>{datum.state}</th>
                     <td>{datum.datumValue}</td>
                     <td>{datum.datumTimestamp}</td>
+                    <td>
+                        <Link to={datum.absoluteUrl}>View&nbsp;<i className="fas fa-external-link-alt"></i></Link>
+                    </td>
                 </tr>
             );
         }
         return (
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Device</th>
-                        <th scope="col">Instrument</th>
-                        <th scope="col">State</th>
-                        <th scope="col">Measured value</th>
-                        <th scope="col">Measured at</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {elements}
-                </tbody>
-            </table>
+            <div className="table-responsive">
+                <h3>List</h3>
+                <table className="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Device</th>
+                            <th scope="col">Instrument</th>
+                            <th scope="col">State</th>
+                            <th scope="col">Measured value</th>
+                            <th scope="col">Measured at</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {elements}
+                    </tbody>
+                </table>
+            </div>
         )
     }
 }
@@ -51,13 +58,12 @@ class AlertListComponent extends Component {
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item">
-                           <Link to="/dashboard">Dashboard</Link>
+                           <Link to="/dashboard"><i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard</Link>
                         </li>
-                        <li className="breadcrumb-item active" aria-current="page">Alerts</li>
+                        <li className="breadcrumb-item active" aria-current="page"><i className="fas fa-bell"></i>&nbsp;Alerts</li>
                     </ol>
                 </nav>
-                <h1>Alerts</h1>
-                <hr />
+                <h1><i className="fas fa-bell"></i>&nbsp;Alerts</h1>
                 <div className="row">
                     <div className="col-md-12">
                         <InstrumentAlertTable dataList={instrumentAlertList} />
