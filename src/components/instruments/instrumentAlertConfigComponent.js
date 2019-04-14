@@ -47,18 +47,19 @@ class InstrumentAlertConfigComponent extends Component {
                         <li className="breadcrumb-item active" aria-current="page"><i className="fas fa-cogs"></i>&nbsp;Configuration</li>
                     </ol>
                 </nav>
-                <h1>Alerts Configuration</h1>
+                <h1><i className="fas fa-cogs"></i>&nbsp;Alerts Configuration</h1>
 
                 <div className="row">
                     <div className="col-md-12">
                         {wasSubmissionOK && <div className="alert alert-success" role="alert"><strong>Instrument alarm</strong> was successfully updated.</div>}
                         <BootstrapErrorsProcessingAlert errors={errors} />
 
-                        <h2>Red Alarm</h2>
+                        <h2><i className="fas fa-fire"></i>&nbsp;Red Alarm</h2>
                         <hr />
                         <BootstrapInput
-                            id="idRAV"
-                            field="redAboveValue"
+                            className="form-control form-control-lg"
+                            borderColour="border-success"
+                            name="redAboveValue"
                             type="number"
                             label="Above value"
                             placeholder="℃"
@@ -68,8 +69,9 @@ class InstrumentAlertConfigComponent extends Component {
                             error={errors.redAboveValue}
                         />
                         <BootstrapInput
-                            id="idRBV"
-                            field="redBelowValue"
+                            className="form-control form-control-lg"
+                            borderColour="border-success"
+                            name="redBelowValue"
                             type="number"
                             label="Below value"
                             placeholder="℃"
@@ -95,11 +97,12 @@ class InstrumentAlertConfigComponent extends Component {
                         </div>
 
                         <br />
-                        <h2>Orange Alarm</h2>
+                        <h2><i className="fas fa-exclamation-circle"></i>&nbsp;Orange Alarm</h2>
                         <hr />
                         <BootstrapInput
-                            id="idOAV"
-                            field="orangeAboveValue"
+                            className="form-control form-control-lg"
+                            borderColour="border-success"
+                            name="orangeAboveValue"
                             type="number"
                             label="Above value"
                             placeholder="℃"
@@ -109,8 +112,9 @@ class InstrumentAlertConfigComponent extends Component {
                             error={errors.orangeAboveValue}
                         />
                         <BootstrapInput
-                            id="IDOBV"
-                            field="orangeBelowValue"
+                            className="form-control form-control-lg"
+                            borderColour="border-success"
+                            name="orangeBelowValue"
                             type="number"
                             label="Below value"
                             placeholder="℃"
@@ -136,11 +140,12 @@ class InstrumentAlertConfigComponent extends Component {
                         </div>
 
                         <br />
-                        <h2>Yellow Alarm</h2>
+                        <h2><i className="fas fa-exclamation-triangle"></i>&nbsp;Yellow Alarm</h2>
                         <hr />
                         <BootstrapInput
-                            id="idYAV"
-                            field="yellowAboveValue"
+                            className="form-control form-control-lg"
+                            borderColour="border-success"
+                            name="yellowAboveValue"
                             type="number"
                             label="Above value"
                             placeholder="℃"
@@ -150,8 +155,9 @@ class InstrumentAlertConfigComponent extends Component {
                             error={errors.yellowAboveValue}
                         />
                         <BootstrapInput
-                            id="idYBV"
-                            field="yellowBelowValue"
+                            className="form-control form-control-lg"
+                            borderColour="border-success"
+                            name="yellowBelowValue"
                             type="number"
                             label="Below value"
                             placeholder="℃"
@@ -163,7 +169,7 @@ class InstrumentAlertConfigComponent extends Component {
                         <div className="form-group">
                             <label for="yellowAlertDelayInSeconds">Above value</label>
                             <Select
-                                className="basic-single"
+                                className="basic-single border-primary"
                                 classNamePrefix="select"
                                 value={yellowAlertDelayInSecondsOption}
                                 onChange={onYellowAlertDelayInSecondsChange}
@@ -180,11 +186,15 @@ class InstrumentAlertConfigComponent extends Component {
 
                 <div className="row">
                     <div className="col-md-12">
+                        <Link to={`${instrument.absoluteUrl}/alerts`} className="btn btn-lg btn-secondary float-left">
+                            <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
+                        </Link>
                         <button
                             type="button"
-                            className="btn btn-primary"
+                            className="btn btn-lg btn-success float-right"
                             disabled={isLoading}
-                            onClick={onClick}>Save
+                            onClick={onClick}>
+                                <i className="fas fa-check"></i>&nbsp;Save
                         </button>
                     </div>
                 </div>

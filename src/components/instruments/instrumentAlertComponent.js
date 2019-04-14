@@ -17,6 +17,9 @@ class InstrumentAlertTable extends Component {
             console.log(datum)
             elements.push(
                 <tr>
+                    <th scope="row">
+                        <i className={`fa fa-${datum.icon}`}></i>
+                    </th>
                     <th scope="row">{datum.state}</th>
                     <td>{datum.datumValue}</td>
                     <td>{datum.datumTimestamp}</td>
@@ -28,6 +31,7 @@ class InstrumentAlertTable extends Component {
                 <table className="table table-striped">
                     <thead>
                         <tr>
+                            <th scope="col"></th>
                             <th scope="col">State</th>
                             <th scope="col">Measured value</th>
                             <th scope="col">Measured at</th>
