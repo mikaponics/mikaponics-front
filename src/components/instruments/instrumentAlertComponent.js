@@ -79,6 +79,12 @@ class InstrumentAlertComponent extends Component {
                 </nav>
                 <h1><i className="fas fa-bell"></i>&nbsp;Alerts</h1>
 
+                <div className="row">
+                    <div className="col-md-12">
+                        <FlashMessageComponent object={flashMessage} />
+                    </div>
+                </div>
+
                 <div className="buttons-card">
                     <section className="row text-center placeholders">
                         <div className="rounded-circle circle-200 bg-pink text-center">
@@ -91,7 +97,6 @@ class InstrumentAlertComponent extends Component {
 
                 <div className="row">
                     <div className="col-md-12">
-                        <FlashMessageComponent object={flashMessage} />
                         <InstrumentAlertTable dataList={dataList} />
                     </div>
                 </div>
