@@ -14,7 +14,6 @@ class InstrumentAlertTable extends Component {
         const dataLength = results.length;
         for (let i = 0; i < dataLength; i++) {
             let datum = results[i];
-            console.log(datum)
             elements.push(
                 <tr>
                     <th scope="row">

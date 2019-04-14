@@ -16,6 +16,7 @@ import DeviceContainer from "./devices/deviceContainer";
 import DeviceProfileContainer from "./devices/deviceProfileContainer";
 import InstrumentContainer from "./instruments/instrumentContainer";
 import InstrumentAlertContainer from "./instruments/instrumentAlertContainer";
+import InstrumentAlertDetailContainer from "./instruments/instrumentAlertDetailContainer";
 import InstrumentAlertConfigContainer from "./instruments/instrumentAlertConfigContainer";
 import InstrumentDataContainer from "./instruments/instrumentDataContainer";
 import InstrumentDataDownloadContainer from "./instruments/instrumentDataDownloadContainer";
@@ -55,6 +56,7 @@ class AppContainer extends React.Component {
                         <Route path="/device/:slug/profile" exact component={DeviceProfileContainer} />
                         <Route path="/instrument/:slug" exact component={InstrumentContainer} />
                         <Route path="/instrument/:slug/alerts" exact component={InstrumentAlertContainer} />
+                        <Route path="/instrument-alert/:slug" exact component={InstrumentAlertDetailContainer} />
                         <Route path="/instrument/:slug/alerts/config" exact component={InstrumentAlertConfigContainer} />
                         <Route path="/instrument/:slug/data" exact component={InstrumentDataContainer} />
                         <Route path="/instrument/:slug/data/download" exact component={InstrumentDataDownloadContainer} />

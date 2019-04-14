@@ -19,6 +19,7 @@ import deviceReducer from "./reducers/deviceReducer";
 import instrumentReducer from "./reducers/instrumentReducer";
 import dataReducer from "./reducers/dataReducer";
 import instrumentAlertListReducer from "./reducers/instrumentAlertListReducer";
+import instrumentAlertDetailReducer from "./reducers/instrumentAlertDetailReducer";
 import instrumentAnalysisCreateReducer from "./reducers/instrumentAnalysisCreateReducer.js";
 import instrumentAnalysisListReducer from "./reducers/instrumentAnalysisListReducer";
 import instrumentAnalysisDetailReducer from "./reducers/instrumentAnalysisDetailReducer";
@@ -37,6 +38,7 @@ const rootReducer = combineReducers({
     instrumentState: instrumentReducer,
     dataState: dataReducer,
     instrumentAlertListState: instrumentAlertListReducer,
+    instrumentAlertDetailState: instrumentAlertDetailReducer,
     instrumentAnalysisCreateState: instrumentAnalysisCreateReducer,
     instrumentAnalysisListState: instrumentAnalysisListReducer,
     instrumentAnalysisDetailState: instrumentAnalysisDetailReducer,
