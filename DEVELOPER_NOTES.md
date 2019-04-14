@@ -22,6 +22,7 @@ npm install --save react-datepicker
 npm install --save react-select
 npm install --save react-scroll
 npm install --save shortid
+npm install --save react-burger-menu
 ```
 
 Upgrade doing the following:

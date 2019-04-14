@@ -32,16 +32,16 @@ import ProfileEditContainer from "./profile/profileEditContainer";
 
 
 import NavigationBar from '../components/navigationBar.js';
+
 class AppContainer extends React.Component {
   render() {
-      console.log(this.props);
     return (
-        <div className="container-fluid">
+        <div className="container-fluid" id="outer-container">
             <div className="d-flex align-items-stretch">
                 <main id="main" role="main">
-
                     <Router>
                         <div>
+
                             <TopMenuContainer
                                 history={this.props.history}
                                 location={this.props.location}
