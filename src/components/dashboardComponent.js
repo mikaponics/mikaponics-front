@@ -89,9 +89,7 @@ class DashboardComponent extends Component {
                     </div>
 
                 </div>
-
-                <br />
-                <button onClick={onLogoutClick}>Logout</button>
+                
             </div>
         );
     }

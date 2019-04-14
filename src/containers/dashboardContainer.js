@@ -15,21 +15,6 @@ class DashboardContainer extends Component {
         this.state = {
             referrer: '',
         }
-
-        this.onLogoutClick = this.onLogoutClick.bind(this);
-    }
-
-    onLogoutClick() {
-        // Update the global state of the application to store our
-        // user profile for the application.
-        store.dispatch(
-            attemptLogout({})
-        );
-
-        // Re-direct.
-        this.setState({
-            referrer: '/'
-        })
     }
 
     componentDidMount() {
@@ -53,7 +38,6 @@ class DashboardContainer extends Component {
         return (
             <DashboardComponent
                 dashboard={this.props.dashboard}
-                onClick={this.onLogoutClick}
             />
         );
     }

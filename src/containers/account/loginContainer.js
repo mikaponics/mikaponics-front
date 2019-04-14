@@ -6,6 +6,7 @@ import { Redirect } from "react-router-dom";
 import LoginComponent from '../../components/account/loginComponent';
 import validateInput from "../../validations/login";
 import { attemptLoginRestForm, attemptLogin } from "../../actions/loginAction";
+import { clearFlashMessage } from "../../actions/flashMessageActions";
 
 
 class LoginContainer extends Component {
@@ -55,6 +56,9 @@ class LoginContainer extends Component {
         this.setState = (state,callback)=>{
             return;
         };
+
+        // Clear any and all flash messages in our queue to be rendered.
+        this.props.clearFlashMessage();
     }
 
     componentDidMount() {
@@ -71,7 +75,7 @@ class LoginContainer extends Component {
 
     render() {
         const { email, password } = this.state;
-        const { user } = this.props;
+        const { user, flashMessage } = this.props;
 
         const isLoading = user.isAPIRequestRunning ? true : false;
         const errors = user.errors ? user.errors : {};
@@ -86,7 +90,6 @@ class LoginContainer extends Component {
             }
         }
 
-
         return (
             <LoginComponent
                 email={email}
@@ -95,6 +98,7 @@ class LoginContainer extends Component {
                 onSubmit={this.onSubmit}
                 errors={errors}
                 isLoading={isLoading}
+                flashMessage={flashMessage}
             />
         );
     }
@@ -102,7 +106,8 @@ class LoginContainer extends Component {
 
 const mapStateToProps = function(store) {
     return {
-        user: store.userState
+        user: store.userState,
+        flashMessage: store.flashMessageState,
     };
 }
 
@@ -113,6 +118,9 @@ const mapDispatchToProps = dispatch => {
         },
         attemptLoginRestForm: () => {
             dispatch(attemptLoginRestForm())
+        },
+        clearFlashMessage: () => {
+            dispatch(clearFlashMessage())
         }
     }
 }

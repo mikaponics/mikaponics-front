@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { BootstrapInputGroup } from '../bootstrap/bootstrapInputGroup';
+import { FlashMessageComponent } from "../flashMessageComponent";
 
 
 class AlertComponent extends Component {
@@ -27,7 +28,7 @@ class AlertComponent extends Component {
 
 class LoginComponent extends Component {
     render() {
-    const { email, password, onChange, onSubmit, errors = {}, isLoading } = this.props;
+    const { email, password, onChange, onSubmit, errors = {}, isLoading, flashMessage } = this.props;
     return (
         <div className="container">
             <AlertComponent />
@@ -40,6 +41,7 @@ class LoginComponent extends Component {
                     <h2 className="text-center mb-3">Sign In</h2>
                     <form id="sign-in" className="form-signin needs-validation" onSubmit={onSubmit}>
 
+                        <FlashMessageComponent object={flashMessage} />
                         {errors.nonFieldErrors && <div className="alert alert-danger" role="alert">{errors.nonFieldErrors}</div>}
 
                         <BootstrapInputGroup

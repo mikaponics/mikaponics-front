@@ -20,7 +20,7 @@ class AnonymousMenu extends Component {
 
 class AuthenticatedMenu extends Component {
     render() {
-        const { onHamburgerMenuClick, isOpenMenu, user } = this.props;
+        const { onHamburgerMenuClick, isOpenMenu, onLogoutClick, user } = this.props;
         return (
             <Menu pageWrapId={ "main" } outerContainerId={ "outer-container" } right noOverlay customBurgerIcon={ false } isOpen={ isOpenMenu }>
                 <a id="home" className="menu-item" href="/dashboard">Dashboard</a>
@@ -28,7 +28,7 @@ class AuthenticatedMenu extends Component {
                 <a id="alerts" className="menu-item" href="/alerts">Alerts</a>
                 <a id="invoices" className="menu-item" href="/invoices">Invoices</a>
                 <a id="profile" className="menu-item" href="/profile">Profile</a>
-                <a id="logout" className="menu-item" href="/">Logout</a>
+                <a id="logout" onClick={ onLogoutClick } className="menu-item--small" href="">Logout</a>
             </Menu>
         );
     }
@@ -37,20 +37,27 @@ class AuthenticatedMenu extends Component {
 
 class TopMenuComponent extends Component {
     render() {
-        const { onHamburgerMenuClick, isOpenMenu, user } = this.props;
+        const { onHamburgerMenuClick, isOpenMenu, onLogoutClick, user } = this.props;
 
         // THE FOLLOWING CODE WILL EITHER RENDER THE MENU BASED ON WHETHER
         // THE USER IS LOGGED IN OR NOT.
         let menuElement;
         if (user !== null && user !== undefined) {
-            menuElement = (
-                <AuthenticatedMenu
-                    isOpenMenu={isOpenMenu}
-                    onHamburgerMenuClick={onHamburgerMenuClick}
-                    user={user}
-                />
-            );
-        } else {
+            const keysArr = Object.keys(user);
+            const count = keysArr.length;
+            if (count > 0) {
+                menuElement = (
+                    <AuthenticatedMenu
+                        isOpenMenu={isOpenMenu}
+                        onHamburgerMenuClick={onHamburgerMenuClick}
+                        onLogoutClick={onLogoutClick}
+                        user={user}
+                    />
+                );
+            }
+        }
+
+        if (menuElement === undefined || menuElement === null) {
             menuElement = (
                 <AnonymousMenu
                     isOpenMenu={isOpenMenu}
