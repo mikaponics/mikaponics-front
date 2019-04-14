@@ -13,46 +13,124 @@ class InstrumentAnalysisDetailComponent extends Component {
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item">
-                           <Link to="/dashboard">Dashboard</Link>
+                           <Link to="/dashboard"><i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard</Link>
+                        </li>
+                        <li className="breadcrumb-item">
+                           <Link to="/devices"><i className="fas fa-cubes"></i>&nbsp;Devices</Link>
                         </li>
                         <li className="breadcrumb-item">
                             {instrument.absoluteParentUrl &&
-                                <Link to={`${instrument.absoluteParentUrl}`}>Device</Link>
+                                <Link to={`${instrument.absoluteParentUrl}`}>
+                                    <i className="fas fa-cube"></i>&nbsp;Device
+                                </Link>
                             }
                         </li>
                         {instrument.absoluteUrl &&
                             <li className="breadcrumb-item">
-                                <Link to={`${instrument.absoluteUrl}`}>Instrument</Link>
+                                <Link to={`${instrument.absoluteUrl}`}>
+                                    <i className={`fas fa-${instrument.icon}`}></i>&nbsp;Instrument
+                                </Link>
                             </li>
                         }
                         {instrument.absoluteUrl &&
                             <li className="breadcrumb-item">
-                                <Link to={`${instrument.absoluteUrl}/analyses`}>Analyses</Link>
+                                <Link to={`${instrument.absoluteUrl}/analyses`}>
+                                    <i className="fas fa-flask"></i>&nbsp;Analyses
+                                </Link>
                             </li>
                         }
-                        <li className="breadcrumb-item active" aria-current="page">Analysis</li>
+                        <li className="breadcrumb-item active" aria-current="page">
+                            <i className="fas fa-clipboard"></i>&nbsp;Analysis
+                        </li>
                     </ol>
                 </nav>
-                <h1>Analysis</h1>
-                <hr />
+                <h1><i className="fas fa-clipboard"></i>&nbsp;Analysis</h1>
                 <div className="row">
                     <div className="col-md-12">
                         <FlashMessageComponent object={flashMessage} />
-                        <p>Start Date: {detail.startDt}</p>
-                        <p>Finish Date: {detail.finishDt}</p>
-                        <p>Minimum value: {detail.minValue}</p>
-                        <p>Minimum timestamp: {detail.minTimestamp}</p>
-                        <p>Maximum value: {detail.maxValue}</p>
-                        <p>Maximum timestamp: {detail.maxTimestamp}</p>
-                        <p>Mean value: {detail.meanValue}</p>
-                        <p>Mean value: {detail.medianValue}</p>
-                        <p>Mode value: {detail.modeValue}</p>
-                        <p>Mode values: </p>
-                        <p>Range value: {detail.rangeValue}</p>
-                        <p>Standard deviation value: {detail.stedvValue}</p>
-                        <p>Variance value: {detail.varianceValue}</p>
-                        <p>Created at: {detail.createdAt}</p>
-                        <p>Last modified at: {detail.lastModifiedAt}</p>
+                        <p><strong>The following table is the results from the analysis ran by the user.</strong></p>
+                        <table className="table table-bordered custom-cell-w">
+                            <tbody>
+                                <tr className="bg-dark">
+                                    <th scope="row" colSpan="2" className="text-light">Time Range</th>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Start</th>
+                                    <td>{detail.startDt}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Finish</th>
+                                    <td>{detail.finishDt}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table className="table table-bordered custom-cell-w">
+                            <tbody>
+                                <tr className="bg-dark">
+                                    <th scope="row" colSpan="2" className="text-light">Statistics</th>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Minimum value</th>
+                                    <td>{detail.minValue}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Minimum at</th>
+                                    <td>{detail.minTimestamp}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Maximum value</th>
+                                    <td>{detail.maxValue}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Maximum at</th>
+                                    <td>{detail.maxTimestamp}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Mean value</th>
+                                    <td>{detail.meanValue}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Median value</th>
+                                    <td>{detail.medianValue}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Mode value</th>
+                                    <td>{detail.modeValue}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Mode values</th>
+                                    <td>{detail.modeValues}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Range value</th>
+                                    <td>{detail.rangeValue}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Standard deviation value</th>
+                                    <td>{detail.stedvValue}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Variance value</th>
+                                    <td>{detail.varianceValue}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table className="table table-bordered custom-cell-w">
+                            <tbody>
+                                <tr className="bg-dark">
+                                    <th scope="row" colSpan="2" className="text-light">System Information</th>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Created at</th>
+                                    <td>{detail.createdAt}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Last modified at</th>
+                                    <td>{detail.lastModifiedAt}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
