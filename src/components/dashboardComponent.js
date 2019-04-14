@@ -89,44 +89,6 @@ class DashboardComponent extends Component {
                     </div>
 
                 </div>
-                <br />
-
-
-                <div className="row">
-                    <div className="col-md-12">
-                        <h2><i className="fas fa-cubes"></i>&nbsp;Devices</h2>
-                        <Link className="btn btn-success btn-sm" role="button" to="/dashboard">Purchase Device</Link>
-                        <hr />
-                    </div>
-                    {deviceCards}
-                </div>
-
-                <br />
-                <div className="row">
-                    <div className="col-md-12">
-                        <h2><i className="fas fa-bell"></i>&nbsp;Alerts</h2>
-                        <hr />
-                        <Link to="/alerts">See all ></Link>
-                    </div>
-                </div>
-
-                <br />
-                <div className="row">
-                    <div className="col-md-12">
-                        <h2><i className="fas fa-user-circle"></i>&nbsp;Profile</h2>
-                        <hr />
-                        <Link to="/profile">View profile ></Link>
-                    </div>
-                </div>
-
-                <br />
-                <div className="row">
-                    <div className="col-md-12">
-                        <h2><i className="fas fa-book"></i>&nbsp;Invoices</h2>
-                        <hr />
-                        <Link to="/invoices">View invoices ></Link>
-                    </div>
-                </div>
 
                 <br />
                 <button onClick={onLogoutClick}>Logout</button>

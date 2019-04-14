@@ -26,22 +26,25 @@ class InstrumentAlertConfigComponent extends Component {
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item">
-                           <Link to="/dashboard">Dashboard</Link>
+                           <Link to="/dashboard"><i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard</Link>
+                        </li>
+                        <li className="breadcrumb-item">
+                           <Link to="/devices"><i className="fas fa-cubes"></i>&nbsp;Devices</Link>
                         </li>
                         <li className="breadcrumb-item">
                             {instrument.absoluteParentUrl &&
-                                <Link to={`${instrument.absoluteParentUrl}`}>Device</Link>
+                                <Link to={`${instrument.absoluteParentUrl}`}><i className="fas fa-cube"></i>&nbsp;Device</Link>
                             }
                         </li>
                         {instrument.absoluteUrl &&
                             <li className="breadcrumb-item">
-                                <Link to={`${instrument.absoluteUrl}`}>Instrument</Link>
+                                <Link to={`${instrument.absoluteUrl}`}><i className={`fas fa-${instrument.icon}`}></i>&nbsp;Instrument</Link>
                             </li>
                         }
                         <li className="breadcrumb-item">
-                            <Link to={`${instrument.absoluteUrl}/alerts`}>Alerts</Link>
+                            <Link to={`${instrument.absoluteUrl}/alerts`}><i className="fas fa-bell"></i>&nbsp;Alerts</Link>
                         </li>
-                        <li className="breadcrumb-item active" aria-current="page">Configuration</li>
+                        <li className="breadcrumb-item active" aria-current="page"><i className="fas fa-cogs"></i>&nbsp;Configuration</li>
                     </ol>
                 </nav>
                 <h1>Alerts Configuration</h1>
