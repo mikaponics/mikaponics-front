@@ -53,11 +53,15 @@ class DeviceProfileComponent extends Component {
                             onChange={onChange}
                             error={errors.description}
                         />
+                        <Link to={device.absoluteUrl} className="btn btn-lg btn-secondary float-left">
+                            <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
+                        </Link>
                         <button
                             type="button"
-                            className="btn btn-primary"
+                            className="btn btn-lg btn-success float-right"
                             disabled={isLoading}
-                            onClick={onClick}>Save
+                            onClick={onClick}>
+                            <i className="fas fa-check"></i>&nbsp;Save
                         </button>
                     </div>
                 </div>

@@ -15,7 +15,7 @@ class DeviceItem extends Component {
                         <h3 className="card-title">{deviceObj.name}</h3>
                         <p className="card-text">{deviceObj.description}</p>
                         <Link to={deviceObj.absoluteUrl} className="btn btn-success btn-lg">
-                            Go&nbsp;<i className="fas fa-arrow-circle-right"></i>
+                            View&nbsp;<i className="fas fa-arrow-circle-right"></i>
                         </Link>
                     </div>
                 </div>

@@ -113,7 +113,7 @@ class DeviceComponent extends Component {
                                 <p className="card-text">Set the name and various operating details about this device.</p>
                                 {device.slug &&
                                     <Link to={`/device/${device.slug}/profile`} className="btn btn-success btn-lg">
-                                        Go&nbsp;<i className="fas fa-arrow-circle-right"></i>
+                                        View&nbsp;<i className="fas fa-arrow-circle-right"></i>
                                     </Link>
                                 }
                             </div>
@@ -129,7 +129,7 @@ class DeviceComponent extends Component {
                                 <p className="card-text">Set the name and various operating details about this device.</p>
                                 {device.humidity &&
                                     <Link to={`/instrument/${device.humidity.slug}`} className="btn btn-success btn-lg">
-                                        Go&nbsp;<i className="fas fa-arrow-circle-right"></i>
+                                        View&nbsp;<i className="fas fa-arrow-circle-right"></i>
                                     </Link>
                                 }
                             </div>
@@ -145,7 +145,7 @@ class DeviceComponent extends Component {
                                 <p className="card-text">Set the name and various operating details about this device.</p>
                                 {device.temperature &&
                                     <Link to={`/instrument/${device.temperature.slug}`} className="btn btn-success btn-lg">
-                                        Go&nbsp;<i className="fas fa-arrow-circle-right"></i>
+                                        View&nbsp;<i className="fas fa-arrow-circle-right"></i>
                                     </Link>
                                 }
                             </div>
