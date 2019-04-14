@@ -10,7 +10,7 @@ $(document).ready(function () {
 	    // $('#advance_search_btn_x').hide();
 	    // $('#advance_search_btn').show();
 	});
-	
+
 	$(document).on("click", "#advance_search_btn" , function() {
 		$('#adv-search').show();
 	    $('#advance_search_btn_x').show();
@@ -38,5 +38,5 @@ $(document).ready(function () {
 	    $('#commercial-form').addClass('active show');
 	    $('#residential').removeClass('active');
 	});
-	
+
 });
