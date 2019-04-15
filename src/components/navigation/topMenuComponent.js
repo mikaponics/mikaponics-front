@@ -10,9 +10,17 @@ class AnonymousMenu extends Component {
         const { onHamburgerMenuClick, isOpenMenu } = this.props;
         return (
             <Menu pageWrapId={ "main" } outerContainerId={ "outer-container" } right noOverlay customBurgerIcon={ false } isOpen={ isOpenMenu }>
-                <a id="home" className="menu-item" href="/">Home</a>
-                <a id="login" className="menu-item" href="/login">Login</a>
-                <a id="register" className="menu-item" href="/register">Register</a>
+                <Link className="menu-item" to="/">
+                    <i className="fas fa-tachometer-alt"></i>&nbsp;Home
+                </Link>
+
+                <Link className="menu-item" to="/login">
+                    <i className="fas fa-sign-in-alt"></i>&nbsp;Login
+                </Link>
+
+                <Link className="menu-item" to="/register">
+                    <i className="fas fa-user"></i>&nbsp;Register
+                </Link>
             </Menu>
         );
     }
@@ -23,12 +31,30 @@ class AuthenticatedMenu extends Component {
         const { onHamburgerMenuClick, isOpenMenu, onLogoutClick, user } = this.props;
         return (
             <Menu pageWrapId={ "main" } outerContainerId={ "outer-container" } right noOverlay customBurgerIcon={ false } isOpen={ isOpenMenu }>
-                <a id="home" className="menu-item" href="/dashboard">Dashboard</a>
-                <a id="devices" className="menu-item" href="/devices">Devices</a>
-                <a id="alerts" className="menu-item" href="/alerts">Alerts</a>
-                <a id="invoices" className="menu-item" href="/invoices">Invoices</a>
-                <a id="profile" className="menu-item" href="/profile">Profile</a>
-                <a id="logout" onClick={ onLogoutClick } className="menu-item--small" href="">Logout</a>
+
+                <Link className="menu-item" to="/dashboard">
+                    <i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard
+                </Link>
+
+                <Link className="menu-item" to="/devices">
+                    <i className="fas fa-cubes"></i>&nbsp;Devices
+                </Link>
+
+                <Link className="menu-item" to="/alerts">
+                    <i className="fas fa-bell"></i>&nbsp;Alerts
+                </Link>
+
+                <Link className="menu-item" to="/invoices">
+                    <i className="fas fa-book"></i>&nbsp;Invoices
+                </Link>
+
+                <Link className="menu-item" to="/profile">
+                    <i className="fas fa-user-circle"></i>&nbsp;Profile
+                </Link>
+
+                <a id="logout" onClick={ onLogoutClick } className="menu-item--small" href="">
+                    <i className="fas fa-sign-out-alt"></i>&nbsp;Logout
+                </a>
             </Menu>
         );
     }

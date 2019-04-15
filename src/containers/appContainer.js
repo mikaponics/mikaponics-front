@@ -31,8 +31,6 @@ import ProfileContainer from "./profile/profileContainer";
 import ProfileEditContainer from "./profile/profileEditContainer";
 
 
-import NavigationBar from '../components/navigationBar.js';
-
 class AppContainer extends React.Component {
   render() {
     return (
