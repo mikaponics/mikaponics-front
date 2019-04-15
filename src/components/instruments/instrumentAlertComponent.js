@@ -22,6 +22,11 @@ class InstrumentAlertTable extends Component {
                     <th scope="row">{datum.state}</th>
                     <td>{datum.datumValue}</td>
                     <td>{datum.datumTimestamp}</td>
+                    <td>
+                        <Link to={datum.absoluteUrl}>
+                            View&nbsp;<i className="fas fa-chevron-right"></i>
+                        </Link>
+                    </td>
                 </tr>
             );
         }
@@ -34,6 +39,7 @@ class InstrumentAlertTable extends Component {
                             <th scope="col">State</th>
                             <th scope="col">Measured value</th>
                             <th scope="col">Measured at</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
