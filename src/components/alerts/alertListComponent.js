@@ -21,7 +21,7 @@ class InstrumentAlertTable extends Component {
                     <td>{datum.datumValue}</td>
                     <td>{datum.datumTimestamp}</td>
                     <td>
-                        <Link to={datum.absoluteUrl} target="_blank">
+                        <Link to={datum.absoluteUrl} target="_blank" rel="noopener noreferrer">
                             View&nbsp;<i className="fas fa-external-link-alt"></i>
                         </Link>
                     </td>

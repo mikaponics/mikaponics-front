@@ -21,11 +21,15 @@ class IndexContainer extends Component {
                         <hr className="my-4" />
                         <p>If you already have an account, login through here.</p>
 
-                        <Link to="/login" role="button" className="btn btn-primary btn-lg">Login</Link><br />
+                        <Link to="/login" role="button" className="btn btn-primary btn-lg">
+                            <i className="fas fa-sign-in-alt"></i>&nbsp;Login
+                        </Link><br />
 
                         <hr className="my-4" />
                         <p>Don't have an account? Here is where you can create your account.</p>
-                        <Link to="/register" role="button" className="btn btn-primary btn-lg">Register</Link>
+                        <Link to="/register" role="button" className="btn btn-primary btn-lg">
+                            <i className="fas fa-user"></i>&nbsp;Register
+                        </Link>
 
                     </div>
 
@@ -40,7 +44,9 @@ class IndexContainer extends Component {
                         <div className="card-body">
                             <h5 className="card-title">Open-source telemetry</h5>
                             <p className="card-text">We believe sharing our code-base is important for you data and your business. You are welcome to view the code and create similar projects based off our code.</p>
-                            <a href="https://github.com/mikaponics" className="btn btn-primary" target="_blank" rel="noopener noreferrer">Visit Github.com</a>
+                            <a href="https://github.com/mikaponics" className="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                                Visit Github.com&nbsp;<i className="fas fa-external-link-alt"></i>&nbsp;
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -52,8 +58,8 @@ class IndexContainer extends Component {
                         <div className="card-body">
                             <p className="card-text">
                             <ul>
-                                <li>Your privacy is important to us, please visit the <a href="https://github.com/mikaponics" target="_blank" rel="noopener noreferrer">privacy policy</a> while using our services.</li>
-                                <li>The the <a href="https://github.com/mikaponics" target="_blank" rel="noopener noreferrer">terms and services</a> page describes what we expect from you.</li>
+                                <li>Your privacy is important to us, please visit the <a href="https://github.com/mikaponics" target="_blank" rel="noopener noreferrer">privacy policy&nbsp;<i className="fas fa-external-link-alt"></i></a> while using our services.</li>
+                                <li>The the <a href="https://github.com/mikaponics" target="_blank" rel="noopener noreferrer">terms and services&nbsp;<i className="fas fa-external-link-alt"></i></a> page describes what we expect from you.</li>
                             </ul>
                             </p>
                         </div>
