@@ -7,18 +7,18 @@ import './hamburger-menu.css';
 
 class AnonymousMenu extends Component {
     render() {
-        const { onHamburgerMenuClick, isOpenMenu } = this.props;
+        const { onHamburgerMenuClick, isOpenMenu, closeSideMenuAction } = this.props;
         return (
             <Menu pageWrapId={ "main" } outerContainerId={ "outer-container" } right noOverlay customBurgerIcon={ false } isOpen={ isOpenMenu }>
-                <Link className="menu-item" to="/">
+                <Link className="menu-item" to="/" onClick={closeSideMenuAction}>
                     <i className="fas fa-tachometer-alt"></i>&nbsp;Home
                 </Link>
 
-                <Link className="menu-item" to="/login">
+                <Link className="menu-item" to="/login" onClick={closeSideMenuAction}>
                     <i className="fas fa-sign-in-alt"></i>&nbsp;Login
                 </Link>
 
-                <Link className="menu-item" to="/register">
+                <Link className="menu-item" to="/register" onClick={closeSideMenuAction}>
                     <i className="fas fa-user"></i>&nbsp;Register
                 </Link>
             </Menu>
@@ -28,27 +28,27 @@ class AnonymousMenu extends Component {
 
 class AuthenticatedMenu extends Component {
     render() {
-        const { onHamburgerMenuClick, isOpenMenu, onLogoutClick, user } = this.props;
+        const { onHamburgerMenuClick, isOpenMenu, onLogoutClick, closeSideMenuAction, user } = this.props;
         return (
             <Menu pageWrapId={ "main" } outerContainerId={ "outer-container" } right noOverlay customBurgerIcon={ false } isOpen={ isOpenMenu }>
 
-                <Link className="menu-item" to="/dashboard">
+                <Link className="menu-item" to="/dashboard" onClick={closeSideMenuAction}>
                     <i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard
                 </Link>
 
-                <Link className="menu-item" to="/devices">
+                <Link className="menu-item" to="/devices" onClick={closeSideMenuAction}>
                     <i className="fas fa-cubes"></i>&nbsp;Devices
                 </Link>
 
-                <Link className="menu-item" to="/alerts">
+                <Link className="menu-item" to="/alerts" onClick={closeSideMenuAction}>
                     <i className="fas fa-bell"></i>&nbsp;Alerts
                 </Link>
 
-                <Link className="menu-item" to="/invoices">
+                <Link className="menu-item" to="/invoices" onClick={closeSideMenuAction}>
                     <i className="fas fa-book"></i>&nbsp;Invoices
                 </Link>
 
-                <Link className="menu-item" to="/profile">
+                <Link className="menu-item" to="/profile" onClick={closeSideMenuAction}>
                     <i className="fas fa-user-circle"></i>&nbsp;Profile
                 </Link>
 
@@ -63,7 +63,7 @@ class AuthenticatedMenu extends Component {
 
 class TopMenuComponent extends Component {
     render() {
-        const { onHamburgerMenuClick, isOpenMenu, onLogoutClick, user } = this.props;
+        const { onHamburgerMenuClick, isOpenMenu, onLogoutClick, user, closeSideMenuAction } = this.props;
 
         // THE FOLLOWING CODE WILL EITHER RENDER THE MENU BASED ON WHETHER
         // THE USER IS LOGGED IN OR NOT.
@@ -77,6 +77,7 @@ class TopMenuComponent extends Component {
                         isOpenMenu={isOpenMenu}
                         onHamburgerMenuClick={onHamburgerMenuClick}
                         onLogoutClick={onLogoutClick}
+                        closeSideMenuAction={closeSideMenuAction}
                         user={user}
                     />
                 );
@@ -88,6 +89,7 @@ class TopMenuComponent extends Component {
                 <AnonymousMenu
                     isOpenMenu={isOpenMenu}
                     onHamburgerMenuClick={onHamburgerMenuClick}
+                    closeSideMenuAction={closeSideMenuAction}
                 />
             );
         }

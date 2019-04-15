@@ -16,6 +16,7 @@ class TopMenuContainer extends Component {
         }
         this.onHamburgerMenuClick = this.onHamburgerMenuClick.bind(this);
         this.onLogoutClick = this.onLogoutClick.bind(this);
+        this.closeSideMenuAction = this.closeSideMenuAction.bind(this);
     }
 
     /**
@@ -24,6 +25,12 @@ class TopMenuContainer extends Component {
     onHamburgerMenuClick() {
         this.setState({
             isOpenMenu: !this.state.isOpenMenu
+        })
+    }
+
+    closeSideMenuAction() {
+        this.setState({
+            isOpenMenu: false
         })
     }
 
@@ -58,6 +65,7 @@ class TopMenuContainer extends Component {
                 onHamburgerMenuClick={this.onHamburgerMenuClick}
                 onLogoutClick={this.onLogoutClick}
                 user={user}
+                closeSideMenuAction={this.closeSideMenuAction}
             />
         );
     }
