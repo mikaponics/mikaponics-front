@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
 
-import { setLogoutSuccess } from "../../actions/loginAction";
+import { attemptLogout } from "../../actions/loginAction";
 import { setFlashMessage } from "../../actions/flashMessageActions";
 import TopMenuComponent from "../../components/navigation/topMenuComponent";
 
@@ -40,7 +40,7 @@ class TopMenuContainer extends Component {
 
         // Create a flash message telling the user that they successfully logged out.
         this.props.setFlashMessage("success", "You have successfully logged out.");
-        this.props.setLogoutSuccess();
+        this.props.attemptLogout();
 
         // Redirect to the login page with success message.
         this.setState({
@@ -83,8 +83,8 @@ const mapDispatchToProps = dispatch => {
         setFlashMessage: (typeOf, text) => {
             dispatch(setFlashMessage(typeOf, text))
         },
-        setLogoutSuccess: () => {
-            dispatch(setLogoutSuccess())
+        attemptLogout: () => {
+            dispatch(attemptLogout())
         }
     }
 }
