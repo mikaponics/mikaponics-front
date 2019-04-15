@@ -5,6 +5,9 @@ import { slide as Menu } from 'react-burger-menu'
 import './hamburger-menu.css';
 
 
+/**
+ *  The menu used when no user has logged in and the site is public facing.
+ */
 class AnonymousMenu extends Component {
     render() {
         const { onHamburgerMenuClick, isOpenMenu, closeSideMenuAction } = this.props;
@@ -26,7 +29,11 @@ class AnonymousMenu extends Component {
     }
 }
 
-class AuthenticatedMenu extends Component {
+
+/*
+ *  The menu used when an authenticated user has logged in and is being "onboarded".
+ */
+class AuthenticatedFullMenu extends Component {
     render() {
         const { onHamburgerMenuClick, isOpenMenu, onLogoutClick, closeSideMenuAction, user } = this.props;
         return (
@@ -61,6 +68,30 @@ class AuthenticatedMenu extends Component {
 }
 
 
+/**
+ *  The menu used when the user has been authenticated and the user account has
+ *  successfully been onboarded thus giving the user unrestricted access to their
+ *  account.
+ */
+class AuthenticatedOnboardingMenu extends Component {
+    render() {
+        const { onHamburgerMenuClick, isOpenMenu, onLogoutClick, closeSideMenuAction, user } = this.props;
+        return (
+            <Menu pageWrapId={ "main" } outerContainerId={ "outer-container" } right noOverlay customBurgerIcon={ false } isOpen={ isOpenMenu }>
+
+                <Link className="menu-item" to="/onboard" onClick={closeSideMenuAction}>
+                    <i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard
+                </Link>
+
+                <a id="logout" onClick={ onLogoutClick } className="menu-item--small" href="">
+                    <i className="fas fa-sign-out-alt"></i>&nbsp;Logout
+                </a>
+            </Menu>
+        );
+    }
+}
+
+
 class TopMenuComponent extends Component {
     render() {
         const { onHamburgerMenuClick, isOpenMenu, onLogoutClick, user, closeSideMenuAction } = this.props;
@@ -72,15 +103,30 @@ class TopMenuComponent extends Component {
             const keysArr = Object.keys(user);
             const count = keysArr.length;
             if (count > 0) {
-                menuElement = (
-                    <AuthenticatedMenu
-                        isOpenMenu={isOpenMenu}
-                        onHamburgerMenuClick={onHamburgerMenuClick}
-                        onLogoutClick={onLogoutClick}
-                        closeSideMenuAction={closeSideMenuAction}
-                        user={user}
-                    />
-                );
+                const { wasOnboarded } = user;
+
+                if ( wasOnboarded) {
+                    menuElement = (
+                        <AuthenticatedFullMenu
+                            isOpenMenu={isOpenMenu}
+                            onHamburgerMenuClick={onHamburgerMenuClick}
+                            onLogoutClick={onLogoutClick}
+                            closeSideMenuAction={closeSideMenuAction}
+                            user={user}
+                        />
+                    );
+                } else {
+                    menuElement = (
+                        <AuthenticatedOnboardingMenu
+                            isOpenMenu={isOpenMenu}
+                            onHamburgerMenuClick={onHamburgerMenuClick}
+                            onLogoutClick={onLogoutClick}
+                            closeSideMenuAction={closeSideMenuAction}
+                            user={user}
+                        />
+                    );
+                }
+
             }
         }
 
