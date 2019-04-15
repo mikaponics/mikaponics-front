@@ -49,13 +49,12 @@ class ProfileComponent extends Component {
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item">
-                           <Link to="/dashboard">Dashboard</Link>
+                           <Link to="/dashboard"><i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard</Link>
                         </li>
-                        <li className="breadcrumb-item active" aria-current="page">Profile</li>
+                        <li className="breadcrumb-item active" aria-current="page"><i className="fas fa-user-circle"></i>&nbsp;Profile</li>
                     </ol>
                 </nav>
-                <h1>Profile</h1>
-                <hr />
+                <h1><i className="fas fa-user-circle"></i>&nbsp;Profile</h1>
                 <div className="row">
                     <div className="col-md-12">
                         <FlashMessageComponent object={flashMessage} />
