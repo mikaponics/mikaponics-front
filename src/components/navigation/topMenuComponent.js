@@ -145,7 +145,7 @@ class TopMenuComponent extends Component {
             <div>
                 <header className="top-navbar navbar navbar-dark fixed-top bg-dark justify-content-between">
                     <Link className="navbar-brand" to="/">
-                        <img class="img-fluid" src="/img/compressed-logo.png" alt="Mikaponics" width="200px" />
+                        <img className="img-fluid" src="/img/compressed-logo.png" alt="Mikaponics" width="200px" />
                     </Link>
                     <button className="navbar-toggler" type="button" onClick={onHamburgerMenuClick}>
                         <i className="fa fa-bars"></i>
