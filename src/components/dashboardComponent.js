@@ -40,8 +40,6 @@ class DashboardComponent extends Component {
         return (
             <div className="Dashboard">
                 <h1><i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard</h1>
-                <hr />
-
                 <div className="card-group row">
                     <div className="col-sm-4">
                         <div className="card box-shadow text-center mx-auto">
@@ -89,7 +87,7 @@ class DashboardComponent extends Component {
                     </div>
 
                 </div>
-                
+
             </div>
         );
     }
