@@ -16,22 +16,6 @@ class OnboardWelcomeContainer extends Component {
             referrer: '',
             user: this.props.user
         }
-
-        this.onLogoutClick = this.onLogoutClick.bind(this);
-    }
-
-    onLogoutClick() {
-        // Reset the onboarding state.
-        this.props.clearOnboarding();
-
-        // Update the global state of the application to store our
-        // user's details for the application.
-        this.props.attemptLogout()
-
-        // Re-direct.
-        this.setState({
-            referrer: '/'
-        })
     }
 
     componentDidMount() {
@@ -60,7 +44,6 @@ class OnboardWelcomeContainer extends Component {
 
         return (
             <OnboardWelcomeComponent
-                onLogoutClick={this.onLogoutClick}
                 user={user}
             />
         );

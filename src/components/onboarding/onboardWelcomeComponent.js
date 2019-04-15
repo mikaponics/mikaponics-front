@@ -7,9 +7,9 @@ import { NOT_INTERESTED_SUBSCRIPTION_STATUS } from "../../constants/api";
 class OnboardWelcomeComponent extends Component {
     render() {
 
-        const { onLogoutClick, user } = this.props;
+        const { user } = this.props;
 
-        function notPaidView(onLogoutClick) {
+        function notPaidView() {
             return (
                 <div className="container">
                     <main>
@@ -23,16 +23,12 @@ class OnboardWelcomeComponent extends Component {
                             <Link to="/onboard/purchase" className="btn btn-primary">Begin <i className="fas fa-arrow-circle-right"></i></Link>
                         </div>
 
-                        <button className="btn btn-primary" onClick={onLogoutClick}>Logout</button>
-
                     </main>
                 </div>
-
-
             );
         }
 
-        function paidView(onLogoutClick) {
+        function paidView() {
             return (
                 <div className="Onboarding-Greetings">
                     <div className="row">
@@ -45,8 +41,6 @@ class OnboardWelcomeComponent extends Component {
                                 <p>Please check your email periodically to get the latest information about your order.</p>
                             </div>
 
-                            <button className="btn btn-primary" onClick={onLogoutClick}>Logout</button>
-
                         </div>
                     </div>
                 </div>
@@ -54,9 +48,9 @@ class OnboardWelcomeComponent extends Component {
         }
 
         if (user.subscriptionStatus === NOT_INTERESTED_SUBSCRIPTION_STATUS) {
-            return notPaidView(onLogoutClick);
+            return notPaidView();
         } else {
-            return paidView(onLogoutClick);
+            return paidView();
         }
 
     }
