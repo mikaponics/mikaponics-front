@@ -14,7 +14,7 @@ class RegisterContainer extends React.Component {
         this.state = {
             email: '',
             password: '',
-            passwordConfirmation: '',
+            passwordRepeat: '',
             firstName: '',
             lastName: '',
             timezone: '',
@@ -67,7 +67,7 @@ class RegisterContainer extends React.Component {
     }
 
     render () {
-        const { email, password, passwordConfirmation, firstName, lastName, timezone } = this.state;
+        const { email, password, passwordRepeat, firstName, lastName, timezone } = this.state;
         const { user } = this.props;
 
         const isLoading = user.isAPIRequestRunning ? true : false;
@@ -90,7 +90,7 @@ class RegisterContainer extends React.Component {
             <RegisterComponent
                 email={email}
                 password={password}
-                passwordConfirmation={passwordConfirmation}
+                passwordRepeat={passwordRepeat}
                 firstName={firstName}
                 lastName={lastName}
                 timezone={timezone}

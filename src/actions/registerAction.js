@@ -58,7 +58,7 @@ export function postRegister(userData, successCallback=null, failureCallback=nul
         axios.post(MIKAPONICS_REGISTER_API_URL, {
             'email': userData.email,
             'password': userData.password,
-            'password_repeat': userData.passwordConfirmation,
+            'password_repeat': userData.passwordRepeat,
             'first_name': userData.firstName,
             'last_name': userData.lastName,
             'timezone': userData.timezone

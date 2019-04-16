@@ -11,7 +11,7 @@ import timezones from "../../constants/timezones";
 
 class RegisterComponent extends React.Component {
     render() {
-        const { referrer, errors, email, password, passwordConfirmation, firstName, lastName, timezone, onChange, onSubmit, isLoading } = this.props;
+        const { referrer, errors, email, password, passwordRepeat, firstName, lastName, timezone, onChange, onSubmit, isLoading } = this.props;
 
         // If a `referrer` was set then that means we can redirect
         // to a different page in our application.
@@ -59,9 +59,9 @@ class RegisterComponent extends React.Component {
                                 className="form-control form-control-lg"
                                 borderColour="border-primary"
                                 error={errors.passwordRepeat}
-                                label="Repeat Password (*)"
+                                label="Password Repeat (*)"
                                 onChange={onChange}
-                                value={passwordConfirmation}
+                                value={passwordRepeat}
                                 name="passwordRepeat"
                                 type="password"
                             />
