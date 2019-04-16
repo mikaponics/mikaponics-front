@@ -81,12 +81,11 @@ class LoginContainer extends Component {
         const errors = user.errors ? user.errors : {};
 
         if (user !== undefined && user.token !== undefined && user.token !== null) {
-            // If the user has not subscribed they need to go the onboarding
-            // processes so they subscribe and receive their first device(s).
-            if (user.wasOnboarded === true) {
-                return <Redirect to={"/dashboard"} />;
-            } else {
-                return <Redirect to={"/onboard"} />;
+            if (user.dashboardPath) {
+                // If the user has not subscribed they need to go the onboarding
+                // processes so they subscribe and receive their first device(s).
+                // We will make the API endpoint determine our path.
+                return <Redirect to={user.dashboardPath} />;
             }
         }
 
