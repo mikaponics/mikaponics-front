@@ -5,7 +5,7 @@ import Scroll from 'react-scroll';
 import { camelizeKeys } from 'humps';
 import { Redirect } from "react-router-dom";
 
-import { MIKAPONICS_SEND_PASSWORD_RESET_API_URL } from '../../constants/api';
+import { MIKAPONICS_PASSWORD_RESET_API_URL } from '../../constants/api';
 import ResetPasswordComponent from '../../components/account/resetPasswordComponent';
 
 
@@ -14,7 +14,9 @@ class ResetPasswordContainer extends React.Component {
         super(props);
 
         this.state = {
-            email: '',
+            password: '',
+            passwordConfirmation: '',
+            accessCode: this.props.match.params.code,
             errors: {},
             isLoading: false,
             referrer: null,
@@ -57,8 +59,9 @@ class ResetPasswordContainer extends React.Component {
         })
 
         //TODO: IMPLEMENT...
+        alert("TODO")
 
-        // axios.post(MIKAPONICS_SEND_PASSWORD_RESET_API_URL, {
+        // axios.post(MIKAPONICS_PASSWORD_RESET_API_URL, {
         //     'email': this.state.email,
         // }).then( (successResult) => {
         //     const responseData = successResult.data;
@@ -91,7 +94,7 @@ class ResetPasswordContainer extends React.Component {
     }
 
     render () {
-        const { email, errors, isLoading } = this.state;
+        const { password, passwordConfirmation, accessCode, errors, isLoading } = this.state;
 
         if (this.state.referrer) {
             return <Redirect to={this.state.referrer} />;
@@ -99,7 +102,9 @@ class ResetPasswordContainer extends React.Component {
 
         return (
             <ResetPasswordComponent
-                email={email}
+                password={password}
+                passwordConfirmation={passwordConfirmation}
+                accessCode={accessCode}
                 errors={errors}
                 isLoading={isLoading}
                 onChange={this.onChange}
