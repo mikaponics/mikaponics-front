@@ -9,6 +9,8 @@ import RegisterSuccessContainer from "./account/registerSuccessContainer";
 import ActivateContainer from "./account/activateContainer";
 import SendResetPasswordContainer from "./account/sendResetPasswordContainer";
 import SendResetPasswordSuccessContainer from "./account/sendResetPasswordSuccessContainer";
+import ResetPasswordContainer from "./account/resetPasswordContainer";
+import ResetPasswordSuccessContainer from "./account/resetPasswordSuccessContainer";
 import DashboardContainer from "./dashboardContainer";
 import OnboardWelcomeContainer from "./onboarding/onboardWelcomeContainer";
 import OnboardPurchaseContainer from "./onboarding/onboardPurchaseContainer";
@@ -57,6 +59,8 @@ class AppContainer extends React.Component {
                                 <Route path="/activate/:code" exact component={ActivateContainer} />
                                 <Route path="/send-password-reset" exact component={SendResetPasswordContainer} />
                                 <Route path="/send-password-reset-success" exact component={SendResetPasswordSuccessContainer} />
+                                <Route path="/reset-password/:code" exact component={ResetPasswordContainer} />
+                                <Route path="/reset-password-success" exact component={ResetPasswordSuccessContainer} />
                                 <Route path="/dashboard" exact component={DashboardContainer} />
                                 <Route path="/onboard" exact component={OnboardWelcomeContainer} />
                                 <Route path="/onboard/purchase" exact component={OnboardPurchaseContainer} />

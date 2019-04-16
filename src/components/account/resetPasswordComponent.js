@@ -6,9 +6,9 @@ import { BootstrapInputGroup } from '../bootstrap/bootstrapInputGroup';
 import { FlashMessageComponent } from "../flashMessageComponent";
 
 
-class SendResetPasswordComponent extends React.Component {
+class ResetPasswordComponent extends React.Component {
     render() {
-        const { email, onChange, onSubmit, errors = {}, isLoading } = this.props;
+        const { password, passwordConfirmation, onChange, onSubmit, errors = {}, isLoading } = this.props;
         return (
             <div>
                 <div className="row">
@@ -30,26 +30,38 @@ class SendResetPasswordComponent extends React.Component {
 
                             <BootstrapInputGroup
                                 layoutSize="large"
-                                labelIconClassName="fa fa-envelope color-blue"
-                                name="email"
-                                type="email"
-                                placeholder="Email Address"
-                                value={email}
+                                labelIconClassName="fa fa-lock color-blue"
+                                name="password"
+                                type="password"
+                                placeholder="New Password"
+                                value={password}
                                 onChange={onChange}
                                 disabled={isLoading}
-                                error={errors.email}
+                                error={errors.password}
+                            />
+
+                            <BootstrapInputGroup
+                                layoutSize="large"
+                                labelIconClassName="fa fa-lock color-blue"
+                                name="passwordConfirmation"
+                                type="password"
+                                placeholder="Repeat New Password"
+                                value={passwordConfirmation}
+                                onChange={onChange}
+                                disabled={isLoading}
+                                error={errors.password}
                             />
 
                             <div className="custom-control custom-checkbox mb-1 mt-1"></div>
 
                             <input
                                 type="submit"
-                                value="Send Password Reset"
+                                value="Save Password and Continue"
                                 className="btn btn-lg btn-primary btn-block"
                                 disabled={isLoading}
                             />
                             <h5 className="text-center mt-3 mb-3">
-                                <Link to="/login" className="text-primary plain-link">Sign-in</Link>
+                                <Link to="/" className="text-primary plain-link">Cancel</Link>
                             </h5>
 
                         </form>
@@ -60,4 +72,4 @@ class SendResetPasswordComponent extends React.Component {
     }
 }
 
-export default SendResetPasswordComponent
+export default ResetPasswordComponent
