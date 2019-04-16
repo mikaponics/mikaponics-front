@@ -83,6 +83,9 @@ class LoginComponent extends Component {
                             disabled={isLoading}
                         />
                         <h5 className="text-center mt-3 mb-3">
+                            <Link to="/register" className="text-primary plain-link">Register</Link>
+                        </h5>
+                        <h5 className="text-center mt-3 mb-3">
                             <Link to="/send-password-reset" className="text-primary plain-link">Forgot Password?</Link>
                         </h5>
 

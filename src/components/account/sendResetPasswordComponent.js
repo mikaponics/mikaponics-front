@@ -49,6 +49,9 @@ class SendResetPasswordComponent extends React.Component {
                             <h5 className="text-center mt-3 mb-3">
                                 <Link to="/login" className="text-primary plain-link">Sign-in</Link>
                             </h5>
+                            <h5 className="text-center mt-3 mb-3">
+                                <Link to="/register" className="text-primary plain-link">Register</Link>
+                            </h5>
 
                         </form>
                     </div>
