@@ -1,6 +1,6 @@
 import axios from 'axios';
 import store from '../store';
-import { camelizeKeys } from 'humps';
+import { camelizeKeys, decamelizeKeys } from 'humps';
 
 import {
     REGISTER_REST_FORM,
@@ -55,14 +55,14 @@ export function postRegister(userData, successCallback=null, failureCallback=nul
             setRegisterRequest()
         );
 
-        axios.post(MIKAPONICS_REGISTER_API_URL, {
-            'email': userData.email,
-            'password': userData.password,
-            'password_repeat': userData.passwordRepeat,
-            'first_name': userData.firstName,
-            'last_name': userData.lastName,
-            'timezone': userData.timezone
-        }).then( (successResult) => {
+        // The following code will convert the `camelized` data into `snake case`
+        // data so our API endpoint will be able to read it.
+        let decamelizedData = decamelizeKeys(userData);
+
+        axios.post(
+            MIKAPONICS_REGISTER_API_URL,
+            decamelizedData
+        ).then( (successResult) => {
 
             store.dispatch(
                 setRegisterSuccess({
