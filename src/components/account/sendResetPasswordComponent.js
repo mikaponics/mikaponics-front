@@ -26,8 +26,6 @@ class SendResetPasswordComponent extends React.Component {
                     <div className="col-sm-6 mx-auto">
                         <h2 className="text-center mb-3">Reset Password</h2>
                         <form id="sign-in" className="form-signin needs-validation" onSubmit={onSubmit}>
-                            {errors.nonFieldErrors && <div className="alert alert-danger" role="alert">{errors.nonFieldErrors}</div>}
-
                             <BootstrapInputGroup
                                 layoutSize="large"
                                 labelIconClassName="fa fa-envelope color-blue"

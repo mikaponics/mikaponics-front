@@ -10,7 +10,13 @@ import {
     REGISTER_FAILURE,
     PROFILE_REQUEST,
     PROFILE_FAILURE,
-    PROFILE_SUCCESS
+    PROFILE_SUCCESS,
+    // SEND_PASSWORD_RESET_REQUEST,
+    // SEND_PASSWORD_RESET_FAILURE,
+    // SEND_PASSWORD_RESET_SUCCESS,
+    RESET_PASSWORD_REQUEST,
+    RESET_PASSWORD_FAILURE,
+    RESET_PASSWORD_SUCCESS,
 } from '../constants/actionTypes';
 
 
@@ -50,6 +56,15 @@ const userReducer = function(state = [], action = {}) {
             return Object.assign({}, state, action.payload);
 
         case PROFILE_SUCCESS:
+            return Object.assign({}, state, action.payload);
+
+        case RESET_PASSWORD_REQUEST:
+            return Object.assign({}, state, action.payload);
+
+        case RESET_PASSWORD_SUCCESS:
+            return Object.assign({}, state, action.payload);
+
+        case RESET_PASSWORD_FAILURE:
             return Object.assign({}, state, action.payload);
 
         default:

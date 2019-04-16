@@ -7,6 +7,7 @@ import { Redirect } from "react-router-dom";
 
 import { MIKAPONICS_PASSWORD_RESET_API_URL } from '../../constants/api';
 import ResetPasswordComponent from '../../components/account/resetPasswordComponent';
+import { postResetPassword } from '../../actions/resetPasswordAction';
 
 
 class ResetPasswordContainer extends React.Component {
@@ -19,7 +20,7 @@ class ResetPasswordContainer extends React.Component {
             accessCode: this.props.match.params.code,
             errors: {},
             isLoading: false,
-            referrer: null,
+            wasSubmitOK: false,
         }
 
         this.onChange = this.onChange.bind(this);
@@ -33,6 +34,14 @@ class ResetPasswordContainer extends React.Component {
     }
 
     componentDidMount() {
+        // When this component loads up, we want to clear any previous errors
+        // returned in the state so do so now.
+        if (this.props.user.errors !== undefined && this.props.user.errors !== null) {
+            var keyCount = Object.keys(this.props.user.errors).length;
+            if (keyCount > 0) {
+                this.props.clearRegister();
+            }
+        }
         window.scrollTo(0, 0);  // Start the page at the top of the page.
     }
 
@@ -50,46 +59,43 @@ class ResetPasswordContainer extends React.Component {
 
     onSubmit(e) {
         e.preventDefault();
-        this.setState({ errors: {}, isLoading: true, })
+        this.props.postResetPassword(
+            this.state,
+            (data) => {
+                this.setState({
+                    wasSubmitOK: true,
+                    errors: {}
+                })
+            },
+            (data) => {
+                this.setState({
+                    wasSubmitOK: false,
+                    errors: data
+                })
 
-        axios.post(MIKAPONICS_PASSWORD_RESET_API_URL, {
-            'password': this.state.password,
-            'password_repeat': this.state.passwordConfirmation,
-            'pr_access_code': this.state.accessCode,
-        }).then( (successResult) => {
-            const responseData = successResult.data;
-            let profile = camelizeKeys(responseData);
-
-            this.setState({
-                errors: {},
-                isLoading: false,
-                referrer: '/send-password-reset-success'
-            })
-        }).catch( (errorResult) => {
-            const responseData = errorResult.response.data;
-            let errors = camelizeKeys(responseData);
-
-            this.setState({
-                errors: errors,
-                isLoading: false,
-            })
-
-            // The following code will cause the screen to scroll to the top of
-            // the page. Please see ``react-scroll`` for more information:
-            // https://github.com/fisshy/react-scroll
-            var scroll = Scroll.animateScroll;
-            scroll.scrollToTop();
-
-        }).then( () => {
-            // Do nothing.
-        });
+                // The following code will cause the screen to scroll to the top of
+                // the page. Please see ``react-scroll`` for more information:
+                // https://github.com/fisshy/react-scroll
+                var scroll = Scroll.animateScroll;
+                scroll.scrollToTop();
+            }
+        );
     }
 
     render () {
-        const { password, passwordConfirmation, accessCode, errors, isLoading } = this.state;
+        const { password, passwordConfirmation, accessCode, errors, isLoading, wasSubmitOK } = this.state;
+        const { user } = this.props;
 
-        if (this.state.referrer) {
-            return <Redirect to={this.state.referrer} />;
+        // The following code will check to see what the user details are and
+        // if we have a "Your account was been registered" text has been
+        // detected then we move the user to the success page.
+        if (wasSubmitOK) {
+            if (user !== undefined && user !== null) {
+                const userLength = Object.keys(user).length;
+                if (userLength > 0) {
+                    return <Redirect to={"/reset-password-success"} />;
+                }
+            }
         }
 
         return (
@@ -108,13 +114,15 @@ class ResetPasswordContainer extends React.Component {
 
 const mapStateToProps = function(store) {
     return {
-        // user: store.userState
+        user: store.userState
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        postResetPassword: (formData, successCallback, failureCallback) => {
+            dispatch(postResetPassword(formData, successCallback, failureCallback))
+        },
     }
 }
 
