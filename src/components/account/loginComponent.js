@@ -30,7 +30,7 @@ class LoginComponent extends Component {
     render() {
     const { email, password, onChange, onSubmit, errors = {}, isLoading, flashMessage } = this.props;
     return (
-        <div className="container">
+        <div>
             <AlertComponent />
             <div className="row">
                 <div className="col-sm-12 text-center">
@@ -82,8 +82,9 @@ class LoginComponent extends Component {
                             className="btn btn-lg btn-primary btn-block"
                             disabled={isLoading}
                         />
-                        <h5 className="text-center mt-3 mb-3"><Link to="#" className="text-primary plain-link">Forgot
-                            Password?</Link></h5>
+                        <h5 className="text-center mt-3 mb-3">
+                            <Link to="/send-password-reset" className="text-primary plain-link">Forgot Password?</Link>
+                        </h5>
 
                     </form>
                 </div>
