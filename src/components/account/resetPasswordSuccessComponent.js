@@ -8,6 +8,7 @@ import { FlashMessageComponent } from "../flashMessageComponent";
 
 class ResetPasswordSuccessComponent extends React.Component {
     render() {
+        const { user } = this.props;
         return (
             <div>
                 <div className="row">
@@ -22,7 +23,7 @@ class ResetPasswordSuccessComponent extends React.Component {
                             <p>Your password has been reset, please go to the dashboard to begin using the system.</p>
 
                             <h5 className="text-center mt-3 mb-3">
-                                <Link to="/dashboard" className="text-primary plain-link">
+                                <Link to={user.dashboardPath} className="text-primary plain-link">
                                     <i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard
                                 </Link>
                             </h5>

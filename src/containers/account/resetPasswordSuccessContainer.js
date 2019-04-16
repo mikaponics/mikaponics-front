@@ -11,7 +11,9 @@ class ResetPasswordSuccessContainer extends React.Component {
 
     render () {
         return (
-            <ResetPasswordSuccessComponent />
+            <ResetPasswordSuccessComponent
+                user={this.props.user}
+            />
         )
     }
 }
