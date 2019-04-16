@@ -52,45 +52,37 @@ class ResetPasswordContainer extends React.Component {
         e.preventDefault();
         this.setState({ errors: {}, isLoading: true, })
 
-        this.setState({
-            errors: {},
-            isLoading: false,
-            referrer: '/reset-password-success'
-        })
+        axios.post(MIKAPONICS_PASSWORD_RESET_API_URL, {
+            'password': this.state.password,
+            'password_repeat': this.state.passwordConfirmation,
+            'pr_access_code': this.state.accessCode,
+        }).then( (successResult) => {
+            const responseData = successResult.data;
+            let profile = camelizeKeys(responseData);
 
-        //TODO: IMPLEMENT...
-        alert("TODO")
+            this.setState({
+                errors: {},
+                isLoading: false,
+                referrer: '/send-password-reset-success'
+            })
+        }).catch( (errorResult) => {
+            const responseData = errorResult.response.data;
+            let errors = camelizeKeys(responseData);
 
-        // axios.post(MIKAPONICS_PASSWORD_RESET_API_URL, {
-        //     'email': this.state.email,
-        // }).then( (successResult) => {
-        //     const responseData = successResult.data;
-        //     let profile = camelizeKeys(responseData);
-        //
-        //     this.setState({
-        //         errors: {},
-        //         isLoading: false,
-        //         referrer: '/send-password-reset-success'
-        //     })
-        // }).catch( (errorResult) => {
-        //     const responseData = errorResult.response.data;
-        //     let errors = camelizeKeys(responseData);
-        //
-        //     this.setState({
-        //         errors: errors,
-        //         isLoading: false,
-        //     })
-        //
-        //     // The following code will cause the screen to scroll to the top of
-        //     // the page. Please see ``react-scroll`` for more information:
-        //     // https://github.com/fisshy/react-scroll
-        //     var scroll = Scroll.animateScroll;
-        //     scroll.scrollToTop();
-        //
-        // }).then( () => {
-        //     // Do nothing.
-        // });
+            this.setState({
+                errors: errors,
+                isLoading: false,
+            })
 
+            // The following code will cause the screen to scroll to the top of
+            // the page. Please see ``react-scroll`` for more information:
+            // https://github.com/fisshy/react-scroll
+            var scroll = Scroll.animateScroll;
+            scroll.scrollToTop();
+
+        }).then( () => {
+            // Do nothing.
+        });
     }
 
     render () {
