@@ -16,9 +16,9 @@ class OnboardWelcomeComponent extends Component {
 
                     <div className="jumbotron">
                         <h1 className="display-4">Welcome!</h1>
-                        <p className="lead">Before you begin, you will need to purchase a subscription and the telemetry device. Once purchased, you will be granted access to your dashboard.</p>
+                        <p className="lead">Before you begin, you will need to <strong>purchase a subscription</strong> and a <strong>telemetry device</strong>. Once purchased, you will be granted full-access to your dashboard.</p>
                         <hr className="my-4" />
-                        <p>Click here to begin the purchase.</p>
+                        <p>Click here to begin the device purchase and subscription activation.</p>
                         <Link to="/onboard/purchase" className="btn btn-primary">Begin <i className="fas fa-arrow-circle-right"></i></Link>
                     </div>
                 </div>
