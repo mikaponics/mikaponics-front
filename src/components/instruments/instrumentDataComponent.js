@@ -1,5 +1,53 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import CanvasJSReact from '../../assets/canvasjs.react';
+var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+
+
+class InstrumentDataChartComponent extends Component {
+    render() {
+        const { timeSeriesData } = this.props;
+        let dataPoints = [];
+        for (let i = 0; i < timeSeriesData.results.length; i++) {
+            let timeSeriesDatum = timeSeriesData.results[i]
+            dataPoints.push({
+                x: new Date(timeSeriesDatum.timestamp),
+                y: timeSeriesDatum.value}
+            );
+        }
+
+
+        const options5 = {
+            animationEnabled: true,
+            exportEnabled: true,
+            theme: "light2", // "light1", "dark1", "dark2"
+            title:{
+                text: "Humidity over Time"
+            },
+            axisY: {
+                title: "Value",
+                includeZero: false,
+                suffix: "%"
+            },
+            axisX: {
+                title: "Date/Time",
+            },
+            data: [{
+                type: "line",
+                showInLegend: true,
+                xValueFormatString: "YYYY/MM/DD",
+                yValueFormatString: "₹#,##0.##",
+                toolTipContent: "Day/time {x}: Humidity {y}%",
+                dataPoints: dataPoints
+            }]
+        }
+        return(
+            <CanvasJSChart options = {options5}
+                /* onRef={ref => this.chart = ref} */
+            />
+        );
+    }
+}
 
 
 class InstrumentDatumRowComponent extends Component {
@@ -93,6 +141,19 @@ class InstrumentDataComponent extends Component {
                             </Link>
                         </div>
                     </section>
+                </div>
+
+                <div className="row">
+                    <div className="col-lg-12">
+                        <div className="card-default card">
+                            <div className="card-header">
+                                Time-Series Data Chart
+                            </div>
+                            <div className="card-body">
+                                <InstrumentDataChartComponent timeSeriesData={timeSeriesData} />
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div className="row">
