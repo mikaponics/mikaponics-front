@@ -2,6 +2,85 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 
+class InstrumentTable extends Component {
+    render() {
+        const { instrument } = this.props;
+        const lastMeasuredAtDT = new Date(instrument.lastMeasuredAt);
+        const last24hMinTimestampAtDT = new Date(instrument.last24hMinTimestampAt);
+        const last24hMaxTimestampAtDT = new Date(instrument.last24hMaxTimestampAt);
+        return (
+            <div>
+                <div className="row">
+                    <div className="col-md-12">
+
+                        <table className="table table-bordered custom-cell-w">
+                            <tbody>
+                                <tr className="bg-dark">
+                                    <th scope="row" colSpan="2" className="text-light">Last 24 Hours</th>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Last measured value</th>
+                                    <td>{instrument.lastMeasuredValue}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Last measured time</th>
+                                    <td>{lastMeasuredAtDT.toLocaleString()}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Minimum value</th>
+                                    <td>{instrument.last24hMinValue}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Minimum value</th>
+                                    <td>{last24hMinTimestampAtDT.toLocaleString()}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Maximum value</th>
+                                    <td>{instrument.last24hMaxValue}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Maximum value</th>
+                                    <td>{last24hMaxTimestampAtDT.toLocaleString()}</td>
+                                </tr>
+
+                                <tr>
+                                    <th scope="row" className="bg-light">Mean value</th>
+                                    <td>{instrument.last24hMeanValue}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Median value</th>
+                                    <td>{instrument.last24hMedianValue}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Mode value</th>
+                                    <td>{instrument.last24hModeValue}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Mode values</th>
+                                    <td>{instrument.last24hModeValues}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Range value</th>
+                                    <td>{instrument.last24hRangeValue}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Standard deviation value</th>
+                                    <td>{instrument.last24hStedvValue}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Variance value</th>
+                                    <td>{instrument.last24hVarianceValue}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}
+
+
 class InstrumentComponent extends Component {
     render() {
         const { instrument } = this.props;
@@ -25,7 +104,7 @@ class InstrumentComponent extends Component {
                         </li>
                     </ol>
                 </nav>
-                <h1>Instrument</h1>
+                <h1><i className={`fas fa-${instrument.icon}`}></i>&nbsp;Instrument</h1>
                 <div className="card-group row">
 
                     <div className="col-sm-4">
@@ -73,6 +152,16 @@ class InstrumentComponent extends Component {
                         </div>
                     </div>
 
+                </div>
+
+                <div className="row">
+                    <div className="col-md-12">
+                        <h2><i className="fas fa-star"></i>&nbsp;Latest Statistics</h2>
+                        <InstrumentTable
+                            instrument={instrument}
+                        />
+
+                    </div>
                 </div>
 
             </div>
