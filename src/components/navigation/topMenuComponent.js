@@ -12,7 +12,7 @@ class AnonymousMenu extends Component {
     render() {
         const { onHamburgerMenuClick, isOpenMenu, closeSideMenuAction } = this.props;
         return (
-            <Menu pageWrapId={ "main" } outerContainerId={ "outer-container" } right noOverlay customBurgerIcon={ false } isOpen={ isOpenMenu }>
+            <Menu pageWrapId={ "main" } outerContainerId={ "outer-container" } right isOpen={ isOpenMenu }>
                 <Link className="menu-item" to="/" onClick={closeSideMenuAction}>
                     <i className="fas fa-tachometer-alt"></i>&nbsp;Home
                 </Link>
@@ -37,7 +37,7 @@ class AuthenticatedFullMenu extends Component {
     render() {
         const { onHamburgerMenuClick, isOpenMenu, onLogoutClick, closeSideMenuAction, user } = this.props;
         return (
-            <Menu pageWrapId={ "main" } outerContainerId={ "outer-container" } right noOverlay customBurgerIcon={ false } isOpen={ isOpenMenu }>
+            <Menu pageWrapId={ "main" } outerContainerId={ "outer-container" } right isOpen={ isOpenMenu }>
 
                 <Link className="menu-item" to="/dashboard" onClick={closeSideMenuAction}>
                     <i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard
@@ -77,9 +77,9 @@ class AuthenticatedOnboardingMenu extends Component {
     render() {
         const { onHamburgerMenuClick, isOpenMenu, onLogoutClick, closeSideMenuAction, user } = this.props;
         return (
-            <Menu pageWrapId={ "main" } outerContainerId={ "outer-container" } right noOverlay customBurgerIcon={ false } isOpen={ isOpenMenu }>
+            <Menu pageWrapId={ "main" } outerContainerId={ "outer-container" } right isOpen={ isOpenMenu }>
 
-                <Link className="menu-item" to="/onboard" onClick={closeSideMenuAction}>
+                <Link className="menu-item" to="/onboard">
                     <i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard
                 </Link>
 
