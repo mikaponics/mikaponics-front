@@ -12,12 +12,14 @@ class InstrumentReportTable extends Component {
         const resultsLength = results.length;
         for (let i = 0; i < resultsLength; i++) {
             let row = results[i];
-            console.log(row)
+            let createdAtDT = new Date(row.createdAt);
+            let startDt = new Date(row.startDt);
+            let finishDt = new Date(row.finishDt);
             elements.push(
                 <tr key={row.slug}>
-                    <th>{row.createdAt}</th>
-                    <th>{row.startDt}</th>
-                    <th>{row.finishDt}</th>
+                    <th>{createdAtDT.toLocaleString()}</th>
+                    <th>{startDt.toLocaleString()}</th>
+                    <th>{finishDt.toLocaleString()}</th>
                     <th>
                         <Link to={row.absoluteUrl}>View&nbsp;<i className="fas fa-chevron-right"></i></Link>
                     </th>

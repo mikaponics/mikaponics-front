@@ -22,6 +22,8 @@ class InstrumentTable extends Component {
         var lastMeasuredPrettyValue = get(instrument, "lastMeasuredPrettyValue");
         var lastMeasuredPrettyAt = get(instrument, "lastMeasuredPrettyAt");
 
+        const dt = new Date(lastMeasuredPrettyAt);
+
         return (
             <div>
                 <div className="row">
@@ -38,7 +40,7 @@ class InstrumentTable extends Component {
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Last measured time</th>
-                                    <td>{lastMeasuredPrettyAt}</td>
+                                    <td>{dt.toLocaleString()}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -52,6 +54,7 @@ class InstrumentTable extends Component {
 class DeviceSummaryTable extends Component {
     render() {
         const { device } = this.props;
+        const dt = new Date(device.lastMeasuredPrettyAt);
         return (
             <div className="row">
                 <div className="col-md-12">
@@ -71,7 +74,7 @@ class DeviceSummaryTable extends Component {
                             </tr>
                             <tr>
                                 <th scope="row" className="bg-light">Last measured time</th>
-                                <td>{device.lastMeasuredPrettyAt}</td>
+                                <td>{dt.toLocaleString()}</td>
                             </tr>
                         </tbody>
                     </table>

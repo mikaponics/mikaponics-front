@@ -7,7 +7,12 @@ import { FlashMessageComponent } from "../flashMessageComponent";
 class InstrumentAnalysisDetailComponent extends Component {
     render() {
         const { instrument, detail, flashMessage=null } = this.props;
-        console.log(detail.modeValues)
+        const startDt = new Date(detail.startDt);
+        const finishDt = new Date(detail.finishDt);
+        const minTimestampDT = new Date(detail.minTimestamp);
+        const maxTimestampDT = new Date(detail.maxTimestamp);
+        const createdAtDT = new Date(detail.createdAt);
+        const lastModifiedAtDT = new Date(detail.lastModifiedAt);
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -56,11 +61,11 @@ class InstrumentAnalysisDetailComponent extends Component {
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Start</th>
-                                    <td>{detail.startDt}</td>
+                                    <td>{startDt.toLocaleString()}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Finish</th>
-                                    <td>{detail.finishDt}</td>
+                                    <td>{finishDt.toLocaleString()}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -75,7 +80,7 @@ class InstrumentAnalysisDetailComponent extends Component {
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Minimum at</th>
-                                    <td>{detail.minTimestamp}</td>
+                                    <td>{minTimestampDT.toLocaleString()}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Maximum value</th>
@@ -83,7 +88,7 @@ class InstrumentAnalysisDetailComponent extends Component {
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Maximum at</th>
-                                    <td>{detail.maxTimestamp}</td>
+                                    <td>{maxTimestampDT.toLocaleString()}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Mean value</th>
@@ -123,11 +128,11 @@ class InstrumentAnalysisDetailComponent extends Component {
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Created at</th>
-                                    <td>{detail.createdAt}</td>
+                                    <td>{createdAtDT.toLocaleString()}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Last modified at</th>
-                                    <td>{detail.lastModifiedAt}</td>
+                                    <td>{lastModifiedAtDT.toLocaleString()}</td>
                                 </tr>
                             </tbody>
                         </table>

@@ -14,6 +14,7 @@ class InstrumentAlertTable extends Component {
         const dataLength = results.length;
         for (let i = 0; i < dataLength; i++) {
             let datum = results[i];
+            let dt = new Date(datum.datumTimestamp);
             elements.push(
                 <tr>
                     <th scope="row">
@@ -21,7 +22,7 @@ class InstrumentAlertTable extends Component {
                     </th>
                     <th scope="row">{datum.state}</th>
                     <td>{datum.datumValue}</td>
-                    <td>{datum.datumTimestamp}</td>
+                    <td>{dt.toLocaleString()}</td>
                     <td>
                         <Link to={datum.absoluteUrl}>
                             View&nbsp;<i className="fas fa-chevron-right"></i>

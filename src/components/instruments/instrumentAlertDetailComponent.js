@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 class InstrumentAlertDetailComponent extends Component {
     render() {
         const { alertDetail } = this.props;
-
+        const dt = new Date(alertDetail.datumTimestamp);
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -70,7 +70,7 @@ class InstrumentAlertDetailComponent extends Component {
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Timestamp</th>
-                                    <td>{alertDetail.datumTimestamp}</td>
+                                    <td>{dt.toLocaleString()}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Status</th>

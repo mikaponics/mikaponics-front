@@ -12,14 +12,14 @@ class InstrumentAlertTable extends Component {
         const dataLength = results.length;
         for (let i = 0; i < dataLength; i++) {
             let datum = results[i];
-            console.log(datum)
+            let dt = new Date(datum.datumTimestamp);
             elements.push(
                 <tr>
                     <th scope="row">{datum.deviceName}</th>
                     <th>{datum.instrumentType}</th>
                     <th>{datum.state}</th>
                     <td>{datum.datumValue}</td>
-                    <td>{datum.datumTimestamp}</td>
+                    <td>{dt.toLocaleString()}</td>
                     <td>
                         <Link to={datum.absoluteUrl} target="_blank" rel="noopener noreferrer">
                             View&nbsp;<i className="fas fa-external-link-alt"></i>

@@ -5,10 +5,11 @@ import { Link } from "react-router-dom";
 class InstrumentDatumRowComponent extends Component {
     render() {
         const { value, timestamp } = this.props.rowData;
+        const dt = new Date(timestamp);
         return (
             <tr key={timestamp}>
                 <th scope="row">{value}</th>
-                <td>{timestamp}</td>
+                <td>{dt.toLocaleString()}</td>
             </tr>
         )
     }
