@@ -8,37 +8,114 @@ class ProfileTable extends Component {
     render() {
         const { profile } = this.props;
         return (
-            <div>
-                <h3>Basic</h3>
-                <p>First name: {profile.firstName}</p>
-                <p>Middle name: {profile.middleName}</p>
-                <p>Last name: {profile.lastName}</p>
-                <p>Email: {profile.email}</p>
-                <br />
-                <h3>Billing</h3>
-                <p>Country: {profile.billingCountry}</p>
-                <p>Region: {profile.billingRegion}</p>
-                <p>Locality: {profile.billingLocality}</p>
-                <p>Street Address: {profile.billingStreetAddress}</p>
-                <p>Street Address (extra): {profile.billingStreetAddressExtra}</p>
-                <p>Postal: {profile.billingPostalCode}</p>
-                <p>Telephone: {profile.billingTelephone}</p>
-                <br />
-                <h3>Shipping</h3>
-                <p>Country: {profile.shippingCountry}</p>
-                <p>Region: {profile.shippingRegion}</p>
-                <p>Locality: {profile.shippingLocality}</p>
-                <p>Street Address: {profile.shippingStreetAddress}</p>
-                <p>Street Address (Extra): {profile.shippingStreetAddressExtra}</p>
-                <p>Postal: {profile.shippingPostalCode}</p>
-                <p>Post Office Box Number: {profile.shippingPostOfficeBoxNumber}</p>
-                <p>Email: {profile.shippingEmail}</p>
-                <p>Telephone: {profile.shippingTelephone}</p>
-                <Link to="/profile/edit">Edit</Link>
-            </div>
+            <table className="table table-bordered custom-cell-w">
+                <tbody>
+                    <tr className="bg-dark">
+                        <th scope="row" colSpan="2" className="text-light">Name</th>
+                    </tr>
+                    <tr>
+                        <th scope="row" className="bg-light">First name</th>
+                        <td>{profile.firstName}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" className="bg-light">Middle name</th>
+                        <td>{profile.middleName}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" className="bg-light">Last name</th>
+                        <td>{profile.lastName}</td>
+                    </tr>
+
+                    <tr className="bg-dark">
+                        <th scope="row" colSpan="2" className="text-light">Contact details</th>
+                    </tr>
+                    <tr>
+                        <th scope="row" className="bg-light">Email</th>
+                        <td>{profile.email}</td>
+                    </tr>
+
+                    <tr className="bg-dark">
+                        <th scope="row" colSpan="2" className="text-light">Billing details</th>
+                    </tr>
+                    <tr>
+                        <th scope="row" className="bg-light">Country</th>
+                        <td>{profile.billingCountry}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" className="bg-light">Province / State</th>
+                        <td>{profile.billingRegion}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" className="bg-light">Locality</th>
+                        <td>{profile.billingLocality}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" className="bg-light">Street Address</th>
+                        <td>{profile.billingStreetAddress}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" className="bg-light">Street Address (extra)</th>
+                        <td>{profile.billingStreetAddressExtra}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" className="bg-light">Postal</th>
+                        <td>{profile.billingPostalCode}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" className="bg-light">Telephone</th>
+                        <td>{profile.billingTelephone}</td>
+                    </tr>
+
+                    <tr className="bg-dark">
+                        <th scope="row" colSpan="2" className="text-light">Shipping details</th>
+                    </tr>
+                    <tr>
+                        <th scope="row" className="bg-light">Country</th>
+                        <td>{profile.shippingCountry}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" className="bg-light">Province / State</th>
+                        <td>{profile.shippingRegion}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" className="bg-light">Locality</th>
+                        <td>{profile.shippingLocality}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" className="bg-light">Street Address</th>
+                        <td>{profile.shippingStreetAddress}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" className="bg-light">Street Address (extra)</th>
+                        <td>{profile.shippingStreetAddressExtra}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" className="bg-light">Postal</th>
+                        <td>{profile.shippingPostalCode}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" className="bg-light">Telephone</th>
+                        <td>{profile.shippingTelephone}</td>
+                    </tr>
+
+                </tbody>
+            </table>
         )
     }
 }
+
+//     <h3>Shipping</h3>
+//     <p>Country: {profile.shippingCountry}</p>
+//     <p>Region: {profile.shippingRegion}</p>
+//     <p>Locality: {profile.shippingLocality}</p>
+//     <p>Street Address: {profile.shippingStreetAddress}</p>
+//     <p>Street Address (Extra): {profile.shippingStreetAddressExtra}</p>
+//     <p>Postal: {profile.shippingPostalCode}</p>
+//     <p>Post Office Box Number: {profile.shippingPostOfficeBoxNumber}</p>
+//     <p>Email: {profile.shippingEmail}</p>
+//     <p>Telephone: {profile.shippingTelephone}</p>
+//
+// </div>
 
 
 class ProfileComponent extends Component {
@@ -59,6 +136,12 @@ class ProfileComponent extends Component {
                     <div className="col-md-12">
                         <FlashMessageComponent object={flashMessage} />
                         <ProfileTable profile={profile} />
+
+                        <p className="text-center">
+                        <Link to="/profile/edit" className="btn btn-primary btn-lg">
+                            <i className="fas fa-pencil-alt"></i>&nbsp;Edit
+                        </Link>
+                        </p>
                     </div>
                 </div>
             </div>

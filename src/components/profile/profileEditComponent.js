@@ -268,12 +268,12 @@ class ProfileEditComponent extends Component {
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item">
-                           <Link to="/dashboard">Dashboard</Link>
+                           <Link to="/dashboard"><i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard</Link>
                         </li>
                         <li className="breadcrumb-item" aria-current="page">
-                            <Link to="/profile">Profile</Link>
+                            <Link to="/profile"><i className="fas fa-user-circle"></i>&nbsp;Profile</Link>
                         </li>
-                        <li className="breadcrumb-item active" aria-current="page">Profile</li>
+                        <li className="breadcrumb-item active" aria-current="page"><i className="fas fa-pencil-alt"></i>&nbsp;Edit</li>
                     </ol>
                 </nav>
                 <h1>Profile</h1>
