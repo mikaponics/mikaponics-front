@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, withRouter, Switch } from "react-router-dom";
 
 import NavigationContainer from './navigation/navigationContainer.js';
+import NotFound404Container from './navigation/notFound404Container.js';
 import IndexContainer from './indexContainer';
 import LoginContainer from "./account/loginContainer";
 import LogoutContainer from "./account/logoutContainer";
@@ -84,6 +85,7 @@ class AppContainer extends React.Component {
                             <Route path="/invoice/:slug" exact component={InvoiceDetailContainer} />
                             <Route path="/profile" exact component={ProfileContainer} />
                             <Route path="/profile/edit" exact component={ProfileEditContainer} />
+                            <Route component={NotFound404Container} />
                         </Switch>
                     </main>
                 </div>
