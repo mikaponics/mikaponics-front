@@ -44,7 +44,12 @@ class LoginContainer extends Component {
     }
 
     onSubmit(e) {
+        // Prevent the default HTML form submit code to run on the browser side.
         e.preventDefault();
+
+        // Clear any and all flash messages in our queue to be rendered.
+        this.props.clearFlashMessage();
+
         this.setState({ errors: {}, isLoading: true, })
         this.props.attemptLogin(this.state.email, this.state.password);
     }
