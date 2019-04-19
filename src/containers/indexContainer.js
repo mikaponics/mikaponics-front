@@ -54,8 +54,8 @@ class IndexContainer extends Component {
                         <div className="card-body">
                             <p className="card-text">
                             <ul>
-                                <li>Your privacy is important to us, please visit the <a href="https://github.com/mikaponics" target="_blank" rel="noopener noreferrer">privacy policy&nbsp;<i className="fas fa-external-link-alt"></i></a> while using our services.</li>
-                                <li>The the <a href="https://github.com/mikaponics" target="_blank" rel="noopener noreferrer">terms and services&nbsp;<i className="fas fa-external-link-alt"></i></a> page describes what we expect from you.</li>
+                                <li>Your privacy is important to us, please visit the <Link to="/privacy" target="_blank">privacy policy&nbsp;<i className="fas fa-external-link-alt"></i></Link> while using our services.</li>
+                                <li>The the <Link to="/terms" target="_blank">terms and services&nbsp;<i className="fas fa-external-link-alt"></i></Link> page describes what we expect from you.</li>
                             </ul>
                             </p>
                         </div>
