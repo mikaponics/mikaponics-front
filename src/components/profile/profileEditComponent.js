@@ -11,49 +11,56 @@ class ProfileTable extends Component {
             firstName, lastName, email,
             billingCountry, billingRegion, billingLocality, billingStreetAddress, billingPostalCode, billingEmail, billingTelephone,
             shippingCountry, shippingRegion, shippingLocality, shippingStreetAddress, shippingStreetAddressExtra, shippingPostalCode, shippingPostOfficeBoxNumber, shippingEmail, shippingTelephone,
-            onChange, onClick, errors
+            onChange, onClick, errors, onSubmit
         } = this.props;
         return (
-            <div>
+            <form onSubmit={onSubmit}>
+
                 <h3>Basic</h3>
                 <BootstrapInput
-                    id="idFirstName"
-                    field="firstName"
-                    type="text"
-                    label="First name"
-                    placeholder="Please set your first name"
-                    value={firstName}
-                    helpText={null}
-                    onChange={onChange}
+                    className="form-control form-control-lg"
+                    borderColour="border-primary"
                     error={errors.firstName}
-                />
-                <BootstrapInput
-                    id="idLastName"
-                    field="lastName"
+                    label="First Name (*)"
+                    placeholder="Please set first last name"
+                    onChange={onChange}
+                    value={firstName}
+                    name="firstName"
                     type="text"
-                    label="Last name"
-                    placeholder="Please set your last name"
-                    value={lastName}
-                    helpText={null}
-                    onChange={onChange}
-                    error={errors.lastName}
-                />
-                <BootstrapInput
-                    id="idEmail"
-                    field="email"
-                    type="email"
-                    label="Email"
-                    placeholder="Please set your email"
-                    value={email}
-                    helpText={null}
-                    onChange={onChange}
-                    error={errors.email}
                 />
 
-                <h3>Billing</h3>
                 <BootstrapInput
-                    id="idBillingCountry"
-                    field="billingCountry"
+                    className="form-control form-control-lg"
+                    borderColour="border-primary"
+                    error={errors.lastName}
+                    label="Last name (*)"
+                    placeholder="Please set your last name"
+                    onChange={onChange}
+                    value={lastName}
+                    name="lastName"
+                    type="text"
+                />
+
+                <br />
+                <h3>Contact Detail</h3>
+
+                <BootstrapInput
+                    className="form-control form-control-lg"
+                    borderColour="border-primary"
+                    error={errors.email}
+                    label="Email (*)"
+                    placeholder="Please set your email"
+                    onChange={onChange}
+                    value={email}
+                    name="email"
+                />
+
+                <br />
+                <h3>Billing Detail</h3>
+                <BootstrapInput
+                    className="form-control form-control-lg"
+                    borderColour="border-primary"
+                    error={errors.email}
                     type="text"
                     label="Country"
                     placeholder="Please set your billing country"
@@ -61,10 +68,13 @@ class ProfileTable extends Component {
                     helpText={null}
                     onChange={onChange}
                     error={errors.billingCountry}
+                    name="billingCountry"
                 />
+
                 <BootstrapInput
-                    id="idBillingRegion"
-                    field="billingRegion"
+                    className="form-control form-control-lg"
+                    borderColour="border-primary"
+                    name="billingRegion"
                     type="text"
                     label="Region"
                     placeholder="Please set your billing region"
@@ -73,9 +83,11 @@ class ProfileTable extends Component {
                     onChange={onChange}
                     error={errors.billingRegion}
                 />
+
                 <BootstrapInput
-                    id="idBillingLocality"
-                    field="billingLocality"
+                    className="form-control form-control-lg"
+                    borderColour="border-primary"
+                    name="billingLocality"
                     type="text"
                     label="Locality"
                     placeholder="Please set your billing locality"
@@ -84,31 +96,37 @@ class ProfileTable extends Component {
                     onChange={onChange}
                     error={errors.billingLocality}
                 />
+
                 <BootstrapInput
-                    id="idBillingStreetAddress"
-                    field="billingStreetAddress"
+                    className="form-control form-control-lg"
+                    borderColour="border-primary"
+                    name="billingStreetAddress"
                     type="text"
-                    label="Locality"
+                    label="Street Address"
                     placeholder="Please set your billing street address"
                     value={billingStreetAddress}
                     helpText={null}
                     onChange={onChange}
                     error={errors.billingStreetAddress}
                 />
+
                 <BootstrapInput
-                    id="idBillingPostalCode"
-                    field="billingPostalCode"
+                    className="form-control form-control-lg"
+                    borderColour="border-primary"
+                    name="billingPostalCode"
                     type="text"
-                    label="Locality"
+                    label="Postal Code"
                     placeholder="Please set your billing postal code"
                     value={billingPostalCode}
                     helpText={null}
                     onChange={onChange}
                     error={errors.billingPostalCode}
                 />
+
                 <BootstrapInput
-                    id="idBillingEmail"
-                    field="billingEmail"
+                    className="form-control form-control-lg"
+                    borderColour="border-primary"
+                    name="billingEmail"
                     type="text"
                     label="Email"
                     placeholder="Please set your billing email address"
@@ -117,9 +135,11 @@ class ProfileTable extends Component {
                     onChange={onChange}
                     error={errors.billingEmail}
                 />
+
                 <BootstrapInput
-                    id="idBillingTelephone"
-                    field="billingTelephone"
+                    className="form-control form-control-lg"
+                    borderColour="border-primary"
+                    name="billingTelephone"
                     type="text"
                     label="Telephone"
                     placeholder="Please set your billing telephone"
@@ -129,10 +149,12 @@ class ProfileTable extends Component {
                     error={errors.billingTelephone}
                 />
 
-                <h3>Shipping</h3>
+                <br />
+                <h3>Shipping Detail</h3>
                 <BootstrapInput
-                    id="idShippingCountry"
-                    field="shippingCountry"
+                    className="form-control form-control-lg"
+                    borderColour="border-primary"
+                    name="shippingCountry"
                     type="text"
                     label="Country"
                     placeholder="Please set your shipping country"
@@ -142,8 +164,9 @@ class ProfileTable extends Component {
                     error={errors.shippingCountry}
                 />
                 <BootstrapInput
-                    id="idShippingRegion"
-                    field="shippingRegion"
+                    className="form-control form-control-lg"
+                    borderColour="border-primary"
+                    name="shippingRegion"
                     type="text"
                     label="Region"
                     placeholder="Please set your shipping region"
@@ -153,8 +176,9 @@ class ProfileTable extends Component {
                     error={errors.shippingRegion}
                 />
                 <BootstrapInput
-                    id="idShippingLocality"
-                    field="shippingLocality"
+                    className="form-control form-control-lg"
+                    borderColour="border-primary"
+                    name="shippingLocality"
                     type="text"
                     label="Locality"
                     placeholder="Please set your shipping locality"
@@ -164,8 +188,9 @@ class ProfileTable extends Component {
                     error={errors.shippingLocality}
                 />
                 <BootstrapInput
-                    id="idShippingStreetAddress"
-                    field="shippingStreetAddress"
+                    className="form-control form-control-lg"
+                    borderColour="border-primary"
+                    name="shippingStreetAddress"
                     type="text"
                     label="Street address"
                     placeholder="Please set your shipping street address"
@@ -175,8 +200,9 @@ class ProfileTable extends Component {
                     error={errors.shippingStreetAddress}
                 />
                 <BootstrapInput
-                    id="idShippingStreetAddressExtra"
-                    field="shippingStreetAddressExtra"
+                    className="form-control form-control-lg"
+                    borderColour="border-success"
+                    name="shippingStreetAddressExtra"
                     type="text"
                     label="Street address (extra)"
                     placeholder="Please set your shipping street address (extra)"
@@ -186,8 +212,9 @@ class ProfileTable extends Component {
                     error={errors.shippingStreetAddressExtra}
                 />
                 <BootstrapInput
-                    id="idShippingPostalCode"
-                    field="shippingPostalCode"
+                    className="form-control form-control-lg"
+                    borderColour="border-primary"
+                    name="shippingPostalCode"
                     type="text"
                     label="Postal code"
                     placeholder="Please set your shipping postal code"
@@ -197,8 +224,9 @@ class ProfileTable extends Component {
                     error={errors.shippingPostalCode}
                 />
                 <BootstrapInput
-                    id="idShippingPostOfficeBoxNumber"
-                    field="shippingPostOfficeBoxNumber"
+                    className="form-control form-control-lg"
+                    borderColour="border-success"
+                    name="shippingPostOfficeBoxNumber"
                     type="text"
                     label="Post office box #"
                     placeholder="Please set your shipping post office box number"
@@ -208,8 +236,9 @@ class ProfileTable extends Component {
                     error={errors.shippingPostOfficeBoxNumber}
                 />
                 <BootstrapInput
-                    id="idShippingEmail"
-                    field="shippingEmail"
+                    className="form-control form-control-lg"
+                    borderColour="border-primary"
+                    name="shippingEmail"
                     type="text"
                     label="Email"
                     placeholder="Please set your shipping email address"
@@ -219,8 +248,9 @@ class ProfileTable extends Component {
                     error={errors.shippingEmail}
                 />
                 <BootstrapInput
-                    id="idShippingTelephone"
-                    field="shippingTelephone"
+                    className="form-control form-control-lg"
+                    borderColour="border-primary"
+                    name="shippingTelephone"
                     type="text"
                     label="Telephone"
                     placeholder="Please set your shipping telephone"
@@ -230,7 +260,7 @@ class ProfileTable extends Component {
                     error={errors.shippingTelephone}
                 />
 
-            </div>
+            </form>
         )
     }
 }
@@ -276,10 +306,9 @@ class ProfileEditComponent extends Component {
                         <li className="breadcrumb-item active" aria-current="page"><i className="fas fa-pencil-alt"></i>&nbsp;Edit</li>
                     </ol>
                 </nav>
-                <h1>Profile</h1>
-                <hr />
+                <h1><i className="fas fa-pencil-alt"></i>&nbsp;Edit Profile</h1>
                 <div className="row">
-                    <div className="col-md-12">
+                    <div className="col-md-5 mx-auto mt-2">
                         <BootstrapErrorsProcessingAlert errors={errors} />
                         <ProfileTable
                             firstName={firstName}
@@ -305,7 +334,14 @@ class ProfileEditComponent extends Component {
                             onClick={onClick}
                             errors={errors}
                         />
-                        <button onClick={onClick}>Save</button>
+
+                        <br />
+                        <Link to="/profile" className="btn btn-secondary btn-lg float-left">
+                            <i className="fas fa-window-close"></i>&nbsp;Cancel
+                        </Link>
+                        <button className="btn btn-success btn-lg float-right" onClick={onClick}>
+                            <i className="fas fa-check"></i>&nbsp;Save
+                        </button>
                     </div>
                 </div>
             </div>
