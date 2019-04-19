@@ -19,6 +19,7 @@ class InstrumentDataChartComponent extends Component {
         for (var i = 0; i < arrayLength; i++) {
             let rowData =  tableData.results[i];
             tableRows.push({
+                key: rowData.timestamp,
                 value: rowData.value,
                 timestamp: rowData.timestamp
             });
@@ -102,7 +103,7 @@ class InstrumentDataTableComponent extends Component {
         var arrayLength = tableData.results.length;
         for (var i = 0; i < arrayLength; i++) {
             let rowData =  tableData.results[i];
-            tableRows.push(<InstrumentDatumRowComponent rowData={rowData} />);
+            tableRows.push(<InstrumentDatumRowComponent rowData={rowData} key={rowData.timestamp} />);
         }
 
         return (

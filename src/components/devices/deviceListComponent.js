@@ -6,7 +6,7 @@ class DeviceItem extends Component {
     render() {
         const { deviceObj } = this.props;
         return (
-            <div className="col-sm-3">
+            <div className="col-sm-3" key={deviceObj.absoluteUrl}>
                 <div className="card box-shadow text-center mx-auto">
                     <div className="card-custom-top-2">
                         <i className="fas fa-cube fa-3x"></i>
@@ -34,7 +34,7 @@ class DeviceListComponent extends Component {
             for (let i = 0; i < deviceList.results.length; i++) {
                 let device = deviceList.results[i];
                 elements.push(
-                    <DeviceItem deviceObj={device} />
+                    <DeviceItem deviceObj={device} key={device.absoluteUrl} />
                 )
             }
         }

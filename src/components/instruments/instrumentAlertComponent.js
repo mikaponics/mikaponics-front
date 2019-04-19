@@ -16,7 +16,7 @@ class InstrumentAlertTable extends Component {
             let datum = results[i];
             let dt = new Date(datum.datumTimestamp);
             elements.push(
-                <tr>
+                <tr key={datum.createdAt}>
                     <th scope="row">
                         <i className={`fa fa-${datum.icon}`}></i>
                     </th>

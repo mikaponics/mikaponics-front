@@ -21,10 +21,34 @@ class InstrumentAlertContainer extends Component {
     componentDidMount() {
         this.props.pullInstrumentAlertList(this.props.user, this.props.match.params.slug);
         window.scrollTo(0, 0);  // Start the page at the top of the page.
+
+        // This function will call the API backend every second to get the
+        // device data.
+        this.timerID = setInterval(
+            () => this.tick(),
+            10000 // 1000 milliseconds = 1 second
+        );
     } // end FUNC.
 
+    /**
+     * Function used by the event timer to call the latest data from the API
+     *  backend to get the latest device data.
+     */
+    tick() {
+        this.props.pullInstrumentAlertList(this.props.user, this.props.match.params.slug);
+    }
+
     componentWillUnmount() {
-        this.props.clearFlashMessage();
+        this.props.clearFlashMessage(); // Clear the messages.
+
+        clearInterval(this.timerID); // Clear our timer.
+
+        // This code will fix the "ReactJS & Redux: Can't perform a React state
+        // update on an unmounted component" issue as explained in:
+        // https://stackoverflow.com/a/53829700
+        this.setState = (state,callback)=>{
+            return;
+        };
     }
 
     render() {

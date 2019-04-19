@@ -51,17 +51,22 @@ class InstrumentAlertDetailComponent extends Component {
                                 <tr>
                                     <th scope="row" className="bg-light">Device</th>
                                     <td>
-                                        <Link to={alertDetail.deviceAbsoluteUrl} target="_blank">
-                                            {alertDetail.deviceName}&nbsp;<i className="fas fa-external-link-alt"></i>
-                                        </Link>
+                                        {alertDetail.deviceAbsoluteUrl &&
+                                            <Link to={alertDetail.deviceAbsoluteUrl} target="_blank">
+                                                {alertDetail.deviceName}&nbsp;<i className="fas fa-external-link-alt"></i>
+                                            </Link>
+                                        }
+
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Instrument</th>
                                     <td>
+                                    {alertDetail.instrumentAbsoluteUrl &&
                                         <Link to={alertDetail.instrumentAbsoluteUrl} target="_blank">
                                             {alertDetail.instrumentType}&nbsp;<i className="fas fa-external-link-alt"></i>
                                         </Link>
+                                    }
                                     </td>
                                 </tr>
                                 <tr>

@@ -26,7 +26,7 @@ class DeviceContainer extends Component {
         // device data.
         this.timerID = setInterval(
             () => this.tick(),
-            1000
+            10000 // 1000 milliseconds = 1 second
         );
     } // end FUNC.
 
