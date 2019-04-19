@@ -172,7 +172,7 @@ class InstrumentDataComponent extends Component {
 
                 <div className="row">
                     <div className="col-md-12">
-                        <h2>Chart</h2>
+                        <h2><i className="fas fa-heartbeat"></i>&nbsp;Chart</h2>
                         <InstrumentDataChartComponent
                             user={user}
                             instrument={instrument}
@@ -183,7 +183,7 @@ class InstrumentDataComponent extends Component {
 
                 <div className="row">
                     <div className="col-md-12">
-                        <h2>Table</h2>
+                        <h2><i className="fas fa-th-list"></i>&nbsp;Table</h2>
                         <InstrumentDataTableComponent
                             instrument={instrument}
                             tableData={timeSeriesData}
