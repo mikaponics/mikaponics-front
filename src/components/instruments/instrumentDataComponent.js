@@ -1,53 +1,80 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import CanvasJSReact from '../../assets/canvasjs.react';
-var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+import {
+  LineChart, Line, XAxis, YAxis, Tooltip, Label, ResponsiveContainer, CartesianGrid
+} from 'recharts'
+import moment from 'moment'
+import timezone from 'moment-timezone'
 
 
 class InstrumentDataChartComponent extends Component {
     render() {
-        const { timeSeriesData } = this.props;
-        let dataPoints = [];
-        for (let i = 0; i < timeSeriesData.results.length; i++) {
-            let timeSeriesDatum = timeSeriesData.results[i]
-            dataPoints.push({
-                x: new Date(timeSeriesDatum.timestamp),
-                y: timeSeriesDatum.value}
-            );
+        const { user, instrument, tableData } = this.props;
+        if (tableData === undefined || tableData === null || tableData.results === null || tableData.results === undefined) {
+            return null;
         }
 
-
-        const options5 = {
-            animationEnabled: true,
-            exportEnabled: true,
-            theme: "light2", // "light1", "dark1", "dark2"
-            title:{
-                text: "Humidity over Time"
-            },
-            axisY: {
-                title: "Value",
-                includeZero: false,
-                suffix: "%"
-            },
-            axisX: {
-                title: "Date/Time",
-            },
-            data: [{
-                type: "line",
-                showInLegend: true,
-                xValueFormatString: "YYYY/MM/DD",
-                yValueFormatString: "₹#,##0.##",
-                toolTipContent: "Day/time {x}: Humidity {y}%",
-                dataPoints: dataPoints
-            }]
+        let tableRows = [];
+        var arrayLength = tableData.results.length;
+        for (var i = 0; i < arrayLength; i++) {
+            let rowData =  tableData.results[i];
+            tableRows.push({
+                value: rowData.value,
+                timestamp: rowData.timestamp
+            });
         }
-        return(
-            <CanvasJSChart options = {options5}
-                /* onRef={ref => this.chart = ref} */
-            />
+
+        return (
+            <div className="row">
+                <div className="col-lg-12">
+                <ResponsiveContainer width="100%" height={480}>
+                    <LineChart width={640} height={480} data={tableRows} margin={{ top: 50, bottom: 75, left:30, right:50}}>
+                        <XAxis
+                            angle={-45}
+                            textAnchor="end"
+                            dataKey='timestamp'
+                            tickFormatter={
+                                timeStr => moment(timeStr).tz(user.timezone).format('h:mm a')
+                            }
+                            label={{
+                                value: "Time",
+                                dy: 75
+                            }}
+                        />
+                        <YAxis unit={instrument.unitOfMeasure} dataKey='value'>
+                            <Label
+                                value={instrument.typeOf}
+                                offset={-20}
+                                angle={-90}
+                                position='insideLeft'
+                            />
+                        </YAxis>
+                        <Line
+                            type="monotone"
+                            dataKey="value"
+                            stroke="#001529"
+                            activeDot={{r: 5}}
+                        />
+                        <CartesianGrid stroke="#eee" strokeDasharray="5 5"/>
+                        <Tooltip
+                            labelStyle={{ color: "black" }}
+                            itemStyle={{ color: "grey" }}
+                            formatter={function(value, name) {
+                                return `${value}`;
+                            }}
+                            labelFormatter={function(value) {
+                                const localValue = moment(value).tz(user.timezone).format('DD/MM/YYYY h:mm a');
+                                return `timestamp: ${localValue}`;
+                            }}
+                        />
+                    </LineChart>
+                </ResponsiveContainer>
+                </div>
+            </div>
         );
     }
 }
+
 
 
 class InstrumentDatumRowComponent extends Component {
@@ -99,7 +126,7 @@ class InstrumentDataTableComponent extends Component {
 
 class InstrumentDataComponent extends Component {
     render() {
-        const { instrument, timeSeriesData } = this.props;
+        const { user, instrument, timeSeriesData } = this.props;
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -144,22 +171,21 @@ class InstrumentDataComponent extends Component {
                 </div>
 
                 <div className="row">
-                    <div className="col-lg-12">
-                        <div className="card-default card">
-                            <div className="card-header">
-                                Time-Series Data Chart
-                            </div>
-                            <div className="card-body">
-                                <InstrumentDataChartComponent timeSeriesData={timeSeriesData} />
-                            </div>
-                        </div>
+                    <div className="col-md-12">
+                        <h2>Chart</h2>
+                        <InstrumentDataChartComponent
+                            user={user}
+                            instrument={instrument}
+                            tableData={timeSeriesData}
+                        />
                     </div>
                 </div>
 
                 <div className="row">
                     <div className="col-md-12">
-                        <h2>Time-Series Data</h2>
+                        <h2>Table</h2>
                         <InstrumentDataTableComponent
+                            instrument={instrument}
                             tableData={timeSeriesData}
                         />
                     </div>

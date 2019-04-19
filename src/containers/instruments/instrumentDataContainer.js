@@ -53,6 +53,7 @@ class InstrumentDataContainer extends Component {
     render() {
         return (
             <InstrumentDataComponent
+                user={this.props.user}
                 instrument={this.props.instrument}
                 timeSeriesData={this.props.data}
             />
