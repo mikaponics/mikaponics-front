@@ -4,6 +4,12 @@ import { slide as Menu } from 'react-burger-menu'
 
 import './hamburger-menu.css';
 
+/**
+ *----------------*
+ *   DEPRECATED   *
+ *----------------*
+ */
+
 
 /**
  *  The menu used when no user has logged in and the site is public facing.

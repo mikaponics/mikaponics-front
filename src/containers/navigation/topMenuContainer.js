@@ -6,7 +6,12 @@ import { attemptLogout } from "../../actions/loginAction";
 import { setFlashMessage } from "../../actions/flashMessageActions";
 import TopMenuComponent from "../../components/navigation/topMenuComponent";
 
-
+/**
+ *----------------*
+ *   DEPRECATED   *
+ *----------------*
+ */
+ 
 class TopMenuContainer extends Component {
     constructor(props) {
         super(props)

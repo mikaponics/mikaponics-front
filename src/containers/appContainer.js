@@ -1,9 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, withRouter, Switch } from "react-router-dom";
 
-import TopMenuContainer from './navigation/topMenuContainer.js';
+import NavigationContainer from './navigation/navigationContainer.js';
 import IndexContainer from './indexContainer';
 import LoginContainer from "./account/loginContainer";
+import LogoutContainer from "./account/logoutContainer";
 import RegisterContainer from "./account/registerContainer";
 import RegisterSuccessContainer from "./account/registerSuccessContainer";
 import ActivateContainer from "./account/activateContainer";
@@ -40,17 +41,20 @@ class AppContainer extends React.Component {
     return (
         <Router>
             <div className="container-fluid" id="outer-container">
-                <TopMenuContainer
+
+                <NavigationContainer
                     history={this.props.history}
                     location={this.props.location}
                     match={this.props.match}
                     staticContext={this.props.staticContext}
                 />
+
                 <div className="d-flex align-items-stretch">
                     <main id="main" role="main">
                         <Switch>
                             <Route path="/" exact component={IndexContainer} />
                             <Route path="/login" exact component={LoginContainer} />
+                            <Route path="/logout" exact component={LogoutContainer} />
                             <Route path="/register" exact component={RegisterContainer} />
                             <Route path="/register-success" exact component={RegisterSuccessContainer} />
                             <Route path="/activate/:code" exact component={ActivateContainer} />

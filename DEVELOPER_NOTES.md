@@ -22,10 +22,10 @@ npm install --save react-datepicker
 npm install --save react-select
 npm install --save react-scroll
 npm install --save shortid
-npm install --save react-burger-menu
 npm install --save moment
 npm install --save moment-timezone
 npm install --save recharts
+npm insatll --save react-custom-scrollbars
 ```
 
 Upgrade doing the following:
