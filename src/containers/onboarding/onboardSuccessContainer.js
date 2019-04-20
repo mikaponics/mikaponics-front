@@ -23,6 +23,10 @@ class OnboardSuccessContainer extends Component {
     componentDidMount() {
         window.scrollTo(0, 0);  // Start the page at the top of the page.
 
+        // Deconstruct the props to get our user and only run the following
+        // code if the user has not been subscribed.
+        const { user, onboarding } = this.props;
+
         // Defensive code: If we don't have the details then don't run this
         // function in our code.
         if (onboarding === undefined || onboarding === null) {
@@ -32,9 +36,6 @@ class OnboardSuccessContainer extends Component {
             return;
         }
 
-        // Deconstruct the props to get our user and only run the following
-        // code if the user has not been subscribed.
-        const { user, onboarding } = this.props;
         if (user.subscriptionStatus === NOT_INTERESTED_SUBSCRIPTION_STATUS) {
 
             // Create our oAuth 2.0 authenticated API header to use with our
