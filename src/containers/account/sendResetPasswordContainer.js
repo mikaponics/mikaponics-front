@@ -53,8 +53,8 @@ class SendResetPasswordContainer extends React.Component {
         axios.post(MIKAPONICS_SEND_PASSWORD_RESET_API_URL, {
             'email': this.state.email,
         }).then( (successResult) => {
-            const responseData = successResult.data;
-            let profile = camelizeKeys(responseData);
+            // const responseData = successResult.data;
+            // let profile = camelizeKeys(responseData);
 
             this.setState({
                 errors: {},

@@ -1,10 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
-import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
-import { BootstrapInputGroup } from '../bootstrap/bootstrapInputGroup';
-import { FlashMessageComponent } from "../flashMessageComponent";
-
 
 class SendResetPasswordSuccessComponent extends React.Component {
     render() {

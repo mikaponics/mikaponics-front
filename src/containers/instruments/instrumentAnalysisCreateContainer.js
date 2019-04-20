@@ -19,7 +19,6 @@ class InstrumentAnalysisCreateContainer extends Component {
             instrumentSlug: slug,
             toDateObj: null,
             fromDateObj: null,
-            isLoading: false,
         }
 
         // Bind our custom functions.
@@ -85,7 +84,7 @@ class InstrumentAnalysisCreateContainer extends Component {
     }
 
     render() {
-        const { isLoading, toDateObj, fromDateObj } = this.state;
+        const { toDateObj, fromDateObj } = this.state;
         const { isAPIRequestRunning, errors, absoluteUrl } = this.props.instrumentAnalysisCreate;
 
         // If we have CREATED a new analysis then we can clear the GUI,

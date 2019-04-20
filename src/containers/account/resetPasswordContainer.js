@@ -1,11 +1,8 @@
-import axios from 'axios';
 import React from 'react';
 import { connect } from 'react-redux';
 import Scroll from 'react-scroll';
-import { camelizeKeys } from 'humps';
 import { Redirect } from "react-router-dom";
 
-import { MIKAPONICS_PASSWORD_RESET_API_URL } from '../../constants/api';
 import ResetPasswordComponent from '../../components/account/resetPasswordComponent';
 import { postResetPassword } from '../../actions/resetPasswordAction';
 

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
 import { BootstrapInputGroup } from '../bootstrap/bootstrapInputGroup';
-import { FlashMessageComponent } from "../flashMessageComponent";
 
 
 class ResetPasswordComponent extends React.Component {

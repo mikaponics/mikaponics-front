@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
-import store from '../store';
 
-import { attemptLogout } from "../actions/loginAction";
-import { pullDashboard } from "../actions/dashboardActions";
 import DashboardComponent from "../components/dashboardComponent";
 
 
@@ -36,32 +33,17 @@ class DashboardContainer extends Component {
         }
 
         return (
-            <DashboardComponent
-                dashboard={this.props.dashboard}
-            />
+            <DashboardComponent />
         );
     }
 }
 
 const mapStateToProps = function(store) {
-    return {
-        user: store.userState,
-        dashboard: store.dashboardState,
-    };
+    return {};
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        attemptLogout: () => {
-            dispatch(
-                attemptLogout()
-            )
-        },
-        pullDashboard: (user) => {
-            dispatch(
-                pullDashboard(user)
-            )
-        },
     }
 }
 
