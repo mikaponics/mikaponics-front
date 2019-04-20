@@ -25,7 +25,8 @@ npm install --save shortid
 npm install --save moment
 npm install --save moment-timezone
 npm install --save recharts
-npm insatll --save react-custom-scrollbars
+npm install --save react-custom-scrollbars
+npm install --save react-country-region-selector
 ```
 
 Upgrade doing the following:

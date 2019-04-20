@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
 import { BootstrapInput } from '../bootstrap/bootstrapInput';
 import { BootstrapSingleSelect } from '../bootstrap/bootstrapSingleSelect';
+import { BootstrapCountrySelect } from '../bootstrap/bootstrapCountrySelect'
+import { BootstrapRegionSelect } from '../bootstrap/bootstrapRegionSelect'
 
 
 class OnboardPurchaseComponent extends React.Component {
@@ -24,6 +26,10 @@ class OnboardPurchaseComponent extends React.Component {
             errors,
             onTextChange,
             onSelectChange,
+            onBillingCountryChange,
+            onBillingRegionChange,
+            onShippingCountryChange,
+            onShippingRegionChange,
             onNextClick,
             onCancelClick,
             isLoading
@@ -63,19 +69,6 @@ class OnboardPurchaseComponent extends React.Component {
                                 onSelectChange={onSelectChange}
                             />
 
-         { /*
-                            <BootstrapInput
-                                className="form-control"
-                                borderColour="border-primary"
-                                error={errors.numberOfDevices}
-                                label="# of devices (*)"
-                                onChange={onTextChange}
-                                value={numberOfDevices}
-                                name="numberOfDevices-old"
-                                type="number"
-                            />
-                            */ }
-
                             <p className="border-bottom mb-3 pb-1 text-secondary">Billing Details</p>
 
                             <BootstrapInput
@@ -100,26 +93,25 @@ class OnboardPurchaseComponent extends React.Component {
                                 type="text"
                             />
 
-                            <BootstrapInput
+                            <BootstrapCountrySelect
                                 className="form-control"
                                 borderColour="border-primary"
                                 error={errors.billingAddressCountry}
                                 label="Country (*)"
-                                onChange={onTextChange}
                                 value={billingAddressCountry}
+                                onChange={onBillingCountryChange}
+                                priorityOptions={["CA", "US", "MX"]}
                                 name="billingAddressCountry"
-                                type="text"
                             />
-
-                            <BootstrapInput
+                            <BootstrapRegionSelect
                                 className="form-control"
                                 borderColour="border-primary"
                                 error={errors.billingAddressRegion}
                                 label="Province / state (*)"
-                                onChange={onTextChange}
+                                country={billingAddressCountry}
                                 value={billingAddressRegion}
+                                onChange={onBillingRegionChange}
                                 name="billingAddressRegion"
-                                type="text"
                             />
 
                             <BootstrapInput
@@ -136,7 +128,7 @@ class OnboardPurchaseComponent extends React.Component {
                             <BootstrapInput
                                 className="form-control"
                                 borderColour="border-primary"
-                                error={errors.billingAddressLocality}
+                                error={errors.billingStreetAddress}
                                 label="Street address (*)"
                                 onChange={onTextChange}
                                 value={billingStreetAddress}
@@ -201,26 +193,25 @@ class OnboardPurchaseComponent extends React.Component {
                                 type="text"
                             />
 
-                            <BootstrapInput
+                            <BootstrapCountrySelect
                                 className="form-control"
                                 borderColour="border-primary"
                                 error={errors.shippingAddressCountry}
                                 label="Country (*)"
-                                onChange={onTextChange}
                                 value={shippingAddressCountry}
+                                onChange={onShippingCountryChange}
+                                priorityOptions={["CA", "US", "MX"]}
                                 name="shippingAddressCountry"
-                                type="text"
                             />
-
-                            <BootstrapInput
+                            <BootstrapRegionSelect
                                 className="form-control"
                                 borderColour="border-primary"
                                 error={errors.shippingAddressRegion}
                                 label="Province / state (*)"
-                                onChange={onTextChange}
+                                country={shippingAddressCountry}
                                 value={shippingAddressRegion}
+                                onChange={onShippingRegionChange}
                                 name="shippingAddressRegion"
-                                type="text"
                             />
 
                             <BootstrapInput

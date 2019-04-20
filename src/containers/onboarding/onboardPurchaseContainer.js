@@ -45,6 +45,10 @@ class OnboardPurchaseContainer extends Component {
         this.onCancelClick = this.onCancelClick.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
         this.onSelectChange = this.onSelectChange.bind(this);
+        this.onBillingCountryChange = this.onBillingCountryChange.bind(this);
+        this.onBillingRegionChange = this.onBillingRegionChange.bind(this);
+        this.onShippingCountryChange = this.onShippingCountryChange.bind(this);
+        this.onShippingRegionChange = this.onShippingRegionChange.bind(this);
     }
 
     onNextClick(e) {
@@ -125,6 +129,30 @@ class OnboardPurchaseContainer extends Component {
         })
     }
 
+    onBillingCountryChange(value) {
+        if (value === null || value === undefined || value === '') {
+            this.setState({ billingAddressCountry: null, billingAddressRegion: null })
+        } else {
+            this.setState({ billingAddressCountry: value })
+        }
+    }
+
+    onBillingRegionChange(value) {
+        this.setState({ billingAddressRegion: value })
+    }
+
+    onShippingCountryChange(value) {
+        if (value === null || value === undefined || value === '') {
+            this.setState({ shippingAddressCountry: null, shippingAddressRegion: null })
+        } else {
+            this.setState({ shippingAddressCountry: value })
+        }
+    }
+
+    onShippingRegionChange(value) {
+        this.setState({ shippingAddressRegion: value })
+    }
+
     componentDidMount() {
         window.scrollTo(0, 0);  // Start the page at the top of the page.
     }
@@ -198,6 +226,10 @@ class OnboardPurchaseContainer extends Component {
 
                 onTextChange={this.onTextChange}
                 onSelectChange={this.onSelectChange}
+                onBillingCountryChange={this.onBillingCountryChange}
+                onBillingRegionChange={this.onBillingRegionChange}
+                onShippingCountryChange={this.onShippingCountryChange}
+                onShippingRegionChange={this.onShippingRegionChange}
                 onNextClick={this.onNextClick}
                 onCancelClick={this.onCancelClick}
                 user={user}
