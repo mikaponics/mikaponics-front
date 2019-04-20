@@ -10,7 +10,7 @@ class InvoiceRow extends Component {
                 <th scope="row">{invoice.state}</th>
                 <td>{invoice.grandTotal}</td>
                 <td>
-                    <Link to={invoice.absoluteUrl}>View ></Link>
+                    <Link to={invoice.absoluteUrl}>View&nbsp;<i className="fas fa-chevron-right"></i>&nbsp;</Link>
                 </td>
             </tr>
         )
@@ -23,12 +23,14 @@ class InvoiceTable extends Component {
         const { results } = this.props.dataArr;
 
         let elements = [];
-        const resultsLength = results.length;
-        for (let i = 0; i < resultsLength; i++) {
-            let invoice = results[i];
-            elements.push(
-                <InvoiceRow invoice={invoice} />
-            )
+        if (results !== undefined && results !== null) {
+            const resultsLength = results.length;
+            for (let i = 0; i < resultsLength; i++) {
+                let invoice = results[i];
+                elements.push(
+                    <InvoiceRow invoice={invoice} key={invoice.slug} />
+                )
+            }
         }
 
         return (
@@ -57,15 +59,15 @@ class InvoiceListComponent extends Component {
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item">
-                           <Link to="/dashboard">Dashboard</Link>
+                           <Link to="/dashboard"><i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard</Link>
                         </li>
-                        <li className="breadcrumb-item active" aria-current="page">Invoices</li>
+                        <li className="breadcrumb-item active" aria-current="page"><i className="fas fa-book"></i>&nbsp;Invoices</li>
                     </ol>
                 </nav>
-                <h1>Invoices</h1>
-                <hr />
+                <h1><i className="fas fa-book"></i>&nbsp;Invoices</h1>
                 <div className="row">
                     <div className="col-md-12">
+                        <h3>Table</h3>
                         <InvoiceTable dataArr={dataArr} />
                     </div>
                 </div>
