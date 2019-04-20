@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 
-import DashboardComponent from "../components/dashboardComponent";
+import DashboardComponent from "../../components/dashboard/dashboardComponent";
 
 
 class DashboardContainer extends Component {

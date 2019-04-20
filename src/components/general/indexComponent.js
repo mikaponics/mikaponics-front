@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 
-
-class IndexContainer extends Component {
+class IndexComponent extends Component {
     render() {
         // Return our GUI.
         return (
@@ -68,4 +67,4 @@ class IndexContainer extends Component {
     }
 }
 
-export default IndexContainer;
+export default IndexComponent;
