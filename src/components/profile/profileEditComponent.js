@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 
 import { BootstrapInput } from "../bootstrap/bootstrapInput";
 import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
+import { BootstrapCountrySelect } from '../bootstrap/bootstrapCountrySelect'
+import { BootstrapRegionSelect } from '../bootstrap/bootstrapRegionSelect'
 
 
 class ProfileTable extends Component {
@@ -11,7 +13,8 @@ class ProfileTable extends Component {
             firstName, lastName, email,
             billingCountry, billingRegion, billingLocality, billingStreetAddress, billingPostalCode, billingEmail, billingTelephone,
             shippingCountry, shippingRegion, shippingLocality, shippingStreetAddress, shippingStreetAddressExtra, shippingPostalCode, shippingPostOfficeBoxNumber, shippingEmail, shippingTelephone,
-            onChange, onClick, errors, onSubmit
+            onChange, onClick, errors, onSubmit,
+            onBillingCountryChange, onBillingRegionChange, onShippingCountryChange, onShippingRegionChange,
         } = this.props;
         return (
             <form onSubmit={onSubmit}>
@@ -57,33 +60,26 @@ class ProfileTable extends Component {
 
                 <br />
                 <h3>Billing Detail</h3>
-                <BootstrapInput
-                    className="form-control form-control-lg"
+                <BootstrapCountrySelect
+                    className="form-control"
                     borderColour="border-primary"
-                    error={errors.email}
-                    type="text"
-                    label="Country"
-                    placeholder="Please set your billing country"
-                    value={billingCountry}
-                    helpText={null}
-                    onChange={onChange}
                     error={errors.billingCountry}
+                    label="Country (*)"
+                    value={billingCountry}
+                    onChange={onBillingCountryChange}
+                    priorityOptions={["CA", "US", "MX"]}
                     name="billingCountry"
                 />
-
-                <BootstrapInput
-                    className="form-control form-control-lg"
+                <BootstrapRegionSelect
+                    className="form-control"
                     borderColour="border-primary"
-                    name="billingRegion"
-                    type="text"
-                    label="Region"
-                    placeholder="Please set your billing region"
-                    value={billingRegion}
-                    helpText={null}
-                    onChange={onChange}
                     error={errors.billingRegion}
+                    label="Province / state (*)"
+                    country={billingCountry}
+                    value={billingRegion}
+                    onChange={onBillingRegionChange}
+                    name="billingRegion"
                 />
-
                 <BootstrapInput
                     className="form-control form-control-lg"
                     borderColour="border-primary"
@@ -151,29 +147,25 @@ class ProfileTable extends Component {
 
                 <br />
                 <h3>Shipping Detail</h3>
-                <BootstrapInput
-                    className="form-control form-control-lg"
+                <BootstrapCountrySelect
+                    className="form-control"
                     borderColour="border-primary"
-                    name="shippingCountry"
-                    type="text"
-                    label="Country"
-                    placeholder="Please set your shipping country"
-                    value={shippingCountry}
-                    helpText={null}
-                    onChange={onChange}
                     error={errors.shippingCountry}
+                    label="Country (*)"
+                    value={shippingCountry}
+                    onChange={onShippingCountryChange}
+                    priorityOptions={["CA", "US", "MX"]}
+                    name="shippingCountry"
                 />
-                <BootstrapInput
-                    className="form-control form-control-lg"
+                <BootstrapRegionSelect
+                    className="form-control"
                     borderColour="border-primary"
-                    name="shippingRegion"
-                    type="text"
-                    label="Region"
-                    placeholder="Please set your shipping region"
-                    value={shippingRegion}
-                    helpText={null}
-                    onChange={onChange}
                     error={errors.shippingRegion}
+                    label="Province / state (*)"
+                    country={shippingCountry}
+                    value={shippingRegion}
+                    onChange={onShippingRegionChange}
+                    name="shippingRegion"
                 />
                 <BootstrapInput
                     className="form-control form-control-lg"
@@ -291,7 +283,8 @@ class ProfileEditComponent extends Component {
 
             onChange,
             onClick,
-            errors={}
+            errors={},
+            onBillingCountryChange, onBillingRegionChange, onShippingCountryChange, onShippingRegionChange,
         } = this.props;
         return (
             <div>
@@ -333,6 +326,10 @@ class ProfileEditComponent extends Component {
                             onChange={onChange}
                             onClick={onClick}
                             errors={errors}
+                            onBillingCountryChange={onBillingCountryChange}
+                            onBillingRegionChange={onBillingRegionChange}
+                            onShippingCountryChange={onShippingCountryChange}
+                            onShippingRegionChange={onShippingRegionChange}
                         />
 
                         <br />

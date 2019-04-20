@@ -44,6 +44,11 @@ class ProfileEditContainer extends Component {
         this.onClick = this.onClick.bind(this);
         this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
         this.onFailedSubmissionCallback = this.onFailedSubmissionCallback.bind(this);
+
+        this.onBillingCountryChange = this.onBillingCountryChange.bind(this);
+        this.onBillingRegionChange = this.onBillingRegionChange.bind(this);
+        this.onShippingCountryChange = this.onShippingCountryChange.bind(this);
+        this.onShippingRegionChange = this.onShippingRegionChange.bind(this);
     }
 
     onSuccessfulSubmissionCallback() {
@@ -79,6 +84,36 @@ class ProfileEditContainer extends Component {
         );
     }
 
+    onBillingCountryChange(value) {
+        if (value === null || value === undefined || value === '') {
+            this.setState({
+                billingCountry: null,
+                billingRegion: null
+            })
+        } else {
+            this.setState({
+                billingCountry: value,
+                billingRegion: null,
+            })
+        }
+    }
+
+    onBillingRegionChange(value) {
+        this.setState({ billingRegion: value })
+    }
+
+    onShippingCountryChange(value) {
+        if (value === null || value === undefined || value === '') {
+            this.setState({ shippingCountry: null, shippingRegion: null })
+        } else {
+            this.setState({ shippingCountry: value })
+        }
+    }
+
+    onShippingRegionChange(value) {
+        this.setState({ shippingRegion: value })
+    }
+
     componentDidMount() {
         // Start the page at the top of the page.
         window.scrollTo(0, 0);
@@ -107,7 +142,7 @@ class ProfileEditContainer extends Component {
             shippingEmail,
             shippingTelephone,
             errors,
-        } = this.props.user;
+        } = this.state;
         if (referrer) {
             return <Redirect to={"/profile"} />;
         }
@@ -136,6 +171,10 @@ class ProfileEditContainer extends Component {
                 errors={errors}
                 onChange={this.onChange}
                 onClick={this.onClick}
+                onBillingCountryChange={this.onBillingCountryChange}
+                onBillingRegionChange={this.onBillingRegionChange}
+                onShippingCountryChange={this.onShippingCountryChange}
+                onShippingRegionChange={this.onShippingRegionChange}
             />
         );
     }

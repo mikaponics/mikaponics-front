@@ -133,7 +133,7 @@ class OnboardPurchaseContainer extends Component {
         if (value === null || value === undefined || value === '') {
             this.setState({ billingAddressCountry: null, billingAddressRegion: null })
         } else {
-            this.setState({ billingAddressCountry: value })
+            this.setState({ billingAddressCountry: value, billingAddressRegion: null })
         }
     }
 
@@ -145,7 +145,7 @@ class OnboardPurchaseContainer extends Component {
         if (value === null || value === undefined || value === '') {
             this.setState({ shippingAddressCountry: null, shippingAddressRegion: null })
         } else {
-            this.setState({ shippingAddressCountry: value })
+            this.setState({ shippingAddressCountry: value, shippingAddressRegion: null })
         }
     }
 
