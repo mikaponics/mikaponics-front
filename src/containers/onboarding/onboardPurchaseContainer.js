@@ -41,6 +41,28 @@ class OnboardPurchaseContainer extends Component {
             errors: {}
         }
 
+        // If the user did not specify the billing/shipping details then load it
+        // up from the user profile.
+        if (this.billingGivenName === null || this.billingGivenName === undefined) {
+            this.state.billingGivenName = this.props.user.firstName;
+        }
+        if (this.billingLastName === null || this.billingLastName === undefined) {
+            this.state.billingLastName = this.props.user.lastName;
+        }
+        if (this.billingEmail === null || this.billingEmail === undefined) {
+            this.state.billingEmail = this.props.user.email;
+        }
+        if (this.shippingGivenName === null || this.shippingGivenName === undefined) {
+            this.state.shippingGivenName = this.props.user.firstName;
+        }
+        if (this.shippingLastName === null || this.shippingLastName === undefined) {
+            this.state.shippingLastName = this.props.user.lastName;
+        }
+        if (this.shippingEmail === null || this.shippingEmail === undefined) {
+            this.state.shippingEmail = this.props.user.email;
+        }
+
+        // Attach the custom functions we will be using.
         this.onNextClick = this.onNextClick.bind(this);
         this.onCancelClick = this.onCancelClick.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
