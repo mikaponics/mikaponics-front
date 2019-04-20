@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 
 import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
 import { BootstrapInput } from '../bootstrap/bootstrapInput';
+import { BootstrapSingleSelect } from '../bootstrap/bootstrapSingleSelect';
 
 
 class OnboardPurchaseComponent extends React.Component {
     render() {
         const {
             numberOfDevices,
+            numberOfDevicesOptions,
 
             billingGivenName, billingLastName, billingAddressCountry,
             billingAddressRegion, billingAddressLocality, billingPostalCode, billingEmail,
@@ -19,7 +21,12 @@ class OnboardPurchaseComponent extends React.Component {
             shippingPostalCode, shippingEmail,
             shippingTelephone,
 
-            errors, onChange, onNextClick, onCancelClick, isLoading
+            errors,
+            onTextChange,
+            onSelectChange,
+            onNextClick,
+            onCancelClick,
+            isLoading
         } = this.props;
 
         return (
@@ -46,16 +53,28 @@ class OnboardPurchaseComponent extends React.Component {
 
                             <p className="border-bottom mb-3 pb-1 text-secondary">Device(s)</p>
 
+                            <BootstrapSingleSelect
+                                label="# of devices (*)"
+                                name="numberOfDevices"
+                                defaultOptionLabel="Please pick the number of devices to purchase"
+                                options={numberOfDevicesOptions}
+                                value={numberOfDevices}
+                                error={errors.numberOfDevices}
+                                onSelectChange={onSelectChange}
+                            />
+
+         { /*
                             <BootstrapInput
                                 className="form-control"
                                 borderColour="border-primary"
                                 error={errors.numberOfDevices}
                                 label="# of devices (*)"
-                                onChange={onChange}
+                                onChange={onTextChange}
                                 value={numberOfDevices}
-                                name="numberOfDevices"
+                                name="numberOfDevices-old"
                                 type="number"
                             />
+                            */ }
 
                             <p className="border-bottom mb-3 pb-1 text-secondary">Billing Details</p>
 
@@ -64,7 +83,7 @@ class OnboardPurchaseComponent extends React.Component {
                                 borderColour="border-primary"
                                 error={errors.billingGivenName}
                                 label="First name (*)"
-                                onChange={onChange}
+                                onChange={onTextChange}
                                 value={billingGivenName}
                                 name="billingGivenName"
                                 type="text"
@@ -75,7 +94,7 @@ class OnboardPurchaseComponent extends React.Component {
                                 borderColour="border-primary"
                                 error={errors.billingLastName}
                                 label="Last name (*)"
-                                onChange={onChange}
+                                onChange={onTextChange}
                                 value={billingLastName}
                                 name="billingLastName"
                                 type="text"
@@ -86,7 +105,7 @@ class OnboardPurchaseComponent extends React.Component {
                                 borderColour="border-primary"
                                 error={errors.billingAddressCountry}
                                 label="Country (*)"
-                                onChange={onChange}
+                                onChange={onTextChange}
                                 value={billingAddressCountry}
                                 name="billingAddressCountry"
                                 type="text"
@@ -97,7 +116,7 @@ class OnboardPurchaseComponent extends React.Component {
                                 borderColour="border-primary"
                                 error={errors.billingAddressRegion}
                                 label="Province / state (*)"
-                                onChange={onChange}
+                                onChange={onTextChange}
                                 value={billingAddressRegion}
                                 name="billingAddressRegion"
                                 type="text"
@@ -108,7 +127,7 @@ class OnboardPurchaseComponent extends React.Component {
                                 borderColour="border-primary"
                                 error={errors.billingAddressLocality}
                                 label="City (*)"
-                                onChange={onChange}
+                                onChange={onTextChange}
                                 value={billingAddressLocality}
                                 name="billingAddressLocality"
                                 type="text"
@@ -119,7 +138,7 @@ class OnboardPurchaseComponent extends React.Component {
                                 borderColour="border-primary"
                                 error={errors.billingAddressLocality}
                                 label="Street address (*)"
-                                onChange={onChange}
+                                onChange={onTextChange}
                                 value={billingStreetAddress}
                                 name="billingStreetAddress"
                                 type="text"
@@ -130,7 +149,7 @@ class OnboardPurchaseComponent extends React.Component {
                                 borderColour="border-primary"
                                 error={errors.billingPostalCode}
                                 label="Postal / zip (*)"
-                                onChange={onChange}
+                                onChange={onTextChange}
                                 value={billingPostalCode}
                                 name="billingPostalCode"
                                 type="text"
@@ -141,7 +160,7 @@ class OnboardPurchaseComponent extends React.Component {
                                 borderColour="border-primary"
                                 error={errors.billingEmail}
                                 label="Email (*)"
-                                onChange={onChange}
+                                onChange={onTextChange}
                                 value={billingEmail}
                                 name="billingEmail"
                                 type="text"
@@ -152,7 +171,7 @@ class OnboardPurchaseComponent extends React.Component {
                                 borderColour="border-primary"
                                 error={errors.billingTelephone}
                                 label="Telephone (*)"
-                                onChange={onChange}
+                                onChange={onTextChange}
                                 value={billingTelephone}
                                 name="billingTelephone"
                                 type="text"
@@ -165,7 +184,7 @@ class OnboardPurchaseComponent extends React.Component {
                                 borderColour="border-primary"
                                 error={errors.shippingGivenName}
                                 label="First name (*)"
-                                onChange={onChange}
+                                onChange={onTextChange}
                                 value={shippingGivenName}
                                 name="shippingGivenName"
                                 type="text"
@@ -176,7 +195,7 @@ class OnboardPurchaseComponent extends React.Component {
                                 borderColour="border-primary"
                                 error={errors.shippingLastName}
                                 label="Last name (*)"
-                                onChange={onChange}
+                                onChange={onTextChange}
                                 value={shippingLastName}
                                 name="shippingLastName"
                                 type="text"
@@ -187,7 +206,7 @@ class OnboardPurchaseComponent extends React.Component {
                                 borderColour="border-primary"
                                 error={errors.shippingAddressCountry}
                                 label="Country (*)"
-                                onChange={onChange}
+                                onChange={onTextChange}
                                 value={shippingAddressCountry}
                                 name="shippingAddressCountry"
                                 type="text"
@@ -198,7 +217,7 @@ class OnboardPurchaseComponent extends React.Component {
                                 borderColour="border-primary"
                                 error={errors.shippingAddressRegion}
                                 label="Province / state (*)"
-                                onChange={onChange}
+                                onChange={onTextChange}
                                 value={shippingAddressRegion}
                                 name="shippingAddressRegion"
                                 type="text"
@@ -209,7 +228,7 @@ class OnboardPurchaseComponent extends React.Component {
                                 borderColour="border-primary"
                                 error={errors.shippingAddressLocality}
                                 label="City (*)"
-                                onChange={onChange}
+                                onChange={onTextChange}
                                 value={shippingAddressLocality}
                                 name="shippingAddressLocality"
                                 type="text"
@@ -220,7 +239,7 @@ class OnboardPurchaseComponent extends React.Component {
                                 borderColour="border-primary"
                                 error={errors.shippingStreetAddress}
                                 label="Street address (*)"
-                                onChange={onChange}
+                                onChange={onTextChange}
                                 value={shippingStreetAddress}
                                 name="shippingStreetAddress"
                                 type="text"
@@ -231,7 +250,7 @@ class OnboardPurchaseComponent extends React.Component {
                                 borderColour="border-primary"
                                 error={errors.shippingPostalCode}
                                 label="Postal / zip (*)"
-                                onChange={onChange}
+                                onChange={onTextChange}
                                 value={shippingPostalCode}
                                 name="shippingPostalCode"
                                 type="text"
@@ -242,7 +261,7 @@ class OnboardPurchaseComponent extends React.Component {
                                 borderColour="border-primary"
                                 error={errors.shippingEmail}
                                 label="Email (*)"
-                                onChange={onChange}
+                                onChange={onTextChange}
                                 value={shippingEmail}
                                 name="shippingEmail"
                                 type="text"
@@ -253,7 +272,7 @@ class OnboardPurchaseComponent extends React.Component {
                                 borderColour="border-primary"
                                 error={errors.shippingTelephone}
                                 label="Telephone (*)"
-                                onChange={onChange}
+                                onChange={onTextChange}
                                 value={shippingTelephone}
                                 name="shippingTelephone"
                                 type="text"
@@ -261,7 +280,7 @@ class OnboardPurchaseComponent extends React.Component {
 
                             <div className="form-group">
                                 <button type="text" className="btn btn-lg float-left pl-4 pr-4 btn-secondary" disabled={isLoading} onClick={onCancelClick}>
-                                    <i className="fas fa-times"></i>&nbsp;Cancel
+                                    <i className="fas fa-arrow-left"></i>&nbsp;Back
                                 </button>
                                 <button type="text" className="btn btn-lg float-right pl-4 pr-4 btn-primary" disabled={isLoading} onClick={onNextClick}>
                                     Next&nbsp;<i className="fas fa-arrow-right"></i>

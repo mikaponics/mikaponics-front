@@ -6,8 +6,19 @@ import { NOT_INTERESTED_SUBSCRIPTION_STATUS } from "../../constants/api";
 
 class OnboardWelcomeComponent extends Component {
     render() {
+        const { user, onboarding } = this.props;
 
-        const { user } = this.props;
+        function beginButton(onboarding) {
+            if (onboarding === null || onboarding === undefined) {
+                return (
+                    <Link to="/onboard/purchase" className="btn btn-primary">Begin&nbsp;<i className="fas fa-arrow-circle-right"></i></Link>
+                );
+            } else {
+                return (
+                    <Link to="/onboard/purchase" className="btn btn-primary">Resume&nbsp;<i className="fas fa-arrow-circle-right"></i></Link>
+                );
+            }
+        }
 
         function notPaidView() {
             return (
@@ -19,7 +30,7 @@ class OnboardWelcomeComponent extends Component {
                         <p className="lead">Before you begin, you will need to <strong>purchase a subscription</strong> and a <strong>telemetry device</strong>. Once purchased, you will be granted full-access to your dashboard.</p>
                         <hr className="my-4" />
                         <p>Click here to begin the device purchase and subscription activation.</p>
-                        <Link to="/onboard/purchase" className="btn btn-primary">Begin <i className="fas fa-arrow-circle-right"></i></Link>
+                        {beginButton(onboarding)}
                     </div>
                 </div>
             );

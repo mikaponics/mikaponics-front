@@ -43,7 +43,8 @@ class OnboardPurchaseContainer extends Component {
 
         this.onNextClick = this.onNextClick.bind(this);
         this.onCancelClick = this.onCancelClick.bind(this);
-        this.onChange = this.onChange.bind(this);
+        this.onTextChange = this.onTextChange.bind(this);
+        this.onSelectChange = this.onSelectChange.bind(this);
     }
 
     onNextClick(e) {
@@ -112,9 +113,15 @@ class OnboardPurchaseContainer extends Component {
         });
     }
 
-    onChange(e) {
+    onTextChange(e) {
         this.setState({
             [e.target.name]: e.target.value,
+        })
+    }
+
+    onSelectChange(option) {
+        this.setState({
+            [option.selectName]: option.value
         })
     }
 
@@ -155,10 +162,20 @@ class OnboardPurchaseContainer extends Component {
             return <Redirect to={referrer} />;
         }
 
+        // Generate our list of options to choose from for the "numberOfDevices".
+        const numberOfDevicesOptions = [];
+        for (let i = 1; i <= 20; i++) {
+            numberOfDevicesOptions.push({
+                selectName: "numberOfDevices",
+                value: i,
+                label: i
+            });
+        }
+
         return (
             <OnboardPurchaseComponent
                 numberOfDevices={numberOfDevices}
-
+                numberOfDevicesOptions={numberOfDevicesOptions}
                 billingGivenName={billingGivenName}
                 billingLastName={billingLastName}
                 billingAddressCountry={billingAddressCountry}
@@ -179,7 +196,8 @@ class OnboardPurchaseContainer extends Component {
                 shippingEmail={shippingEmail}
                 shippingTelephone={shippingTelephone}
 
-                onChange={this.onChange}
+                onTextChange={this.onTextChange}
+                onSelectChange={this.onSelectChange}
                 onNextClick={this.onNextClick}
                 onCancelClick={this.onCancelClick}
                 user={user}

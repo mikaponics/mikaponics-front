@@ -29,7 +29,7 @@ class OnboardWelcomeContainer extends Component {
 
     render() {
         const { referrer } = this.state;
-        const { user } = this.props;
+        const { user, onboarding } = this.props;
 
         // If a `referrer` was set then that means we can redirect
         // to a different page in our application.
@@ -45,6 +45,7 @@ class OnboardWelcomeContainer extends Component {
         return (
             <OnboardWelcomeComponent
                 user={user}
+                onboarding={onboarding}
             />
         );
     }
