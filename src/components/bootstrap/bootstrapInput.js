@@ -14,7 +14,7 @@ import shortid from "shortid";
  *                 then the border colour will be red.
  */
 export const BootstrapInput = ({
-    name, type, label, placeholder, value, helpText, onChange, error, className = "form-group", borderColour = ''
+    name, type, label, placeholder, value, helpText, onChange, error, className = "form-group", borderColour = '', disabled = false
 }) => {
     const helpID = shortid.generate + "-help";
     return (
@@ -29,6 +29,7 @@ export const BootstrapInput = ({
                 placeholder={placeholder}
                 value={value}
                 onChange={onChange}
+                disabled={disabled}
             />
             <small id={helpID} className="form-text text-muted">{helpText}</small>
             {error && <div className="invalid-feedback">{error}</div>}
@@ -49,6 +50,7 @@ BootstrapInput.propTypes = {
     // checkUserExists: PropTypes.func
     className: PropTypes.string.isRequired,
     borderColour: PropTypes.string,
+    disabled: PropTypes.bool
 }
 
 
