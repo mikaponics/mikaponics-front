@@ -15,9 +15,6 @@ class DashboardContainer extends Component {
     }
 
     componentDidMount() {
-        // Update dashboard content with data from API web-service.
-        this.props.pullDashboard(this.props.user);
-
         // Start the page at the top of the page.
         window.scrollTo(0, 0);
     } // end FUNC.
