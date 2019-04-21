@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 
-import { attemptLogout } from "../../actions/loginAction"
 import { clearOnboarding } from "../../actions/onboardingActions"
 import { pullProfile } from "../../actions/profileAction"
 import OnboardWelcomeComponent from "../../components/onboarding/onboardWelcomeComponent";
@@ -26,6 +25,15 @@ class OnboardWelcomeContainer extends Component {
         // Make the authenticated call to our web-service.
         this.props.pullProfile(this.props.user);
     } // end FUNC.
+
+    componentWillUnmount() {
+        // This code will fix the "ReactJS & Redux: Can't perform a React state
+        // update on an unmounted component" issue as explained in:
+        // https://stackoverflow.com/a/53829700
+        this.setState = (state,callback)=>{
+            return;
+        };
+    }
 
     render() {
         const { referrer } = this.state;
@@ -60,11 +68,6 @@ const mapStateToProps = function(store) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        attemptLogout: () => {
-            dispatch(
-                attemptLogout()
-            )
-        },
         pullProfile: (user) => {
             dispatch(
                 pullProfile(user)

@@ -4,7 +4,6 @@ import { Redirect, Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import { snakeCase } from 'lodash';
 
-import { attemptLogout } from "../../actions/loginAction"
 import { pullProfile } from "../../actions/profileAction";
 import { MIKAPONICS_ONBOARDING_SUBMISSION_API_URL, NOT_INTERESTED_SUBSCRIPTION_STATUS } from "../../constants/api";
 import OnboardSuccessComponent from "../../components/onboarding/onboardSuccessComponent";
@@ -119,11 +118,6 @@ const mapStateToProps = function(store) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        attemptLogout: () => {
-            dispatch(
-                attemptLogout()
-            )
-        },
         pullProfile: (user) => {
             dispatch(pullProfile(user))
         }

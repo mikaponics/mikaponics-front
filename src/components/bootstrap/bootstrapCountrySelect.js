@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import classnames from 'classnames';
 import shortid from "shortid";
-import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
+import { CountryDropdown } from 'react-country-region-selector';
 
 
 export const BootstrapCountrySelect = ({

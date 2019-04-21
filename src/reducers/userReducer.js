@@ -3,7 +3,9 @@ import {
     LOGIN_REQUEST,
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
+    LOGOUT_REQUEST,
     LOGOUT_SUCCESS,
+    LOGOUT_FAILURE,
     REGISTER_REST_FORM,
     REGISTER_REQUEST,
     REGISTER_SUCCESS,
@@ -36,6 +38,12 @@ const userReducer = function(state = [], action = {}) {
 
         case LOGOUT_SUCCESS:
             return {}; // Note: Setting to empty dict clears the state.
+
+        case LOGOUT_FAILURE:
+            return Object.assign({}, state, action.payload);
+
+        case LOGOUT_REQUEST:
+            return Object.assign({}, state, action.payload);
 
         case REGISTER_REST_FORM:
             return Object.assign({}, state, action.payload);

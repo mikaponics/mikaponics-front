@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
 
 // import LogoutComponent from '../../components/account/logoutComponent';
-import { attemptLogout } from "../../actions/loginAction";
+import { postLogout, attemptLogout } from "../../actions/logoutAction";
 import { setFlashMessage } from "../../actions/flashMessageActions";
 
 
@@ -33,12 +33,16 @@ class LogoutContainer extends Component {
     render() {
         const { user } = this.props;
         if (user !== undefined && user.token !== undefined && user.token !== null) {
-            // Clear the local storage.
+            // Call the API endpoint to log out.
+            this.props.postLogout(this.props.user);
+
+            // CLEAR THE LOCAL STORAGE IF WE SUCCESSFULLY LOGGED OUT!
             localStorage.clear();
 
             // Create a flash message telling the user that they successfully logged out.
             this.props.setFlashMessage("success", "You have successfully logged out.");
             this.props.attemptLogout();
+
         }
         return <Redirect to="/login" />;
     }
@@ -55,6 +59,9 @@ const mapDispatchToProps = dispatch => {
     return {
         setFlashMessage: (typeOf, text) => {
             dispatch(setFlashMessage(typeOf, text))
+        },
+        postLogout: (user) => {
+            dispatch(postLogout(user))
         },
         attemptLogout: () => {
             dispatch(attemptLogout())

@@ -7,6 +7,7 @@ export const APP_STATE = 'APP_STATE';
  *  The API web-services endpoints.
  */
 export const MIKAPONICS_LOGIN_API_URL = process.env.REACT_APP_API_HOST+'/api/login';
+export const MIKAPONICS_LOGOUT_API_URL = process.env.REACT_APP_API_HOST+'/api/logout';
 export const MIKAPONICS_REGISTER_API_URL = process.env.REACT_APP_API_HOST+'/api/register';
 export const MIKAPONICS_ACTIVATE_API_URL = process.env.REACT_APP_API_HOST+'/api/activate';
 export const MIKAPONICS_SEND_PASSWORD_RESET_API_URL = process.env.REACT_APP_API_HOST+'/api/send-password-reset';

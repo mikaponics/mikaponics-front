@@ -3,7 +3,6 @@ import { Link, NavLink } from "react-router-dom";
 import { Scrollbars } from 'react-custom-scrollbars';
 import { connect } from 'react-redux';
 
-import { attemptLogout } from "../../actions/loginAction";
 import { setFlashMessage } from "../../actions/flashMessageActions";
 
 
@@ -208,9 +207,6 @@ const mapDispatchToProps = dispatch => {
     return {
         setFlashMessage: (typeOf, text) => {
             dispatch(setFlashMessage(typeOf, text))
-        },
-        attemptLogout: () => {
-            dispatch(attemptLogout())
         }
     }
 }
