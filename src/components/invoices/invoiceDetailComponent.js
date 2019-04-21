@@ -2,44 +2,56 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 
-// <div className="row">
-//     <div className="col-md-12">
-//         <h2>Financing</h2>
-//         <p>Total before tax: {invoiceDetail.totalBeforeTax}</p>
-//         <p>Tax: {invoiceDetail.tax}</p>
-//         <p>Total after tax: {invoiceDetail.totalAfterTax}</p>
-//         <p>Shipping: {invoiceDetail.shipping}</p>
-//         <p>Credit: {invoiceDetail.credit}</p>
-//         <p>Grand total: {invoiceDetail.grandTotal}</p>
-//         <h2>Billing</h2>
-//         <p>Given name: {invoiceDetail.billingGivenName}</p>
-//         <p>Last name: {invoiceDetail.billingLastName}</p>
-//         <p>Country: {invoiceDetail.billingCountry}</p>
-//         <p>Region: {invoiceDetail.billingRegion}</p>
-//         <p>Locality: {invoiceDetail.billingLocality}</p>
-//         <p>Street Address: {invoiceDetail.billingStreetAddress}</p>
-//         <p>Postal: {invoiceDetail.billingPostalCode}</p>
-//         <p>Email: {invoiceDetail.billingEmail}</p>
-//         <p>Telephone: {invoiceDetail.billingTelephone}</p>
-//         <h2>Shipping</h2>
-//         <p>Given name: {invoiceDetail.shippingGivenName}</p>
-//         <p>Last name: {invoiceDetail.shippingLastName}</p>
-//         <p>Country: {invoiceDetail.shippingCountry}</p>
-//         <p>Region: {invoiceDetail.shippingRegion}</p>
-//         <p>Locality: {invoiceDetail.shippingLocality}</p>
-//         <p>Street Address: {invoiceDetail.shippingStreetAddress}</p>
-//         <p>Street Address (Extra): {invoiceDetail.shippingStreetAddressExtra}</p>
-//         <p>Postal: {invoiceDetail.shippingPostalCode}</p>
-//         <p>Post Office Box #: {invoiceDetail.shippingPostOfficeBoxNumber}</p>
-//         <p>Email: {invoiceDetail.shippingEmail}</p>
-//         <p>Telephone: {invoiceDetail.shippingTelephone}</p>
-//     </div>
-// </div>
+class InvoiceItemRow extends Component {
+    render() {
+        const { product, description, quantity, unitPrice, totalPrice } = this.props.rowData;
+        return (
+            <tr>
+                <td>{product}</td>
+                <td>{description}</td>
+                <td>{quantity}</td>
+                <td>{unitPrice}</td>
+                <td>{totalPrice}</td>
+            </tr>
+        );
+    }
+}
+
+
+class InvoiceItemsTable extends Component {
+    render() {
+        const { items } = this.props;
+
+        let rowElements = [];
+        for (let i = 0; i < items.length; i++) {
+            let rowData = items[i];
+            rowElements.push(
+                <InvoiceItemRow rowData={rowData} />
+            );
+        }
+        return (
+            <table className="table table-striped">
+                <thead>
+                <tr>
+                    <th>Item #</th>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {rowElements}
+                </tbody>
+            </table>
+        );
+    }
+}
 
 class InvoiceCard extends Component {
     render() {
         const {
-            number, createdAt, dueAt, purchasedAt,
+            number, createdAt, dueAt, purchasedAt, items,
 
             billingGivenName, billingLastName, billingCountry, billingRegion,
             billingLocality, billingStreetAddress, billingStreetAddressExtra,
@@ -50,7 +62,16 @@ class InvoiceCard extends Component {
             shippingPostalCode,
 
             totalBeforeTax, tax, taxPercent, totalAfterTax, shipping, credit, grandTotal
-         } = this.props.invoiceDetail;
+        } = this.props.invoiceDetail;
+
+        // Generate our table row of tiems.
+        let tableElement;
+        if (items !== null && items !== undefined) {
+            tableElement = (
+                <InvoiceItemsTable items={items} />
+            )
+        }
+
         return (
             <div className="card">
                 <div className="card-body">
@@ -116,40 +137,7 @@ class InvoiceCard extends Component {
                     </div>
 
                     <div className="table-responsive mb-3">
-                        <table className="table table-striped">
-                            <thead>
-                            <tr>
-                                <th>Item #</th>
-                                <th>Description</th>
-                                <th>Quantity</th>
-                                <th>Unit Price</th>
-                                <th>Total</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>1001</td>
-                                <td>Iphone 5s - 64Gb</td>
-                                <td>3</td>
-                                <td>$ 200</td>
-                                <td>$ 600</td>
-                            </tr>
-                            <tr>
-                                <td>1002</td>
-                                <td>Iphone 5s - 64Gb</td>
-                                <td>3</td>
-                                <td>$ 200</td>
-                                <td>$ 600</td>
-                            </tr>
-                            <tr>
-                                <td>1003</td>
-                                <td>Iphone 5s - 64Gb</td>
-                                <td>3</td>
-                                <td>$ 200</td>
-                                <td>$ 600</td>
-                            </tr>
-                            </tbody>
-                        </table>
+                        {tableElement}
                     </div>
                     <div className="row">
                         <div className="col-lg-6">
@@ -197,11 +185,13 @@ class InvoiceCard extends Component {
                         </div>
                     </div>
                     <hr className="d-print-none" />
+                    { /*
                     <div className="clearfix">
                         <button className="btn btn-primary float-left mr-2" type="button">Edit</button>
                         <button className="btn btn-orange float-left" type="button">Print</button>
                         <button className="btn btn-success float-right" type="button">Send Invoice</button>
                     </div>
+                    */ }
                 </div>
             </div>
         );
