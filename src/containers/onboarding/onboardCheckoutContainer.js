@@ -25,7 +25,7 @@ class OnboardCheckoutContainer extends Component {
             errors: {},
 
             monthlyFee: 0,
-            numberOfDevices: 0,
+            quantity: 0,
             pricePerDevice: 0,
             totalBeforeTax: 0,
             tax: 0,
@@ -50,7 +50,7 @@ class OnboardCheckoutContainer extends Component {
         };
 
         const bodyParameters = {
-            number_of_devices: onboarding.numberOfDevices,
+            quantity: onboarding.quantity,
             shipping_address_country: "Canada",
             shipping_address_region: "Ontario",
         }
@@ -64,7 +64,7 @@ class OnboardCheckoutContainer extends Component {
             //console.log(successResult);
             this.setState({
                 monthlyFee: successResult.data.calculation.monthlyFee,
-                numberOfDevices: successResult.data.calculation.numberOfDevices,
+                quantity: successResult.data.calculation.quantity,
                 pricePerDevice: successResult.data.calculation.pricePerDevice,
                 totalBeforeTax: successResult.data.calculation.totalBeforeTax,
                 tax: successResult.data.calculation.tax,
@@ -119,7 +119,7 @@ class OnboardCheckoutContainer extends Component {
 
         const { referrer, errors,
             monthlyFee,
-            numberOfDevices,
+            quantity,
             pricePerDevice,
             totalBeforeTax,
             tax,
@@ -145,7 +145,7 @@ class OnboardCheckoutContainer extends Component {
             <div>
                 <OnboardCheckoutComponent
                     monthlyFee={monthlyFee}
-                    numberOfDevices={numberOfDevices}
+                    quantity={quantity}
                     pricePerDevice={pricePerDevice}
                     totalBeforeTax={totalBeforeTax}
                     tax={tax}

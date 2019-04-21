@@ -11,8 +11,8 @@ import { BootstrapRegionSelect } from '../bootstrap/bootstrapRegionSelect'
 class OnboardPurchaseComponent extends React.Component {
     render() {
         const {
-            numberOfDevices,
-            numberOfDevicesOptions,
+            quantity,
+            quantityOptions,
 
             billingGivenName, billingLastName, billingAddressCountry,
             billingAddressRegion, billingAddressLocality, billingPostalCode, billingEmail,
@@ -61,11 +61,11 @@ class OnboardPurchaseComponent extends React.Component {
 
                             <BootstrapSingleSelect
                                 label="# of devices (*)"
-                                name="numberOfDevices"
+                                name="quantity"
                                 defaultOptionLabel="Please pick the number of devices to purchase"
-                                options={numberOfDevicesOptions}
-                                value={numberOfDevices}
-                                error={errors.numberOfDevices}
+                                options={quantityOptions}
+                                value={quantity}
+                                error={errors.quantity}
                                 onSelectChange={onSelectChange}
                             />
 

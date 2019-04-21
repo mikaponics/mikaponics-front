@@ -7,7 +7,7 @@ import StripeComponent from "../stripeComponent";
 class OnboardCheckoutComponent extends React.Component {
     render() {
         const {
-            monthlyFee, numberOfDevices, pricePerDevice, totalBeforeTax, tax, totalAfterTax, shipping, credit, grandTotal,
+            monthlyFee, quantity, pricePerDevice, totalBeforeTax, tax, totalAfterTax, shipping, credit, grandTotal,
             onBackClick,
             name, description, billingEmail, amountInCents, currency, stripeKey
         } = this.props;
@@ -59,7 +59,7 @@ class OnboardCheckoutComponent extends React.Component {
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Number of device(s) purchasing:</th>
-                                    <td>{numberOfDevices}</td>
+                                    <td>{quantity}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Price per device:</th>

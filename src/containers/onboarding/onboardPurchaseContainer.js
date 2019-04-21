@@ -15,7 +15,7 @@ class OnboardPurchaseContainer extends Component {
         super(props);
 
         this.state = {
-            numberOfDevices: this.props.onboarding.numberOfDevices,
+            quantity: this.props.onboarding.quantity,
 
             billingGivenName: this.props.onboarding.billingGivenName,
             billingLastName: this.props.onboarding.billingLastName,
@@ -192,7 +192,7 @@ class OnboardPurchaseContainer extends Component {
 
         const { referrer, errors } = this.state;
         const {
-            numberOfDevices,
+            quantity,
 
             billingGivenName, billingLastName,
             billingAddressCountry, billingAddressRegion, billingAddressLocality,
@@ -212,11 +212,11 @@ class OnboardPurchaseContainer extends Component {
             return <Redirect to={referrer} />;
         }
 
-        // Generate our list of options to choose from for the "numberOfDevices".
-        const numberOfDevicesOptions = [];
+        // Generate our list of options to choose from for the "quantity".
+        const quantityOptions = [];
         for (let i = 1; i <= 20; i++) {
-            numberOfDevicesOptions.push({
-                selectName: "numberOfDevices",
+            quantityOptions.push({
+                selectName: "quantity",
                 value: i,
                 label: i
             });
@@ -224,8 +224,8 @@ class OnboardPurchaseContainer extends Component {
 
         return (
             <OnboardPurchaseComponent
-                numberOfDevices={numberOfDevices}
-                numberOfDevicesOptions={numberOfDevicesOptions}
+                quantity={quantity}
+                quantityOptions={quantityOptions}
                 billingGivenName={billingGivenName}
                 billingLastName={billingLastName}
                 billingAddressCountry={billingAddressCountry}
