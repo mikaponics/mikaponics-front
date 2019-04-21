@@ -13,7 +13,7 @@ class ProfileTable extends Component {
             firstName, lastName, email,
             billingCountry, billingRegion, billingLocality, billingStreetAddress, billingPostalCode, billingEmail, billingTelephone,
             shippingCountry, shippingRegion, shippingLocality, shippingStreetAddress, shippingStreetAddressExtra, shippingPostalCode, shippingPostOfficeBoxNumber, shippingEmail, shippingTelephone,
-            onChange, onClick, errors, onSubmit,
+            onChange, errors, onSubmit,
             onBillingCountryChange, onBillingRegionChange, onShippingCountryChange, onShippingRegionChange,
         } = this.props;
         return (
@@ -281,11 +281,12 @@ class ProfileEditComponent extends Component {
             shippingEmail,
             shippingTelephone,
 
+            profile,
             onChange,
             onClick,
-            errors={},
             onBillingCountryChange, onBillingRegionChange, onShippingCountryChange, onShippingRegionChange,
         } = this.props;
+        const { errors={}, isAPIRequestRunning } = profile;
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -324,7 +325,6 @@ class ProfileEditComponent extends Component {
                             shippingEmail={shippingEmail}
                             shippingTelephone={shippingTelephone}
                             onChange={onChange}
-                            onClick={onClick}
                             errors={errors}
                             onBillingCountryChange={onBillingCountryChange}
                             onBillingRegionChange={onBillingRegionChange}
@@ -336,7 +336,7 @@ class ProfileEditComponent extends Component {
                         <Link to="/profile" className="btn btn-secondary btn-lg float-left">
                             <i className="fas fa-window-close"></i>&nbsp;Cancel
                         </Link>
-                        <button className="btn btn-success btn-lg float-right" onClick={onClick}>
+                        <button className="btn btn-success btn-lg float-right" onClick={onClick} disabled={isAPIRequestRunning}>
                             <i className="fas fa-check"></i>&nbsp;Save
                         </button>
                     </div>

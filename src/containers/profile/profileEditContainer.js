@@ -140,8 +140,7 @@ class ProfileEditContainer extends Component {
             shippingPostalCode,
             shippingPostOfficeBoxNumber,
             shippingEmail,
-            shippingTelephone,
-            errors,
+            shippingTelephone
         } = this.state;
         if (referrer) {
             return <Redirect to={"/profile"} />;
@@ -168,7 +167,6 @@ class ProfileEditContainer extends Component {
                 shippingPostOfficeBoxNumber={shippingPostOfficeBoxNumber}
                 shippingEmail={shippingEmail}
                 shippingTelephone={shippingTelephone}
-                errors={errors}
                 onChange={this.onChange}
                 onClick={this.onClick}
                 onBillingCountryChange={this.onBillingCountryChange}
