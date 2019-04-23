@@ -25,6 +25,19 @@ class InstrumentDataContainer extends Component {
         this.onPaginatorPreviousClick = this.onPaginatorPreviousClick.bind(this);
         this.onNextCompletion = this.onNextCompletion.bind(this);
         this.onPreviousCompletion = this.onPreviousCompletion.bind(this);
+        this.reverseData = this.reverseData.bind(this);
+    }
+
+    /**
+     *  Utility function takes the data and reverses it, the reason being,
+     *  because the API endpoint returns the latest to oldest and we want the
+     *  graph to show from oldest to latest.
+     */
+    reverseData(data) {
+        const originalResults = data.results;
+        const reversedResults = originalResults.reverse()
+        data.results = reversedResults;
+        return data
     }
 
     onNextCompletion() {
@@ -98,7 +111,7 @@ class InstrumentDataContainer extends Component {
             <InstrumentDataComponent
                 user={this.props.user}
                 instrument={this.props.instrument}
-                timeSeriesData={this.props.data}
+                timeSeriesData={this.reverseData(this.props.data)}
                 onPaginatorNextClick={this.onPaginatorNextClick}
                 onPaginatorPreviousClick={this.onPaginatorPreviousClick}
                 nextIsLoading={this.state.nextIsLoading}
@@ -108,6 +121,7 @@ class InstrumentDataContainer extends Component {
     }
 }
 
+
 const mapStateToProps = function(store) {
     return {
         user: store.userState,
@@ -115,6 +129,7 @@ const mapStateToProps = function(store) {
         data: store.dataState,
     };
 }
+
 
 const mapDispatchToProps = dispatch => {
     return {
