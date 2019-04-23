@@ -37,6 +37,7 @@ import InvoiceListContainer from "./invoices/invoiceListContainer";
 import InvoiceDetailContainer from "./invoices/invoiceDetailContainer";
 import ProfileContainer from "./profile/profileContainer";
 import ProfileEditContainer from "./profile/profileEditContainer";
+import PurchaseDeviceContainer from "./purchase/purchaseDeviceContainer";
 
 
 class AppContainer extends React.Component {
@@ -89,6 +90,7 @@ class AppContainer extends React.Component {
                             <Route path="/profile/edit" exact component={ProfileEditContainer} />
                             <Route path="/privacy" exact component={PrivacyContainer} />
                             <Route path="/terms" exact component={TermsContainer} />
+                            <Route path="/purchase" exact component={PurchaseDeviceContainer} />
                             <Route component={NotFound404Container} />
                         </Switch>
                     </main>
