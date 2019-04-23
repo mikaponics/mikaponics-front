@@ -130,14 +130,17 @@ class InstrumentDataTablePagination extends Component {
         let nextButtonElement;
         let previousButtonElement;
         const { next, previous, page, isAPIRequestRunning } = this.props.timeSeriesData;
-        const { onPaginatorNextClick, onPaginatorPreviousClick } = this.props;
+        const { onPaginatorNextClick, onPaginatorPreviousClick, nextIsLoading, previousIsLoading } = this.props;
 
         if (next) {
             nextButtonElement = (
                 <button
-                    disabled={isAPIRequestRunning}
+                    disabled={nextIsLoading}
                     className="btn btn-lg btn-success float-right"
                     onClick={onPaginatorNextClick}>
+                        {nextIsLoading &&
+                            <img src="/img/ajax-loading.gif" alt="Busy" height="32" width="32" />
+                        }
                         Next&nbsp;<i className={'fas fa-arrow-right'}></i>
                 </button>
             )
@@ -145,9 +148,12 @@ class InstrumentDataTablePagination extends Component {
         if (previous) {
             previousButtonElement = (
                 <button
-                    disabled={isAPIRequestRunning}
+                    disabled={previousIsLoading}
                     className="btn btn-lg btn-success float-left"
                     onClick={onPaginatorPreviousClick}>
+                        {previousIsLoading &&
+                            <img src="/img/ajax-loading.gif" alt="Busy" height="32" width="32" />
+                        }
                         <i className={'fas fa-arrow-left'}></i>&nbsp;Next
                 </button>
             )
@@ -166,7 +172,8 @@ class InstrumentDataTablePagination extends Component {
 class InstrumentDataComponent extends Component {
     render() {
         const {
-            user, instrument, timeSeriesData, onPaginatorNextClick, onPaginatorPreviousClick
+            user, instrument, timeSeriesData, onPaginatorNextClick, onPaginatorPreviousClick,
+            nextIsLoading, previousIsLoading
         } = this.props;
         return (
             <div>
@@ -236,6 +243,8 @@ class InstrumentDataComponent extends Component {
                         timeSeriesData={timeSeriesData}
                         onPaginatorNextClick={onPaginatorNextClick}
                         onPaginatorPreviousClick={onPaginatorPreviousClick}
+                        nextIsLoading={nextIsLoading}
+                        previousIsLoading={previousIsLoading}
                     />
                 }
             </div>

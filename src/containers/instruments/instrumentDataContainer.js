@@ -16,32 +16,52 @@ class InstrumentDataContainer extends Component {
         this.state = {
             instrumentSlug: slug,
             page: 1,
+            previousIsLoading: false,
+            nextIsLoading: false,
         }
 
         // Custom functions.
         this.onPaginatorNextClick = this.onPaginatorNextClick.bind(this);
         this.onPaginatorPreviousClick = this.onPaginatorPreviousClick.bind(this);
+        this.onNextCompletion = this.onNextCompletion.bind(this);
+        this.onPreviousCompletion = this.onPreviousCompletion.bind(this);
+    }
+
+    onNextCompletion() {
+        this.setState({
+            nextIsLoading: false
+        })
+    }
+
+    onPreviousCompletion() {
+        this.setState({
+            previousIsLoading: false
+        })
     }
 
     onPaginatorNextClick() {
         const nextPage = (this.state.page + 1);
         this.setState({
-            page: nextPage
+            page: nextPage,
+            nextIsLoading: true
         })
-        this.props.pullTimeSeriesData(this.props.user, this.props.match.params.slug, nextPage);
+        this.props.pullTimeSeriesData(this.props.user, this.props.match.params.slug, nextPage, this.onNextCompletion);
     }
 
     onPaginatorPreviousClick() {
         const previousPage = (this.state.page - 1);
         this.setState({
-            page: previousPage
+            page: previousPage,
+            previousIsLoading: true
         })
-        this.props.pullTimeSeriesData(this.props.user, this.props.match.params.slug, previousPage);
+        this.props.pullTimeSeriesData(this.props.user, this.props.match.params.slug, previousPage, this.onPreviousCompletion);
     }
 
     componentDidMount() {
         this.props.pullInstrument(this.props.user, this.props.match.params.slug);
-        this.props.pullTimeSeriesData(this.props.user, this.props.match.params.slug, this.state.page);
+        this.props.pullTimeSeriesData(this.props.user, this.props.match.params.slug, this.state.page, function() {
+
+        });
         window.scrollTo(0, 0);  // Start the page at the top of the page.
 
         // This function will call the API backend every second to get the
@@ -57,7 +77,9 @@ class InstrumentDataContainer extends Component {
      *  backend to get the latest device data.
      */
     tick() {
-        this.props.pullTimeSeriesData(this.props.user, this.props.match.params.slug, this.state.page);
+        this.props.pullTimeSeriesData(this.props.user, this.props.match.params.slug, this.state.page, function() {
+
+        });
     }
 
     componentWillUnmount() {
@@ -79,6 +101,8 @@ class InstrumentDataContainer extends Component {
                 timeSeriesData={this.props.data}
                 onPaginatorNextClick={this.onPaginatorNextClick}
                 onPaginatorPreviousClick={this.onPaginatorPreviousClick}
+                nextIsLoading={this.state.nextIsLoading}
+                previousIsLoading={this.state.previousIsLoading}
             />
         );
     }
@@ -99,9 +123,9 @@ const mapDispatchToProps = dispatch => {
                 pullInstrument(user, instrumentSlug)
             )
         },
-        pullTimeSeriesData: (user, instrumentSlug, page) => {
+        pullTimeSeriesData: (user, instrumentSlug, page, completionCallback) => {
             dispatch(
-                pullTimeSeriesData(user, instrumentSlug, page)
+                pullTimeSeriesData(user, instrumentSlug, page, completionCallback)
             )
         },
     }

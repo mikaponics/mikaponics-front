@@ -38,7 +38,7 @@ export const setClearTimeSeriesData = () => ({
  *  Function will pull the ``instrument`` API endpoint and override our
  *  global application state for the 'dashboard'.
  */
-export function pullTimeSeriesData(user, instrumentSlug, page=1) {
+export function pullTimeSeriesData(user, instrumentSlug, page=1, completionCallback) {
     return dispatch => {
         // Change the global state to attempting to fetch latest user details.
         store.dispatch(
@@ -88,9 +88,6 @@ export function pullTimeSeriesData(user, instrumentSlug, page=1) {
                 })
             );
 
-        }).then( () => { // FINALLY
-            // Do nothing.
-        });
-
+        }).then( completionCallback );
     }
 }
