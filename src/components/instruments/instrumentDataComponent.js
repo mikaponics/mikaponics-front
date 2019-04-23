@@ -129,7 +129,7 @@ class InstrumentDataTablePagination extends Component {
     render() {
         let nextButtonElement;
         let previousButtonElement;
-        const { next, previous, page, isAPIRequestRunning } = this.props.timeSeriesData;
+        const { next, previous, page } = this.props.timeSeriesData;
         const { onPaginatorNextClick, onPaginatorPreviousClick, nextIsLoading, previousIsLoading } = this.props;
 
         if (next) {
@@ -154,15 +154,26 @@ class InstrumentDataTablePagination extends Component {
                         {previousIsLoading &&
                             <img src="/img/ajax-loading.gif" alt="Busy" height="32" width="32" />
                         }
-                        <i className={'fas fa-arrow-left'}></i>&nbsp;Next
+                        <i className={'fas fa-arrow-left'}></i>&nbsp;Previous
                 </button>
             )
         }
 
         return (
             <div>
-                {nextButtonElement}
-                {previousButtonElement}
+                <div className="container-fluid">
+                    <div class="row">
+                        <div class="col-sm">
+                            {previousButtonElement}
+                        </div>
+                        <div class="col-sm">
+                            <p style={{textAlign: 'center'}}>Page: {page}</p>
+                        </div>
+                        <div class="col-sm">
+                            {nextButtonElement}
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }
