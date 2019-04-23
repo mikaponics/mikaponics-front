@@ -24,17 +24,19 @@ class InstrumentDataContainer extends Component {
     }
 
     onPaginatorNextClick() {
+        const nextPage = (this.state.page + 1);
         this.setState({
-            page: (this.state.page + 1)
+            page: nextPage
         })
-        this.props.pullTimeSeriesData(this.props.user, this.props.match.params.slug, this.state.page);
+        this.props.pullTimeSeriesData(this.props.user, this.props.match.params.slug, nextPage);
     }
 
     onPaginatorPreviousClick() {
+        const previousPage = (this.state.page - 1);
         this.setState({
-            page: (this.state.page - 1)
+            page: previousPage
         })
-        this.props.pullTimeSeriesData(this.props.user, this.props.match.params.slug, this.state.page);
+        this.props.pullTimeSeriesData(this.props.user, this.props.match.params.slug, previousPage);
     }
 
     componentDidMount() {
@@ -55,7 +57,7 @@ class InstrumentDataContainer extends Component {
      *  backend to get the latest device data.
      */
     tick() {
-        this.props.pullTimeSeriesData(this.props.user, this.props.match.params.slug);
+        this.props.pullTimeSeriesData(this.props.user, this.props.match.params.slug, this.state.page);
     }
 
     componentWillUnmount() {

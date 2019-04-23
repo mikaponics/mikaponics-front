@@ -129,12 +129,13 @@ class InstrumentDataTablePagination extends Component {
     render() {
         let nextButtonElement;
         let previousButtonElement;
-        const { next, previous, page } = this.props.timeSeriesData;
+        const { next, previous, page, isAPIRequestRunning } = this.props.timeSeriesData;
         const { onPaginatorNextClick, onPaginatorPreviousClick } = this.props;
 
         if (next) {
             nextButtonElement = (
                 <button
+                    disabled={isAPIRequestRunning}
                     className="btn btn-lg btn-success float-right"
                     onClick={onPaginatorNextClick}>
                         Next&nbsp;<i className={'fas fa-arrow-right'}></i>
@@ -144,6 +145,7 @@ class InstrumentDataTablePagination extends Component {
         if (previous) {
             previousButtonElement = (
                 <button
+                    disabled={isAPIRequestRunning}
                     className="btn btn-lg btn-success float-left"
                     onClick={onPaginatorPreviousClick}>
                         <i className={'fas fa-arrow-left'}></i>&nbsp;Next
