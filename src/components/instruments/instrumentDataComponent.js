@@ -55,6 +55,7 @@ class InstrumentDataChartComponent extends Component {
                             dataKey="value"
                             stroke="#001529"
                             activeDot={{r: 5}}
+                            isAnimationActive={false}
                         />
                         <CartesianGrid stroke="#eee" strokeDasharray="5 5"/>
                         <Tooltip

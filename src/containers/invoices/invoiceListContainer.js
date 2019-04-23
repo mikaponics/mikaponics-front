@@ -13,7 +13,8 @@ class InvoiceListContainer extends Component {
         // fetch the URL argument as follows.
         const { slug } = this.props.match.params;
         this.state = {
-            pageIndex: 1
+            pageIndex: 1,
+            slug: slug
         }
     }
 
