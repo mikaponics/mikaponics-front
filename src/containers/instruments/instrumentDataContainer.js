@@ -15,12 +15,31 @@ class InstrumentDataContainer extends Component {
         const { slug } = this.props.match.params;
         this.state = {
             instrumentSlug: slug,
+            page: 1,
         }
+
+        // Custom functions.
+        this.onPaginatorNextClick = this.onPaginatorNextClick.bind(this);
+        this.onPaginatorPreviousClick = this.onPaginatorPreviousClick.bind(this);
+    }
+
+    onPaginatorNextClick() {
+        this.setState({
+            page: (this.state.page + 1)
+        })
+        this.props.pullTimeSeriesData(this.props.user, this.props.match.params.slug, this.state.page);
+    }
+
+    onPaginatorPreviousClick() {
+        this.setState({
+            page: (this.state.page - 1)
+        })
+        this.props.pullTimeSeriesData(this.props.user, this.props.match.params.slug, this.state.page);
     }
 
     componentDidMount() {
         this.props.pullInstrument(this.props.user, this.props.match.params.slug);
-        this.props.pullTimeSeriesData(this.props.user, this.props.match.params.slug);
+        this.props.pullTimeSeriesData(this.props.user, this.props.match.params.slug, this.state.page);
         window.scrollTo(0, 0);  // Start the page at the top of the page.
 
         // This function will call the API backend every second to get the
@@ -56,6 +75,8 @@ class InstrumentDataContainer extends Component {
                 user={this.props.user}
                 instrument={this.props.instrument}
                 timeSeriesData={this.props.data}
+                onPaginatorNextClick={this.onPaginatorNextClick}
+                onPaginatorPreviousClick={this.onPaginatorPreviousClick}
             />
         );
     }
@@ -76,9 +97,9 @@ const mapDispatchToProps = dispatch => {
                 pullInstrument(user, instrumentSlug)
             )
         },
-        pullTimeSeriesData: (user, instrumentSlug) => {
+        pullTimeSeriesData: (user, instrumentSlug, page) => {
             dispatch(
-                pullTimeSeriesData(user, instrumentSlug)
+                pullTimeSeriesData(user, instrumentSlug, page)
             )
         },
     }

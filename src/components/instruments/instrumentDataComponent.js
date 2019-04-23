@@ -125,9 +125,47 @@ class InstrumentDataTableComponent extends Component {
 }
 
 
+class InstrumentDataTablePagination extends Component {
+    render() {
+        let nextButtonElement;
+        let previousButtonElement;
+        const { next, previous, page } = this.props.timeSeriesData;
+        const { onPaginatorNextClick, onPaginatorPreviousClick } = this.props;
+
+        if (next) {
+            nextButtonElement = (
+                <button
+                    className="btn btn-lg btn-success float-right"
+                    onClick={onPaginatorNextClick}>
+                        Next&nbsp;<i className={'fas fa-arrow-right'}></i>
+                </button>
+            )
+        }
+        if (previous) {
+            previousButtonElement = (
+                <button
+                    className="btn btn-lg btn-success float-left"
+                    onClick={onPaginatorPreviousClick}>
+                        <i className={'fas fa-arrow-left'}></i>&nbsp;Next
+                </button>
+            )
+        }
+
+        return (
+            <div>
+                {nextButtonElement}
+                {previousButtonElement}
+            </div>
+        )
+    }
+}
+
+
 class InstrumentDataComponent extends Component {
     render() {
-        const { user, instrument, timeSeriesData } = this.props;
+        const {
+            user, instrument, timeSeriesData, onPaginatorNextClick, onPaginatorPreviousClick
+        } = this.props;
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -191,6 +229,13 @@ class InstrumentDataComponent extends Component {
                         />
                     </div>
                 </div>
+                {timeSeriesData &&
+                    <InstrumentDataTablePagination
+                        timeSeriesData={timeSeriesData}
+                        onPaginatorNextClick={onPaginatorNextClick}
+                        onPaginatorPreviousClick={onPaginatorPreviousClick}
+                    />
+                }
             </div>
         );
     }
