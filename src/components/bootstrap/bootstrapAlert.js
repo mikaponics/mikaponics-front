@@ -34,6 +34,9 @@ export const BootstrapErrorsProcessingAlert = ({ errors }) => {
     // STEP 1: Check to see if we have ANY errors returned from the API
     //         web-service and if no errors were returned then our stateless
     //         component will return nothing.
+    if (errors === null || errors === undefined) {
+        return (null);
+    }
     if (Object.keys(errors).length === 0) {
         return (null);
     }
