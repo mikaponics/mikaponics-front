@@ -19,7 +19,10 @@ class InstrumentTable extends Component {
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Last measured value</th>
-                                    <td>{instrument.lastMeasuredValue}</td>
+                                    <td>
+                                        {instrument.lastMeasuredValue && instrument.lastMeasuredValue}&nbsp;
+                                        {instrument.lastMeasuredValue && instrument.unitOfMeasure}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Last measured time</th>
@@ -33,7 +36,10 @@ class InstrumentTable extends Component {
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Minimum value</th>
-                                    <td>{instrument.last24hMinValue}</td>
+                                    <td>
+                                        {instrument.last24hMinValue && instrument.last24hMinValue}&nbsp;
+                                        {instrument.last24hMinValue && instrument.unitOfMeasure}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Minimum value</th>
@@ -47,7 +53,10 @@ class InstrumentTable extends Component {
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Maximum value</th>
-                                    <td>{instrument.last24hMaxValue}</td>
+                                    <td>
+                                        {instrument.last24hMaxValue && instrument.last24hMaxValue}
+                                        {instrument.last24hMaxValue && instrument.unitOfMeasure}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Maximum value</th>
