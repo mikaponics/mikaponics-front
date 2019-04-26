@@ -175,14 +175,14 @@ class InstrumentDataTablePagination extends Component {
         return (
             <div>
                 <div className="container-fluid">
-                    <div class="row">
-                        <div class="col-sm">
+                    <div className="row">
+                        <div className="col-sm">
                             {previousButtonElement}
                         </div>
-                        <div class="col-sm">
+                        <div className="col-sm">
                             <p style={{textAlign: 'center'}}>Page: {page}</p>
                         </div>
-                        <div class="col-sm">
+                        <div className="col-sm">
                             {nextButtonElement}
                         </div>
                     </div>
