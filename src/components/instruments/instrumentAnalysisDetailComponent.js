@@ -12,6 +12,9 @@ import { FlashMessageComponent } from "../flashMessageComponent";
 class ModeValuesRow extends Component {
     render() {
         const { modeValues, unitOfMeasure } = this.props;
+        if (modeValues === undefined || modeValues === null) { // Defensive Code.
+            return null;
+        }
         let text = "";
         for (let i = 0; i < modeValues.length; i++) {
             let modeValue = modeValues[i];
