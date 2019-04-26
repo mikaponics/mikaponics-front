@@ -17,22 +17,30 @@ class InstrumentReportTable extends Component {
             elements.push(
                 <tr key={row.slug}>
                     <th>
-                        <Moment tz={row.deviceTimezone} format="YYYY/MM/DD hh:mm:ss a">
-                            {row.createdAt}
-                        </Moment>
+                        {row.createdAt &&
+                            <Moment tz={row.deviceTimezone} format="YYYY/MM/DD hh:mm:ss a">
+                                {row.createdAt}
+                            </Moment>
+                        }
                     </th>
                     <th>
-                        <Moment tz={row.deviceTimezone} format="YYYY/MM/DD hh:mm:ss a">
-                            {row.startDt}
-                        </Moment>
+                        {row.startDt &&
+                            <Moment tz={row.deviceTimezone} format="YYYY/MM/DD hh:mm:ss a">
+                                {row.startDt}
+                            </Moment>
+                        }
                     </th>
                     <th>
-                        <Moment tz={row.deviceTimezone} format="YYYY/MM/DD hh:mm:ss a">
-                            {row.finishDt}
-                        </Moment>
+                        {row.finishDt &&
+                            <Moment tz={row.deviceTimezone} format="YYYY/MM/DD hh:mm:ss a">
+                                {row.finishDt}
+                            </Moment>
+                        }
                     </th>
                     <th>
-                        <Link to={row.absoluteUrl}>View&nbsp;<i className="fas fa-chevron-right"></i></Link>
+                        {row.absoluteUrl &&
+                            <Link to={row.absoluteUrl}>View&nbsp;<i className="fas fa-chevron-right"></i></Link>
+                        }
                     </th>
                 </tr>
             );
@@ -80,9 +88,11 @@ class InstrumentAnalysisListComponent extends Component {
                         </li>
                         {instrument.absoluteUrl &&
                             <li className="breadcrumb-item">
-                                <Link to={`${instrument.absoluteUrl}`}>
-                                    <i className={`fas fa-${instrument.icon}`}></i>&nbsp;Instrument
-                                </Link>
+                                {instrument.absoluteUrl &&
+                                    <Link to={`${instrument.absoluteUrl}`}>
+                                        <i className={`fas fa-${instrument.icon}`}></i>&nbsp;Instrument
+                                    </Link>
+                                }
                             </li>
                         }
                         <li className="breadcrumb-item active" aria-current="page">
@@ -95,16 +105,20 @@ class InstrumentAnalysisListComponent extends Component {
                 <div className="buttons-card">
                     <section className="row text-center placeholders">
                         <div className="rounded-circle circle-200 bg-pink text-center">
-                            <Link to={`${instrument.absoluteUrl}/create-analysis`} className="d-block link-ndecor" title="Generate Analysis">
-                                <span className="r-circle"><i className="fas fa-lightbulb fa-3x"></i></span>
-                            </Link>
+                            {instrument.absoluteUrl &&
+                                <Link to={`${instrument.absoluteUrl}/create-analysis`} className="d-block link-ndecor" title="Generate Analysis">
+                                    <span className="r-circle"><i className="fas fa-lightbulb fa-3x"></i></span>
+                                </Link>
+                            }
                         </div>
                     </section>
                 </div>
 
                 <div className="row">
                     <div className="col-md-12">
-                        <InstrumentReportTable instrumentAnalysisList={instrumentAnalysisList} />
+                        {instrumentAnalysisList &&
+                            <InstrumentReportTable instrumentAnalysisList={instrumentAnalysisList} />
+                        }
                     </div>
                 </div>
             </div>
