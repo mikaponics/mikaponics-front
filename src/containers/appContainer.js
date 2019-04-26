@@ -1,10 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, withRouter, Switch } from "react-router-dom";
 
-import NavigationContainer from './navigation/navigationContainer.js';
-import NotFound404Container from './navigation/notFound404Container.js';
-import PrivacyContainer from './general/privacyContainer.js';
-import TermsContainer from './general/termsContainer.js';
+import requiresAuth from '../helpers/requiresAuth';
+import NavigationContainer from './navigation/navigationContainer';
+import NotFound404Container from './navigation/notFound404Container';
+import PrivacyContainer from './general/privacyContainer';
+import TermsContainer from './general/termsContainer';
 import IndexContainer from './general/indexContainer';
 import LoginContainer from "./account/loginContainer";
 import LogoutContainer from "./account/logoutContainer";
@@ -66,28 +67,28 @@ class AppContainer extends React.Component {
                             <Route path="/send-password-reset-success" exact component={SendResetPasswordSuccessContainer} />
                             <Route path="/reset-password/:code" exact component={ResetPasswordContainer} />
                             <Route path="/reset-password-success" exact component={ResetPasswordSuccessContainer} />
-                            <Route path="/dashboard" exact component={DashboardContainer} />
-                            <Route path="/onboard" exact component={OnboardWelcomeContainer} />
-                            <Route path="/onboard/purchase" exact component={OnboardPurchaseContainer} />
-                            <Route path="/onboard/checkout" exact component={OnboardCheckoutContainer} />
-                            <Route path="/onboard/success" exact component={OnboardSuccessContainer} />
-                            <Route path="/devices" exact component={DeviceListContainer} />
-                            <Route path="/device/:slug" exact component={DeviceContainer} />
-                            <Route path="/device/:slug/profile" exact component={DeviceProfileContainer} />
-                            <Route path="/instrument/:slug" exact component={InstrumentContainer} />
-                            <Route path="/instrument/:slug/alerts" exact component={InstrumentAlertContainer} />
-                            <Route path="/instrument-alert/:slug" exact component={InstrumentAlertDetailContainer} />
-                            <Route path="/instrument/:slug/alerts/config" exact component={InstrumentAlertConfigContainer} />
-                            <Route path="/instrument/:slug/data" exact component={InstrumentDataContainer} />
-                            <Route path="/instrument/:slug/data/download" exact component={InstrumentDataDownloadContainer} />
-                            <Route path="/instrument/:slug/analyses" exact component={InstrumentAnalysisListContainer} />
-                            <Route path="/instrument/:slug/create-analysis" exact component={InstrumentAnalysisCreateContainer} />
-                            <Route path="/instrument/analysis/:slug" exact component={InstrumentAnalysisDetailContainer} />
-                            <Route path="/alerts" exact component={AlertListContainer} />
-                            <Route path="/invoices" exact component={InvoiceListContainer} />
-                            <Route path="/invoice/:slug" exact component={InvoiceDetailContainer} />
-                            <Route path="/profile" exact component={ProfileContainer} />
-                            <Route path="/profile/edit" exact component={ProfileEditContainer} />
+                            <Route path="/dashboard" exact component={requiresAuth(DashboardContainer)} />
+                            <Route path="/onboard" exact component={requiresAuth(OnboardWelcomeContainer)} />
+                            <Route path="/onboard/purchase" exact component={requiresAuth(OnboardPurchaseContainer)} />
+                            <Route path="/onboard/checkout" exact component={requiresAuth(OnboardCheckoutContainer)} />
+                            <Route path="/onboard/success" exact component={requiresAuth(OnboardSuccessContainer)} />
+                            <Route path="/devices" exact component={requiresAuth(DeviceListContainer)} />
+                            <Route path="/device/:slug" exact component={requiresAuth(DeviceContainer)} />
+                            <Route path="/device/:slug/profile" exact component={requiresAuth(DeviceProfileContainer)} />
+                            <Route path="/instrument/:slug" exact component={requiresAuth(InstrumentContainer)} />
+                            <Route path="/instrument/:slug/alerts" exact component={requiresAuth(InstrumentAlertContainer)} />
+                            <Route path="/instrument-alert/:slug" exact component={requiresAuth(InstrumentAlertDetailContainer)} />
+                            <Route path="/instrument/:slug/alerts/config" exact component={requiresAuth(InstrumentAlertConfigContainer)} />
+                            <Route path="/instrument/:slug/data" exact component={requiresAuth(InstrumentDataContainer)} />
+                            <Route path="/instrument/:slug/data/download" exact component={requiresAuth(InstrumentDataDownloadContainer)} />
+                            <Route path="/instrument/:slug/analyses" exact component={requiresAuth(InstrumentAnalysisListContainer)} />
+                            <Route path="/instrument/:slug/create-analysis" exact component={requiresAuth(InstrumentAnalysisCreateContainer)} />
+                            <Route path="/instrument/analysis/:slug" exact component={requiresAuth(InstrumentAnalysisDetailContainer)} />
+                            <Route path="/alerts" exact component={requiresAuth(AlertListContainer)} />
+                            <Route path="/invoices" exact component={requiresAuth(InvoiceListContainer)} />
+                            <Route path="/invoice/:slug" exact component={requiresAuth(InvoiceDetailContainer)} />
+                            <Route path="/profile" exact component={requiresAuth(ProfileContainer)} />
+                            <Route path="/profile/edit" exact component={requiresAuth(ProfileEditContainer)} />
                             <Route path="/privacy" exact component={PrivacyContainer} />
                             <Route path="/terms" exact component={TermsContainer} />
                             <Route path="/purchase" exact component={PurchaseDeviceContainer} />
