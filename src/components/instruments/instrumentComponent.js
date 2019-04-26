@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 
 class InstrumentTable extends Component {
     render() {
         const { instrument } = this.props;
-        const lastMeasuredAtDT = new Date(instrument.lastMeasuredAt);
-        const last24hMinTimestampAtDT = new Date(instrument.last24hMinTimestampAt);
-        const last24hMaxTimestampAtDT = new Date(instrument.last24hMaxTimestampAt);
         return (
             <div>
                 <div className="row">
@@ -24,7 +23,13 @@ class InstrumentTable extends Component {
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Last measured time</th>
-                                    <td>{lastMeasuredAtDT.toLocaleString()}</td>
+                                    <td>
+                                        {instrument.lastMeasuredAt &&
+                                            <Moment tz={instrument.timezone} format="YYYY/MM/DD hh:mm:ss a">
+                                                {instrument.lastMeasuredAt}
+                                            </Moment>
+                                        }
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Minimum value</th>
@@ -32,7 +37,13 @@ class InstrumentTable extends Component {
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Minimum value</th>
-                                    <td>{last24hMinTimestampAtDT.toLocaleString()}</td>
+                                    <td>
+                                        {instrument.last24hMinTimestampAt &&
+                                            <Moment tz={instrument.timezone} format="YYYY/MM/DD hh:mm:ss a">
+                                                {instrument.last24hMinTimestampAt}
+                                            </Moment>
+                                        }
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Maximum value</th>
@@ -40,7 +51,13 @@ class InstrumentTable extends Component {
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Maximum value</th>
-                                    <td>{last24hMaxTimestampAtDT.toLocaleString()}</td>
+                                    <td>
+                                        {instrument.last24hMaxTimestampAt &&
+                                            <Moment tz={instrument.timezone} format="YYYY/MM/DD hh:mm:ss a">
+                                                {instrument.last24hMaxTimestampAt}
+                                            </Moment>
+                                        }
+                                    </td>
                                 </tr>
 
                                 <tr>
