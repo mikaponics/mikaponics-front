@@ -1,18 +1,31 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 import { FlashMessageComponent } from "../flashMessageComponent";
+
+
+/**
+ *  Utility component used to render the multiple mode values.
+ */
+class ModeValuesRow extends Component {
+    render() {
+        const { modeValues, unitOfMeasure } = this.props;
+        let text = "";
+        for (let i = 0; i < modeValues.length; i++) {
+            let modeValue = modeValues[i];
+            text += modeValue + " " + unitOfMeasure + ", ";
+        }
+        text = text.substring(0, text.length - 2);
+        return text
+    }
+}
 
 
 class InstrumentAnalysisDetailComponent extends Component {
     render() {
         const { instrument, detail, flashMessage=null } = this.props;
-        const startDt = new Date(detail.startDt);
-        const finishDt = new Date(detail.finishDt);
-        const minTimestampDT = new Date(detail.minTimestamp);
-        const maxTimestampDT = new Date(detail.maxTimestamp);
-        const createdAtDT = new Date(detail.createdAt);
-        const lastModifiedAtDT = new Date(detail.lastModifiedAt);
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -61,11 +74,23 @@ class InstrumentAnalysisDetailComponent extends Component {
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Start</th>
-                                    <td>{startDt.toLocaleString()}</td>
+                                    <td>
+                                        {detail &&
+                                            <Moment tz={detail.deviceTimezone} format="YYYY/MM/DD hh:mm:ss a">
+                                                {detail.startDt}
+                                            </Moment>
+                                        }
+                                </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Finish</th>
-                                    <td>{finishDt.toLocaleString()}</td>
+                                    <td>
+                                        {detail &&
+                                            <Moment tz={detail.deviceTimezone} format="YYYY/MM/DD hh:mm:ss a">
+                                                {detail.finishDt}
+                                            </Moment>
+                                        }
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -76,47 +101,90 @@ class InstrumentAnalysisDetailComponent extends Component {
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Minimum value</th>
-                                    <td>{detail.minValue}</td>
+                                    <td>
+                                        {detail && parseFloat(detail.minValue).toFixed(2)}&nbsp;
+                                        {detail.instrumentUnitOfMeasure && detail.instrumentUnitOfMeasure}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Minimum at</th>
-                                    <td>{minTimestampDT.toLocaleString()}</td>
+                                    <td>
+                                        {detail &&
+                                            <Moment tz={detail.deviceTimezone} format="YYYY/MM/DD hh:mm:ss a">
+                                                {detail.minTimestamp}
+                                            </Moment>
+                                        }
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Maximum value</th>
-                                    <td>{detail.maxValue}</td>
+                                    <td>
+                                        {detail && parseFloat(detail.maxValue).toFixed(2)}&nbsp;
+                                        {detail.instrumentUnitOfMeasure && detail.instrumentUnitOfMeasure}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Maximum at</th>
-                                    <td>{maxTimestampDT.toLocaleString()}</td>
+                                    <td>
+                                        {detail &&
+                                            <Moment tz={detail.deviceTimezone} format="YYYY/MM/DD hh:mm:ss a">
+                                                {detail.maxTimestamp}
+                                            </Moment>
+                                        }
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Mean value</th>
-                                    <td>{detail.meanValue}</td>
+                                    <td>
+                                        {detail && parseFloat(detail.meanValue).toFixed(2)}
+                                        {detail.instrumentUnitOfMeasure && detail.instrumentUnitOfMeasure}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Median value</th>
-                                    <td>{detail.medianValue}</td>
+                                    <td>
+                                        {detail && parseFloat(detail.medianValue).toFixed(2)}
+                                        {detail.instrumentUnitOfMeasure && detail.instrumentUnitOfMeasure}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Mode value</th>
-                                    <td>{detail.modeValue}</td>
+                                    <td>
+                                        {detail && detail.modeValue && parseFloat(detail.modeValue).toFixed(2)}
+                                        {detail && detail.modeValue && detail.instrumentUnitOfMeasure && detail.instrumentUnitOfMeasure}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Mode values</th>
-                                    <td>{detail.modeValues}</td>
+                                    <td>
+                                        {detail &&
+                                            <ModeValuesRow
+                                                modeValues={detail.modeValues}
+                                                unitOfMeasure={detail.instrumentUnitOfMeasure}
+                                            />
+                                        }
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Range value</th>
-                                    <td>{detail.rangeValue}</td>
+                                    <td>
+                                        {detail && parseFloat(detail.rangeValue).toFixed(2)}
+                                        {detail.instrumentUnitOfMeasure && detail.instrumentUnitOfMeasure}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Standard deviation value</th>
-                                    <td>{detail.stedvValue}</td>
+                                    <td>
+                                        {detail && parseFloat(detail.stedvValue).toFixed(2)}
+                                        {detail.instrumentUnitOfMeasure && detail.instrumentUnitOfMeasure}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Variance value</th>
-                                    <td>{detail.varianceValue}</td>
+                                    <td>
+                                        {detail && parseFloat(detail.varianceValue).toFixed(2)}
+                                        {detail.instrumentUnitOfMeasure && detail.instrumentUnitOfMeasure}
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -128,11 +196,23 @@ class InstrumentAnalysisDetailComponent extends Component {
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Created at</th>
-                                    <td>{createdAtDT.toLocaleString()}</td>
+                                    <td>
+                                        {detail &&
+                                            <Moment tz={detail.deviceTimezone} format="YYYY/MM/DD hh:mm:ss a">
+                                                {detail.createdAt}
+                                            </Moment>
+                                        }
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Last modified at</th>
-                                    <td>{lastModifiedAtDT.toLocaleString()}</td>
+                                    <td>
+                                        {detail &&
+                                            <Moment tz={detail.deviceTimezone} format="YYYY/MM/DD hh:mm:ss a">
+                                                {detail.lastModifiedAt}
+                                            </Moment>
+                                        }
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

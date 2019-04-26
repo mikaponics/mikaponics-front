@@ -4,6 +4,23 @@ import Moment from 'react-moment';
 import 'moment-timezone';
 
 
+/**
+ *  Utility component used to render the multiple mode values.
+ */
+class ModeValuesRow extends Component {
+    render() {
+        const { modeValues, unitOfMeasure } = this.props;
+        let text = "";
+        for (let i = 0; i < modeValues.length; i++) {
+            let modeValue = modeValues[i];
+            text += modeValue + " " + unitOfMeasure + ", ";
+        }
+        text = text.substring(0, text.length - 2);
+        return text
+    }
+}
+
+
 class InstrumentTable extends Component {
     render() {
         const { instrument } = this.props;
@@ -93,8 +110,12 @@ class InstrumentTable extends Component {
                                 <tr>
                                     <th scope="row" className="bg-light">Mode values</th>
                                     <td>
-                                        {instrument.last24hModeValues && instrument.last24hModeValues}&nbsp;
-                                        {instrument.last24hModeValues && instrument.unitOfMeasure}
+                                        {instrument.last24hModeValues
+                                            && <ModeValuesRow
+                                                modeValues={instrument.last24hModeValues}
+                                                unitOfMeasure={instrument.unitOfMeasure}
+                                            />
+                                        }
                                     </td>
                                 </tr>
                                 <tr>

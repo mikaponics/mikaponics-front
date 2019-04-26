@@ -7,7 +7,6 @@ import 'moment-timezone';
 class InstrumentAlertDetailComponent extends Component {
     render() {
         const { alertDetail } = this.props;
-        const dt = new Date(alertDetail.datumTimestamp);
         return (
             <div>
                 <nav aria-label="breadcrumb">

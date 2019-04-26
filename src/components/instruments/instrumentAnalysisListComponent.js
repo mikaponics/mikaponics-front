@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 
 class InstrumentReportTable extends Component {
@@ -12,14 +14,23 @@ class InstrumentReportTable extends Component {
         const resultsLength = results.length;
         for (let i = 0; i < resultsLength; i++) {
             let row = results[i];
-            let createdAtDT = new Date(row.createdAt);
-            let startDt = new Date(row.startDt);
-            let finishDt = new Date(row.finishDt);
             elements.push(
                 <tr key={row.slug}>
-                    <th>{createdAtDT.toLocaleString()}</th>
-                    <th>{startDt.toLocaleString()}</th>
-                    <th>{finishDt.toLocaleString()}</th>
+                    <th>
+                        <Moment tz={row.deviceTimezone} format="YYYY/MM/DD hh:mm:ss a">
+                            {row.createdAt}
+                        </Moment>
+                    </th>
+                    <th>
+                        <Moment tz={row.deviceTimezone} format="YYYY/MM/DD hh:mm:ss a">
+                            {row.startDt}
+                        </Moment>
+                    </th>
+                    <th>
+                        <Moment tz={row.deviceTimezone} format="YYYY/MM/DD hh:mm:ss a">
+                            {row.finishDt}
+                        </Moment>
+                    </th>
                     <th>
                         <Link to={row.absoluteUrl}>View&nbsp;<i className="fas fa-chevron-right"></i></Link>
                     </th>
