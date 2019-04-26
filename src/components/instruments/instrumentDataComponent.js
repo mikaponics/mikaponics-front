@@ -4,7 +4,8 @@ import {
   LineChart, Line, XAxis, YAxis, Tooltip, Label, ResponsiveContainer, CartesianGrid
 } from 'recharts'
 import moment from 'moment'
-import timezone from 'moment-timezone'
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 
 class InstrumentDataChartComponent extends Component {
@@ -65,7 +66,7 @@ class InstrumentDataChartComponent extends Component {
                                 return `${value}`;
                             }}
                             labelFormatter={function(value) {
-                                const localValue = moment(value).tz(user.timezone).format('DD/MM/YYYY h:mm a');
+                                const localValue = moment(value).tz(user.timezone).format('YYYY/MM/DD hh:mm:ss a');
                                 return `timestamp: ${localValue}`;
                             }}
                         />
@@ -81,12 +82,16 @@ class InstrumentDataChartComponent extends Component {
 
 class InstrumentDatumRowComponent extends Component {
     render() {
-        const { value, timestamp } = this.props.rowData;
-        const dt = new Date(timestamp);
+        const { value, timestamp, } = this.props.rowData;
+        const { timezone, unitOfMeasure } = this.props;
         return (
             <tr key={timestamp}>
-                <th scope="row">{value}</th>
-                <td>{dt.toLocaleString()}</td>
+                <th scope="row">{value}&nbsp;{unitOfMeasure}</th>
+                <td>
+                    <Moment tz={timezone} format="YYYY/MM/DD hh:mm:ss a">
+                        {timestamp}
+                    </Moment>
+                </td>
             </tr>
         )
     }
@@ -95,7 +100,7 @@ class InstrumentDatumRowComponent extends Component {
 
 class InstrumentDataTableComponent extends Component {
     render() {
-        const { tableData } = this.props;
+        const { instrument, tableData } = this.props;
         if (tableData === undefined || tableData === null || tableData.results === null || tableData.results === undefined) {
             return null;
         }
@@ -104,7 +109,14 @@ class InstrumentDataTableComponent extends Component {
         var arrayLength = tableData.results.length;
         for (var i = 0; i < arrayLength; i++) {
             let rowData =  tableData.results[i];
-            tableRows.push(<InstrumentDatumRowComponent rowData={rowData} key={rowData.timestamp} />);
+            tableRows.push(
+                <InstrumentDatumRowComponent
+                    rowData={rowData}
+                    key={rowData.timestamp}
+                    timezone={instrument.timezone}
+                    unitOfMeasure={instrument.unitOfMeasure}
+                />
+            );
         }
 
         return (
