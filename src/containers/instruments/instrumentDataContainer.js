@@ -34,10 +34,13 @@ class InstrumentDataContainer extends Component {
      *  graph to show from oldest to latest.
      */
     reverseData(data) {
-        const originalResults = data.results;
-        const reversedResults = originalResults.reverse()
-        data.results = reversedResults;
-        return data
+        if (data) {
+            const originalResults = data.results;
+            const reversedResults = originalResults.reverse()
+            data.results = reversedResults;
+            return data
+        }
+        return null
     }
 
     onNextCompletion() {
