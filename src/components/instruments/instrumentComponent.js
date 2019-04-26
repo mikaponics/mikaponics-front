@@ -20,7 +20,7 @@ class InstrumentTable extends Component {
                                 <tr>
                                     <th scope="row" className="bg-light">Last measured value</th>
                                     <td>
-                                        {instrument.lastMeasuredValue && instrument.lastMeasuredValue}&nbsp;
+                                        {instrument.lastMeasuredValue && parseFloat(instrument.lastMeasuredValue).toFixed(2)}&nbsp;
                                         {instrument.lastMeasuredValue && instrument.unitOfMeasure}
                                     </td>
                                 </tr>
@@ -37,7 +37,7 @@ class InstrumentTable extends Component {
                                 <tr>
                                     <th scope="row" className="bg-light">Minimum value</th>
                                     <td>
-                                        {instrument.last24hMinValue && instrument.last24hMinValue}&nbsp;
+                                        {instrument.last24hMinValue && parseFloat(instrument.last24hMinValue).toFixed(2)}&nbsp;
                                         {instrument.last24hMinValue && instrument.unitOfMeasure}
                                     </td>
                                 </tr>
@@ -54,7 +54,7 @@ class InstrumentTable extends Component {
                                 <tr>
                                     <th scope="row" className="bg-light">Maximum value</th>
                                     <td>
-                                        {instrument.last24hMaxValue && instrument.last24hMaxValue}&nbsp;
+                                        {instrument.last24hMaxValue && parseFloat(instrument.last24hMaxValue).toFixed(2)}&nbsp;
                                         {instrument.last24hMaxValue && instrument.unitOfMeasure}
                                     </td>
                                 </tr>
@@ -72,21 +72,21 @@ class InstrumentTable extends Component {
                                 <tr>
                                     <th scope="row" className="bg-light">Mean value</th>
                                     <td>
-                                        {instrument.last24hMeanValue && instrument.last24hMeanValue}&nbsp;
+                                        {instrument.last24hMeanValue && parseFloat(instrument.last24hMeanValue).toFixed(2)}&nbsp;
                                         {instrument.last24hMeanValue && instrument.unitOfMeasure}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Median value</th>
                                     <td>
-                                        {instrument.last24hMedianValue && instrument.last24hMedianValue}&nbsp;
+                                        {instrument.last24hMedianValue && parseFloat(instrument.last24hMedianValue).toFixed(2)}&nbsp;
                                         {instrument.last24hMedianValue && instrument.unitOfMeasure}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Mode value</th>
                                     <td>
-                                        {instrument.last24hModeValue && instrument.last24hModeValue}&nbsp;
+                                        {instrument.last24hModeValue && parseFloat(instrument.last24hModeValue).toFixed(2)}&nbsp;
                                         {instrument.last24hModeValue && instrument.unitOfMeasure}
                                     </td>
                                 </tr>
@@ -100,21 +100,21 @@ class InstrumentTable extends Component {
                                 <tr>
                                     <th scope="row" className="bg-light">Range value</th>
                                     <td>
-                                        {instrument.last24hRangeValue && instrument.last24hRangeValue}&nbsp;
+                                        {instrument.last24hRangeValue && parseFloat(instrument.last24hRangeValue).toFixed(2)}&nbsp;
                                         {instrument.last24hRangeValue && instrument.unitOfMeasure}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Standard deviation value</th>
                                     <td>
-                                        {instrument.last24hStedvValue && instrument.last24hStedvValue}&nbsp;
+                                        {instrument.last24hStedvValue && parseFloat(instrument.last24hStedvValue).toFixed(2)}&nbsp;
                                         {instrument.last24hStedvValue && instrument.unitOfMeasure}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Variance value</th>
                                     <td>
-                                        {instrument.last24hVarianceValue && instrument.last24hVarianceValue}&nbsp;
+                                        {instrument.last24hVarianceValue && parseFloat(instrument.last24hVarianceValue).toFixed(2)}&nbsp;
                                         {instrument.last24hVarianceValue && instrument.unitOfMeasure}
                                     </td>
                                 </tr>
