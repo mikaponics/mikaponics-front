@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 import { FlashMessageComponent } from "../flashMessageComponent";
 
@@ -19,11 +21,6 @@ class InstrumentTable extends Component {
             return null;
         }
 
-        var lastMeasuredPrettyValue = get(instrument, "lastMeasuredPrettyValue");
-        var lastMeasuredPrettyAt = get(instrument, "lastMeasuredPrettyAt");
-
-        const dt = new Date(lastMeasuredPrettyAt);
-
         return (
             <div>
                 <div className="row">
@@ -36,11 +33,15 @@ class InstrumentTable extends Component {
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Last measured value</th>
-                                    <td>{lastMeasuredPrettyValue}</td>
+                                    <td>{instrument.lastMeasuredPrettyValue}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Last measured time</th>
-                                    <td>{dt.toLocaleString()}</td>
+                                    <td>
+                                        <Moment tz={instrument.timezone} format="YYYY/MM/DD hh:mm:ss a">
+                                            {instrument.lastMeasuredPrettyAt}
+                                        </Moment>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -54,7 +55,6 @@ class InstrumentTable extends Component {
 class DeviceSummaryTable extends Component {
     render() {
         const { device } = this.props;
-        const dt = new Date(device.lastMeasuredPrettyAt);
         return (
             <div className="row">
                 <div className="col-md-12">
@@ -74,7 +74,11 @@ class DeviceSummaryTable extends Component {
                             </tr>
                             <tr>
                                 <th scope="row" className="bg-light">Last measured time</th>
-                                <td>{dt.toLocaleString()}</td>
+                                <td>
+                                    <Moment tz={device.timezone} format="YYYY/MM/DD" format="YYYY/MM/DD hh:mm:ss a">
+                                        {device.lastMeasuredPrettyAt}
+                                    </Moment>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

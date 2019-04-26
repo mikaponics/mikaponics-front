@@ -24,6 +24,7 @@ npm install --save react-scroll
 npm install --save shortid
 npm install --save moment
 npm install --save moment-timezone
+npm install --save react-moment
 npm install --save recharts
 npm install --save react-custom-scrollbars
 npm install --save react-country-region-selector
