@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 
 class InstrumentAlertDetailComponent extends Component {
@@ -71,11 +73,18 @@ class InstrumentAlertDetailComponent extends Component {
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Value</th>
-                                    <td>{alertDetail.datumValue}</td>
+                                    <td>
+                                        {alertDetail.datumValue && parseFloat(alertDetail.datumValue).toFixed(2)}&nbsp;
+                                        {alertDetail.instrumentUnitOfMeasure}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Timestamp</th>
-                                    <td>{dt.toLocaleString()}</td>
+                                    <td>
+                                        <Moment tz={alertDetail.deviceTimezone} format="YYYY/MM/DD hh:mm:ss a">
+                                            {alertDetail.datumTimestamp}
+                                        </Moment>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Status</th>

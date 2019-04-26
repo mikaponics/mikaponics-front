@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 import { FlashMessageComponent } from "../flashMessageComponent";
 
@@ -14,15 +16,20 @@ class InstrumentAlertTable extends Component {
         const dataLength = results.length;
         for (let i = 0; i < dataLength; i++) {
             let datum = results[i];
-            let dt = new Date(datum.datumTimestamp);
             elements.push(
                 <tr key={datum.createdAt}>
                     <th scope="row">
                         <i className={`fa fa-${datum.icon}`}></i>
                     </th>
                     <th scope="row">{datum.state}</th>
-                    <td>{datum.datumValue}</td>
-                    <td>{dt.toLocaleString()}</td>
+                    <td>
+                        {parseFloat(datum.datumValue).toFixed(2)}&nbsp;{datum.instrumentUnitOfMeasure}
+                    </td>
+                    <td>
+                        <Moment tz={datum.deviceTimezone} format="YYYY/MM/DD hh:mm:ss a">
+                            {datum.datumTimestamp}
+                        </Moment>
+                    </td>
                     <td>
                         <Link to={datum.absoluteUrl}>
                             View&nbsp;<i className="fas fa-chevron-right"></i>
