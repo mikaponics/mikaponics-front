@@ -37,7 +37,7 @@ class LoginComponent extends Component {
                 <img className="img-fluid" src="/img/mikaponics-logo.png" alt="Logo" width="180px" /></div>
             </div>
             <div className="row">
-                <div className="col-sm-6 mx-auto">
+                <div className="col-sm-8 col-lg-6 col-xl-4 mx-auto">
                     <h2 className="text-center mb-3">Sign In</h2>
                     <form id="sign-in" className="form-signin needs-validation" onSubmit={onSubmit}>
 
