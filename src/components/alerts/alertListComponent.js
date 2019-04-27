@@ -57,10 +57,43 @@ class InstrumentAlertTable extends Component {
     }
 }
 
+class NoAlertsJumbotron extends Component {
+    render() {
+        return (
+            <div className="jumbotron">
+                <h1 className="display-4">
+                    <i className="fas fa-bullhorn"></i>&nbsp;Attention
+                </h1>
+                <p className="lead">You currently do not have any alerts at the moment, please check in later to see if any alerts get generated as your instruments run.</p>
+                <hr className="my-4" />
+                <p>If you would like to have more alerts, please configure an instrument settings in one of your device. Start by clicking below.</p>
+                <p className="lead">
+                    <Link className="btn btn-primary btn-lg" to="/devices">
+                        View Devices&nbsp;<i className="fas fa-arrow-circle-right"></i>
+                    </Link>
+                </p>
+            </div>
+        );
+    }
+}
+
 
 class AlertListComponent extends Component {
     render() {
         const { instrumentAlertList } = this.props;
+
+        let elements;
+        if (instrumentAlertList !== undefined && instrumentAlertList !== null) {
+            const { results } = instrumentAlertList;
+            if (results.length === 0) {
+                elements = <NoAlertsJumbotron />;
+            } else {
+                elements = (
+                    <InstrumentAlertTable dataList={instrumentAlertList} />
+                );
+            }
+        }
+
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -68,13 +101,14 @@ class AlertListComponent extends Component {
                         <li className="breadcrumb-item">
                            <Link to="/dashboard"><i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard</Link>
                         </li>
-                        <li className="breadcrumb-item active" aria-current="page"><i className="fas fa-bell"></i>&nbsp;Alerts</li>
+                        <li className="breadcrumb-item active" aria-current="page">
+                            <i className="fas fa-bell"></i>&nbsp;Alerts</li>
                     </ol>
                 </nav>
                 <h1><i className="fas fa-bell"></i>&nbsp;Alerts</h1>
                 <div className="row">
                     <div className="col-md-12">
-                        <InstrumentAlertTable dataList={instrumentAlertList} />
+                        {elements}
                     </div>
                 </div>
             </div>

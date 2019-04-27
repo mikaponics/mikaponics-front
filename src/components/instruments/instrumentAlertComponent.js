@@ -60,9 +60,44 @@ class InstrumentAlertTable extends Component {
 }
 
 
+class NoAlertsJumbotron extends Component {
+    render() {
+        const { instrument } = this.props;
+        return (
+            <div className="jumbotron">
+                <h1 className="display-4">
+                    <i className="fas fa-bullhorn"></i>&nbsp;Attention
+                </h1>
+                <p className="lead">You currently do not have any alerts at the moment, please check in later to see if any alerts get generated as your instruments run.</p>
+                <hr className="my-4" />
+                <p>If you would like to have more alerts, please configure this instruments settings by clicking below.</p>
+                <p className="lead">
+                    <Link className="btn btn-primary btn-lg" to={`/instrument/${instrument.slug}/alerts/config`}>
+                        Configure Settings&nbsp;<i className="fas fa-arrow-circle-right"></i>
+                    </Link>
+                </p>
+            </div>
+        );
+    }
+}
+
+
 class InstrumentAlertComponent extends Component {
     render() {
         const { instrument, flashMessage, dataList } = this.props;
+
+        let elements;
+        if (dataList !== undefined && dataList !== null) {
+            const { results } = dataList;
+            if (results.length === 0) {
+                elements = <NoAlertsJumbotron instrument={instrument} />;
+            } else {
+                elements = (
+                    <InstrumentAlertTable dataList={dataList} />
+                );
+            }
+        }
+
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -110,7 +145,7 @@ class InstrumentAlertComponent extends Component {
 
                 <div className="row">
                     <div className="col-md-12">
-                        <InstrumentAlertTable dataList={dataList} />
+                        {elements}
                     </div>
                 </div>
             </div>

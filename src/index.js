@@ -14,7 +14,7 @@ import 'pace-js/themes/green/pace-theme-minimal.css'
 
 ReactDOM.render(
     <Provider store={store}>
-        <div class="App Fade">
+        <div className="App Fade">
             <BrowserRouter>
                 <AppContainer />
             </BrowserRouter>
