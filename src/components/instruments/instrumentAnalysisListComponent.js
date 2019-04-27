@@ -66,9 +66,44 @@ class InstrumentReportTable extends Component {
 }
 
 
+class NoAlertsJumbotron extends Component {
+    render() {
+        const { instrument } = this.props;
+        return (
+            <div className="jumbotron">
+                <h1 className="display-4">
+                    <i className="fas fa-bullhorn"></i>&nbsp;Attention
+                </h1>
+                <p className="lead">You currently do not have any analyses generated.</p>
+                <hr className="my-4" />
+                <p>If you would like to generate an analysis then begin by clicking below.</p>
+                <p className="lead">
+                    <Link className="btn btn-primary btn-lg" to={`${instrument.absoluteUrl}/create-analysis`}>
+                        Create Analyis&nbsp;<i className="fas fa-arrow-circle-right"></i>
+                    </Link>
+                </p>
+            </div>
+        );
+    }
+}
+
+
 class InstrumentAnalysisListComponent extends Component {
     render() {
         const { instrument, instrumentAnalysisList } = this.props;
+
+        let elements;
+        if (instrumentAnalysisList !== undefined && instrumentAnalysisList !== null) {
+            const { results } = instrumentAnalysisList;
+            if (results.length === 0) {
+                elements = <NoAlertsJumbotron instrument={instrument} />;
+            } else {
+                elements = (
+                    <InstrumentReportTable instrumentAnalysisList={instrumentAnalysisList} />
+                );
+            }
+        }
+
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -116,9 +151,7 @@ class InstrumentAnalysisListComponent extends Component {
 
                 <div className="row">
                     <div className="col-md-12">
-                        {instrumentAnalysisList &&
-                            <InstrumentReportTable instrumentAnalysisList={instrumentAnalysisList} />
-                        }
+                        {elements}
                     </div>
                 </div>
             </div>
