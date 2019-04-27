@@ -73,7 +73,7 @@ export function pullInstrument(user, instrumentSlug) {
 
         }).catch( (errorResult) => { // ERROR
             // console.log(errorResult);
-            alert("Error fetching latest profile");
+            // alert("Error fetching latest profile");
 
             const responseData = errorResult.data;
             let errors = camelizeKeys(responseData);

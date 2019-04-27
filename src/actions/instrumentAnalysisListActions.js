@@ -83,7 +83,7 @@ export function pullInstrumentAnalysisList(user, instrumentSlug=null, page=1) {
             );
 
         }).catch( (errorResult) => { // ERROR
-            console.log(">>>",errorResult);
+            // console.log(">>>",errorResult);
             // alert("Error fetching latest data");
 
             const responseData = errorResult.data;

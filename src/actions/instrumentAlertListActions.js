@@ -84,7 +84,7 @@ export function pullInstrumentAlertList(user, instrumentSlug=null, page=1) {
 
         }).catch( (errorResult) => { // ERROR
             // console.log(errorResult);
-            alert("Error fetching latest data");
+            // alert("Error fetching latest data");
 
             const responseData = errorResult.data;
             let errors = camelizeKeys(responseData);

@@ -75,7 +75,7 @@ export function pullTimeSeriesData(user, instrumentSlug, page=1, completionCallb
 
         }).catch( (errorResult) => { // ERROR
             // console.log(errorResult);
-            alert("Error fetching latest data");
+            // alert("Error fetching latest data");
 
             const responseData = errorResult.data;
             let errors = camelizeKeys(responseData);

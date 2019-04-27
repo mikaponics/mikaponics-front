@@ -82,7 +82,7 @@ export function pullInvoiceDetail(user, slug) {
 
         }).catch( (errorResult) => { // ERROR
             // console.log(errorResult);
-            alert("Error fetching latest invoice.");
+            // alert("Error fetching latest invoice.");
 
             const responseData = errorResult.data;
             let errors = camelizeKeys(responseData);

@@ -80,7 +80,7 @@ export function pullInvoiceList(user, pageIndex=1) {
 
         }).catch( (errorResult) => { // ERROR
             // console.log(errorResult);
-            alert("Error fetching latest invoice.");
+            // alert("Error fetching latest invoice.");
 
             const responseData = errorResult.data;
             let errors = camelizeKeys(responseData);

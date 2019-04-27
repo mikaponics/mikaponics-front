@@ -77,7 +77,7 @@ export function postInstrumentAnalysisCreate(user, instrumentSlug, data) {
             );
 
         }).catch( (errorResult) => { // ERROR
-            console.log(errorResult);
+            // console.log(errorResult);
             // alert("Error fetching latest data");
 
             const responseData = errorResult.response.data;

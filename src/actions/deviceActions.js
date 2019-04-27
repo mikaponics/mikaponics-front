@@ -73,7 +73,7 @@ export function pullDevice(user, deviceSlug) {
 
         }).catch( (errorResult) => { // ERROR
             // console.log(errorResult);
-            alert("Error fetching latest device.");
+            // alert("Error fetching latest device.");
 
             const responseData = errorResult.data;
             let errors = camelizeKeys(responseData);
