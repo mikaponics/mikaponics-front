@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import React from 'react';
 import classnames from 'classnames';
 import Select from 'react-select';
@@ -32,8 +32,8 @@ export const BootstrapSingleSelect = ({
 }) => {
     const id = shortid.generate();
 
-    // Generate our help ID variable used for ``aria``..
-    const helpID = id + "-help";
+    // // Generate our help ID variable used for ``aria``..
+    // const helpID = id + "-help";
 
     const selectedOption = getSelectedOption(options, value)
 
@@ -43,6 +43,7 @@ export const BootstrapSingleSelect = ({
             <label className="control-label">{label}</label>
 
             <Select
+                key={id}
                 className={classnames('form-control', { 'is-invalid': error })}
                 name={name}
                 value={selectedOption}

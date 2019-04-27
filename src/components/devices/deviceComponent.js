@@ -8,12 +8,12 @@ import { FlashMessageComponent } from "../flashMessageComponent";
 
 class InstrumentTable extends Component {
     render() {
-        function get(dict, key) {
-            if (dict === null || dict === undefined) {
-                return null;
-            }
-            return dict.hasOwnProperty(key) ? dict[key] : null;
-        }
+        // function get(dict, key) {
+        //     if (dict === null || dict === undefined) {
+        //         return null;
+        //     }
+        //     return dict.hasOwnProperty(key) ? dict[key] : null;
+        // }
 
         const { title, icon, instrument } = this.props;
 
@@ -75,7 +75,7 @@ class DeviceSummaryTable extends Component {
                             <tr>
                                 <th scope="row" className="bg-light">Last measured time</th>
                                 <td>
-                                    <Moment tz={device.timezone} format="YYYY/MM/DD" format="YYYY/MM/DD hh:mm:ss a">
+                                    <Moment tz={device.timezone} format="YYYY/MM/DD hh:mm:ss a">
                                         {device.lastMeasuredPrettyAt}
                                     </Moment>
                                 </td>

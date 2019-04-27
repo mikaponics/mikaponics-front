@@ -91,7 +91,7 @@ class InvoiceCard extends Component {
                                 <div className="col-lg-8">
                                     <h4>{billingGivenName} {billingLastName}</h4>
                                     <address>
-                                    {billingStreetAddress}<br />
+                                    {billingStreetAddress}&nbsp;{billingStreetAddressExtra}<br />
                                     {billingPostalCode},&nbsp;{billingLocality}<br />
                                     {billingRegion}<br />
                                     {billingCountry}
@@ -107,7 +107,7 @@ class InvoiceCard extends Component {
                                 <div className="col-lg-8">
                                     <h4>{shippingGivenName} {shippingLastName}</h4>
                                     <address>
-                                    {shippingStreetAddress}<br />
+                                    {shippingStreetAddress}&nbsp;{shippingStreetAddressExtra}<br />
                                     {shippingPostalCode},&nbsp;{shippingLocality}<br />
                                     {shippingRegion}<br />
                                     {shippingCountry}
