@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 
 
 class PrivacyComponent extends Component {
@@ -6,7 +7,17 @@ class PrivacyComponent extends Component {
         // Return our GUI.
         return (
             <div id="content">
-                <h1>Generic Privacy Policy</h1>
+
+                <nav aria-label="breadcrumb">
+                    <ol className="breadcrumb">
+                        <li className="breadcrumb-item">
+                           <Link to="/"><i className="fas fa-home"></i>&nbsp;Home</Link>
+                        </li>
+                        <li className="breadcrumb-item active" aria-current="page"><i className="fas fa-eye"></i>&nbsp;Privacy</li>
+                    </ol>
+                </nav>
+
+                <h1><i className="fas fa-eye"></i>&nbsp;Generic Privacy Policy</h1>
                 <p>Last updated: November 2014</p>
 
                 <br />

@@ -23,6 +23,14 @@ class OnboardWelcomeComponent extends Component {
         function notPaidView() {
             return (
                 <div>
+                    <nav aria-label="breadcrumb">
+                        <ol className="breadcrumb">
+                            <li className="breadcrumb-item active" aria-current="page">
+                                <i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard
+                            </li>
+                        </ol>
+                    </nav>
+
                     <h1><i className="fas fa-tachometer-alt"></i> Dashboard</h1>
 
                     <div className="jumbotron">

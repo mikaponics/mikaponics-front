@@ -7,6 +7,18 @@ class RegisterSuccessComponent extends React.Component {
         return (
             <div className="container">
                 <main id="main">
+
+                    <nav aria-label="breadcrumb">
+                        <ol className="breadcrumb">
+                            <li className="breadcrumb-item">
+                                <Link to="/"><i className="fas fa-home"></i>&nbsp;Home</Link>
+                            </li>
+                            <li className="breadcrumb-item active" aria-current="page">
+                                 <i className="fas fa-user"></i>&nbsp;Register
+                            </li>
+                        </ol>
+                    </nav>
+
                     <div className="jumbotron">
                         <h1 className="display-4">
                            <i className="fas fa-check"></i>&nbsp;Registered

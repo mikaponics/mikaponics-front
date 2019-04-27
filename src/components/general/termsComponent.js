@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 
 
 class TermsComponent extends Component {
     render() {
         // Return our GUI.
         return (
-            <div>                
+            <div>
+                <nav aria-label="breadcrumb">
+                     <ol className="breadcrumb">
+                         <li className="breadcrumb-item">
+                            <Link to="/"><i className="fas fa-home"></i>&nbsp;Home</Link>
+                         </li>
+                         <li className="breadcrumb-item active" aria-current="page"><i className="fas fa-gavel"></i>&nbsp;Terms of Service</li>
+                     </ol>
+                </nav>
                 <h2>
-                	Web Site Terms and Conditions of Use
+                	<i className="fas fa-gavel"></i>&nbsp;Web Site Terms and Conditions of Use
                 </h2>
 
                 <h3>

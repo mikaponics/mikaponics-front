@@ -10,6 +10,17 @@ class SendResetPasswordComponent extends React.Component {
         const { email, onChange, onSubmit, errors = {}, isLoading } = this.props;
         return (
             <div>
+                <nav aria-label="breadcrumb">
+                    <ol className="breadcrumb">
+                        <li className="breadcrumb-item">
+                            <Link to="/"><i className="fas fa-home"></i>&nbsp;Home</Link>
+                        </li>
+                        <li className="breadcrumb-item active" aria-current="page">
+                             <i className="fas fa-undo"></i>&nbsp;Reset Password
+                        </li>
+                    </ol>
+                </nav>
+
                 <div className="row">
                     <div className="col-sm-6 mx-auto">
                         <BootstrapErrorsProcessingAlert errors={errors} />

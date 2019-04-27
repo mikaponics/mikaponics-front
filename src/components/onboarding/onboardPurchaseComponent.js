@@ -41,7 +41,7 @@ class OnboardPurchaseComponent extends React.Component {
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item active">
-                            <Link to="/onboard"><i className="fas fa-tachometer-alt"></i>&nbsp;Home</Link>
+                            <Link to="/onboard"><i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard</Link>
                         </li>
                         <li className="breadcrumb-item active" aria-current="page"><i className="fas fa-shopping-cart"></i>&nbsp;Purchase</li>
                     </ol>

@@ -7,6 +7,16 @@ class IndexComponent extends Component {
         // Return our GUI.
         return (
             <div>
+
+            <nav aria-label="breadcrumb">
+                <ol className="breadcrumb">
+                    <li className="breadcrumb-item active" aria-current="page">
+                        <i className="fas fa-home"></i>&nbsp;Home
+                    </li>
+                </ol>
+            </nav>
+            <h1><i className="fas fa-home"></i>&nbsp;Home</h1>
+
             <div className="row">
                 <div className="col-md-12">
 

@@ -49,8 +49,12 @@ class DeviceListComponent extends Component {
                         <li className="breadcrumb-item active" aria-current="page"><i className="fas fa-cubes"></i>&nbsp;Devices</li>
                     </ol>
                 </nav>
-                <h1><i className="fas fa-cubes"></i>&nbsp;Devices</h1>
-                <hr />
+                <h1>
+                    <i className="fas fa-cubes"></i>&nbsp;Devices
+                    <Link to="/purchase" className="btn btn-success btn-lg float-right">
+                        <i className="fas fa-shopping-cart"></i>&nbsp;Purchase
+                    </Link>
+                </h1>
                 <div className="card-group row">
                     {elements}
                 </div>

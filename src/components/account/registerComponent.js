@@ -3,6 +3,7 @@ import React from 'react';
 import { Redirect } from "react-router-dom";
 import map from 'lodash/map';
 import classnames from 'classnames';
+import { Link } from "react-router-dom";
 
 import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
 import { BootstrapInput } from "../bootstrap/bootstrapInput";
@@ -26,6 +27,18 @@ class RegisterComponent extends React.Component {
 
         return (
             <main id="main" role="main">
+
+                <nav aria-label="breadcrumb">
+                    <ol className="breadcrumb">
+                        <li className="breadcrumb-item">
+                            <Link to="/"><i className="fas fa-home"></i>&nbsp;Home</Link>
+                        </li>
+                        <li className="breadcrumb-item active" aria-current="page">
+                             <i className="fas fa-user"></i>&nbsp;Register
+                        </li>
+                    </ol>
+                </nav>
+
                 <div className="row">
                     <div className="col-md-5 mx-auto mt-2">
                         <form onSubmit={onSubmit}>

@@ -31,6 +31,17 @@ class LoginComponent extends Component {
     const { email, password, onChange, onSubmit, errors = {}, isLoading, flashMessage } = this.props;
     return (
         <div>
+            <nav aria-label="breadcrumb">
+                <ol className="breadcrumb">
+                    <li className="breadcrumb-item">
+                       <Link to="/"><i className="fas fa-home"></i>&nbsp;Home</Link>
+                    </li>
+                    <li className="breadcrumb-item active" aria-current="page">
+                        <i className="fas fa-sign-in-alt"></i>&nbsp;Login
+                    </li>
+                </ol>
+            </nav>
+
             <AlertComponent />
             <div className="row">
                 <div className="col-sm-12 text-center">

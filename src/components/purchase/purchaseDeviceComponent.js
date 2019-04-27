@@ -11,8 +11,10 @@ import { BootstrapRegionSelect } from '../bootstrap/bootstrapRegionSelect'
 class PurchaseDeviceComponent extends Component {
     render() {
         const {
-            errors, onSelectChange, onCancelClick, onNextClick, isLoading,
-            quantity, quantityOptions
+            errors, onSelectChange, onTextChange, onCancelClick, onNextClick, isLoading,
+            quantity, quantityOptions,
+
+            billingGivenName
         } = this.props;
         return (
             <div>
@@ -45,6 +47,19 @@ class PurchaseDeviceComponent extends Component {
                                 value={quantity}
                                 error={errors.quantity}
                                 onSelectChange={onSelectChange}
+                            />
+
+                            <p className="border-bottom mb-3 pb-1 text-secondary">Billing Details</p>
+
+                            <BootstrapInput
+                                className="form-control"
+                                borderColour="border-primary"
+                                error={errors.billingGivenName}
+                                label="First name (*)"
+                                onChange={onTextChange}
+                                value={billingGivenName}
+                                name="billingGivenName"
+                                type="text"
                             />
 
                             <div className="form-group">
