@@ -150,24 +150,26 @@ class InstrumentAnalysisDetailComponent extends Component {
                                         {detail.instrumentUnitOfMeasure && detail.instrumentUnitOfMeasure}
                                     </td>
                                 </tr>
-                                <tr>
-                                    <th scope="row" className="bg-light">Mode value</th>
-                                    <td>
-                                        {detail && detail.modeValue && parseFloat(detail.modeValue).toFixed(2)}
-                                        {detail && detail.modeValue && detail.instrumentUnitOfMeasure && detail.instrumentUnitOfMeasure}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" className="bg-light">Mode values</th>
-                                    <td>
-                                        {detail &&
+                                {detail && detail.modeValue &&
+                                    <tr>
+                                        <th scope="row" className="bg-light">Mode value</th>
+                                        <td>
+                                            {parseFloat(detail.modeValue).toFixed(2)}
+                                            {detail.instrumentUnitOfMeasure && detail.instrumentUnitOfMeasure}
+                                        </td>
+                                    </tr>
+                                }
+                                {detail && detail.modeValues &&
+                                    <tr>
+                                        <th scope="row" className="bg-light">Mode values</th>
+                                        <td>
                                             <ModeValuesRow
                                                 modeValues={detail.modeValues}
                                                 unitOfMeasure={detail.instrumentUnitOfMeasure}
                                             />
-                                        }
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
+                                }
                                 <tr>
                                     <th scope="row" className="bg-light">Range value</th>
                                     <td>

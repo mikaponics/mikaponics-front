@@ -85,7 +85,6 @@ class InstrumentTable extends Component {
                                         }
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <th scope="row" className="bg-light">Mean value</th>
                                     <td>
@@ -100,24 +99,26 @@ class InstrumentTable extends Component {
                                         {instrument.last24hMedianValue && instrument.unitOfMeasure}
                                     </td>
                                 </tr>
-                                <tr>
-                                    <th scope="row" className="bg-light">Mode value</th>
-                                    <td>
-                                        {instrument.last24hModeValue && parseFloat(instrument.last24hModeValue).toFixed(2)}&nbsp;
-                                        {instrument.last24hModeValue && instrument.unitOfMeasure}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" className="bg-light">Mode values</th>
-                                    <td>
-                                        {instrument.last24hModeValues
-                                            && <ModeValuesRow
+                                {instrument.last24hModeValue &&
+                                    <tr>
+                                        <th scope="row" className="bg-light">Mode value</th>
+                                        <td>
+                                            {parseFloat(instrument.last24hModeValue).toFixed(2)}&nbsp;
+                                            {instrument.unitOfMeasure}
+                                        </td>
+                                    </tr>
+                                }
+                                {instrument.last24hModeValues &&
+                                    <tr>
+                                        <th scope="row" className="bg-light">Mode values</th>
+                                        <td>
+                                            <ModeValuesRow
                                                 modeValues={instrument.last24hModeValues}
                                                 unitOfMeasure={instrument.unitOfMeasure}
                                             />
-                                        }
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
+                                }
                                 <tr>
                                     <th scope="row" className="bg-light">Range value</th>
                                     <td>
