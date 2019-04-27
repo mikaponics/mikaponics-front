@@ -51,9 +51,43 @@ class InvoiceTable extends Component {
 }
 
 
+class NoAlertsJumbotron extends Component {
+    render() {
+        return (
+            <div className="jumbotron">
+                <h1 className="display-4">
+                    <i className="fas fa-bullhorn"></i>&nbsp;Attention
+                </h1>
+                <p className="lead">You currently do not have any invoices.</p>
+                <hr className="my-4" />
+                <p>You would like to purchase a device then begin by clicking below.</p>
+                <p className="lead">
+                    <Link className="btn btn-primary btn-lg" to="/purchase">
+                        Purchase Device&nbsp;<i className="fas fa-arrow-circle-right"></i>
+                    </Link>
+                </p>
+            </div>
+        );
+    }
+}
+
+
 class InvoiceListComponent extends Component {
     render() {
         const { dataArr } = this.props;
+
+        let elements;
+        if (dataArr !== undefined && dataArr !== null) {
+            const { results } = dataArr;
+            if (results.length === 0) {
+                elements = <NoAlertsJumbotron />;
+            } else {
+                elements = (
+                    <InvoiceTable dataArr={dataArr} />
+                );
+            }
+        }
+
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -67,8 +101,7 @@ class InvoiceListComponent extends Component {
                 <h1><i className="fas fa-book"></i>&nbsp;Invoices</h1>
                 <div className="row">
                     <div className="col-md-12">
-                        <h3>Table</h3>
-                        <InvoiceTable dataArr={dataArr} />
+                        {elements}
                     </div>
                 </div>
             </div>
