@@ -28,6 +28,7 @@ npm install --save react-moment
 npm install --save recharts
 npm install --save react-custom-scrollbars
 npm install --save react-country-region-selector
+npm install --save pace-js pace
 ```
 
 Upgrade doing the following:

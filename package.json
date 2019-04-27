@@ -9,6 +9,8 @@
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.25",
+    "pace": "0.0.4",
+    "pace-js": "^1.0.2",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-burger-menu": "^2.6.8",

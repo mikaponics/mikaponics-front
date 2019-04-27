@@ -8,12 +8,17 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import store from './store';
 
+import 'pace-js'
+import 'pace-js/themes/green/pace-theme-minimal.css'
+
 
 ReactDOM.render(
     <Provider store={store}>
-        <BrowserRouter>
-            <AppContainer />
-        </BrowserRouter>
+        <div class="App Fade">
+            <BrowserRouter>
+                <AppContainer />
+            </BrowserRouter>
+        </div>
     </Provider>
 
     ,document.getElementById('root')
