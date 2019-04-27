@@ -66,7 +66,7 @@ class InstrumentReportTable extends Component {
 }
 
 
-class NoAlertsJumbotron extends Component {
+class NoAnalysesJumbotron extends Component {
     render() {
         const { instrument } = this.props;
         return (
@@ -96,7 +96,7 @@ class InstrumentAnalysisListComponent extends Component {
         if (instrumentAnalysisList !== undefined && instrumentAnalysisList !== null) {
             const { results } = instrumentAnalysisList;
             if (results.length === 0) {
-                elements = <NoAlertsJumbotron instrument={instrument} />;
+                elements = <NoAnalysesJumbotron instrument={instrument} />;
             } else {
                 elements = (
                     <InstrumentReportTable instrumentAnalysisList={instrumentAnalysisList} />

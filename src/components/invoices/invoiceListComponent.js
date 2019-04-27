@@ -51,7 +51,7 @@ class InvoiceTable extends Component {
 }
 
 
-class NoAlertsJumbotron extends Component {
+class NoInvoicesJumbotron extends Component {
     render() {
         return (
             <div className="jumbotron">
@@ -80,7 +80,7 @@ class InvoiceListComponent extends Component {
         if (dataArr !== undefined && dataArr !== null) {
             const { results } = dataArr;
             if (results.length === 0) {
-                elements = <NoAlertsJumbotron />;
+                elements = <NoInvoicesJumbotron />;
             } else {
                 elements = (
                     <InvoiceTable dataArr={dataArr} />
