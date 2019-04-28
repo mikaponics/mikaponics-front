@@ -14,9 +14,15 @@ class OnboardWelcomeComponent extends Component {
                     <Link to="/onboard/purchase" className="btn btn-primary">Begin&nbsp;<i className="fas fa-arrow-circle-right"></i></Link>
                 );
             } else {
-                return (
-                    <Link to="/onboard/purchase" className="btn btn-primary">Resume&nbsp;<i className="fas fa-arrow-circle-right"></i></Link>
-                );
+                if ( Object.keys(onboarding).length === 0 ) {
+                    return (
+                        <Link to="/onboard/purchase" className="btn btn-primary">Begin&nbsp;<i className="fas fa-arrow-circle-right"></i></Link>
+                    );
+                } else {
+                    return (
+                        <Link to="/onboard/purchase" className="btn btn-primary">Resume&nbsp;<i className="fas fa-arrow-circle-right"></i></Link>
+                    );
+                }
             }
         }
 
@@ -47,6 +53,14 @@ class OnboardWelcomeComponent extends Component {
         function paidView() {
             return (
                 <div className="Onboarding-Greetings">
+                    <nav aria-label="breadcrumb">
+                        <ol className="breadcrumb">
+                            <li className="breadcrumb-item active" aria-current="page">
+                                <i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard
+                            </li>
+                        </ol>
+                    </nav>
+
                     <div className="row">
                         <div className="col-sm-12">
 

@@ -39,7 +39,7 @@ BootstrapRegionSelect.propTypes = {
     error: PropTypes.string,
     borderColour: PropTypes.string,
     priorityOptions: PropTypes.array,
-    country: PropTypes.string.isRequired,
+    country: PropTypes.string,
 }
 
 // BootstrapRegionSelect.defaultProps = {

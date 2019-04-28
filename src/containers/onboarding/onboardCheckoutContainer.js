@@ -1,11 +1,7 @@
-import axios from 'axios';
 import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 
-import { MIKAPONICS_ONBOARDING_CALCULATOR_API_URL } from "../../constants/api";
-import { setOnboardingInfo } from "../../actions/onboardingActions";
-import { pullProfile } from "../../actions/profileAction";
 import OnboardCheckoutComponent from "../../components/onboarding/onboardCheckoutComponent";
 
 const STRIPE_PUBLISHABLE = "pk_test_fw1OJnoeXL2Zp8zMTvxD3s5M";
@@ -24,67 +20,22 @@ class OnboardCheckoutContainer extends Component {
             referrer: '',
             errors: {},
 
-            monthlyFee: 0,
-            quantity: 0,
-            pricePerDevice: 0,
-            totalBeforeTax: 0,
-            tax: 0,
-            totalAfterTax: 0,
-            shipping: 0,
-            credit: 0,
-            grandTotal: 0,
-            grandTotalInCents: 0,
+            monthlyFee: this.props.onboarding.calculation.monthlyFee,
+            quantity:  this.props.onboarding.calculation.quantity,
+            pricePerDevice:  this.props.onboarding.calculation.pricePerDevice,
+            totalBeforeTax:  this.props.onboarding.calculation.totalBeforeTax,
+            tax:  this.props.onboarding.calculation.tax,
+            totalAfterTax:  this.props.onboarding.calculation.totalAfterTax,
+            shipping:  this.props.onboarding.calculation.shipping,
+            credit:  this.props.onboarding.calculation.credit,
+            grandTotal:  this.props.onboarding.calculation.grandTotal,
+            grandTotalInCents:  this.props.onboarding.calculation.grandTotalInCents,
         }
         this.onBackClick = this.onBackClick.bind(this);
     }
 
     componentDidMount() {
         window.scrollTo(0, 0);  // Start the page at the top of the page.
-
-        const { user, onboarding } = this.props;
-
-        // Create our oAuth 2.0 authenticated API header to use with our
-        // submission.
-        const config = {
-            headers: {'Authorization': "Bearer " + user.token}
-        };
-
-        const bodyParameters = {
-            quantity: onboarding.quantity,
-            shipping_address_country: "Canada",
-            shipping_address_region: "Ontario",
-        }
-
-        // Make the authenticated call to our web-service.
-        axios.post(
-            MIKAPONICS_ONBOARDING_CALCULATOR_API_URL,
-            bodyParameters,
-            config
-        ).then( (successResult) => { // SUCCESS
-            //console.log(successResult);
-            this.setState({
-                monthlyFee: successResult.data.calculation.monthlyFee,
-                quantity: successResult.data.calculation.quantity,
-                pricePerDevice: successResult.data.calculation.pricePerDevice,
-                totalBeforeTax: successResult.data.calculation.totalBeforeTax,
-                tax: successResult.data.calculation.tax,
-                totalAfterTax: successResult.data.calculation.totalAfterTax,
-                shipping: successResult.data.calculation.shipping,
-                credit: successResult.data.calculation.credit,
-                grandTotal: successResult.data.calculation.grandTotal,
-                grandTotalInCents: successResult.data.calculation.grandTotalInCents,
-            })
-        }).catch( (errorResult) => { // ERROR
-            console.log(errorResult);
-            alert("ERROR WITH ONBOARDING CALCULATOR");
-        }).then( () => { // FINALLY
-            // Do nothing.
-        });
-
-        // Run the async code to fetch the latest profile information from the
-        // server and save the latest user's details into our global state.
-        // Make the authenticated call to our web-service.
-        this.props.pullProfile(user);
     }
 
     /**
@@ -97,9 +48,7 @@ class OnboardCheckoutContainer extends Component {
         // Update our global application state to save the results returned
         // by Stripe.com payment gateway & merchant services. This payment
         // details we will submit to our API web-service.
-        this.props.setOnboardingInfo({
-            paymentDetail: token,
-        });
+        localStorage.setItem("paymentReceipt", JSON.stringify(token))
 
         // Save our state to be the success page so our component will
         // redirect to the onboarding success page.
@@ -178,12 +127,6 @@ const mapStateToProps = function(store) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        setOnboardingInfo: (info) => {
-            dispatch(setOnboardingInfo(info))
-        },
-        pullProfile: (user) => {
-            dispatch(pullProfile(user))
-        }
     }
 }
 

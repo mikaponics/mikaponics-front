@@ -14,12 +14,12 @@ class OnboardPurchaseComponent extends React.Component {
             quantity,
             quantityOptions,
 
-            billingGivenName, billingLastName, billingAddressCountry,
-            billingAddressRegion, billingAddressLocality, billingPostalCode, billingEmail,
+            billingGivenName, billingLastName, billingCountry,
+            billingRegion, billingLocality, billingPostalCode, billingEmail,
             billingTelephone, billingStreetAddress,
 
-            shippingGivenName, shippingLastName, shippingAddressCountry,
-            shippingAddressRegion, shippingAddressLocality, shippingStreetAddress,
+            shippingGivenName, shippingLastName, shippingCountry,
+            shippingRegion, shippingLocality, shippingStreetAddress,
             shippingPostalCode, shippingEmail,
             shippingTelephone,
 
@@ -60,7 +60,7 @@ class OnboardPurchaseComponent extends React.Component {
                             <p className="border-bottom mb-3 pb-1 text-secondary">Device(s)</p>
 
                             <BootstrapSingleSelect
-                                label="# of devices (*)"
+                                label="Quantity (*)"
                                 name="quantity"
                                 defaultOptionLabel="Please pick the number of devices to purchase"
                                 options={quantityOptions}
@@ -96,32 +96,32 @@ class OnboardPurchaseComponent extends React.Component {
                             <BootstrapCountrySelect
                                 className="form-control"
                                 borderColour="border-primary"
-                                error={errors.billingAddressCountry}
+                                error={errors.billingCountry}
                                 label="Country (*)"
-                                value={billingAddressCountry}
+                                value={billingCountry}
                                 onChange={onBillingCountryChange}
                                 priorityOptions={["CA", "US", "MX"]}
-                                name="billingAddressCountry"
+                                name="billingCountry"
                             />
                             <BootstrapRegionSelect
                                 className="form-control"
                                 borderColour="border-primary"
-                                error={errors.billingAddressRegion}
+                                error={errors.billingRegion}
                                 label="Province / state (*)"
-                                country={billingAddressCountry}
-                                value={billingAddressRegion}
+                                country={billingCountry}
+                                value={billingRegion}
                                 onChange={onBillingRegionChange}
-                                name="billingAddressRegion"
+                                name="billingRegion"
                             />
 
                             <BootstrapInput
                                 className="form-control"
                                 borderColour="border-primary"
-                                error={errors.billingAddressLocality}
+                                error={errors.billingLocality}
                                 label="City (*)"
                                 onChange={onTextChange}
-                                value={billingAddressLocality}
-                                name="billingAddressLocality"
+                                value={billingLocality}
+                                name="billingLocality"
                                 type="text"
                             />
 
@@ -197,32 +197,32 @@ class OnboardPurchaseComponent extends React.Component {
                             <BootstrapCountrySelect
                                 className="form-control"
                                 borderColour="border-primary"
-                                error={errors.shippingAddressCountry}
+                                error={errors.shippingCountry}
                                 label="Country (*)"
-                                value={shippingAddressCountry}
+                                value={shippingCountry}
                                 onChange={onShippingCountryChange}
                                 priorityOptions={["CA", "US", "MX"]}
-                                name="shippingAddressCountry"
+                                name="shippingCountry"
                             />
                             <BootstrapRegionSelect
                                 className="form-control"
                                 borderColour="border-primary"
-                                error={errors.shippingAddressRegion}
+                                error={errors.shippingRegion}
                                 label="Province / state (*)"
-                                country={shippingAddressCountry}
-                                value={shippingAddressRegion}
+                                country={shippingCountry}
+                                value={shippingRegion}
                                 onChange={onShippingRegionChange}
-                                name="shippingAddressRegion"
+                                name="shippingRegion"
                             />
 
                             <BootstrapInput
                                 className="form-control"
                                 borderColour="border-primary"
-                                error={errors.shippingAddressLocality}
+                                error={errors.shippingLocality}
                                 label="City (*)"
                                 onChange={onTextChange}
-                                value={shippingAddressLocality}
-                                name="shippingAddressLocality"
+                                value={shippingLocality}
+                                name="shippingLocality"
                                 type="text"
                             />
 

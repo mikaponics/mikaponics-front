@@ -1,10 +1,11 @@
-import axios from 'axios';
+import Scroll from 'react-scroll';
 import React, { Component } from 'react';
 import { Redirect, Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import { snakeCase } from 'lodash';
 
 import { pullProfile } from "../../actions/profileAction";
+import { pullOnboarding, postOnboarding } from "../../actions/onboardingActions";
 import { MIKAPONICS_ONBOARDING_SUBMISSION_API_URL, NOT_INTERESTED_SUBSCRIPTION_STATUS } from "../../constants/api";
 import OnboardSuccessComponent from "../../components/onboarding/onboardSuccessComponent";
 
@@ -17,6 +18,23 @@ class OnboardSuccessContainer extends Component {
             referrer: '',
             user: this.props.user
         }
+
+        this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
+        this.onFailedSubmissionCallback = this.onFailedSubmissionCallback.bind(this);
+    }
+
+    onSuccessfulSubmissionCallback() {
+        this.setState({
+            referrer: "/onboard"
+        })
+    }
+
+    onFailedSubmissionCallback() {
+        // The following code will cause the screen to scroll to the top of
+        // the page. Please see ``react-scroll`` for more information:
+        // https://github.com/fisshy/react-scroll
+        var scroll = Scroll.animateScroll;
+        scroll.scrollToTop();
     }
 
     componentDidMount() {
@@ -31,66 +49,29 @@ class OnboardSuccessContainer extends Component {
         if (onboarding === undefined || onboarding === null) {
             return;
         }
-        if (onboarding.paymentDetail === undefined || onboarding.paymentDetail === null) {
+
+        const paymentReceiptString = localStorage.getItem('paymentReceipt');
+        if (paymentReceiptString === undefined || paymentReceiptString === null) {
             return;
         }
+        const paymentReceiptDictionary = JSON.parse(paymentReceiptString);
 
-        if (user.subscriptionStatus === NOT_INTERESTED_SUBSCRIPTION_STATUS) {
+        // Add extra fields that our API requires.
+        onboarding['payment_token'] = paymentReceiptDictionary.id;
+        onboarding['payment_created_at'] = paymentReceiptDictionary.created;
 
-            // Create our oAuth 2.0 authenticated API header to use with our
-            // submission.
-            const config = {
-                headers: {'Authorization': "Bearer " + user.token}
-            };
+        // SUBMIT OUR PAYMENT TOKEN RECEIVED FROM OUR PAYMENT MERCHANT.
+        // Asynchronously submit our ``update`` to our API endpoint.
+        this.props.postOnboarding(
+            this.props.user,
+            onboarding,
+            this.onSuccessfulSubmissionCallback,
+            this.onFailedSubmissionCallback
+        );
 
-            // Create the data we will be submitting.
-            let bodyParameters = {};
-            Object.keys(onboarding).forEach(key => {
-                let value = onboarding[key];
-                let snakeKey = snakeCase(key);
-                // console.log(snakeKey, value); // For debugging purposes.
-                bodyParameters[snakeKey] = value;
-            });
-
-            // Add extra fields that our API requires.
-            bodyParameters['payment_token'] = onboarding.paymentDetail.id;
-            bodyParameters['payment_created_at'] = onboarding.paymentDetail.created;
-
-            // // For debugging purposes only.
-            // console.log(bodyParameters);
-
-            // Make the authenticated call to our web-service.
-            axios.post(
-                MIKAPONICS_ONBOARDING_SUBMISSION_API_URL,
-                bodyParameters,
-                config
-            ).then( (successResult) => { // SUCCESS
-                console.log(successResult);
-
-                // Run the async code to fetch the latest profile information from the
-                // server and save the latest user's details into our global state.
-                // Make the authenticated call to our web-service.
-                this.props.pullProfile(user);
-
-            }).catch( (errorResult) => { // ERROR
-                console.log(errorResult);
-                alert("ERROR WITH ONBOARDING SUBMISSION.");
-            }).then( () => { // FINALLY
-                // Do nothing.
-            });
-
-        } // end IF
     } // end FUNC.
 
     render() {
-        const { referrer } = this.state;
-
-        // If a `referrer` was set then that means we can redirect
-        // to a different page in our application.
-        if (referrer) {
-            return <Redirect to={referrer} />;
-        }
-
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -120,7 +101,12 @@ const mapDispatchToProps = dispatch => {
     return {
         pullProfile: (user) => {
             dispatch(pullProfile(user))
-        }
+        },
+        postOnboarding: (user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback) => {
+            dispatch(
+                postOnboarding(user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback)
+            )
+        },
     }
 }
 

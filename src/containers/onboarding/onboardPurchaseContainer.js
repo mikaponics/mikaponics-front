@@ -1,12 +1,9 @@
-import axios from 'axios';
 import Scroll from 'react-scroll';
 import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
-import { camelCase, snakeCase } from 'lodash';
 
-import { MIKAPONICS_ONBOARDING_VALIDATE_API_URL } from "../../constants/api";
-import { setOnboardingInfo } from "../../actions/onboardingActions";
+import { pullOnboarding, postOnboarding } from "../../actions/onboardingActions";
 import OnboardPurchaseComponent from "../../components/onboarding/onboardPurchaseComponent";
 
 
@@ -19,9 +16,9 @@ class OnboardPurchaseContainer extends Component {
 
             billingGivenName: this.props.onboarding.billingGivenName,
             billingLastName: this.props.onboarding.billingLastName,
-            billingAddressCountry: this.props.onboarding.billingAddressCountry,
-            billingAddressRegion: this.props.onboarding.billingAddressRegion,
-            billingAddressLocality: this.props.onboarding.billingAddressLocality,
+            billingCountry: this.props.onboarding.billingCountry,
+            billingRegion: this.props.onboarding.billingRegion,
+            billingLocality: this.props.onboarding.billingLocality,
             billingPostalCode: this.props.onboarding.billingPostalCode,
             billingTelephone: this.props.onboarding.billingTelephone,
             billingEmail: this.props.onboarding.billingEmail,
@@ -29,9 +26,9 @@ class OnboardPurchaseContainer extends Component {
 
             shippingGivenName: this.props.onboarding.shippingGivenName,
             shippingLastName: this.props.onboarding.shippingLastName,
-            shippingAddressCountry: this.props.onboarding.shippingAddressCountry,
-            shippingAddressRegion: this.props.onboarding.shippingAddressRegion,
-            shippingAddressLocality: this.props.onboarding.shippingAddressLocality,
+            shippingCountry: this.props.onboarding.shippingCountry,
+            shippingRegion: this.props.onboarding.shippingRegion,
+            shippingLocality: this.props.onboarding.shippingLocality,
             shippingPostalCode: this.props.onboarding.shippingPostalCode,
             shippingTelephone: this.props.onboarding.shippingTelephone,
             shippingEmail: this.props.onboarding.shippingEmail,
@@ -39,27 +36,6 @@ class OnboardPurchaseContainer extends Component {
 
             referrer: '',
             errors: {}
-        }
-
-        // If the user did not specify the billing/shipping details then load it
-        // up from the user profile.
-        if (this.billingGivenName === null || this.billingGivenName === undefined) {
-            this.state.billingGivenName = this.props.user.firstName;
-        }
-        if (this.billingLastName === null || this.billingLastName === undefined) {
-            this.state.billingLastName = this.props.user.lastName;
-        }
-        if (this.billingEmail === null || this.billingEmail === undefined) {
-            this.state.billingEmail = this.props.user.email;
-        }
-        if (this.shippingGivenName === null || this.shippingGivenName === undefined) {
-            this.state.shippingGivenName = this.props.user.firstName;
-        }
-        if (this.shippingLastName === null || this.shippingLastName === undefined) {
-            this.state.shippingLastName = this.props.user.lastName;
-        }
-        if (this.shippingEmail === null || this.shippingEmail === undefined) {
-            this.state.shippingEmail = this.props.user.email;
         }
 
         // Attach the custom functions we will be using.
@@ -71,65 +47,34 @@ class OnboardPurchaseContainer extends Component {
         this.onBillingRegionChange = this.onBillingRegionChange.bind(this);
         this.onShippingCountryChange = this.onShippingCountryChange.bind(this);
         this.onShippingRegionChange = this.onShippingRegionChange.bind(this);
+        this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
+        this.onFailedSubmissionCallback = this.onFailedSubmissionCallback.bind(this);
     }
 
     onNextClick(e) {
         e.preventDefault();
-        const { user } = this.props;
 
-        // Create our oAuth 2.0 authenticated API header to use with our
-        // submission.
-        const config = {
-            headers: {'Authorization': "Bearer " + user.token}
-        };
+        // Asynchronously submit our ``update`` to our API endpoint.
+        this.props.postOnboarding(
+            this.props.user,
+            this.state,
+            this.onSuccessfulSubmissionCallback,
+            this.onFailedSubmissionCallback
+        );
+    }
 
-        // CONVERT OUR "CAMCELCASE" FIELDS TO BE "SNAKE_CASE" FIELDS.
-        var bodyParameters = {};
-        Object.keys(this.state).forEach(key => {
-            let value = this.state[key];
-            let snakeKey = snakeCase(key);
-            // console.log(snakeKey, value); // For debugging purposes.
-            bodyParameters[snakeKey] = value;
-        });
+    onSuccessfulSubmissionCallback() {
+        this.setState({
+            referrer: "/onboard/checkout"
+        })
+    }
 
-        // Make the authenticated call to our web-service.
-        axios.post(
-            MIKAPONICS_ONBOARDING_VALIDATE_API_URL,
-            bodyParameters,
-            config
-        ).then( (successResult) => { // SUCCESS
-            this.props.setOnboardingInfo(this.state);
-            this.setState({
-                referrer: '/onboard/checkout'
-            })
-
-        }).catch( (errorResult) => { // ERROR
-            // THE FOLLOWING CODE WILL CONVERT ALL THE "CAMCEL CASE"
-            // KEYS IN THE DICTIONARY TO BE "SNAKE CASE" KEYS TO SUPPORT
-            // THE STANDARD OF OUR API-WEB SERVICE.
-            let errors = {};
-            const responseData = errorResult.response.data;
-            Object.keys(responseData).forEach(key => {
-                let value = responseData[key];
-                let camelKey = camelCase(key);
-                // console.log(camelKey, value); // For debugging purposes.
-                errors[camelKey] = value;
-            });
-
-            // SAVE OUR ERRORS LOCALLY.
-            this.setState({
-                errors: errors
-            })
-
-            // The following code will cause the screen to scroll to the top of
-            // the page. Please see ``react-scroll`` for more information:
-            // https://github.com/fisshy/react-scroll
-            var scroll = Scroll.animateScroll;
-            scroll.scrollToTop();
-
-        }).then( () => { // FINALLY
-            // Do nothing.
-        });
+    onFailedSubmissionCallback() {
+        // The following code will cause the screen to scroll to the top of
+        // the page. Please see ``react-scroll`` for more information:
+        // https://github.com/fisshy/react-scroll
+        var scroll = Scroll.animateScroll;
+        scroll.scrollToTop();
     }
 
     onCancelClick(e) {
@@ -153,29 +98,30 @@ class OnboardPurchaseContainer extends Component {
 
     onBillingCountryChange(value) {
         if (value === null || value === undefined || value === '') {
-            this.setState({ billingAddressCountry: null, billingAddressRegion: null })
+            this.setState({ billingCountry: null, billingRegion: null })
         } else {
-            this.setState({ billingAddressCountry: value, billingAddressRegion: null })
+            this.setState({ billingCountry: value, billingRegion: null })
         }
     }
 
     onBillingRegionChange(value) {
-        this.setState({ billingAddressRegion: value })
+        this.setState({ billingRegion: value })
     }
 
     onShippingCountryChange(value) {
         if (value === null || value === undefined || value === '') {
-            this.setState({ shippingAddressCountry: null, shippingAddressRegion: null })
+            this.setState({ shippingCountry: null, shippingRegion: null })
         } else {
-            this.setState({ shippingAddressCountry: value, shippingAddressRegion: null })
+            this.setState({ shippingCountry: value, shippingRegion: null })
         }
     }
 
     onShippingRegionChange(value) {
-        this.setState({ shippingAddressRegion: value })
+        this.setState({ shippingRegion: value })
     }
 
     componentDidMount() {
+        this.props.pullOnboarding(this.props.user)
         window.scrollTo(0, 0);  // Start the page at the top of the page.
     }
 
@@ -190,18 +136,18 @@ class OnboardPurchaseContainer extends Component {
 
     render() {
 
-        const { referrer, errors } = this.state;
+        const { referrer } = this.state;
         const {
             quantity,
 
             billingGivenName, billingLastName,
-            billingAddressCountry, billingAddressRegion, billingAddressLocality,
+            billingCountry, billingRegion, billingLocality,
             billingPostalCode, billingStreetAddress,
             billingEmail, billingTelephone,
 
             shippingGivenName,
-            shippingLastName, shippingAddressCountry, shippingAddressRegion,
-            shippingAddressLocality, shippingStreetAddress,
+            shippingLastName, shippingCountry, shippingRegion,
+            shippingLocality, shippingStreetAddress,
             shippingPostalCode,shippingEmail, shippingTelephone,
         } = this.state;
         const { user } = this.props;
@@ -228,9 +174,9 @@ class OnboardPurchaseContainer extends Component {
                 quantityOptions={quantityOptions}
                 billingGivenName={billingGivenName}
                 billingLastName={billingLastName}
-                billingAddressCountry={billingAddressCountry}
-                billingAddressRegion={billingAddressRegion}
-                billingAddressLocality={billingAddressLocality}
+                billingCountry={billingCountry}
+                billingRegion={billingRegion}
+                billingLocality={billingLocality}
                 billingStreetAddress={billingStreetAddress}
                 billingPostalCode={billingPostalCode}
                 billingEmail={billingEmail}
@@ -238,9 +184,9 @@ class OnboardPurchaseContainer extends Component {
 
                 shippingGivenName={shippingGivenName}
                 shippingLastName={shippingLastName}
-                shippingAddressCountry={shippingAddressCountry}
-                shippingAddressRegion={shippingAddressRegion}
-                shippingAddressLocality={shippingAddressLocality}
+                shippingCountry={shippingCountry}
+                shippingRegion={shippingRegion}
+                shippingLocality={shippingLocality}
                 shippingStreetAddress={shippingStreetAddress}
                 shippingPostalCode={shippingPostalCode}
                 shippingEmail={shippingEmail}
@@ -255,7 +201,8 @@ class OnboardPurchaseContainer extends Component {
                 onNextClick={this.onNextClick}
                 onCancelClick={this.onCancelClick}
                 user={user}
-                errors={errors}
+                errors={this.props.onboarding.errors}
+                isLoading={this.props.onboarding.isAPIRequestRunning}
             />
         );
     }
@@ -270,9 +217,14 @@ const mapStateToProps = function(store) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        setOnboardingInfo: (info) => {
+        postOnboarding: (user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback) => {
             dispatch(
-                setOnboardingInfo(info)
+                postOnboarding(user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback)
+            )
+        },
+        pullOnboarding: (user) => {
+            dispatch(
+                pullOnboarding(user)
             )
         }
     }
