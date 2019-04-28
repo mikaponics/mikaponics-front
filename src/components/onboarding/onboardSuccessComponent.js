@@ -31,10 +31,10 @@ class OnboardSuccessComponent extends Component {
                                 </h1>
                                 <p className="lead">Your order has been placed.</p>
                                 <hr className="my-4" />
-                                <p>Please check your email periodically to get the latest information about your shipment.</p>
+                                <p>To view your receipt, pleace click below.</p>
                                 <p className="lead">
-                                    <Link className="btn btn-primary btn-lg" to="/onboard">
-                                        Finish&nbsp;<i className="fas fa-arrow-circle-right"></i>
+                                    <Link className="btn btn-primary btn-lg" to="/onboard/receipt">
+                                        View Receipt&nbsp;<i className="fas fa-arrow-circle-right"></i>
                                     </Link>
                                 </p>
                             </div>
