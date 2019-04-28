@@ -95,7 +95,7 @@ class OnboardCheckoutComponent extends React.Component {
 
                         <div className="form-group">
                             <button type="text" className="btn btn-lg float-left pl-4 pr-4 btn-secondary" onClick={onBackClick}>
-                                <i className="fas fa-arrow-left"></i>&nbsp;Back
+                                <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
                             </button>
                             <form>
                                  <StripeComponent

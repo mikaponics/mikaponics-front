@@ -69,6 +69,13 @@ class OnboardWelcomeComponent extends Component {
                                 <p className="lead">Your order is being processed. Once the device has been shipped, you will be granted access to your dashboard.</p>
                                 <hr className="my-4" />
                                 <p>Please check your email periodically to get the latest information about your order.</p>
+                                <hr className="my-4" />
+                                <p>To view your receipt, pleace click below.</p>
+                                <p className="lead">
+                                    <Link className="btn btn-primary btn-lg" to="/onboard/receipt">
+                                        View Receipt&nbsp;<i className="fas fa-arrow-circle-right"></i>
+                                    </Link>
+                                </p>
                             </div>
 
                         </div>
