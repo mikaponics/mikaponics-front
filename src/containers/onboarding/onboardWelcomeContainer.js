@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 
-import { clearOnboarding } from "../../actions/onboardingActions"
 import { pullProfile } from "../../actions/profileAction"
 import OnboardWelcomeComponent from "../../components/onboarding/onboardWelcomeComponent";
 
@@ -71,11 +70,6 @@ const mapDispatchToProps = dispatch => {
         pullProfile: (user) => {
             dispatch(
                 pullProfile(user)
-            )
-        },
-        clearOnboarding: () => {
-            dispatch(
-                clearOnboarding()
             )
         }
     }

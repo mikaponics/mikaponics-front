@@ -116,9 +116,6 @@ const mapStateToProps = function(store) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        // setOnboardingInfo: (info) => {
-        //     dispatch(setOnboardingInfo(info))
-        // },
         pullProfile: (user) => {
             dispatch(pullProfile(user))
         }

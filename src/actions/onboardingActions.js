@@ -5,33 +5,6 @@ import { camelizeKeys, decamelizeKeys } from 'humps';
 import { ONBOARDING_REQUEST, ONBOARDING_SUCCESS, ONBOARDING_FAILURE } from "../constants/actionTypes";
 import { MIKAPONICS_ONBOARDING_API_URL } from "../constants/api";
 
-//------------------------------------------------------------------------------
-import { SET_ONBOARDING, CLEAR_ONBOARDING } from '../constants/actionTypes';
-
-
-export const setOnboardingInfo = (info) => ({
-    type: SET_ONBOARDING,
-    payload: info,
-});
-
-
-export const clearOnboardingInfo = (info) => ({
-    type: CLEAR_ONBOARDING,
-    payload: {},
-});
-
-
-export function clearOnboarding() {
-    return dispatch => {
-        // Change the global state to attempting to fetch latest user details.
-        store.dispatch(
-            clearOnboardingInfo()
-        );
-    }
-}
-//------------------------------------------------------------------------------
-
-
 
 export const setOnboardingRequest = () => ({
     type: ONBOARDING_REQUEST,
