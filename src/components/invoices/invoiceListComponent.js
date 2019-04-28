@@ -79,12 +79,14 @@ class InvoiceListComponent extends Component {
         let elements;
         if (dataArr !== undefined && dataArr !== null) {
             const { results } = dataArr;
-            if (results.length === 0) {
-                elements = <NoInvoicesJumbotron />;
-            } else {
-                elements = (
-                    <InvoiceTable dataArr={dataArr} />
-                );
+            if (results !== undefined && results !== null) {
+                if (results.length === 0) {
+                    elements = <NoInvoicesJumbotron />;
+                } else {
+                    elements = (
+                        <InvoiceTable dataArr={dataArr} />
+                    );
+                }
             }
         }
 
