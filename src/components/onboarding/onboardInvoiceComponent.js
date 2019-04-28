@@ -44,7 +44,7 @@ class InvoiceCard extends Component {
         const {
             calculation,
 
-            number, createdAt, dueAt, purchasedAt, items,
+            number, createdAt, dueAt, purchasedAt,
 
             billingGivenName, billingLastName, billingCountry, billingRegion,
             billingLocality, billingStreetAddress, billingStreetAddressExtra,
@@ -64,8 +64,6 @@ class InvoiceCard extends Component {
                 <InvoiceItemsTable calculation={calculation} />
             )
         }
-
-        console.log(calculation);
 
         return (
             <div className="card">
@@ -181,7 +179,12 @@ class InvoiceCard extends Component {
                     </div>
                     <hr className="d-print-none" />
                     <div className="clearfix">
-                        <button className="btn btn-orange float-left" type="button" onClick={onPrintClick}>Print</button>
+                        <Link to="/onboard" className="btn btn-primary float-left mr-2">
+                            <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
+                        </Link>
+                        <button className="btn btn-orange float-left" type="button" onClick={onPrintClick}>
+                            <i className="fas fa-print"></i>&nbsp;Print
+                        </button>
                     </div>
                     { /*
                     <div className="clearfix">

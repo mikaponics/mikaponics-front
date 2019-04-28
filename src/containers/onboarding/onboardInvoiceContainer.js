@@ -1,4 +1,3 @@
-import Scroll from 'react-scroll';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -14,7 +13,7 @@ class OnboardInvoiceContainer extends Component {
     }
 
     onPrintClick() {
-         window.print();
+        window.print();
     }
 
     componentDidMount() {
