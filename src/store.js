@@ -13,6 +13,7 @@ import {
 } from "./constants/actionTypes";
 import userReducer from "./reducers/userReducer";
 import onboardingReducer from "./reducers/onboardingReducer";
+import purchaseDeviceReducer from "./reducers/purchaseDeviceReducer";
 import dashboardReducer from "./reducers/dashboardReducer";
 import deviceListReducer from "./reducers/deviceListReducer";
 import deviceReducer from "./reducers/deviceReducer";
@@ -31,6 +32,7 @@ import invoiceDetailReducer from "./reducers/invoiceDetailReducer";
 // Combine Reducers
 const rootReducer = combineReducers({
     onboardingState: onboardingReducer,
+    purchaseDeviceState: purchaseDeviceReducer,
     dashboardState: dashboardReducer,
     userState: userReducer,
     deviceListState: deviceListReducer,

@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 
 import PurchaseDeviceComponent from "../../components/purchase/purchaseDeviceComponent";
-import { pullProfile } from "../../actions/profileAction";
+import { pullPurchaseDevice, postPurchaseDevice } from "../../actions/purchaseDeviceActions";
 
 
 class PurchaseDeviceContainer extends Component {
@@ -25,13 +25,7 @@ class PurchaseDeviceContainer extends Component {
     }
 
     componentDidMount() {
-        const { user } = this.props;
-
-        // Run the async code to fetch the latest profile information from the
-        // server and save the latest user's details into our global state.
-        // Make the authenticated call to our web-service.
-        this.props.pullProfile(user);
-
+        this.props.pullPurchaseDevice(this.props.user)
         window.scrollTo(0, 0);  // Start the page at the top of the page.
     }
 
@@ -110,14 +104,14 @@ class PurchaseDeviceContainer extends Component {
 const mapStateToProps = function(store) {
     return {
         user: store.userState,
-        // onboarding: store.onboardingState
+        purchaseDevice: store.purchaseDeviceState
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        pullProfile: (user) => {
-            dispatch(pullProfile(user))
+        pullPurchaseDevice: (user) => {
+            dispatch(pullPurchaseDevice(user))
         }
     }
 }
