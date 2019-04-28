@@ -168,6 +168,13 @@ class OnboardPurchaseContainer extends Component {
             });
         }
 
+        let errors;
+        let isLoading;
+        if (this.props.onboarding !== undefined && this.props.onboarding !== null) {
+            errors = this.props.onboarding.errors;
+            isLoading = this.props.onboarding.isAPIRequestRunning;
+        }
+
         return (
             <OnboardPurchaseComponent
                 quantity={quantity}
@@ -201,8 +208,8 @@ class OnboardPurchaseContainer extends Component {
                 onNextClick={this.onNextClick}
                 onCancelClick={this.onCancelClick}
                 user={user}
-                errors={this.props.onboarding.errors}
-                isLoading={this.props.onboarding.isAPIRequestRunning}
+                errors={errors}
+                isLoading={isLoading}
             />
         );
     }

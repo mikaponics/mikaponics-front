@@ -35,10 +35,10 @@ export const BootstrapErrorsProcessingAlert = ({ errors }) => {
     //         web-service and if no errors were returned then our stateless
     //         component will return nothing.
     if (errors === null || errors === undefined) {
-        return (null);
+        return null;
     }
     if (Object.keys(errors).length === 0) {
-        return (null);
+        return null;
     }
 
     let array = [];
@@ -53,7 +53,7 @@ export const BootstrapErrorsProcessingAlert = ({ errors }) => {
         // console.log(key, value); // For debugging purposes only.
 
         // STEP 4: Generate the error row if the value accomponying it is not blank.
-        if (value !== undefined) {
+        if (value !== undefined && value !== null) {
             array.push(
                 <p>
                     <strong>{startKey}:</strong>&nbsp;{value}
