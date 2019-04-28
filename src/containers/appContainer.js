@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, withRouter, Switch } from "react-router-dom";
+import ScrollUpButton from "react-scroll-up-button";
 
 import requiresAuth from '../helpers/requiresAuth';
 import NavigationContainer from './navigation/navigationContainer';
@@ -60,6 +61,7 @@ class AppContainer extends React.Component {
 
                 <div className="d-flex align-items-stretch">
                     <main id="main" role="main">
+                        <ScrollUpButton />
                         <Switch>
                             <Route path="/" exact component={IndexContainer} />
                             <Route path="/login" exact component={LoginContainer} />

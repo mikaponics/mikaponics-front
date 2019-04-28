@@ -30,6 +30,7 @@ npm install --save react-custom-scrollbars
 npm install --save react-country-region-selector
 npm install --save pace-js pace
 npm install --save react-to-print
+npm install --save react-scroll-up-button
 ```
 
 Upgrade doing the following:
