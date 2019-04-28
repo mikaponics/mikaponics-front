@@ -65,10 +65,10 @@ class OnboardWelcomeComponent extends Component {
                         <div className="col-sm-12">
 
                             <div className="jumbotron">
-                                <h1 className="display-4">Order Processing</h1>
-                                <p className="lead">Your order is being processed. Once the device has been shipped, you will be granted access to your dashboard.</p>
-                                <hr className="my-4" />
-                                <p>Please check your email periodically to get the latest information about your order.</p>
+                                <h1 className="display-4">
+                                    <i className="fas fa-clock"></i>&nbsp;Order Processing
+                                </h1>
+                                <p className="lead">Your order is being processed. Once the device has been shipped, you will be granted access to your dashboard. Please check your email periodically to get the latest information about your order.</p>
                                 <hr className="my-4" />
                                 <p>To view your receipt, pleace click below.</p>
                                 <p className="lead">
