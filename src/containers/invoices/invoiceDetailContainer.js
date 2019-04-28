@@ -15,6 +15,12 @@ class InvoiceDetailContainer extends Component {
         this.state = {
             invoiceSlug: slug
         }
+
+        this.onPrintClick = this.onPrintClick.bind(this)
+    }
+
+    onPrintClick() {
+        window.print();
     }
 
     componentDidMount() {
@@ -26,6 +32,7 @@ class InvoiceDetailContainer extends Component {
         return (
             <InvoiceDetailComponent
                invoiceDetail={this.props.invoiceDetail}
+               onPrintClick={this.onPrintClick}
             />
         );
     }

@@ -29,6 +29,7 @@ npm install --save recharts
 npm install --save react-custom-scrollbars
 npm install --save react-country-region-selector
 npm install --save pace-js pace
+npm install --save react-to-print
 ```
 
 Upgrade doing the following:

@@ -8,6 +8,15 @@ import OnboardInvoiceComponent from "../../components/onboarding/onboardInvoiceC
 
 class OnboardInvoiceContainer extends Component {
 
+    constructor(props) {
+        super(props);
+        this.onPrintClick = this.onPrintClick.bind(this)
+    }
+
+    onPrintClick() {
+         window.print();
+    }
+
     componentDidMount() {
         window.scrollTo(0, 0);  // Start the page at the top of the page.
         this.props.pullOnboarding(this.props.user)  // Fetch latest data.
@@ -15,7 +24,10 @@ class OnboardInvoiceContainer extends Component {
 
     render() {
         return (
-            <OnboardInvoiceComponent onboarding={this.props.onboarding} />
+            <OnboardInvoiceComponent
+                onboarding={this.props.onboarding}
+                onPrintClick={this.onPrintClick}
+            />
         );
     }
 }

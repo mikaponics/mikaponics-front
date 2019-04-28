@@ -40,6 +40,7 @@ class InvoiceItemsTable extends Component {
 
 class InvoiceCard extends Component {
     render() {
+        const { onPrintClick } = this.props;
         const {
             calculation,
 
@@ -179,6 +180,9 @@ class InvoiceCard extends Component {
                         </div>
                     </div>
                     <hr className="d-print-none" />
+                    <div className="clearfix">
+                        <button className="btn btn-orange float-left" type="button" onClick={onPrintClick}>Print</button>
+                    </div>
                     { /*
                     <div className="clearfix">
                         <button className="btn btn-primary float-left mr-2" type="button">Edit</button>
@@ -194,7 +198,7 @@ class InvoiceCard extends Component {
 
 class OnboardInvoiceComponent extends Component {
     render() {
-        const { onboarding } = this.props;
+        const { onboarding, onPrintClick } = this.props;
         return (
             <div>
 
@@ -216,6 +220,7 @@ class OnboardInvoiceComponent extends Component {
                 </h1>
                 <InvoiceCard
                     invoiceDetail={onboarding}
+                    onPrintClick={onPrintClick}
                 />
 
             </div>
