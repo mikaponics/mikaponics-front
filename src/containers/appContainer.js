@@ -42,6 +42,7 @@ import ProfileContainer from "./profile/profileContainer";
 import ProfileEditContainer from "./profile/profileEditContainer";
 import PurchaseDeviceContainer from "./purchase/purchaseDeviceContainer";
 import CheckoutDeviceContainer from "./purchase/checkoutDeviceContainer";
+import PurchaseDeviceSuccessContainer from  "./purchase/purchaseDeviceSuccessContainer";
 import CheckoutDeviceReceiptContainer from "./purchase/checkoutDeviceReceiptContainer";
 
 
@@ -100,6 +101,7 @@ class AppContainer extends React.Component {
                             <Route path="/terms" exact component={TermsContainer} />
                             <Route path="/purchase" exact component={PurchaseDeviceContainer} />
                             <Route path="/purchase/checkout" exact component={CheckoutDeviceContainer} />
+                            <Route path="/purchase/success" exact component={PurchaseDeviceSuccessContainer} />                            
                             <Route path="/purchase/receipt" exact component={CheckoutDeviceReceiptContainer} />
                             <Route component={NotFound404Container} />
                         </Switch>

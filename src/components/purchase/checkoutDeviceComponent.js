@@ -1,14 +1,116 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Link } from "react-router-dom";
+
+import StripeComponent from "../stripeComponent";
 
 
-class CheckoutDeviceComponent extends Component {
+class CheckoutDeviceComponent extends React.Component {
     render() {
+        const {
+            invoiceItems,
+            totalBeforeTax, tax, totalAfterTax, shipping, credit, grandTotal,
+            onBackClick,
+            name, description, billingEmail, amountInCents, currency, stripeKey
+        } = this.props;
+
+        // Return our summary.
+        let quantity = 0;
+        let pricePerDevice = 0;
+        const invoiceItem = invoiceItems[0]
+        if (invoiceItem !== undefined && invoiceItem !== null) {
+            quantity = invoiceItem.quantity;
+            pricePerDevice = invoiceItem.unitPrice;
+        }
+
+        // Render our component output.
         return (
             <div>
-                <p>test</p>
+
+                <nav aria-label="breadcrumb">
+                    <ol className="breadcrumb">
+                        <li className="breadcrumb-item active">
+                            <Link to="/dashboard"><i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard</Link>
+                        </li>
+                        <li className="breadcrumb-item active">
+                            <Link to="/purchase"><i className="fas fa-shopping-cart"></i>&nbsp;Purchase</Link>
+                        </li>
+                        <li className="breadcrumb-item active" aria-current="page"><i className="fas fa-barcode"></i>&nbsp;Checkout</li>
+                    </ol>
+                </nav>
+
+
+                <h1><i className="fas fa-barcode"></i>&nbsp;Checkout</h1>
+
+
+                <div className="row mt-4 pt-3 mb-4 pb-2">
+                    <div className="col-md-10 mx-auto p-2">
+
+                        <table className="table table-bordered custom-cell-w">
+                            <tbody>
+                                <tr className="bg-dark">
+                                    <th scope="row" colSpan="2" className="text-light">Financial Summary</th>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Number of device(s) purchasing:</th>
+                                    <td>{quantity}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Price per device:</th>
+                                    <td>{pricePerDevice}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Total before tax:</th>
+                                    <td>{totalBeforeTax}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Tax:</th>
+                                    <td>{tax}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Total after tax:</th>
+                                    <td>{totalAfterTax} </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Shipping:</th>
+                                    <td>{shipping} </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Credit:</th>
+                                    <td>{credit}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Grand total:</th>
+                                    <td>{grandTotal} </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                        <div className="form-group">
+                            <button type="text" className="btn btn-lg float-left pl-4 pr-4 btn-secondary" onClick={onBackClick}>
+                                <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
+                            </button>
+                            <form>
+                                 <StripeComponent
+                                    buttonClassName="btn btn-lg float-right pl-4 pr-4 btn-success"
+                                    name={name}
+                                    description={description}
+                                    onToken={(token) => this.props.onToken(token)}
+                                    billingEmail={billingEmail}
+                                    amountInCents={amountInCents}
+                                    currency={currency}
+                                    stripeKey={stripeKey}
+                                 />
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
         );
     }
 }
 
-export default CheckoutDeviceComponent;
+
+export default CheckoutDeviceComponent
