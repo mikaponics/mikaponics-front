@@ -17,16 +17,6 @@ class CheckoutDeviceContainer extends Component {
         this.state = {
             user: this.props.user,
             referrer: '',
-            errors: {},
-
-            invoiceItems: this.props.purchaseDevice.invoiceItems,
-            totalBeforeTax:  this.props.purchaseDevice.totalBeforeTax,
-            tax:  this.props.purchaseDevice.tax,
-            totalAfterTax:  this.props.purchaseDevice.totalAfterTax,
-            shipping:  this.props.purchaseDevice.shipping,
-            credit:  this.props.purchaseDevice.credit,
-            grandTotal:  this.props.purchaseDevice.grandTotal,
-            grandTotalInCents:  this.props.purchaseDevice.grandTotalInCents,
         }
         this.onBackClick = this.onBackClick.bind(this);
     }
@@ -50,7 +40,7 @@ class CheckoutDeviceContainer extends Component {
         // Save our state to be the success page so our component will
         // redirect to the purchaseDevice success page.
         this.setState({
-            'referrer': '/purchase/success'
+            'referrer': '/purchase/submission'
         });
     }
 
@@ -65,8 +55,12 @@ class CheckoutDeviceContainer extends Component {
 
         const {
             referrer,
-            errors,
+        } = this.state;
+
+        const {
+            billingEmail,
             invoiceItems,
+            errors,
             totalBeforeTax,
             tax,
             totalAfterTax,
@@ -74,11 +68,6 @@ class CheckoutDeviceContainer extends Component {
             credit,
             grandTotal,
             grandTotalInCents
-        } = this.state;
-        const { user } = this.props;
-
-        const {
-            billingEmail
         } = this.props.purchaseDevice;
 
         // If a `referrer` was set then that means we can redirect
