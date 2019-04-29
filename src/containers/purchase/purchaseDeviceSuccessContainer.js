@@ -10,7 +10,6 @@ class PurchaseDeviceSuccessContainer extends Component {
         super(props);
 
         this.state = {
-            referrer: '',
             slug: this.props.purchaseDevice.slug,
         }
     }
