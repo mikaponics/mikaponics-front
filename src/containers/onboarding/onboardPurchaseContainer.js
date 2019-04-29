@@ -179,13 +179,13 @@ class OnboardPurchaseContainer extends Component {
         }
 
         let quantityValue = 0;
-        if (quantity) {
+        if (quantity !== undefined && quantity !== null) {
             quantityValue = quantity;
         }
 
         return (
             <OnboardPurchaseComponent
-                quantity={quantity}
+                quantity={quantityValue}
                 quantityOptions={quantityOptions}
                 billingGivenName={billingGivenName}
                 billingLastName={billingLastName}
