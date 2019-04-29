@@ -3,17 +3,17 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import { pullProfile } from "../../actions/profileAction";
-import { postPurchaseDevice } from "../../actions/purchaseDeviceActions";
-import PurchaseDeviceSubmissionComponent from "../../components/purchase/purchaseDeviceSubmissionComponent";
+import { postOnboarding } from "../../actions/onboardingActions";
+import OnboardSubmissionComponent from "../../components/onboarding/onboardSubmissionComponent";
 
 
-class PurchaseDeviceSubmissionContainer extends Component {
+class OnboardSubmissionContainer extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             referrer: '',
-            slug: this.props.purchaseDevice.slug,
+            slug: this.props.onboarding.slug,
         }
 
         this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
@@ -22,7 +22,7 @@ class PurchaseDeviceSubmissionContainer extends Component {
 
     onSuccessfulSubmissionCallback() {
         this.setState({
-            referrer: "/purchase/success"
+            referrer: "/onboard/success"
         })
     }
 
@@ -33,11 +33,11 @@ class PurchaseDeviceSubmissionContainer extends Component {
     componentDidMount() {
         // Deconstruct the props to get our user and only run the following
         // code if the user has not been subscribed.
-        const { purchaseDevice } = this.props;
+        const { onboarding } = this.props;
 
         // Defensive code: If we don't have the details then don't run this
         // function in our code.
-        if (purchaseDevice === undefined || purchaseDevice === null) {
+        if (onboarding === undefined || onboarding === null) {
             return;
         }
 
@@ -48,14 +48,14 @@ class PurchaseDeviceSubmissionContainer extends Component {
         const paymentReceiptDictionary = JSON.parse(paymentReceiptString);
 
         // Add extra fields that our API requires.
-        purchaseDevice['payment_token'] = paymentReceiptDictionary.id;
-        purchaseDevice['payment_created_at'] = paymentReceiptDictionary.created;
+        onboarding['payment_token'] = paymentReceiptDictionary.id;
+        onboarding['payment_created_at'] = paymentReceiptDictionary.created;
 
         // SUBMIT OUR PAYMENT TOKEN RECEIVED FROM OUR PAYMENT MERCHANT.
         // Asynchronously submit our ``update`` to our API endpoint.
-        this.props.postPurchaseDevice(
+        this.props.postOnboarding(
             this.props.user,
-            purchaseDevice,
+            onboarding,
             this.onSuccessfulSubmissionCallback,
             this.onFailedSubmissionCallback
         );
@@ -64,10 +64,10 @@ class PurchaseDeviceSubmissionContainer extends Component {
 
     render() {
         if (this.state.referrer !== undefined && this.state.referrer !== null && this.state.referrer !== '') {
-            return <Redirect to="/purchase/success" />
+            return <Redirect to="/onboard/success" />
         }
         return (
-            <PurchaseDeviceSubmissionComponent />
+            <OnboardSubmissionComponent />
         );
     }
 }
@@ -75,7 +75,7 @@ class PurchaseDeviceSubmissionContainer extends Component {
 const mapStateToProps = function(store) {
     return {
         user: store.userState,
-        purchaseDevice: store.purchaseDeviceState
+        onboarding: store.onboardingState
     };
 }
 
@@ -84,9 +84,9 @@ const mapDispatchToProps = dispatch => {
         pullProfile: (user) => {
             dispatch(pullProfile(user))
         },
-        postPurchaseDevice: (user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback) => {
+        postOnboarding: (user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback) => {
             dispatch(
-                postPurchaseDevice(user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback)
+                postOnboarding(user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback)
             )
         },
     }
@@ -95,4 +95,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(PurchaseDeviceSubmissionContainer);
+)(OnboardSubmissionContainer);

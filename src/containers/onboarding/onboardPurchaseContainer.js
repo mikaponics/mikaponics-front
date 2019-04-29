@@ -168,11 +168,19 @@ class OnboardPurchaseContainer extends Component {
             });
         }
 
-        let errors;
-        let isLoading;
+        let errors = {};
+        let isLoading = false;
         if (this.props.onboarding !== undefined && this.props.onboarding !== null) {
             errors = this.props.onboarding.errors;
+            if (errors === undefined || errors === null) {
+                errors = {};
+            }
             isLoading = this.props.onboarding.isAPIRequestRunning;
+        }
+
+        let quantityValue = 0;
+        if (quantity) {
+            quantityValue = quantity;
         }
 
         return (

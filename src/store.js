@@ -8,6 +8,7 @@ import {
     LOGOUT_SUCCESS,
     ONBOARDING_SUCCESS,
     DASHBOARD_SUCCESS,
+    PROFILE_SUCCESS,
     DEVICE_SUCCESS,
     INSTRUMENT_SUCCESS,
     PURCHASE_DEVICE_SUCCESS
@@ -60,7 +61,7 @@ const rootReducer = combineReducers({
 const localStorageMiddleware = ({ getState }) => {
     return next => action => {
         const result = next(action);
-        if ([ LOGIN_SUCCESS, LOGOUT_SUCCESS, ONBOARDING_SUCCESS, DASHBOARD_SUCCESS, DEVICE_SUCCESS, INSTRUMENT_SUCCESS, PURCHASE_DEVICE_SUCCESS ].includes(result.type)) {
+        if ([ LOGIN_SUCCESS, LOGOUT_SUCCESS, ONBOARDING_SUCCESS, DASHBOARD_SUCCESS, PROFILE_SUCCESS, DEVICE_SUCCESS, INSTRUMENT_SUCCESS, PURCHASE_DEVICE_SUCCESS ].includes(result.type)) {
             console.log("De-hydrating store...");
             localStorage.setItem(APP_STATE, JSON.stringify(getState()))
         }

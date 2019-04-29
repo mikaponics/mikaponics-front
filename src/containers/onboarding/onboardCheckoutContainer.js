@@ -53,7 +53,7 @@ class OnboardCheckoutContainer extends Component {
         // Save our state to be the success page so our component will
         // redirect to the onboarding success page.
         this.setState({
-            'referrer': '/onboard/success'
+            'referrer': '/onboard/submission'
         });
     }
 
