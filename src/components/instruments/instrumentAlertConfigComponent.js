@@ -57,7 +57,7 @@ class InstrumentAlertConfigComponent extends Component {
                         <h2><i className="fas fa-fire"></i>&nbsp;Red Alarm</h2>
                         <hr />
                         <BootstrapInput
-                            className="form-control form-control-lg"
+                            inputClassName="form-control form-control-lg"
                             borderColour="border-success"
                             name="redAboveValue"
                             type="number"
@@ -69,7 +69,7 @@ class InstrumentAlertConfigComponent extends Component {
                             error={errors.redAboveValue}
                         />
                         <BootstrapInput
-                            className="form-control form-control-lg"
+                            inputClassName="form-control form-control-lg"
                             borderColour="border-success"
                             name="redBelowValue"
                             type="number"
@@ -100,7 +100,7 @@ class InstrumentAlertConfigComponent extends Component {
                         <h2><i className="fas fa-exclamation-circle"></i>&nbsp;Orange Alarm</h2>
                         <hr />
                         <BootstrapInput
-                            className="form-control form-control-lg"
+                            inputClassName="form-control form-control-lg"
                             borderColour="border-success"
                             name="orangeAboveValue"
                             type="number"
@@ -112,7 +112,7 @@ class InstrumentAlertConfigComponent extends Component {
                             error={errors.orangeAboveValue}
                         />
                         <BootstrapInput
-                            className="form-control form-control-lg"
+                            inputClassName="form-control form-control-lg"
                             borderColour="border-success"
                             name="orangeBelowValue"
                             type="number"
@@ -143,7 +143,7 @@ class InstrumentAlertConfigComponent extends Component {
                         <h2><i className="fas fa-exclamation-triangle"></i>&nbsp;Yellow Alarm</h2>
                         <hr />
                         <BootstrapInput
-                            className="form-control form-control-lg"
+                            inputClassName="form-control form-control-lg"
                             borderColour="border-success"
                             name="yellowAboveValue"
                             type="number"
@@ -155,7 +155,7 @@ class InstrumentAlertConfigComponent extends Component {
                             error={errors.yellowAboveValue}
                         />
                         <BootstrapInput
-                            className="form-control form-control-lg"
+                            inputClassName="form-control form-control-lg"
                             borderColour="border-success"
                             name="yellowBelowValue"
                             type="number"

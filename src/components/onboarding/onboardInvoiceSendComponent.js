@@ -38,11 +38,16 @@ class OnboardInvoiceSendComponent extends Component {
                     <h3 className="pt-4 pb-2 text-center">Invoice Send Form</h3>
                     <form className="needs-validation" noValidate>
 
+                        <p>All fields which have the (*) symbol are required to be filled out.</p>
+
+                        <BootstrapErrorsProcessingAlert errors={errors} />
+
 
                         <div className="form-row">
 
                             <BootstrapInput
-                                className="form-control"
+                                inputClassName="form-control"
+                                divClassName="form-group col-md-12 mb-4"
                                 borderColour="border-primary"
                                 error={errors.email}
                                 label="Email (*)"
@@ -54,7 +59,7 @@ class OnboardInvoiceSendComponent extends Component {
                             />
 
                             <div className="form-group col-md-12 mb-3 mx-auto text-center">
-                                <button className="btn btn-success btn-lg btn-fxw mt-4" type="submit">
+                                <button className="btn btn-success btn-lg btn-fxw mt-4" type="button" onClick={onSendEmailClick}>
                                     <i className="fas fa-paper-plane"></i>&nbsp;Send
                                 </button>
                             </div>

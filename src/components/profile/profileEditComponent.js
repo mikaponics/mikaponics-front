@@ -21,7 +21,7 @@ class ProfileTable extends Component {
 
                 <h3>Basic</h3>
                 <BootstrapInput
-                    className="form-control form-control-lg"
+                    inputClassName="form-control form-control-lg"
                     borderColour="border-primary"
                     error={errors.firstName}
                     label="First Name (*)"
@@ -33,7 +33,7 @@ class ProfileTable extends Component {
                 />
 
                 <BootstrapInput
-                    className="form-control form-control-lg"
+                    inputClassName="form-control form-control-lg"
                     borderColour="border-primary"
                     error={errors.lastName}
                     label="Last name (*)"
@@ -48,7 +48,7 @@ class ProfileTable extends Component {
                 <h3>Contact Detail</h3>
 
                 <BootstrapInput
-                    className="form-control form-control-lg"
+                    inputClassName="form-control form-control-lg"
                     borderColour="border-primary"
                     error={errors.email}
                     label="Email (*)"
@@ -61,7 +61,7 @@ class ProfileTable extends Component {
                 <br />
                 <h3>Billing Detail</h3>
                 <BootstrapCountrySelect
-                    className="form-control"
+                    inputClassName="form-control"
                     borderColour="border-primary"
                     error={errors.billingCountry}
                     label="Country (*)"
@@ -81,7 +81,7 @@ class ProfileTable extends Component {
                     name="billingRegion"
                 />
                 <BootstrapInput
-                    className="form-control form-control-lg"
+                    inputClassName="form-control form-control-lg"
                     borderColour="border-primary"
                     name="billingLocality"
                     type="text"
@@ -94,7 +94,7 @@ class ProfileTable extends Component {
                 />
 
                 <BootstrapInput
-                    className="form-control form-control-lg"
+                    inputClassName="form-control form-control-lg"
                     borderColour="border-primary"
                     name="billingStreetAddress"
                     type="text"
@@ -107,7 +107,7 @@ class ProfileTable extends Component {
                 />
 
                 <BootstrapInput
-                    className="form-control form-control-lg"
+                    inputClassName="form-control form-control-lg"
                     borderColour="border-primary"
                     name="billingPostalCode"
                     type="text"
@@ -120,7 +120,7 @@ class ProfileTable extends Component {
                 />
 
                 <BootstrapInput
-                    className="form-control form-control-lg"
+                    inputClassName="form-control form-control-lg"
                     borderColour="border-primary"
                     name="billingEmail"
                     type="text"
@@ -133,7 +133,7 @@ class ProfileTable extends Component {
                 />
 
                 <BootstrapInput
-                    className="form-control form-control-lg"
+                    inputClassName="form-control form-control-lg"
                     borderColour="border-primary"
                     name="billingTelephone"
                     type="text"
@@ -168,7 +168,7 @@ class ProfileTable extends Component {
                     name="shippingRegion"
                 />
                 <BootstrapInput
-                    className="form-control form-control-lg"
+                    inputClassName="form-control form-control-lg"
                     borderColour="border-primary"
                     name="shippingLocality"
                     type="text"
@@ -180,7 +180,7 @@ class ProfileTable extends Component {
                     error={errors.shippingLocality}
                 />
                 <BootstrapInput
-                    className="form-control form-control-lg"
+                    inputClassName="form-control form-control-lg"
                     borderColour="border-primary"
                     name="shippingStreetAddress"
                     type="text"
@@ -192,7 +192,7 @@ class ProfileTable extends Component {
                     error={errors.shippingStreetAddress}
                 />
                 <BootstrapInput
-                    className="form-control form-control-lg"
+                    inputClassName="form-control form-control-lg"
                     borderColour="border-success"
                     name="shippingStreetAddressExtra"
                     type="text"
@@ -204,7 +204,7 @@ class ProfileTable extends Component {
                     error={errors.shippingStreetAddressExtra}
                 />
                 <BootstrapInput
-                    className="form-control form-control-lg"
+                    inputClassName="form-control form-control-lg"
                     borderColour="border-primary"
                     name="shippingPostalCode"
                     type="text"
@@ -216,7 +216,7 @@ class ProfileTable extends Component {
                     error={errors.shippingPostalCode}
                 />
                 <BootstrapInput
-                    className="form-control form-control-lg"
+                    inputClassName="form-control form-control-lg"
                     borderColour="border-success"
                     name="shippingPostOfficeBoxNumber"
                     type="text"
@@ -228,7 +228,7 @@ class ProfileTable extends Component {
                     error={errors.shippingPostOfficeBoxNumber}
                 />
                 <BootstrapInput
-                    className="form-control form-control-lg"
+                    inputClassName="form-control form-control-lg"
                     borderColour="border-primary"
                     name="shippingEmail"
                     type="text"
@@ -240,7 +240,7 @@ class ProfileTable extends Component {
                     error={errors.shippingEmail}
                 />
                 <BootstrapInput
-                    className="form-control form-control-lg"
+                    inputClassName="form-control form-control-lg"
                     borderColour="border-primary"
                     name="shippingTelephone"
                     type="text"

@@ -48,7 +48,7 @@ class RegisterComponent extends React.Component {
                             <BootstrapErrorsProcessingAlert errors={errors} />
 
                             <BootstrapInput
-                                className="form-control form-control-lg"
+                                inputClassName="form-control form-control-lg"
                                 borderColour="border-primary"
                                 error={errors.email}
                                 label="Email (*)"
@@ -58,7 +58,7 @@ class RegisterComponent extends React.Component {
                             />
 
                             <BootstrapInput
-                                className="form-control form-control-lg"
+                                inputClassName="form-control form-control-lg"
                                 borderColour="border-primary"
                                 error={errors.password}
                                 label="Password (*)"
@@ -69,7 +69,7 @@ class RegisterComponent extends React.Component {
                             />
 
                             <BootstrapInput
-                                className="form-control form-control-lg"
+                                inputClassName="form-control form-control-lg"
                                 borderColour="border-primary"
                                 error={errors.passwordRepeat}
                                 label="Password Repeat (*)"
@@ -80,7 +80,7 @@ class RegisterComponent extends React.Component {
                             />
 
                             <BootstrapInput
-                                className="form-control form-control-lg"
+                                inputClassName="form-control form-control-lg"
                                 borderColour="border-primary"
                                 error={errors.firstName}
                                 label="First Name (*)"
@@ -91,7 +91,7 @@ class RegisterComponent extends React.Component {
                             />
 
                             <BootstrapInput
-                                className="form-control form-control-lg"
+                                inputClassName="form-control form-control-lg"
                                 borderColour="border-primary"
                                 error={errors.lastName}
                                 label="Last Name (*)"

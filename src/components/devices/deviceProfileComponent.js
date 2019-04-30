@@ -31,7 +31,7 @@ class DeviceProfileComponent extends Component {
                         <BootstrapErrorsProcessingAlert errors={errors} />
 
                         <BootstrapInput
-                            className="form-control form-control-lg"
+                            inputClassName="form-control form-control-lg"
                             borderColour="border-primary"
                             error={errors.email}
                             label="Name (*)"

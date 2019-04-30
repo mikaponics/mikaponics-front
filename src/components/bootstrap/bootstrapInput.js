@@ -22,16 +22,17 @@ export const BootstrapInput = ({
     helpText,
     onChange,
     error,
-    className = "form-group",
+    inputClassName = "form-group",
+    divClassName = "form-group",
     borderColour = '',
     disabled = false
 }) => {
     const helpID = shortid.generate + "-help";
     return (
-        <div className={classnames('form-group', { 'has-error': error })}>
+        <div className={classnames(divClassName, { 'has-error': error })}>
             <label htmlFor={name} className="control-label">{label}</label>
             <input
-                className={classnames(className, { 'is-invalid': error }, { 'border-success': !error && borderColour === 'border-success' }, { 'border-primary': !error && borderColour === 'border-primary' } )}
+                className={classnames(inputClassName, { 'is-invalid': error }, { 'border-success': !error && borderColour === 'border-success' }, { 'border-primary': !error && borderColour === 'border-primary' } )}
                 key={shortid.generate}
                 name={name}
                 type={type}
@@ -58,7 +59,8 @@ BootstrapInput.propTypes = {
     onChange: PropTypes.func.isRequired,
     error: PropTypes.string,
     // checkUserExists: PropTypes.func
-    className: PropTypes.string.isRequired,
+    inputClassName: PropTypes.string.isRequired,
+    divClassName: PropTypes.string,
     borderColour: PropTypes.string,
     disabled: PropTypes.bool
 }
