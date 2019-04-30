@@ -7,7 +7,7 @@ import { BootstrapInput } from '../bootstrap/bootstrapInput';
 
 class OnboardInvoiceSendComponent extends Component {
     render() {
-        const { email, onChange, errors, onSendEmailClick } = this.props;
+        const { email, onChange, errors, isLoading, onSendEmailClick } = this.props;
         return (
             <div>
 
@@ -62,7 +62,7 @@ class OnboardInvoiceSendComponent extends Component {
                                 <Link to="/onboard/receipt" className="btn btn-secondary btn-lg btn-fxw mt-4 float-left">
                                     <i className="fas fa-arrow-circle-left"></i>&nbsp;Cancel
                                 </Link>
-                                <button className="btn btn-success btn-lg btn-fxw mt-4 float-right" type="button" onClick={onSendEmailClick}>
+                                <button className="btn btn-success btn-lg btn-fxw mt-4 float-right" type="button" onClick={onSendEmailClick} disabled={isLoading}>
                                     <i className="fas fa-paper-plane"></i>&nbsp;Send
                                 </button>
                             </div>

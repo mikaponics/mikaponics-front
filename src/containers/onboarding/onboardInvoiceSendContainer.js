@@ -1,9 +1,13 @@
+import axios from 'axios';
 import React, { Component } from 'react';
+import Scroll from 'react-scroll';
 import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
+import { camelizeKeys } from 'humps';
 
 import { setFlashMessage } from "../../actions/flashMessageActions";
 import OnboardInvoiceSendComponent from "../../components/onboarding/onboardInvoiceSendComponent";
+import { MIKAPONICS_INVOICE_SEND_EMAIL_API_URL } from "../../constants/api";
 
 
 class OnboardInvoiceSendContainer extends Component {
@@ -13,7 +17,8 @@ class OnboardInvoiceSendContainer extends Component {
         this.state = {
             email: '',
             referrer: '',
-            isLoading: false
+            isLoading: false,
+            errors: {}
         };
         this.onSendEmailClick = this.onSendEmailClick.bind(this);
         this.onChange = this.onChange.bind(this);
@@ -37,9 +42,53 @@ class OnboardInvoiceSendContainer extends Component {
 
     onSendEmailClick(e) {
         e.preventDefault();
-        this.props.setFlashMessage("success", "Invoice email was sent.");
+
         this.setState({
-            referrer: '/onboard/receipt'
+            isLoading: true,
+            errors: {}
+        })
+
+        // Create our oAuth 2.0 authenticated API header to use with our
+        // submission.
+        const config = {
+            headers: {'Authorization': "Bearer " + this.props.user.token}
+        };
+
+        axios.put(
+            MIKAPONICS_INVOICE_SEND_EMAIL_API_URL+this.props.onboarding.slug, {
+                email: this.state.email
+            }, config
+        ).then( (successResult) => { // SUCCESS
+
+            this.props.setFlashMessage("success", "Invoice email was sent.");
+
+            this.setState({
+                isLoading: false,
+                errors: {},
+                referrer: '/onboard/receipt'
+            })
+
+        }).catch( (errorResult) => { // ERROR
+            // console.log(errorResult);
+            // alert("Error fetching latest device.");
+
+            const responseData = errorResult.response.data;
+            let errors = camelizeKeys(responseData);
+
+            console.log(errors);
+            this.setState({
+                isLoading: false,
+                errors: errors
+            })
+
+            // The following code will cause the screen to scroll to the top of
+            // the page. Please see ``react-scroll`` for more information:
+            // https://github.com/fisshy/react-scroll
+            var scroll = Scroll.animateScroll;
+            scroll.scrollToTop();
+
+        }).then( () => { // FINALLY
+            // Do nothing.
         });
     }
 
@@ -50,22 +99,12 @@ class OnboardInvoiceSendContainer extends Component {
     }
 
     render() {
-        const { email, referrer} = this.state;
+        const { email, errors, isLoading, referrer} = this.state;
 
         // If a `referrer` was set then that means we can redirect
         // to a different page in our application.
         if (referrer) {
             return <Redirect to={referrer} />;
-        }
-
-        let errors = {};
-        let isLoading = false;
-        if (this.props.onboarding !== undefined && this.props.onboarding !== null) {
-            errors = this.props.onboarding.errors;
-            if (errors === undefined || errors === null) {
-                errors = {};
-            }
-            isLoading = this.props.onboarding.isAPIRequestRunning;
         }
 
         return (
