@@ -59,7 +59,10 @@ class OnboardInvoiceSendComponent extends Component {
                             />
 
                             <div className="form-group col-md-12 mb-3 mx-auto text-center">
-                                <button className="btn btn-success btn-lg btn-fxw mt-4" type="button" onClick={onSendEmailClick}>
+                                <Link to="/onboard/receipt" className="btn btn-secondary btn-lg btn-fxw mt-4 float-left">
+                                    <i className="fas fa-arrow-circle-left"></i>&nbsp;Cancel
+                                </Link>
+                                <button className="btn btn-success btn-lg btn-fxw mt-4 float-right" type="button" onClick={onSendEmailClick}>
                                     <i className="fas fa-paper-plane"></i>&nbsp;Send
                                 </button>
                             </div>

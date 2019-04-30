@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
+import { FlashMessageComponent } from "../flashMessageComponent";
+
 
 class InvoiceItemRow extends Component {
     render() {
@@ -198,9 +200,15 @@ class InvoiceCard extends Component {
 
 class OnboardInvoiceComponent extends Component {
     render() {
-        const { onboarding, onPrintClick } = this.props;
+        const { onboarding, flashMessage, onPrintClick } = this.props;
         return (
             <div>
+
+                <div className="row">
+                    <div className="col-md-12">
+                        <FlashMessageComponent object={flashMessage} />
+                    </div>
+                </div>
 
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">

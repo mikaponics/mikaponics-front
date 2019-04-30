@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
 
-import { pullOnboarding } from "../../actions/onboardingActions";
+import { setFlashMessage } from "../../actions/flashMessageActions";
 import OnboardInvoiceSendComponent from "../../components/onboarding/onboardInvoiceSendComponent";
 
 
@@ -37,7 +37,10 @@ class OnboardInvoiceSendContainer extends Component {
 
     onSendEmailClick(e) {
         e.preventDefault();
-        alert("TEST");
+        this.props.setFlashMessage("success", "Invoice email was sent.");
+        this.setState({
+            referrer: '/onboard/receipt'
+        });
     }
 
     onChange(option) {
@@ -86,9 +89,9 @@ const mapStateToProps = function(store) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        pullOnboarding: (user) => {
-            dispatch(pullOnboarding(user))
-        },
+        setFlashMessage: (typeOf, text) => {
+            dispatch(setFlashMessage(typeOf, text))
+        }
     }
 }
 
