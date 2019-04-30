@@ -185,14 +185,11 @@ class InvoiceCard extends Component {
                         <button className="btn btn-orange float-left" type="button" onClick={onPrintClick}>
                             <i className="fas fa-print"></i>&nbsp;Print
                         </button>
+                        <Link to="/onboard/receipt/send" className="btn btn-success float-right" >
+                            <i className="fas fa-share-square"></i>&nbsp;Send Invoice
+                        </Link>
+
                     </div>
-                    { /*
-                    <div className="clearfix">
-                        <button className="btn btn-primary float-left mr-2" type="button">Edit</button>
-                        <button className="btn btn-orange float-left" type="button">Print</button>
-                        <button className="btn btn-success float-right" type="button">Send Invoice</button>
-                    </div>
-                    */ }
                 </div>
             </div>
         );

@@ -14,7 +14,17 @@ import shortid from "shortid";
  *                 then the border colour will be red.
  */
 export const BootstrapInput = ({
-    name, type, label, placeholder, value, helpText, onChange, error, className = "form-group", borderColour = '', disabled = false
+    name,
+    type,
+    label,
+    placeholder,
+    value,
+    helpText,
+    onChange,
+    error,
+    className = "form-group",
+    borderColour = '',
+    disabled = false
 }) => {
     const helpID = shortid.generate + "-help";
     return (

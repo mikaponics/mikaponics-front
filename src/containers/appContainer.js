@@ -24,6 +24,7 @@ import OnboardCheckoutContainer from "./onboarding/onboardCheckoutContainer";
 import OnboardSubmissionContainer from "./onboarding/onboardSubmissionContainer";
 import OnboardSuccessContainer from "./onboarding/onboardSuccessContainer";
 import OnboardInvoiceContainer from "./onboarding/onboardInvoiceContainer";
+import OnboardInvoiceSendContainer from "./onboarding/onboardInvoiceSendContainer";
 import DeviceListContainer from "./devices/deviceListContainer";
 import DeviceContainer from "./devices/deviceContainer";
 import DeviceProfileContainer from "./devices/deviceProfileContainer";
@@ -82,6 +83,7 @@ class AppContainer extends React.Component {
                             <Route path="/onboard/submission" exact component={requiresAuth(OnboardSubmissionContainer)} />
                             <Route path="/onboard/success" exact component={requiresAuth(OnboardSuccessContainer)} />
                             <Route path="/onboard/receipt" exact component={requiresAuth(OnboardInvoiceContainer)} />
+                            <Route path="/onboard/receipt/send" exact component={requiresAuth(OnboardInvoiceSendContainer)} />
                             <Route path="/devices" exact component={requiresAuth(DeviceListContainer)} />
                             <Route path="/device/:slug" exact component={requiresAuth(DeviceContainer)} />
                             <Route path="/device/:slug/profile" exact component={requiresAuth(DeviceProfileContainer)} />
