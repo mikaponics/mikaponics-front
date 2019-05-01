@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
+import { BootstrapCheckbox } from "../bootstrap/bootstrapCheckbox";
 import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
 import { BootstrapInput } from '../bootstrap/bootstrapInput';
 import { BootstrapSingleSelect } from '../bootstrap/bootstrapSingleSelect';
@@ -11,6 +12,9 @@ import { BootstrapRegionSelect } from '../bootstrap/bootstrapRegionSelect'
 class OnboardPurchaseComponent extends React.Component {
     render() {
         const {
+            isShippingDifferentThenBilling,
+            onCheckboxChange,
+
             quantity,
             quantityOptions,
 
@@ -172,104 +176,116 @@ class OnboardPurchaseComponent extends React.Component {
 
                             <p className="border-bottom mb-3 pb-1 text-secondary">Shipping Details</p>
 
-                            <BootstrapInput
-                                inputClassName="form-control"
-                                borderColour="border-primary"
-                                error={errors.shippingGivenName}
-                                label="First name (*)"
-                                onChange={onTextChange}
-                                value={shippingGivenName}
-                                name="shippingGivenName"
-                                type="text"
+                            <BootstrapCheckbox
+                                inputClassName="form-check-input form-check-input-lg"
+                                borderColour="border-success"
+                                error={errors.isShippingDifferentThenBilling}
+                                label="Is shipping different then billing?"
+                                onChange={onCheckboxChange}
+                                checked={isShippingDifferentThenBilling}
+                                name="isShippingDifferentThenBilling"
                             />
 
-                            <BootstrapInput
-                                inputClassName="form-control"
-                                borderColour="border-primary"
-                                error={errors.shippingLastName}
-                                label="Last name (*)"
-                                onChange={onTextChange}
-                                value={shippingLastName}
-                                name="shippingLastName"
-                                type="text"
-                            />
+                            {isShippingDifferentThenBilling && <div>
+                                <BootstrapInput
+                                    inputClassName="form-control"
+                                    borderColour="border-primary"
+                                    error={errors.shippingGivenName}
+                                    label="First name (*)"
+                                    onChange={onTextChange}
+                                    value={shippingGivenName}
+                                    name="shippingGivenName"
+                                    type="text"
+                                />
 
-                            <BootstrapCountrySelect
-                                className="form-control"
-                                borderColour="border-primary"
-                                error={errors.shippingCountry}
-                                label="Country (*)"
-                                value={shippingCountry}
-                                onChange={onShippingCountryChange}
-                                priorityOptions={["CA", "US", "MX"]}
-                                name="shippingCountry"
-                            />
-                            <BootstrapRegionSelect
-                                className="form-control"
-                                borderColour="border-primary"
-                                error={errors.shippingRegion}
-                                label="Province / state (*)"
-                                country={shippingCountry}
-                                value={shippingRegion}
-                                onChange={onShippingRegionChange}
-                                name="shippingRegion"
-                            />
+                                <BootstrapInput
+                                    inputClassName="form-control"
+                                    borderColour="border-primary"
+                                    error={errors.shippingLastName}
+                                    label="Last name (*)"
+                                    onChange={onTextChange}
+                                    value={shippingLastName}
+                                    name="shippingLastName"
+                                    type="text"
+                                />
 
-                            <BootstrapInput
-                                inputClassName="form-control"
-                                borderColour="border-primary"
-                                error={errors.shippingLocality}
-                                label="City (*)"
-                                onChange={onTextChange}
-                                value={shippingLocality}
-                                name="shippingLocality"
-                                type="text"
-                            />
+                                <BootstrapCountrySelect
+                                    className="form-control"
+                                    borderColour="border-primary"
+                                    error={errors.shippingCountry}
+                                    label="Country (*)"
+                                    value={shippingCountry}
+                                    onChange={onShippingCountryChange}
+                                    priorityOptions={["CA", "US", "MX"]}
+                                    name="shippingCountry"
+                                />
+                                <BootstrapRegionSelect
+                                    className="form-control"
+                                    borderColour="border-primary"
+                                    error={errors.shippingRegion}
+                                    label="Province / state (*)"
+                                    country={shippingCountry}
+                                    value={shippingRegion}
+                                    onChange={onShippingRegionChange}
+                                    name="shippingRegion"
+                                />
 
-                            <BootstrapInput
-                                inputClassName="form-control"
-                                borderColour="border-primary"
-                                error={errors.shippingStreetAddress}
-                                label="Street address (*)"
-                                onChange={onTextChange}
-                                value={shippingStreetAddress}
-                                name="shippingStreetAddress"
-                                type="text"
-                            />
+                                <BootstrapInput
+                                    inputClassName="form-control"
+                                    borderColour="border-primary"
+                                    error={errors.shippingLocality}
+                                    label="City (*)"
+                                    onChange={onTextChange}
+                                    value={shippingLocality}
+                                    name="shippingLocality"
+                                    type="text"
+                                />
 
-                            <BootstrapInput
-                                inputClassName="form-control"
-                                borderColour="border-primary"
-                                error={errors.shippingPostalCode}
-                                label="Postal / zip (*)"
-                                onChange={onTextChange}
-                                value={shippingPostalCode}
-                                name="shippingPostalCode"
-                                type="text"
-                            />
+                                <BootstrapInput
+                                    inputClassName="form-control"
+                                    borderColour="border-primary"
+                                    error={errors.shippingStreetAddress}
+                                    label="Street address (*)"
+                                    onChange={onTextChange}
+                                    value={shippingStreetAddress}
+                                    name="shippingStreetAddress"
+                                    type="text"
+                                />
 
-                            <BootstrapInput
-                                inputClassName="form-control"
-                                borderColour="border-primary"
-                                error={errors.shippingEmail}
-                                label="Email (*)"
-                                onChange={onTextChange}
-                                value={shippingEmail}
-                                name="shippingEmail"
-                                type="text"
-                                disabled={false}
-                            />
+                                <BootstrapInput
+                                    inputClassName="form-control"
+                                    borderColour="border-primary"
+                                    error={errors.shippingPostalCode}
+                                    label="Postal / zip (*)"
+                                    onChange={onTextChange}
+                                    value={shippingPostalCode}
+                                    name="shippingPostalCode"
+                                    type="text"
+                                />
 
-                            <BootstrapInput
-                                inputClassName="form-control"
-                                borderColour="border-primary"
-                                error={errors.shippingTelephone}
-                                label="Telephone (*)"
-                                onChange={onTextChange}
-                                value={shippingTelephone}
-                                name="shippingTelephone"
-                                type="text"
-                            />
+                                <BootstrapInput
+                                    inputClassName="form-control"
+                                    borderColour="border-primary"
+                                    error={errors.shippingEmail}
+                                    label="Email (*)"
+                                    onChange={onTextChange}
+                                    value={shippingEmail}
+                                    name="shippingEmail"
+                                    type="text"
+                                    disabled={false}
+                                />
+
+                                <BootstrapInput
+                                    inputClassName="form-control"
+                                    borderColour="border-primary"
+                                    error={errors.shippingTelephone}
+                                    label="Telephone (*)"
+                                    onChange={onTextChange}
+                                    value={shippingTelephone}
+                                    name="shippingTelephone"
+                                    type="text"
+                                />
+                            </div>}
 
                             <div className="form-group">
                                 <button type="text" className="btn btn-lg float-left pl-4 pr-4 btn-secondary" disabled={isLoading} onClick={onCancelClick}>
