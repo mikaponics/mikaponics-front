@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import { FlashMessageComponent } from "../flashMessageComponent";
 
 
 class InvoiceItemRow extends Component {
@@ -51,6 +52,8 @@ class InvoiceItemsTable extends Component {
 class InvoiceCard extends Component {
     render() {
         const {
+            slug,
+
             onPrintClick,
 
             number, createdAt, dueAt, purchasedAt, items,
@@ -194,14 +197,10 @@ class InvoiceCard extends Component {
                         <button className="btn btn-orange float-left" type="button" onClick={onPrintClick}>
                             <i className="fas fa-print"></i>&nbsp;Print
                         </button>
+                        <Link to={`/invoice-send-email/${slug}`} className="btn btn-success float-right" >
+                            <i className="fas fa-share-square"></i>&nbsp;Send Invoice
+                        </Link>
                     </div>
-                    { /*
-                    <div className="clearfix">
-                        <button className="btn btn-primary float-left mr-2" type="button">Edit</button>
-                        <button className="btn btn-orange float-left" type="button">Print</button>
-                        <button className="btn btn-success float-right" type="button">Send Invoice</button>
-                    </div>
-                    */ }
                 </div>
             </div>
         );
@@ -210,10 +209,17 @@ class InvoiceCard extends Component {
 
 class InvoiceDetailComponent extends Component {
     render() {
-        const { invoiceDetail, onPrintClick } = this.props;
+        const { flashMessage, invoiceDetail, onPrintClick } = this.props;
 
         return (
             <div>
+
+                <div className="row">
+                    <div className="col-md-12">
+                        <FlashMessageComponent object={flashMessage} />
+                    </div>
+                </div>
+
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item">

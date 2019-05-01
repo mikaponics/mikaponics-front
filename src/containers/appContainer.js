@@ -40,6 +40,7 @@ import InstrumentAnalysisDetailContainer from "./instruments/instrumentAnalysisD
 import AlertListContainer from "./alerts/alertListContainer";
 import InvoiceListContainer from "./invoices/invoiceListContainer";
 import InvoiceDetailContainer from "./invoices/invoiceDetailContainer";
+import InvoiceSendContainer from "./invoices/invoiceSendContainer";
 import ProfileContainer from "./profile/profileContainer";
 import ProfileEditContainer from "./profile/profileEditContainer";
 import PurchaseDeviceContainer from "./purchase/purchaseDeviceContainer";
@@ -99,6 +100,7 @@ class AppContainer extends React.Component {
                             <Route path="/alerts" exact component={requiresAuth(AlertListContainer)} />
                             <Route path="/invoices" exact component={requiresAuth(InvoiceListContainer)} />
                             <Route path="/invoice/:slug" exact component={requiresAuth(InvoiceDetailContainer)} />
+                            <Route path="/invoice-send-email/:slug" exact component={requiresAuth(InvoiceSendContainer)} />
                             <Route path="/profile" exact component={requiresAuth(ProfileContainer)} />
                             <Route path="/profile/edit" exact component={requiresAuth(ProfileEditContainer)} />
                             <Route path="/privacy" exact component={PrivacyContainer} />

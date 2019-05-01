@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { clearFlashMessage } from "../../actions/flashMessageActions";
 import InvoiceDetailComponent from "../../components/invoices/invoiceDetailComponent";
 import { pullInvoiceDetail } from "../../actions/invoiceDetailActions";
 
@@ -28,10 +29,22 @@ class InvoiceDetailContainer extends Component {
         this.props.pullInvoiceDetail(this.props.user, this.props.match.params.slug);
     } // end FUNC.
 
+    componentWillUnmount() {
+        this.props.clearFlashMessage(); // Clear the messages.
+
+        // This code will fix the "ReactJS & Redux: Can't perform a React state
+        // update on an unmounted component" issue as explained in:
+        // https://stackoverflow.com/a/53829700
+        this.setState = (state,callback)=>{
+            return;
+        };
+    }
+
     render() {
         return (
             <InvoiceDetailComponent
                invoiceDetail={this.props.invoiceDetail}
+               flashMessage={this.props.flashMessage}
                onPrintClick={this.onPrintClick}
             />
         );
@@ -42,11 +55,15 @@ const mapStateToProps = function(store) {
     return {
         user: store.userState,
         invoiceDetail: store.invoiceDetailState,
+        flashMessage: store.flashMessageState,
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
+        clearFlashMessage: () => {
+            dispatch(clearFlashMessage())
+        },
         pullInvoiceDetail: (user, invoiceSlug) => {
             dispatch(
                 pullInvoiceDetail(user, invoiceSlug)
