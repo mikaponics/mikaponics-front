@@ -8,7 +8,6 @@ class OnboardCheckoutComponent extends React.Component {
     render() {
         const {
             monthlyFee, quantity, pricePerDevice, totalBeforeTax, tax, totalAfterTax, shipping, credit, grandTotal,
-            onBackClick,
             name, description, billingEmail, amountInCents, currency, stripeKey
         } = this.props;
 
@@ -94,9 +93,9 @@ class OnboardCheckoutComponent extends React.Component {
 
 
                         <div className="form-group">
-                            <button type="text" className="btn btn-lg float-left pl-4 pr-4 btn-secondary" onClick={onBackClick}>
+                            <Link to="/onboard/purchase" className="btn btn-lg float-left pl-4 pr-4 btn-secondary">
                                 <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
-                            </button>
+                            </Link>
                             <form>
                                  <StripeComponent
                                     buttonClassName="btn btn-lg float-right pl-4 pr-4 btn-success"

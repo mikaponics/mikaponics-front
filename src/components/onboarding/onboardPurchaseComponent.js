@@ -156,7 +156,7 @@ class OnboardPurchaseComponent extends React.Component {
                                 value={billingEmail}
                                 name="billingEmail"
                                 type="text"
-                                disabled={true}
+                                disabled={false}
                             />
 
                             <BootstrapInput
@@ -257,7 +257,7 @@ class OnboardPurchaseComponent extends React.Component {
                                 value={shippingEmail}
                                 name="shippingEmail"
                                 type="text"
-                                disabled={true}
+                                disabled={false}
                             />
 
                             <BootstrapInput

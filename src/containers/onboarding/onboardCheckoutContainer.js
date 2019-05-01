@@ -17,25 +17,21 @@ class OnboardCheckoutContainer extends Component {
         this.state = {
             onboarding: this.props.onboarding,
             user: this.props.user,
-            referrer: '',
-            errors: {},
-
-            monthlyFee: this.props.onboarding.calculation.monthlyFee,
-            quantity:  this.props.onboarding.calculation.quantity,
-            pricePerDevice:  this.props.onboarding.calculation.pricePerDevice,
-            totalBeforeTax:  this.props.onboarding.calculation.totalBeforeTax,
-            tax:  this.props.onboarding.calculation.tax,
-            totalAfterTax:  this.props.onboarding.calculation.totalAfterTax,
-            shipping:  this.props.onboarding.calculation.shipping,
-            credit:  this.props.onboarding.calculation.credit,
-            grandTotal:  this.props.onboarding.calculation.grandTotal,
-            grandTotalInCents:  this.props.onboarding.calculation.grandTotalInCents,
+            referrer: ''
         }
-        this.onBackClick = this.onBackClick.bind(this);
     }
 
     componentDidMount() {
         window.scrollTo(0, 0);  // Start the page at the top of the page.
+    }
+
+    componentWillUnmount() {
+        // This code will fix the "ReactJS & Redux: Can't perform a React state
+        // update on an unmounted component" issue as explained in:
+        // https://stackoverflow.com/a/53829700
+        this.setState = (state,callback)=>{
+            return;
+        };
     }
 
     /**
@@ -57,32 +53,22 @@ class OnboardCheckoutContainer extends Component {
         });
     }
 
-    onBackClick(e) {
-        e.preventDefault();
-        this.setState({
-            referrer: '/onboard/purchase'
-        });
-    }
-
     render() {
 
-        const { referrer, errors,
-            monthlyFee,
-            quantity,
-            pricePerDevice,
+        const { referrer } = this.state;
+        const {
+            errors,
+            calculation,
             totalBeforeTax,
             tax,
             totalAfterTax,
             shipping,
             credit,
             grandTotal,
-            grandTotalInCents
-        } = this.state;
-        // const { user } = this.props;
-
-        const {
+            grandTotalInCents,
             billingEmail
         } = this.props.onboarding;
+        const { quantity, pricePerDevice, monthlyFee } = calculation;
 
         // If a `referrer` was set then that means we can redirect
         // to a different page in our application.
@@ -103,7 +89,6 @@ class OnboardCheckoutContainer extends Component {
                     credit={credit}
                     grandTotal={grandTotal}
                     errors={errors}
-                    onBackClick={this.onBackClick}
 
                     name="Mikaponics Onboarding"
                     description=""
