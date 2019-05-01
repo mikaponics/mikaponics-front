@@ -62,11 +62,6 @@ const authenticatedLiteMenuData = [
         title: "Dashboard",
         url: "/onboard"
     },{
-        id: "lite-profile",
-        icon: "user-circle",
-        title: "Profile",
-        url: "/profile"
-    },{
         id: "lite-logout",
         icon: "sign-out-alt",
         title: "Logout",
