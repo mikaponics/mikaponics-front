@@ -17,6 +17,7 @@ export default class StripeComponent extends React.Component {
             currency: this.props.currency,
             stripeKey: this.props.stripeKey,
             buttonClassName: this.props.buttonClassName,
+            imageURL: this.props.imageURL
         };
 
         // onStripeUpdate must be bound or else clicking on button will produce error.
@@ -44,7 +45,7 @@ export default class StripeComponent extends React.Component {
         this.loadStripe(() => {
             this.stripeHandler = window.StripeCheckout.configure({
                 key: this.props.stripeKey,
-                image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+                image: this.props.imageURL,
                 locale: 'auto',
                 token: (token) => {
                     this.setState({ loading: true });

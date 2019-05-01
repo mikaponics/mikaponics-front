@@ -106,6 +106,7 @@ class OnboardCheckoutComponent extends React.Component {
                                     amountInCents={amountInCents}
                                     currency={currency}
                                     stripeKey={stripeKey}
+                                    imageURL={"https://app.mikaponics.com/img/mikaponics-logo.png"}
                                  />
                             </form>
                         </div>
