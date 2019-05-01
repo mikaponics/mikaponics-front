@@ -13,7 +13,7 @@ import timezones from "../../constants/timezones";
 
 class RegisterComponent extends React.Component {
     render() {
-        const { hasSignedTos, referrer, errors, email, password, passwordRepeat, firstName, lastName, timezone, onTextChange, onCheckboxChange, onSubmit, isLoading } = this.props;
+        const { hasSignedTos, referrer, errors, email, password, passwordRepeat, firstName, lastName, timezone, onTextChange, onCheckboxChange, onSubmit, isLoading, referralCode } = this.props;
 
         // If a `referrer` was set then that means we can redirect
         // to a different page in our application.
@@ -102,16 +102,6 @@ class RegisterComponent extends React.Component {
                                 type="text"
                             />
 
-                            <BootstrapCheckbox
-                                inputClassName="form-check-input form-check-input-lg"
-                                borderColour="border-primary"
-                                error={errors.hasSignedTos}
-                                label="I agree to the terms of service (*)"
-                                onChange={onCheckboxChange}
-                                checked={hasSignedTos}
-                                name="hasSignedTos"
-                            />
-
                             <div className={classnames("form-group", { 'has-error': errors.timezone } )}>
                                 <label className="control-label">Timezone (*)</label>
                                 <select
@@ -125,6 +115,28 @@ class RegisterComponent extends React.Component {
                                 </select>
                                 {errors.timezone && <span className="help-block">{errors.timezone}</span>}
                             </div>
+
+                            <BootstrapInput
+                                inputClassName="form-control form-control-lg"
+                                borderColour="border-success"
+                                error={errors.referralCode}
+                                label="Referral code"
+                                onChange={onTextChange}
+                                value={referralCode}
+                                name="referralCode"
+                                type="text"
+                                helpText="Where you referred by anyone? If so, enter their referral code here to get discounts."
+                            />
+
+                            <BootstrapCheckbox
+                                inputClassName="form-check-input form-check-input-lg"
+                                borderColour="border-primary"
+                                error={errors.hasSignedTos}
+                                label="I agree to the terms of service (*)"
+                                onChange={onCheckboxChange}
+                                checked={hasSignedTos}
+                                name="hasSignedTos"
+                            />
 
                             <div className="form-group">
                                 <button className="btn btn-primary btn-lg" disabled={isLoading}>
