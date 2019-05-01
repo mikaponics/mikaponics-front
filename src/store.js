@@ -32,7 +32,7 @@ import invoiceDetailReducer from "./reducers/invoiceDetailReducer";
 
 
 // Combine Reducers
-const rootReducer = combineReducers({
+const appReducer = combineReducers({
     onboardingState: onboardingReducer,
     purchaseDeviceState: purchaseDeviceReducer,
     dashboardState: dashboardReducer,
@@ -50,6 +50,21 @@ const rootReducer = combineReducers({
     invoiceListState: invoiceListReducer,
     invoiceDetailState: invoiceDetailReducer,
 });
+
+
+/**
+ *  Reducer to be used before the "appReducer" used. The difference with is
+ *  this reducer will clear the `redux` state if the logout state was detected.
+ *
+ *  Special thanks to:
+ *  https://stackoverflow.com/a/35641992
+ */
+const rootReducer = (state, action) => {
+    if (action.type === LOGOUT_SUCCESS) {
+        state = undefined
+    }
+    return appReducer(state, action)
+}
 
 
 /**
