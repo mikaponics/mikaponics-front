@@ -15,8 +15,6 @@ class OnboardCheckoutContainer extends Component {
         super(props);
 
         this.state = {
-            onboarding: this.props.onboarding,
-            user: this.props.user,
             referrer: ''
         }
     }

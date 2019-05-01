@@ -58,7 +58,6 @@ class CheckoutDeviceContainer extends Component {
         } = this.state;
 
         const {
-            billingEmail,
             invoiceItems,
             errors,
             totalBeforeTax,
@@ -67,7 +66,17 @@ class CheckoutDeviceContainer extends Component {
             shipping,
             credit,
             grandTotal,
-            grandTotalInCents
+            grandTotalInCents,
+
+            billingGivenName, billingLastName,
+            billingCountry, billingRegion, billingLocality,
+            billingPostalCode, billingStreetAddress,
+            billingEmail, billingTelephone,
+
+            isShippingDifferentThenBilling, shippingGivenName,
+            shippingLastName, shippingCountry, shippingRegion,
+            shippingLocality, shippingStreetAddress,
+            shippingPostalCode,shippingEmail, shippingTelephone,
         } = this.props.purchaseDevice;
 
         // If a `referrer` was set then that means we can redirect
@@ -92,10 +101,30 @@ class CheckoutDeviceContainer extends Component {
                     name="Mikaponics Telemetry Device"
                     description=""
                     onToken={(token) => this.onToken(token)}
-                    billingEmail={billingEmail}
                     amountInCents={grandTotalInCents}
                     currency={CURRENCY}
                     stripeKey={STRIPE_PUBLISHABLE}
+
+                    billingGivenName={billingGivenName}
+                    billingLastName={billingLastName}
+                    billingCountry={billingCountry}
+                    billingRegion={billingRegion}
+                    billingLocality={billingLocality}
+                    billingStreetAddress={billingStreetAddress}
+                    billingPostalCode={billingPostalCode}
+                    billingEmail={billingEmail}
+                    billingTelephone={billingTelephone}
+
+                    isShippingDifferentThenBilling={isShippingDifferentThenBilling}
+                    shippingGivenName={shippingGivenName}
+                    shippingLastName={shippingLastName}
+                    shippingCountry={shippingCountry}
+                    shippingRegion={shippingRegion}
+                    shippingLocality={shippingLocality}
+                    shippingStreetAddress={shippingStreetAddress}
+                    shippingPostalCode={shippingPostalCode}
+                    shippingEmail={shippingEmail}
+                    shippingTelephone={shippingTelephone}
                 />
             </div>
         );

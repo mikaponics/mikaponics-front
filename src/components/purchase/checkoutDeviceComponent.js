@@ -10,7 +10,16 @@ class CheckoutDeviceComponent extends React.Component {
             invoiceItems,
             totalBeforeTax, tax, totalAfterTax, shipping, credit, grandTotal,
             onBackClick,
-            name, description, billingEmail, amountInCents, currency, stripeKey
+            name, description, amountInCents, currency, stripeKey,
+
+            billingGivenName, billingLastName, billingCountry,
+            billingRegion, billingLocality, billingPostalCode, billingEmail,
+            billingTelephone, billingStreetAddress,
+
+            shippingGivenName, shippingLastName, shippingCountry,
+            shippingRegion, shippingLocality, shippingStreetAddress,
+            shippingPostalCode, shippingEmail,
+            shippingTelephone,
         } = this.props;
 
         // Return our summary.
@@ -44,6 +53,95 @@ class CheckoutDeviceComponent extends React.Component {
 
                 <div className="row mt-4 pt-3 mb-4 pb-2">
                     <div className="col-md-10 mx-auto p-2">
+
+                        <p><strong>Please confirm these details before checking out your order.</strong></p>
+                        <table className="table table-bordered custom-cell-w">
+                            <tbody>
+                            <tr className="bg-dark">
+                                <th scope="row" colSpan="2" className="text-light">Billing Details</th>
+                            </tr>
+                            <tr>
+                                <th scope="row" className="bg-light">Given Name</th>
+                                <td>{billingGivenName}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" className="bg-light">Last Name</th>
+                                <td>{billingLastName}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" className="bg-light">Country</th>
+                                <td>{billingCountry}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" className="bg-light">Region</th>
+                                <td>{billingRegion}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" className="bg-light">Locality</th>
+                                <td>{billingLocality}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" className="bg-light">Street Address</th>
+                                <td>{billingStreetAddress}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" className="bg-light">Postal Code / Zip</th>
+                                <td>{billingPostalCode}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" className="bg-light">Email</th>
+                                <td>{billingEmail}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" className="bg-light">Telephone</th>
+                                <td>{billingTelephone}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <table className="table table-bordered custom-cell-w">
+                            <tbody>
+                            <tr className="bg-dark">
+                                <th scope="row" colSpan="2" className="text-light">Shipping Details</th>
+                            </tr>
+                            <tr>
+                                <th scope="row" className="bg-light">Given Name</th>
+                                <td>{shippingGivenName}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" className="bg-light">Last Name</th>
+                                <td>{shippingLastName}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" className="bg-light">Country</th>
+                                <td>{shippingCountry}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" className="bg-light">Region</th>
+                                <td>{shippingRegion}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" className="bg-light">Locality</th>
+                                <td>{shippingLocality}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" className="bg-light">Street Address</th>
+                                <td>{shippingStreetAddress}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" className="bg-light">Postal Code / Zip</th>
+                                <td>{shippingPostalCode}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" className="bg-light">Email</th>
+                                <td>{shippingEmail}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" className="bg-light">Telephone</th>
+                                <td>{shippingTelephone}</td>
+                            </tr>
+                            </tbody>
+                        </table>
 
                         <table className="table table-bordered custom-cell-w">
                             <tbody>
