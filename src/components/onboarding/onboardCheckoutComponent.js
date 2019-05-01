@@ -8,7 +8,7 @@ class OnboardCheckoutComponent extends React.Component {
     render() {
         const {
             monthlyFee, quantity, pricePerDevice, totalBeforeTax, tax, totalAfterTax, shipping, credit, grandTotal,
-            name, description, amountInCents, currency, stripeKey,
+            name, description, grandTotalInCents, currency, stripeKey,
 
             billingGivenName, billingLastName, billingCountry,
             billingRegion, billingLocality, billingPostalCode, billingEmail,
@@ -201,7 +201,7 @@ class OnboardCheckoutComponent extends React.Component {
                                     description={description}
                                     onToken={(token) => this.props.onToken(token)}
                                     billingEmail={billingEmail}
-                                    amountInCents={amountInCents}
+                                    amountInCents={grandTotalInCents}
                                     currency={currency}
                                     stripeKey={stripeKey}
                                     imageURL={"https://app.mikaponics.com/img/mikaponics-logo.png"}

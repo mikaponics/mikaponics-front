@@ -65,7 +65,6 @@ class OnboardCheckoutContainer extends Component {
             shipping,
             credit,
             grandTotal,
-            grandTotalInCents,
 
             billingGivenName, billingLastName,
             billingCountry, billingRegion, billingLocality,
@@ -77,7 +76,7 @@ class OnboardCheckoutContainer extends Component {
             shippingLocality, shippingStreetAddress,
             shippingPostalCode,shippingEmail, shippingTelephone,
         } = this.props.onboarding;
-        const { quantity, pricePerDevice, monthlyFee } = calculation;
+        const { quantity, pricePerDevice, monthlyFee, grandTotalInCents } = calculation;
 
         // If a `referrer` was set then that means we can redirect
         // to a different page in our application.
@@ -102,7 +101,7 @@ class OnboardCheckoutContainer extends Component {
                     name="Mikaponics Onboarding"
                     description=""
                     onToken={(token) => this.onToken(token)}
-                    amountInCents={grandTotalInCents}
+                    grandTotalInCents={grandTotalInCents}
                     currency={CURRENCY}
                     stripeKey={STRIPE_PUBLISHABLE}
 
