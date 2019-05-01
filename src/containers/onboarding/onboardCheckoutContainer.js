@@ -66,7 +66,16 @@ class OnboardCheckoutContainer extends Component {
             credit,
             grandTotal,
             grandTotalInCents,
-            billingEmail
+
+            billingGivenName, billingLastName,
+            billingCountry, billingRegion, billingLocality,
+            billingPostalCode, billingStreetAddress,
+            billingEmail, billingTelephone,
+
+            isShippingDifferentThenBilling, shippingGivenName,
+            shippingLastName, shippingCountry, shippingRegion,
+            shippingLocality, shippingStreetAddress,
+            shippingPostalCode,shippingEmail, shippingTelephone,
         } = this.props.onboarding;
         const { quantity, pricePerDevice, monthlyFee } = calculation;
 
@@ -93,10 +102,30 @@ class OnboardCheckoutContainer extends Component {
                     name="Mikaponics Onboarding"
                     description=""
                     onToken={(token) => this.onToken(token)}
-                    billingEmail={billingEmail}
                     amountInCents={grandTotalInCents}
                     currency={CURRENCY}
                     stripeKey={STRIPE_PUBLISHABLE}
+
+                    billingGivenName={billingGivenName}
+                    billingLastName={billingLastName}
+                    billingCountry={billingCountry}
+                    billingRegion={billingRegion}
+                    billingLocality={billingLocality}
+                    billingStreetAddress={billingStreetAddress}
+                    billingPostalCode={billingPostalCode}
+                    billingEmail={billingEmail}
+                    billingTelephone={billingTelephone}
+
+                    isShippingDifferentThenBilling={isShippingDifferentThenBilling}
+                    shippingGivenName={shippingGivenName}
+                    shippingLastName={shippingLastName}
+                    shippingCountry={shippingCountry}
+                    shippingRegion={shippingRegion}
+                    shippingLocality={shippingLocality}
+                    shippingStreetAddress={shippingStreetAddress}
+                    shippingPostalCode={shippingPostalCode}
+                    shippingEmail={shippingEmail}
+                    shippingTelephone={shippingTelephone}
                 />
             </div>
         );
