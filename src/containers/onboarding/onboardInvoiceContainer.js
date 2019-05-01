@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { pullOnboarding } from "../../actions/onboardingActions";
 import { clearFlashMessage } from "../../actions/flashMessageActions";
 import OnboardInvoiceComponent from "../../components/onboarding/onboardInvoiceComponent";
+import { NOT_INTERESTED_SUBSCRIPTION_STATUS } from "../../constants/api";
 
 
 class OnboardInvoiceContainer extends Component {
@@ -19,7 +20,11 @@ class OnboardInvoiceContainer extends Component {
 
     componentDidMount() {
         window.scrollTo(0, 0);  // Start the page at the top of the page.
-        this.props.pullOnboarding(this.props.user)  // Fetch latest data.
+        if (this.props.user !== undefined && this.props.user !== null) {
+            if (this.props.user.subscriptionStatus === NOT_INTERESTED_SUBSCRIPTION_STATUS) {
+                this.props.pullOnboarding(this.props.user)  // Fetch latest data.
+            }
+        }
     } // end FUNC.
 
     componentWillUnmount() {
