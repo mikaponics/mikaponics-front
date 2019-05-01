@@ -53,7 +53,7 @@ class OnboardInvoiceSendComponent extends Component {
                                 label="Email (*)"
                                 onChange={onChange}
                                 value={email}
-                                name="billingEmail"
+                                name="email"
                                 type="text"
                                 disabled={false}
                             />

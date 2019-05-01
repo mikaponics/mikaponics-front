@@ -15,7 +15,7 @@ class OnboardInvoiceSendContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: '',
+            email: this.props.onboarding.billingEmail,
             referrer: '',
             isLoading: false,
             errors: {}
@@ -26,9 +26,6 @@ class OnboardInvoiceSendContainer extends Component {
 
     componentDidMount() {
         window.scrollTo(0, 0);  // Start the page at the top of the page.
-        this.setState({
-            email: this.props.onboarding.billingEmail
-        })
     }
 
     componentWillUnmount() {
@@ -92,9 +89,9 @@ class OnboardInvoiceSendContainer extends Component {
         });
     }
 
-    onChange(option) {
+    onChange(e) {
         this.setState({
-            [option.selectName]: option.value
+            [e.target.name]: e.target.value,
         })
     }
 
@@ -112,7 +109,7 @@ class OnboardInvoiceSendContainer extends Component {
                 email={email}
                 errors={errors}
                 isLoading={isLoading}
-                onChange={this.props.onChange}
+                onChange={this.onChange}
                 onSendEmailClick={this.onSendEmailClick}
             />
         );
