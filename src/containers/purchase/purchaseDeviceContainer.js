@@ -12,28 +12,6 @@ class PurchaseDeviceContainer extends Component {
         super(props);
 
         this.state = {
-            quantity: this.props.purchaseDevice.quantity,
-
-            billingGivenName: this.props.purchaseDevice.billingGivenName,
-            billingLastName: this.props.purchaseDevice.billingLastName,
-            billingCountry: this.props.purchaseDevice.billingCountry,
-            billingRegion: this.props.purchaseDevice.billingRegion,
-            billingLocality: this.props.purchaseDevice.billingLocality,
-            billingPostalCode: this.props.purchaseDevice.billingPostalCode,
-            billingTelephone: this.props.purchaseDevice.billingTelephone,
-            billingEmail: this.props.purchaseDevice.billingEmail,
-            billingStreetAddress: this.props.purchaseDevice.billingStreetAddress,
-
-            shippingGivenName: this.props.purchaseDevice.shippingGivenName,
-            shippingLastName: this.props.purchaseDevice.shippingLastName,
-            shippingCountry: this.props.purchaseDevice.shippingCountry,
-            shippingRegion: this.props.purchaseDevice.shippingRegion,
-            shippingLocality: this.props.purchaseDevice.shippingLocality,
-            shippingPostalCode: this.props.purchaseDevice.shippingPostalCode,
-            shippingTelephone: this.props.purchaseDevice.shippingTelephone,
-            shippingEmail: this.props.purchaseDevice.shippingEmail,
-            shippingStreetAddress: this.props.purchaseDevice.shippingStreetAddress,
-
             referrer: '',
             errors: {}
         }
@@ -43,6 +21,7 @@ class PurchaseDeviceContainer extends Component {
         this.onCancelClick = this.onCancelClick.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
         this.onSelectChange = this.onSelectChange.bind(this);
+        this.onCheckboxChange = this.onCheckboxChange.bind(this);
         this.onBillingCountryChange = this.onBillingCountryChange.bind(this);
         this.onBillingRegionChange = this.onBillingRegionChange.bind(this);
         this.onShippingCountryChange = this.onShippingCountryChange.bind(this);
@@ -96,6 +75,44 @@ class PurchaseDeviceContainer extends Component {
         })
     }
 
+    /**
+     *  Function handles the "isShippingDifferentThenBilling" checkbox.
+     */
+    onCheckboxChange(e) {
+        const value =  e.target.checked;
+
+        // If the shipping address is different then the blling address then
+        // we need to cleare the shipping fields else we pre-populate them
+        // with the billing address.
+        if (value) { // Shipping IS different.
+            this.setState({
+                [e.target.name]: value,
+                shippingGivenName: this.props.user.shippingGivenName,
+                shippingLastName: this.props.user.shippingLastName,
+                shippingCountry: null,
+                shippingRegion: null,
+                shippingLocality: null,
+                shippingPostalCode: null,
+                shippingTelephone: null,
+                shippingEmail: this.props.user.shippingEmail,
+                shippingStreetAddress: null,
+            })
+        } else {  // Shipping is NOT different.
+            this.setState({
+                [e.target.name]: value,
+                shippingGivenName: this.state.billingGivenName,
+                shippingLastName: this.state.billingLastName,
+                shippingCountry: this.state.billingCountry,
+                shippingRegion: this.state.billingRegion,
+                shippingLocality: this.state.billingLocality,
+                shippingPostalCode: this.state.billingPostalCode,
+                shippingTelephone: this.state.billingTelephone,
+                shippingEmail: this.state.billingEmail,
+                shippingStreetAddress: this.state.billingStreetAddress,
+            })
+        }
+    }
+
     onBillingCountryChange(value) {
         if (value === null || value === undefined || value === '') {
             this.setState({ billingCountry: null, billingRegion: null })
@@ -123,6 +140,36 @@ class PurchaseDeviceContainer extends Component {
     componentDidMount() {
         this.props.pullPurchaseDevice(this.props.user)
         window.scrollTo(0, 0);  // Start the page at the top of the page.
+
+        // When the `react` page finishes loading up, take our `purchaseDevice` data
+        // and assign it the state data.
+        this.setState({
+            quantity: this.props.purchaseDevice.quantity,
+
+            billingGivenName: this.props.purchaseDevice.billingGivenName,
+            billingLastName: this.props.purchaseDevice.billingLastName,
+            billingCountry: this.props.purchaseDevice.billingCountry,
+            billingRegion: this.props.purchaseDevice.billingRegion,
+            billingLocality: this.props.purchaseDevice.billingLocality,
+            billingPostalCode: this.props.purchaseDevice.billingPostalCode,
+            billingTelephone: this.props.purchaseDevice.billingTelephone,
+            billingEmail: this.props.purchaseDevice.billingEmail,
+            billingStreetAddress: this.props.purchaseDevice.billingStreetAddress,
+
+            isShippingDifferentThenBilling: this.props.purchaseDevice.isShippingDifferentThenBilling,
+            shippingGivenName: this.props.purchaseDevice.shippingGivenName,
+            shippingLastName: this.props.purchaseDevice.shippingLastName,
+            shippingCountry: this.props.purchaseDevice.shippingCountry,
+            shippingRegion: this.props.purchaseDevice.shippingRegion,
+            shippingLocality: this.props.purchaseDevice.shippingLocality,
+            shippingPostalCode: this.props.purchaseDevice.shippingPostalCode,
+            shippingTelephone: this.props.purchaseDevice.shippingTelephone,
+            shippingEmail: this.props.purchaseDevice.shippingEmail,
+            shippingStreetAddress: this.props.purchaseDevice.shippingStreetAddress,
+
+            referrer: '',
+            errors: {}
+        });
     }
 
     componentWillUnmount() {
@@ -145,7 +192,7 @@ class PurchaseDeviceContainer extends Component {
             billingPostalCode, billingStreetAddress,
             billingEmail, billingTelephone,
 
-            shippingGivenName,
+            isShippingDifferentThenBilling, shippingGivenName,
             shippingLastName, shippingCountry, shippingRegion,
             shippingLocality, shippingStreetAddress,
             shippingPostalCode,shippingEmail, shippingTelephone,
@@ -197,6 +244,7 @@ class PurchaseDeviceContainer extends Component {
                 billingEmail={billingEmail}
                 billingTelephone={billingTelephone}
 
+                isShippingDifferentThenBilling={isShippingDifferentThenBilling}
                 shippingGivenName={shippingGivenName}
                 shippingLastName={shippingLastName}
                 shippingCountry={shippingCountry}
@@ -209,6 +257,7 @@ class PurchaseDeviceContainer extends Component {
 
                 onTextChange={this.onTextChange}
                 onSelectChange={this.onSelectChange}
+                onCheckboxChange={this.onCheckboxChange}
                 onBillingCountryChange={this.onBillingCountryChange}
                 onBillingRegionChange={this.onBillingRegionChange}
                 onShippingCountryChange={this.onShippingCountryChange}
