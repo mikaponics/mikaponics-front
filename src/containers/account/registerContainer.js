@@ -19,9 +19,11 @@ class RegisterContainer extends React.Component {
             lastName: '',
             timezone: '',
             referrer: '',
+            hasSignedTos: false,
         }
 
-        this.onChange = this.onChange.bind(this);
+        this.onTextChange = this.onTextChange.bind(this);
+        this.onCheckboxChange = this.onCheckboxChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
@@ -41,9 +43,15 @@ class RegisterContainer extends React.Component {
         this.props.clearRegister();
     }
 
-    onChange(e) {
+    onTextChange(e) {
         this.setState({
             [e.target.name]: e.target.value,
+        })
+    }
+
+    onCheckboxChange(e) {
+        this.setState({
+            [e.target.name]: e.target.checked,
         })
     }
 
@@ -67,7 +75,7 @@ class RegisterContainer extends React.Component {
     }
 
     render () {
-        const { email, password, passwordRepeat, firstName, lastName, timezone } = this.state;
+        const { email, password, passwordRepeat, firstName, lastName, timezone, hasSignedTos } = this.state;
         const { user } = this.props;
 
         const isLoading = user.isAPIRequestRunning ? true : false;
@@ -94,8 +102,10 @@ class RegisterContainer extends React.Component {
                 firstName={firstName}
                 lastName={lastName}
                 timezone={timezone}
+                hasSignedTos={hasSignedTos}
                 errors={errors}
-                onChange={this.onChange}
+                onTextChange={this.onTextChange}
+                onCheckboxChange={this.onCheckboxChange}
                 onSubmit={this.onSubmit}
                 isLoading={isLoading}
             />

@@ -6,13 +6,14 @@ import classnames from 'classnames';
 import { Link } from "react-router-dom";
 
 import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
+import { BootstrapCheckbox } from "../bootstrap/bootstrapCheckbox";
 import { BootstrapInput } from "../bootstrap/bootstrapInput";
 import timezones from "../../constants/timezones";
 
 
 class RegisterComponent extends React.Component {
     render() {
-        const { referrer, errors, email, password, passwordRepeat, firstName, lastName, timezone, onChange, onSubmit, isLoading } = this.props;
+        const { hasSignedTos, referrer, errors, email, password, passwordRepeat, firstName, lastName, timezone, onTextChange, onCheckboxChange, onSubmit, isLoading } = this.props;
 
         // If a `referrer` was set then that means we can redirect
         // to a different page in our application.
@@ -52,7 +53,7 @@ class RegisterComponent extends React.Component {
                                 borderColour="border-primary"
                                 error={errors.email}
                                 label="Email (*)"
-                                onChange={onChange}
+                                onChange={onTextChange}
                                 value={email}
                                 name="email"
                             />
@@ -62,7 +63,7 @@ class RegisterComponent extends React.Component {
                                 borderColour="border-primary"
                                 error={errors.password}
                                 label="Password (*)"
-                                onChange={onChange}
+                                onChange={onTextChange}
                                 value={password}
                                 name="password"
                                 type="password"
@@ -73,7 +74,7 @@ class RegisterComponent extends React.Component {
                                 borderColour="border-primary"
                                 error={errors.passwordRepeat}
                                 label="Password Repeat (*)"
-                                onChange={onChange}
+                                onChange={onTextChange}
                                 value={passwordRepeat}
                                 name="passwordRepeat"
                                 type="password"
@@ -84,7 +85,7 @@ class RegisterComponent extends React.Component {
                                 borderColour="border-primary"
                                 error={errors.firstName}
                                 label="First Name (*)"
-                                onChange={onChange}
+                                onChange={onTextChange}
                                 value={firstName}
                                 name="firstName"
                                 type="text"
@@ -95,10 +96,20 @@ class RegisterComponent extends React.Component {
                                 borderColour="border-primary"
                                 error={errors.lastName}
                                 label="Last Name (*)"
-                                onChange={onChange}
+                                onChange={onTextChange}
                                 value={lastName}
                                 name="lastName"
                                 type="text"
+                            />
+
+                            <BootstrapCheckbox
+                                inputClassName="form-check-input form-check-input-lg"
+                                borderColour="border-primary"
+                                error={errors.hasSignedTos}
+                                label="I agree to the terms of service (*)"
+                                onChange={onCheckboxChange}
+                                checked={hasSignedTos}
+                                name="hasSignedTos"
                             />
 
                             <div className={classnames("form-group", { 'has-error': errors.timezone } )}>
@@ -106,7 +117,7 @@ class RegisterComponent extends React.Component {
                                 <select
                                     className={classnames('form-control', { 'is-invalid': errors.timezone }, { 'border-primary': !errors.timezone } )}
                                     name="timezone"
-                                    onChange={onChange}
+                                    onChange={onTextChange}
                                     value={timezone}
                                 >
                                     <option value="" disabled>Choose your timezone</option>
@@ -134,7 +145,7 @@ RegisterComponent.propTypes = {
     email: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
     // error: PropTypes.string,
-    // onChange: PropTypes.func.isRequired,
+    // onTextChange: PropTypes.func.isRequired,
     // onSubmit: PropTypes.func.isRequired,
 }
 
