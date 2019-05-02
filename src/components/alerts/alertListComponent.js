@@ -85,13 +85,15 @@ class AlertListComponent extends Component {
         let elements;
         if (instrumentAlertList !== undefined && instrumentAlertList !== null) {
             const { results } = instrumentAlertList;
-            if (results.length === 0) {
-                elements = <NoAlertsJumbotron />;
-            } else {
-                elements = (
-                    <InstrumentAlertTable dataList={instrumentAlertList} />
-                );
-            }
+            if (results !== undefined && results !== null) {
+                if (results.length === 0) {
+                    elements = <NoAlertsJumbotron />;
+                } else {
+                    elements = (
+                        <InstrumentAlertTable dataList={instrumentAlertList} />
+                    );
+                }
+            }            
         }
 
         return (
