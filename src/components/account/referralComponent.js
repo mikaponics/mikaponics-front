@@ -24,21 +24,10 @@ class ReferralComponent extends Component {
                     <h1 className="display-4">
                         <i className="fas fa-heart"></i>&nbsp;Referrals
                     </h1>
-                    <p className="lead">Everyone you refer gets $5 in credit on their next device purchase. You'll get $10 in credit towards your next device purchase. There is no limit to the amount of credit you can earn through referrals.</p>
+                    <p className="lead">Everyone you refer gets <strong>$5 in credit</strong> on their next device purchase. You'll get <strong>$10 in credit</strong> towards your next device purchase. There is no limit to the amount of credit you can earn through referrals.</p>
                     <hr className="my-4" />
                     <p>Copy your personal referral link and share it with your friends and followers.</p>
                     <p className="lead">
-
-{ /*
-                        <div className="form-row">
-                            <div className="form-group col-md-12 mb-4">
-                                <label htmlFor="firstname">First name</label>
-                                <input type="text" className="form-control form-control-lg border border-primary" id="firstname"
-                                    name="firstname" placeholder="First name" minLength="3" required />
-                            </div>
-                        </div>
-
-*/ }
 
                         <BootstrapInputGroup
                             layoutSize="large"
