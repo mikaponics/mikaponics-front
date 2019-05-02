@@ -11,6 +11,8 @@ class RegisterContainer extends React.Component {
     constructor(props) {
         super(props);
 
+        const referralCode = this.props.match.params['referral']
+
         this.state = {
             email: '',
             password: '',
@@ -20,6 +22,7 @@ class RegisterContainer extends React.Component {
             timezone: '',
             referrer: '',
             hasSignedTos: false,
+            referralCode: referralCode,
         }
 
         this.onTextChange = this.onTextChange.bind(this);
@@ -75,7 +78,7 @@ class RegisterContainer extends React.Component {
     }
 
     render () {
-        const { email, password, passwordRepeat, firstName, lastName, timezone, hasSignedTos } = this.state;
+        const { email, password, passwordRepeat, firstName, lastName, timezone, hasSignedTos, referralCode } = this.state;
         const { user } = this.props;
 
         const isLoading = user.isAPIRequestRunning ? true : false;
@@ -103,6 +106,7 @@ class RegisterContainer extends React.Component {
                 lastName={lastName}
                 timezone={timezone}
                 hasSignedTos={hasSignedTos}
+                referralCode={referralCode}
                 errors={errors}
                 onTextChange={this.onTextChange}
                 onCheckboxChange={this.onCheckboxChange}

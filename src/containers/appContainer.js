@@ -17,6 +17,7 @@ import SendResetPasswordContainer from "./account/sendResetPasswordContainer";
 import SendResetPasswordSuccessContainer from "./account/sendResetPasswordSuccessContainer";
 import ResetPasswordContainer from "./account/resetPasswordContainer";
 import ResetPasswordSuccessContainer from "./account/resetPasswordSuccessContainer";
+import ReferralContainer from "./account/referralContainer";
 import DashboardContainer from "./dashboard/dashboardContainer";
 import OnboardWelcomeContainer from "./onboarding/onboardWelcomeContainer";
 import OnboardPurchaseContainer from "./onboarding/onboardPurchaseContainer";
@@ -71,6 +72,7 @@ class AppContainer extends React.Component {
                             <Route path="/login" exact component={LoginContainer} />
                             <Route path="/logout" exact component={LogoutContainer} />
                             <Route path="/register" exact component={RegisterContainer} />
+                            <Route path="/register/:referral" exact component={RegisterContainer} />
                             <Route path="/register-success" exact component={RegisterSuccessContainer} />
                             <Route path="/activate/:code" exact component={ActivateContainer} />
                             <Route path="/send-password-reset" exact component={SendResetPasswordContainer} />
@@ -103,6 +105,7 @@ class AppContainer extends React.Component {
                             <Route path="/invoice-send-email/:slug" exact component={requiresAuth(InvoiceSendContainer)} />
                             <Route path="/profile" exact component={requiresAuth(ProfileContainer)} />
                             <Route path="/profile/edit" exact component={requiresAuth(ProfileEditContainer)} />
+                            <Route path="/referrals" exact component={requiresAuth(ReferralContainer)} />
                             <Route path="/privacy" exact component={PrivacyContainer} />
                             <Route path="/terms" exact component={TermsContainer} />
                             <Route path="/purchase" exact component={PurchaseDeviceContainer} />

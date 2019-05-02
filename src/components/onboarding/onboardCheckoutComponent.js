@@ -179,7 +179,7 @@ class OnboardCheckoutComponent extends React.Component {
                                     <td>{shipping} </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row" className="bg-light">Discount:</th>
+                                    <th scope="row" className="bg-light">Credit:</th>
                                     <td>{credit}</td>
                                 </tr>
                                 <tr>

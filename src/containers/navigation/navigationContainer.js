@@ -56,7 +56,7 @@ const authenticatedFullMenuData = [
                 id: "full-referral",
                 icon: "heart",
                 title: "Referrals",
-                url: "/referral"
+                url: "/referrals"
             }
         ]
     },
