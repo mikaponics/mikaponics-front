@@ -37,16 +37,32 @@ const authenticatedFullMenuData = [
         title: "Alerts",
         url: "/alerts"
     },{
-        id: "full-invoices",
-        icon: "book",
-        title: "Invoices",
-        url: "/invoices"
-    },{
-        id: "full-profile",
-        icon: "user-circle",
-        title: "Profile",
-        url: "/profile"
-    },{
+        id: "full-account",
+        title: "Account",
+        icon: "id-card",
+        url: "",
+        children:[
+            {
+                id: "full-profile",
+                icon: "user-circle",
+                title: "Profile",
+                url: "/profile"
+            },{
+                id: "full-invoices",
+                icon: "book",
+                title: "Invoices",
+                url: "/invoices"
+            },{
+                id: "full-referral",
+                icon: "heart",
+                title: "Referrals",
+                url: "/referral"
+            }
+        ]
+    },
+
+
+    {
         id: "full-logout",
         icon: "sign-out-alt",
         title: "Logout",
