@@ -11,7 +11,7 @@ class ProductionCard extends Component {
             <div className="col-sm-4">
                 <div className="card box-shadow text-center mx-auto">
                     <div className="card-custom-top-2">
-                        <i className="fas fa-industry fa-3x"></i>
+                        <i className="fas fa-leaf fa-3x"></i>
                     </div>
                     <div className="card-body">
                         <h3 className="card-title">{productionObj.prettyTypeOf}</h3>
@@ -81,10 +81,10 @@ class ProductionListComponent extends Component {
                            <Link to="/dashboard"><i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard</Link>
                         </li>
                         <li className="breadcrumb-item active" aria-current="page">
-                            <i className="fas fa-leaf"></i>&nbsp;Crop Production</li>
+                            <i className="fas fa-industry"></i>&nbsp;Crop Production</li>
                     </ol>
                 </nav>
-                <h1><i className="fas fa-leaf"></i>&nbsp;Crop Production</h1>
+                <h1><i className="fas fa-industry"></i>&nbsp;Crop Production</h1>
                 <div className="card-group row">
                     {elements}
                 </div>

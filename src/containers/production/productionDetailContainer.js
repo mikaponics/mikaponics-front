@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import ProductionListComponent from "../../components/production/productionListComponent";
+import ProductionDetailComponent from "../../components/production/productionDetailComponent";
 import { pullProductionDetail } from "../../actions/productionActions";
 
 
@@ -53,8 +53,8 @@ class ProductionListContainer extends Component {
 
     render() {
         return (
-            <ProductionListComponent
-                productionList={this.props.productionList}
+            <ProductionDetailComponent
+                productionDetail={this.props.productionDetail}
             />
         );
     }
@@ -63,7 +63,7 @@ class ProductionListContainer extends Component {
 const mapStateToProps = function(store) {
     return {
         user: store.userState,
-        productionList: store.productionListState,
+        productionDetail: store.productionDetailState,
     };
 }
 
