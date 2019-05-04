@@ -29,6 +29,8 @@ import instrumentAnalysisDetailReducer from "./reducers/instrumentAnalysisDetail
 import flashMessageReducer from "./reducers/flashMessageReducer";
 import invoiceListReducer from "./reducers/invoiceListReducer";
 import invoiceDetailReducer from "./reducers/invoiceDetailReducer";
+import productionListReducer from "./reducers/productionListReducer";
+import productionDetailReducer from "./reducers/productionDetailReducer";
 
 
 // Combine Reducers
@@ -49,6 +51,8 @@ const appReducer = combineReducers({
     flashMessageState: flashMessageReducer,
     invoiceListState: invoiceListReducer,
     invoiceDetailState: invoiceDetailReducer,
+    productionListState: productionListReducer,
+    productionDetailState: productionDetailReducer,
 });
 
 

@@ -9,6 +9,22 @@ class DashboardComponent extends Component {
             <div className="Dashboard">
                 <h1><i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard</h1>
                 <div className="card-group row">
+
+                    <div className="col-sm-4">
+                        <div className="card box-shadow text-center mx-auto">
+                            <div className="card-custom-top-2">
+                                <i className="fas fa-leaf fa-3x"></i>
+                            </div>
+                            <div className="card-body">
+                                <h3 className="card-title">View Crop Production</h3>
+                                <p className="card-text">List all the growing crops that being monitored.</p>
+                                <Link to="/productions" className="btn btn-success btn-lg">
+                                    View&nbsp;<i className="fas fa-arrow-circle-right"></i>
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+
                     <div className="col-sm-4">
                         <div className="card box-shadow text-center mx-auto">
                             <div className="card-custom-top-2">
