@@ -50,6 +50,8 @@ import PurchaseDeviceSubmissionContainer from "./purchase/purchaseDeviceSubmissi
 import PurchaseDeviceSuccessContainer from  "./purchase/purchaseDeviceSuccessContainer";
 import ProductionListContainer from  "./production/productionListContainer";
 import ProductionDetailContainer from  "./production/productionDetailContainer";
+import ProductionCreateContainer from  "./production/productionCreateContainer";
+
 
 
 
@@ -116,6 +118,7 @@ class AppContainer extends React.Component {
                             <Route path="/purchase/success" exact component={PurchaseDeviceSuccessContainer} />
                             <Route path="/productions" exact component={ProductionListContainer} />
                             <Route path="/production/:slug" exact component={ProductionDetailContainer} />
+                            <Route path="/add-production" exact component={ProductionCreateContainer} />
                             <Route component={NotFound404Container} />
                         </Switch>
                     </main>

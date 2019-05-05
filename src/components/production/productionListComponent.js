@@ -84,7 +84,12 @@ class ProductionListComponent extends Component {
                             <i className="fas fa-industry"></i>&nbsp;Crop Production</li>
                     </ol>
                 </nav>
-                <h1><i className="fas fa-industry"></i>&nbsp;Crop Production</h1>
+                <h1>
+                    <i className="fas fa-industry"></i>&nbsp;Crop Production
+                    <Link to="/add-production" className="btn btn-success btn-lg float-right">
+                        <i className="fas fa-plus"></i>&nbsp;Add
+                    </Link>
+                </h1>
                 <div className="card-group row">
                     {elements}
                 </div>
