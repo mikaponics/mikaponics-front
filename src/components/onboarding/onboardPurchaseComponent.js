@@ -55,7 +55,7 @@ class OnboardPurchaseComponent extends React.Component {
                 <h3 className="pt-4 pb-2 text-center">Purchase Form</h3>
                 <div className="row">
                     <div className="col-md-5 mx-auto mt-2">
-                        <form className="needs-validation" noValidate>
+                        <form className="needs-validation">
 
                             <p>All fields which have the (*) symbol are required to be filled out.</p>
 
@@ -288,10 +288,10 @@ class OnboardPurchaseComponent extends React.Component {
                             </div>}
 
                             <div className="form-group">
-                                <button type="text" className="btn btn-lg float-left pl-4 pr-4 btn-secondary" disabled={isLoading} onClick={onCancelClick}>
+                                <button type="button" className="btn btn-lg float-left pl-4 pr-4 btn-secondary" onClick={onCancelClick}>
                                     <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
                                 </button>
-                                <button type="text" className="btn btn-lg float-right pl-4 pr-4 btn-primary" disabled={isLoading} onClick={onNextClick}>
+                                <button type="button" className="btn btn-lg float-right pl-4 pr-4 btn-primary" onClick={onNextClick}>
                                     Next&nbsp;<i className="fas fa-arrow-circle-right"></i>
                                 </button>
                             </div>

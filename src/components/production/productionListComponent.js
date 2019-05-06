@@ -60,7 +60,7 @@ class NoProductionJumbotron extends Component {
                         <hr className="my-4" />
                         <p>If you would like to have a crop production running, start by clicking below.</p>
                         <p className="lead">
-                            <Link className="btn btn-success btn-lg" to="/add-production">
+                            <Link className="btn btn-success btn-lg" to="/add-production-step-1">
                                 <i className="fas fa-plus"></i>&nbsp;Add Production
                             </Link>
                         </p>
@@ -101,7 +101,7 @@ class ProductionListComponent extends Component {
                 </nav>
                 <h1>
                     <i className="fas fa-industry"></i>&nbsp;Crop Production
-                    <Link to="/add-production" className="btn btn-success btn-lg float-right">
+                    <Link to="/add-production-step-1" className="btn btn-success btn-lg float-right">
                         <i className="fas fa-plus"></i>&nbsp;Add
                     </Link>
                 </h1>
