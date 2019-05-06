@@ -31,6 +31,7 @@ npm install --save react-country-region-selector
 npm install --save pace-js pace
 npm install --save react-to-print
 npm install --save react-scroll-up-button
+npm install --save react-modal
 ```
 
 Upgrade doing the following:

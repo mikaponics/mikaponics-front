@@ -26,22 +26,46 @@ class ProductionCard extends Component {
     }
 }
 
+class ProductionCards extends Component {
+    render() {
+        const { productionList } = this.props;
+        let elements = [];
+
+        for (let i = 0; i < productionList.results.length; i++) {
+            let productionItem = productionList.results[i];
+            elements.push(
+                <ProductionCard productionObj={productionItem} key={productionItem.slug} />
+            )
+        }
+
+        return (
+            <div className="card-group row">
+                {elements}
+            </div>
+        );
+    }
+}
+
 
 class NoProductionJumbotron extends Component {
     render() {
         return (
-            <div className="jumbotron">
-                <h1 className="display-4">
-                    <i className="fas fa-bullhorn"></i>&nbsp;Attention
-                </h1>
-                <p className="lead">You currently do not have any alerts at the moment, please check in later to see if any alerts get generated as your instruments run.</p>
-                <hr className="my-4" />
-                <p>If you would like to have more alerts, please configure an instrument settings in one of your device. Start by clicking below.</p>
-                <p className="lead">
-                    <Link className="btn btn-primary btn-lg" to="/devices">
-                        View Devices&nbsp;<i className="fas fa-arrow-circle-right"></i>
-                    </Link>
-                </p>
+            <div className="row">
+                <div className="col-md-12">
+                    <div className="jumbotron">
+                        <h1 className="display-4">
+                            <i className="fas fa-bullhorn"></i>&nbsp;Attention
+                        </h1>
+                        <p className="lead">You currently do not have any crop productions running.</p>
+                        <hr className="my-4" />
+                        <p>If you would like to have a crop production running, start by clicking below.</p>
+                        <p className="lead">
+                            <Link className="btn btn-success btn-lg" to="/add-production">
+                                <i className="fas fa-plus"></i>&nbsp;Add Production
+                            </Link>
+                        </p>
+                    </div>
+                </div>
             </div>
         );
     }
@@ -59,16 +83,7 @@ class ProductionListComponent extends Component {
                 if (results.length === 0) {
                     elements = <NoProductionJumbotron />;
                 } else {
-
-
-                    for (let i = 0; i < productionList.results.length; i++) {
-                        let productionItem = productionList.results[i];
-                        elements.push(
-                            <ProductionCard productionObj={productionItem} key={productionItem.slug} />
-                        )
-                    }
-
-
+                    elements = <ProductionCards productionList={productionList} />;
                 }
             }
         }
@@ -90,9 +105,7 @@ class ProductionListComponent extends Component {
                         <i className="fas fa-plus"></i>&nbsp;Add
                     </Link>
                 </h1>
-                <div className="card-group row">
-                    {elements}
-                </div>
+                {elements}
             </div>
         );
     }

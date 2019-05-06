@@ -30,6 +30,7 @@ export const MIKAPONICS_INSTRUMENT_ANALYSIS_RETRIEVE_UPDATE_DELETE_API_URL = pro
 export const MIKAPONICS_INVOICE_SEND_EMAIL_API_URL = process.env.REACT_APP_API_HOST+'/api/invoice-send-email/';
 export const MIKAPONICS_PRODUCTION_LIST_CREATE_API_URL = process.env.REACT_APP_API_HOST+'/api/productions';
 export const MIKAPONICS_PRODUCTION_RETRIEVE_UPDATE_API_URL = process.env.REACT_APP_API_HOST+'/api/production/';
+export const MIKAPONICS_CROP_LIST_API_URL = process.env.REACT_APP_API_HOST+'/api/crops';
 
 
 /**
