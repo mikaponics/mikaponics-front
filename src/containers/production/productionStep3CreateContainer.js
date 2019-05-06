@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import ProductionCreateComponent from "../../components/production/productionCreateComponent";
+import ProductionStep3CreateComponent from "../../components/production/productionStep3CreateComponent";
 import { pullCropList } from "../../actions/cropListActions";
 import { pullDeviceList } from "../../actions/deviceListActions";
 
@@ -238,7 +238,7 @@ class ProductionStep3CreateContainer extends Component {
     render() {
         const { name, description, device, crop, cropOther, cropQuantity, cropsTableData, errors, showModal } = this.state;
         return (
-            <ProductionCreateComponent
+            <ProductionStep3CreateComponent
                 name={name}
                 description={description}
                 deviceOptions={this.getDeviceOptions()}

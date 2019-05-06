@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import Moment from 'react-moment';
-import 'moment-timezone';
-import ReactModal from 'react-modal';
 
 import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
 import { BootstrapInput } from '../bootstrap/bootstrapInput';
@@ -15,16 +12,6 @@ class ProductionStep1CreateComponent extends Component {
         const {
             name, description, deviceOptions, device, onTextChange, onSelectChange, errors, onCancelClick, onNextClick
         } = this.props;
-
-        // Apply our styling for our modal component.
-        const customStyles = {
-            content : {
-                marginRight           : '0%',
-                marginLeft            : '0%',
-                marginTop             : '65px',
-                marginBottom          : '0%',
-            }
-        };
 
         return (
             <div>

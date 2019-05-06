@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
-import ProductionCreateComponent from "../../components/production/productionCreateComponent";
+import ProductionStep2CreateComponent from "../../components/production/productionStep2CreateComponent";
 import { pullCropList } from "../../actions/cropListActions";
 import { pullDeviceList } from "../../actions/deviceListActions";
 
@@ -63,6 +64,8 @@ class ProductionStep2CreateContainer extends Component {
         this.onSaveModalClick = this.onSaveModalClick.bind(this);
         this.onCloseModalClick = this.onCloseModalClick.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.onBackClick = this.onBackClick.bind(this);
+        this.onNextClick = this.onNextClick.bind(this);
     }
 
     /**
@@ -230,15 +233,32 @@ class ProductionStep2CreateContainer extends Component {
         alert("SUBMITTING...");
     }
 
+    onBackClick(e) {
+        this.setState({
+            referrer: '/add-production-step-1'
+        })
+    }
+
+    onNextClick(e) {
+        this.setState({
+            referrer: '/add-production-step-3'
+        })
+    }
+
     /**
      *  Main render function - entry
      *------------------------------------------------------------
      */
 
     render() {
-        const { name, description, device, crop, cropOther, cropQuantity, cropsTableData, errors, showModal } = this.state;
+        const {
+            name, description, device, crop, cropOther, cropQuantity, cropsTableData, errors, showModal, referrer
+        } = this.state;
+        if (referrer) {
+            return <Redirect to={referrer} />
+        }
         return (
-            <ProductionCreateComponent
+            <ProductionStep2CreateComponent
                 name={name}
                 description={description}
                 deviceOptions={this.getDeviceOptions()}
@@ -258,6 +278,8 @@ class ProductionStep2CreateContainer extends Component {
                 onSubmit={this.onSubmit}
                 errors={errors}
                 showModal={showModal}
+                onBackClick={this.onBackClick}
+                onNextClick={this.onNextClick}
             />
         );
     }

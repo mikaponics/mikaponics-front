@@ -50,7 +50,6 @@ import PurchaseDeviceSubmissionContainer from "./purchase/purchaseDeviceSubmissi
 import PurchaseDeviceSuccessContainer from  "./purchase/purchaseDeviceSuccessContainer";
 import ProductionListContainer from  "./production/productionListContainer";
 import ProductionDetailContainer from  "./production/productionDetailContainer";
-import ProductionCreateContainer from  "./production/productionCreateContainer";
 import ProductionStep1CreateContainer from  "./production/productionStep1CreateContainer";
 import ProductionStep2CreateContainer from  "./production/productionStep2CreateContainer";
 import ProductionStep3CreateContainer from  "./production/productionStep3CreateContainer";
