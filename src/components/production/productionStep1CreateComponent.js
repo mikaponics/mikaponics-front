@@ -72,12 +72,13 @@ class ProductionStep1CreateComponent extends Component {
                                 type="text"
                                 placeholder="Please write a title for your production. Ex: My Aquaponic Setup."
                             />
+
                             <BootstrapTextarea
                                 name="description"
                                 borderColour="border-primary"
                                 label="Description"
                                 placeholder="Please write a short description of your production."
-                                rows="5"
+                                rows={5}
                                 value={description}
                                 helpText="This is the description of the production."
                                 onChange={onTextChange}
@@ -97,7 +98,6 @@ class ProductionStep1CreateComponent extends Component {
                             />
 
                             <br />
-
 
                             <div className="form-group">
                                 <button type="text" className="btn btn-lg float-left pl-4 pr-4 btn-secondary" onClick={onCancelClick}>

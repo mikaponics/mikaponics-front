@@ -4,22 +4,20 @@ import classnames from 'classnames';
 import shortid from "shortid";
 
 
-export const BootstrapTextarea = ({ name, label, placeholder, rows, value, helpText, onChange, error,  borderColour = '' }) => {
+export const BootstrapTextarea = ({ name, label, placeholder, rows=1, value, helpText, onChange, error,  borderColour = '' }) => {
     const id = shortid.generate();
     const helpID = id + "-help";
     return (
         <div className={classnames('form-group', { 'has-error': error })}>
             <label htmlFor={name} className="control-label">{label}</label>
             <textarea
-                className={classnames('form-control', { 'is-invalid': error }, { 'border-success': !error && borderColour === 'border-success' }, { 'border-primary': !error && borderColour === 'border-primary' } )}
-                key={id}
-                name={name}
-                type="textarea"
                 aria-describedby={helpID}
                 placeholder={placeholder}
-                rows={rows}
+                className={classnames('form-control', { 'is-invalid': error }, { 'border-success': !error && borderColour === 'border-success' }, { 'border-primary': !error && borderColour === 'border-primary' } )}
+                name={name}
                 value={value}
                 onChange={onChange}
+                rows={rows}
             />
             <small id={helpID} className="form-text text-muted">{helpText}</small>
             {error && <div className="invalid-feedback">{error}</div>}

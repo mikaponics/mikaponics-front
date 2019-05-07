@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import Scroll from 'react-scroll';
 
+import { validateStep1Input } from '../../validations/productionCreateValidator';
 import ProductionStep1CreateComponent from "../../components/production/productionStep1CreateComponent";
 import { pullDeviceList } from "../../actions/deviceListActions";
 
@@ -25,9 +27,9 @@ class ProductionStep1CreateContainer extends Component {
 
             referrer: '',
             showModal: false,
-            name: null,
-            description: null,
-            device: null,
+            name: localStorage.getItem('temp-name'),
+            description: localStorage.getItem('temp-description'),
+            device: localStorage.getItem('temp-device'),
 
             /**
             --- PRODUCTION ---
@@ -101,12 +103,14 @@ class ProductionStep1CreateContainer extends Component {
         this.setState({
             [e.target.name]: e.target.value,
         })
+        localStorage.setItem('temp-'+[e.target.name], e.target.value);
     }
 
     onSelectChange(option) {
         this.setState({
             [option.selectName]: option.value
         })
+        localStorage.setItem('temp-'+[option.selectName], option.value);
     }
 
     onCancelClick(e) {
@@ -116,9 +120,24 @@ class ProductionStep1CreateContainer extends Component {
     }
 
     onNextClick(e) {
-        this.setState({
-            referrer: '/add-production-step-2'
-        })
+        e.preventDefault();
+
+        const { errors, isValid } = validateStep1Input(this.state);
+        if (isValid) {
+            this.setState({
+                referrer: '/add-production-step-2'
+            })
+        } else {
+            this.setState({
+                errors: errors
+            })
+
+            // The following code will cause the screen to scroll to the top of
+            // the page. Please see ``react-scroll`` for more information:
+            // https://github.com/fisshy/react-scroll
+            var scroll = Scroll.animateScroll;
+            scroll.scrollToTop();
+        }
     }
 
     /**
