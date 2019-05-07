@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import ProductionStep3CreateComponent from "../../components/production/productionStep3CreateComponent";
 import { pullCropList } from "../../actions/cropListActions";
@@ -63,6 +64,8 @@ class ProductionStep3CreateContainer extends Component {
         this.onSaveModalClick = this.onSaveModalClick.bind(this);
         this.onCloseModalClick = this.onCloseModalClick.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.onBackClick = this.onBackClick.bind(this);
+        this.onNextClick = this.onNextClick.bind(this);
     }
 
     /**
@@ -230,13 +233,31 @@ class ProductionStep3CreateContainer extends Component {
         alert("SUBMITTING...");
     }
 
+    onBackClick(e) {
+        this.setState({
+            referrer: '/add-production-step-2'
+        })
+    }
+
+    onNextClick(e) {
+        this.setState({
+            referrer: '/add-production-step-4'
+        })
+    }
+
     /**
      *  Main render function - entry
      *------------------------------------------------------------
      */
 
     render() {
-        const { name, description, device, crop, cropOther, cropQuantity, cropsTableData, errors, showModal } = this.state;
+        const {
+            referrer, name, description, device, crop, cropOther, cropQuantity,
+            cropsTableData, errors, showModal, onBackClick, onNextClick
+        } = this.state;
+        if (referrer) {
+            return <Redirect to={referrer} />
+        }
         return (
             <ProductionStep3CreateComponent
                 name={name}
@@ -258,6 +279,8 @@ class ProductionStep3CreateContainer extends Component {
                 onSubmit={this.onSubmit}
                 errors={errors}
                 showModal={showModal}
+                onNextClick={this.onNextClick}
+                onBackClick={this.onBackClick}
             />
         );
     }

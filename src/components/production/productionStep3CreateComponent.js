@@ -14,7 +14,8 @@ class ProductionStep3CreateComponent extends Component {
     render() {
         const {
             name, description, deviceOptions, device, cropOptions, crop, cropQuantity, cropsTableData,
-            onTextChange, onSelectChange, onCropSelectChange, onAddButtonClick, onRemoveButtonClick, onSaveModalClick, onCloseModalClick, onSubmit, errors, showModal
+            onTextChange, onSelectChange, onCropSelectChange, onAddButtonClick, onRemoveButtonClick, onSaveModalClick, onCloseModalClick, onSubmit, errors, showModal,
+            onBackClick, onNextClick
         } = this.props;
 
         // Apply our styling for our modal component.
@@ -43,6 +44,30 @@ class ProductionStep3CreateComponent extends Component {
                     </ol>
                 </nav>
                 <h1><i className="fas fa-plus"></i>&nbsp;Add</h1>
+
+                <div className="row">
+                    <div className="step-navigation">
+                        <div id="step-1" className="st-grey">
+                            <Link to="/add-production-step-1">
+                                <span className="num">1.</span><span className="">General Information</span>
+                            </Link>
+                        </div>
+                        <div id="step-2" className="st-grey">
+                            <Link to="/add-production-step-2">
+                                <span className="num">2.</span><span className="">Plants</span>
+                            </Link>
+                        </div>
+                        <div id="step-3" className="st-grey active">
+                            <span className="num">3.</span><span className="">Fish</span>
+                        </div>
+                        <div id="step-4" className="st-grey">
+                            <span className="num">4.</span><span className="">Review</span>
+                        </div>
+                        <div id="step-5" className="st-grey">
+                            <span className="num">5.</span><span className="">Confirmation</span>
+                        </div>
+                    </div>
+                </div>
 
                 <h3 className="pt-4 pb-2 text-center">Purchase Form</h3>
                 <div className="row">
@@ -154,6 +179,16 @@ class ProductionStep3CreateComponent extends Component {
                                    </div>
                                </div>
                             </ReactModal>
+
+
+                            <div className="form-group">
+                                <button type="text" className="btn btn-lg float-left pl-4 pr-4 btn-secondary" onClick={onBackClick}>
+                                    <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
+                                </button>
+                                <button type="text" className="btn btn-lg float-right pl-4 pr-4 btn-primary" onClick={onNextClick}>
+                                    Next&nbsp;<i className="fas fa-arrow-circle-right"></i>
+                                </button>
+                            </div>
 
 
 
