@@ -50,3 +50,11 @@ export const UNPAID_SUBSCRIPTION_STATUS = 'unpaid';
 export const NEVER_REPORT_EMAIL_FREQUENCY = 1
 export const WEEKLY_REPORT_EMAIL_FREQUENCY = 2
 export const MONTHLY_REPORT_EMAIL_FREQUENCY = 3
+
+
+/**
+ *  The type of crop choices we have for the 'type_of' field in the crop API.
+ */
+export const CROP_PLANT_TYPE = 1
+export const CROP_FISHSTOCK_TYPE = 2
+export const CROP_ANIMALSTOCK_TYPE = 3

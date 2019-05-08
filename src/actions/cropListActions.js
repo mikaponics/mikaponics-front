@@ -32,7 +32,7 @@ export const setCropListSuccess = (info) => ({
  *  Function will pull the ``crop`` API endpoint and override our
  *  global application state for the 'dashboard'.
  */
-export function pullCropList(user, page=1) {
+export function pullCropList(user, page=1, typeOf=null) {
     return dispatch => {
         // Change the global state to attempting to fetch latest user details.
         store.dispatch(
@@ -47,6 +47,12 @@ export function pullCropList(user, page=1) {
 
         // Generate the URL.
         let aURL = MIKAPONICS_CROP_LIST_API_URL+"?page="+page;
+
+        // Append our URL parameter if we have a `type_of` variable to filter
+        // by.
+        if (typeOf !== null && typeOf !== undefined) {
+            aURL = aURL +"&type_of="+typeOf;
+        }
 
         // Make the API call.
         axios.get(
