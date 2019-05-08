@@ -165,6 +165,7 @@ class ProductionStep2CreateContainer extends Component {
             a.push({
                 slug: this.state.cropOption.value,
                 name: this.state.cropOption.label,
+                name_other: this.state.cropOther,
                 quantity: this.state.quantity,
             });
 

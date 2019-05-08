@@ -33,14 +33,10 @@ class ProductionStep5CreateComponent extends Component {
                 <div className="row">
                     <div className="step-navigation">
                         <div id="step-1" className="st-grey">
-                            <Link to="/add-production-step-1">
-                                <span className="num">1.</span><span className="">General Information</span>
-                            </Link>
+                            <span className="num">1.</span><span className="">General Information</span>
                         </div>
                         <div id="step-2" className="st-grey">
-                            <Link to="/add-production-step-2">
-                                <span className="num">2.</span><span className="">Plants</span>
-                            </Link>
+                            <span className="num">2.</span><span className="">Plants</span>
                         </div>
                         <div id="step-3" className="st-grey">
                             <span className="num">3.</span><span className="">Fish</span>
@@ -54,66 +50,21 @@ class ProductionStep5CreateComponent extends Component {
                     </div>
                 </div>
 
-                <h3 className="pt-4 pb-2 text-center">General Information Form</h3>
                 <div className="row">
-                    <div className="col-md-5 mx-auto mt-2">
-                        <form className="needs-validation" noValidate>
-
-                            <p>All fields which have the (*) symbol are required to be filled out.</p>
-
-                            <BootstrapErrorsProcessingAlert errors={errors} />
-
-                            <p className="border-bottom mb-3 pb-1 text-secondary">General Information</p>
-
-                            <BootstrapInput
-                                inputClassName="form-control"
-                                borderColour="border-primary"
-                                error={errors.name}
-                                label="Name (*)"
-                                onChange={onTextChange}
-                                value={name}
-                                name="name"
-                                type="text"
-                                placeholder="Please write a title for your production. Ex: My Aquaponic Setup."
-                            />
-                            <BootstrapTextarea
-                                name="description"
-                                borderColour="border-primary"
-                                label="Description"
-                                placeholder="Please write a short description of your production."
-                                rows="5"
-                                value={description}
-                                helpText="This is the description of the production."
-                                onChange={onTextChange}
-                                error={errors.description}
-                            />
-
-                            <p className="border-bottom mb-3 pb-1 text-secondary">Telemetry</p>
-
-                            <BootstrapSingleSelect
-                                label="Device (*)"
-                                name="device"
-                                defaultOptionLabel="Please select the monitoring hardware for your production."
-                                options={deviceOptions}
-                                value={device}
-                                error={errors.device}
-                                onSelectChange={onSelectChange}
-                            />
-
-                            <br />
-
-
-                            <div className="form-group">
-                                <button type="text" className="btn btn-lg float-left pl-4 pr-4 btn-secondary" onClick={onBackClick}>
-                                    <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
-                                </button>
-                                <button type="text" className="btn btn-lg float-right pl-4 pr-4 btn-primary" onClick={onNextClick}>
-                                    Next&nbsp;<i className="fas fa-arrow-circle-right"></i>
-                                </button>
-                            </div>
-
-
-                        </form>
+                    <div className="col-md-12">
+                        <div className="jumbotron">
+                            <h1 className="display-4">
+                                <i className="fas fa-bullhorn"></i>&nbsp;Attention
+                            </h1>
+                            <p className="lead">You have successfully started a growing operation!</p>
+                            <hr className="my-4" />
+                            <p>Click below to go back to the listing page.</p>
+                            <p className="lead">
+                                <Link className="btn btn-primary btn-lg" to="/productions">
+                                    <i className="fas fa-check"></i>&nbsp;Finish
+                                </Link>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
