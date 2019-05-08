@@ -29,6 +29,7 @@ class ProductionStep1CreateContainer extends Component {
             showModal: false,
             name: localStorage.getItem('temp-name'),
             description: localStorage.getItem('temp-description'),
+            isCommercial: localStorage.getItem('temp-isCommercial') === 'true',
             device: localStorage.getItem('temp-device'),
 
             /**
@@ -51,6 +52,7 @@ class ProductionStep1CreateContainer extends Component {
         this.getDeviceOptions = this.getDeviceOptions.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
         this.onSelectChange = this.onSelectChange.bind(this);
+        this.onCheckboxChange = this.onCheckboxChange.bind(this);
         this.onCancelClick = this.onCancelClick.bind(this);
         this.onNextClick = this.onNextClick.bind(this);
     }
@@ -113,6 +115,13 @@ class ProductionStep1CreateContainer extends Component {
         localStorage.setItem('temp-'+[option.selectName], option.value);
     }
 
+    onCheckboxChange(e) {
+        this.setState({
+            [e.target.name]: e.target.checked,
+        })
+        localStorage.setItem('temp-'+[e.target.name], e.target.checked);
+    }
+
     onCancelClick(e) {
         this.setState({
             referrer: '/productions'
@@ -146,7 +155,7 @@ class ProductionStep1CreateContainer extends Component {
      */
 
     render() {
-        const { name, description, device, errors, showModal, referrer } = this.state;
+        const { name, description, isCommercial, device, errors, showModal, referrer } = this.state;
         if (referrer) {
             return <Redirect to={referrer} />
         }
@@ -154,10 +163,12 @@ class ProductionStep1CreateContainer extends Component {
             <ProductionStep1CreateComponent
                 name={name}
                 description={description}
+                isCommercial={isCommercial}
                 deviceOptions={this.getDeviceOptions()}
                 device={device}
                 onTextChange={this.onTextChange}
                 onSelectChange={this.onSelectChange}
+                onCheckboxChange={this.onCheckboxChange}
                 errors={errors}
                 showModal={showModal}
                 onCancelClick={this.onCancelClick}

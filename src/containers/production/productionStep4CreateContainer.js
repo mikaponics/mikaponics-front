@@ -47,6 +47,7 @@ class ProductionStep4CreateContainer extends Component {
 
             name: localStorage.getItem('temp-name'),
             description: localStorage.getItem('temp-description'),
+            isCommercial: localStorage.getItem('temp-isCommercial') === 'true',
             deviceSlug: localStorage.getItem('temp-device'),
             cropsArray: cropsArr,
             fishArray: fishArr
@@ -133,7 +134,7 @@ class ProductionStep4CreateContainer extends Component {
      */
 
     render() {
-        const { name, description, cropsArray, fishArray, errors, showModal, referrer } = this.state;
+        const { name, description, isCommercial, cropsArray, fishArray, errors, showModal, referrer } = this.state;
         const { device } = this.props;
         if (referrer) {
             return <Redirect to={referrer} />
@@ -142,6 +143,7 @@ class ProductionStep4CreateContainer extends Component {
             <ProductionStep1CreateComponent
                 name={name}
                 description={description}
+                isCommercial={isCommercial}
                 device={device}
                 plantsArray={cropsArray}
                 fishArray={fishArray}

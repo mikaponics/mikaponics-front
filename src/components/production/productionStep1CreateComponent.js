@@ -5,14 +5,14 @@ import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
 import { BootstrapInput } from '../bootstrap/bootstrapInput';
 import { BootstrapSingleSelect } from '../bootstrap/bootstrapSingleSelect';
 import { BootstrapTextarea } from '../bootstrap/bootstrapTextarea';
+import { BootstrapCheckbox } from "../bootstrap/bootstrapCheckbox";
 
 
 class ProductionStep1CreateComponent extends Component {
     render() {
         const {
-            name, description, deviceOptions, device, onTextChange, onSelectChange, errors, onCancelClick, onNextClick
+            name, description, isCommercial, deviceOptions, device, onTextChange, onSelectChange, onCheckboxChange, errors, onCancelClick, onNextClick
         } = this.props;
-
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -83,6 +83,16 @@ class ProductionStep1CreateComponent extends Component {
                                 helpText="This is the description of the production."
                                 onChange={onTextChange}
                                 error={errors.description}
+                            />
+
+                            <BootstrapCheckbox
+                                inputClassName="form-check-input form-check-input-lg"
+                                borderColour="border-success"
+                                error={errors.isCommercial}
+                                label="Is this being grown in a commercial setting or for commercial purposes?"
+                                onChange={onCheckboxChange}
+                                value={isCommercial}
+                                name="isCommercial"
                             />
 
                             <p className="border-bottom mb-3 pb-1 text-secondary">Telemetry</p>

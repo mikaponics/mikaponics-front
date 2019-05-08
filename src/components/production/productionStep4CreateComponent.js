@@ -37,8 +37,10 @@ class CropUnorderedList extends Component {
 class ProductionStep4CreateComponent extends Component {
     render() {
         const {
-            name, description, device, plantsArray, fishArray, errors, onBackClick, onNextClick
+            name, description, isCommercial, device, plantsArray, fishArray, errors, onBackClick, onNextClick
         } = this.props;
+
+        const isCommericalText = isCommercial ? "Yes" : "No";
 
         return (
             <div>
@@ -103,6 +105,10 @@ class ProductionStep4CreateComponent extends Component {
                                 <tr>
                                     <th scope="row" className="bg-light">Description</th>
                                     <td>{description}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Is commercial?</th>
+                                    <td>{isCommericalText}</td>
                                 </tr>
 
 
