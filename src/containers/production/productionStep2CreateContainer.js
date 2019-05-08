@@ -44,12 +44,12 @@ class ProductionStep2CreateContainer extends Component {
             // the data from the modal.
             crop: null,
             cropOther: null,
+            showOther: false,
             quantity: null,
             cropsArray: cropsArr,
         }
         this.getCropOptions = this.getCropOptions.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
-        this.onSelectChange = this.onSelectChange.bind(this);
         this.onCropSelectChange = this.onCropSelectChange.bind(this);
         this.onAddButtonClick = this.onAddButtonClick.bind(this);
         this.onRemoveButtonClick = this.onRemoveButtonClick.bind(this);
@@ -72,7 +72,6 @@ class ProductionStep2CreateContainer extends Component {
             if (results !== undefined && results !== null) {
                 for (let i = 0; i < results.length; i++) {
                     let crop = results[i];
-                    // console.log(crop); // For debugging purposes.
                     cropOptions.push({
                         selectName: "crop",
                         value: crop.slug,
@@ -109,16 +108,11 @@ class ProductionStep2CreateContainer extends Component {
         })
     }
 
-    onSelectChange(option) {
-        this.setState({
-            [option.selectName]: option.value
-        })
-    }
-
     onCropSelectChange(option) {
         this.setState({
             crop: option.value,
             cropOption: option,
+            showOther: (option.value == "other")
         })
     }
 
@@ -232,6 +226,7 @@ class ProductionStep2CreateContainer extends Component {
             device,
             crop,
             cropOther,
+            showOther,
             quantity,
             cropsArray,
             errors,
@@ -246,10 +241,10 @@ class ProductionStep2CreateContainer extends Component {
                 cropOptions={this.getCropOptions()}
                 crop={crop}
                 cropOther={cropOther}
+                showOther={showOther}
                 quantity={quantity}
                 cropsArray={cropsArray}
                 onTextChange={this.onTextChange}
-                onSelectChange={this.onSelectChange}
                 onCropSelectChange={this.onCropSelectChange}
                 onAddButtonClick={this.onAddButtonClick}
                 onRemoveButtonClick={this.onRemoveButtonClick}

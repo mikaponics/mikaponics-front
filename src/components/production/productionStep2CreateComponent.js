@@ -1,21 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import Moment from 'react-moment';
-import 'moment-timezone';
 import ReactModal from 'react-modal';
 
 import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
 import { BootstrapInput } from '../bootstrap/bootstrapInput';
 import { BootstrapSingleSelect } from '../bootstrap/bootstrapSingleSelect';
-import { BootstrapTextarea } from '../bootstrap/bootstrapTextarea';
 
 
 class ProductionStep2CreateComponent extends Component {
     render() {
         const {
             onBackClick, onNextClick,
-            cropOptions, crop, quantity, cropsArray,
-            onTextChange, onSelectChange, onCropSelectChange, onAddButtonClick, onRemoveButtonClick, onSaveModalClick, onCloseModalClick,  errors, showModal
+            cropOptions, crop, cropOther, showOther, quantity, cropsArray,
+            onTextChange, onCropSelectChange, onAddButtonClick, onRemoveButtonClick, onSaveModalClick, onCloseModalClick,  errors, showModal
         } = this.props;
 
         // Apply our styling for our modal component.
@@ -94,7 +91,6 @@ class ProductionStep2CreateComponent extends Component {
                                     </h1>
 
 
-
                                     <div className="row">
                                         <div className="col-md-8 mx-auto mt-2">
 
@@ -114,6 +110,20 @@ class ProductionStep2CreateComponent extends Component {
                                                    onSelectChange={onCropSelectChange}
                                                />
 
+                                               {showOther &&
+                                                   <BootstrapInput
+                                                       inputClassName="form-control"
+                                                       borderColour="border-primary"
+                                                       error={errors.cropOther}
+                                                       label="Other - Please specify plant (*)"
+                                                       onChange={onTextChange}
+                                                       value={cropOther}
+                                                       name="cropOther"
+                                                       type="text"
+                                                       placeholder="Please specify the plant you will be growing."
+                                                   />
+                                               }
+
                                                <BootstrapInput
                                                    inputClassName="form-control"
                                                    borderColour="border-primary"
@@ -123,7 +133,7 @@ class ProductionStep2CreateComponent extends Component {
                                                    value={quantity}
                                                    name="quantity"
                                                    type="number"
-                                                   placeholder="Please write a title for your production. Ex: My Aquaponic Setup."
+                                                   placeholder="Please specify how many plants there will be.."
                                                />
                                                <button
                                                    onClick={onCloseModalClick}
@@ -193,7 +203,6 @@ class CropsTable extends Component {
 
         let elements = [];
         if (cropsArray !== undefined && cropsArray !== null) {
-            console.log(cropsArray);
             for (let i = 0; i < cropsArray.length; i++) {
                 let rowData = cropsArray[i];
                 if (rowData !== null && rowData !== undefined) {
