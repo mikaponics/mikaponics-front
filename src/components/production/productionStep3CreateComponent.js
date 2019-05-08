@@ -1,21 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import Moment from 'react-moment';
-import 'moment-timezone';
 import ReactModal from 'react-modal';
 
 import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
 import { BootstrapInput } from '../bootstrap/bootstrapInput';
 import { BootstrapSingleSelect } from '../bootstrap/bootstrapSingleSelect';
-import { BootstrapTextarea } from '../bootstrap/bootstrapTextarea';
 
 
 class ProductionStep3CreateComponent extends Component {
     render() {
         const {
-            name, description, deviceOptions, device, cropOptions, crop, cropQuantity, cropsTableData,
-            onTextChange, onSelectChange, onCropSelectChange, onAddButtonClick, onRemoveButtonClick, onSaveModalClick, onCloseModalClick, onSubmit, errors, showModal,
-            onBackClick, onNextClick
+            onBackClick, onNextClick,
+            fishOptions, fish, fishOther, showOther, quantity, fishArray,
+            onTextChange, onFishSelectChange, onAddButtonClick, onRemoveButtonClick, onSaveModalClick, onCloseModalClick,  errors, showModal
         } = this.props;
 
         // Apply our styling for our modal component.
@@ -36,7 +33,7 @@ class ProductionStep3CreateComponent extends Component {
                            <Link to="/dashboard"><i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard</Link>
                         </li>
                         <li className="breadcrumb-item">
-                            <Link to="/productions"><i className="fas fa-industry"></i>&nbsp;Crop Production</Link>
+                            <Link to="/productions"><i className="fas fa-industry"></i>&nbsp;Fish Production</Link>
                         </li>
                         <li className="breadcrumb-item active" aria-current="page">
                             <i className="fas fa-plus"></i>&nbsp;Add
@@ -69,56 +66,15 @@ class ProductionStep3CreateComponent extends Component {
                     </div>
                 </div>
 
-                <h3 className="pt-4 pb-2 text-center">Purchase Form</h3>
+                <h3 className="pt-4 pb-2 text-center">Fish Form</h3>
                 <div className="row">
                     <div className="col-md-5 mx-auto mt-2">
                         <form className="needs-validation" noValidate>
 
-                            <p>All fields which have the (*) symbol are required to be filled out.</p>
+                            <p>Please add all the plants you will be growing if any.</p>
 
-                            <BootstrapErrorsProcessingAlert errors={errors} />
-
-                            <p className="border-bottom mb-3 pb-1 text-secondary">General Information</p>
-
-                            <BootstrapInput
-                                inputClassName="form-control"
-                                borderColour="border-primary"
-                                error={errors.name}
-                                label="Name (*)"
-                                onChange={onTextChange}
-                                value={name}
-                                name="name"
-                                type="text"
-                                placeholder="Please write a title for your production. Ex: My Aquaponic Setup."
-                            />
-                            <BootstrapTextarea
-                                name="description"
-                                borderColour="border-primary"
-                                label="Description"
-                                placeholder="Please write a short description of your production."
-                                rows="5"
-                                value={description}
-                                helpText="This is the description of the production."
-                                onChange={onTextChange}
-                                error={errors.description}
-                            />
-
-                            <p className="border-bottom mb-3 pb-1 text-secondary">Telemetry</p>
-
-                            <BootstrapSingleSelect
-                                label="Device (*)"
-                                name="device"
-                                defaultOptionLabel="Please select the monitoring hardware for your production."
-                                options={deviceOptions}
-                                value={device}
-                                error={errors.device}
-                                onSelectChange={onSelectChange}
-                            />
-
-                            <p className="border-bottom mb-3 pb-1 text-secondary">Crops</p>
-
-                            <CropsTable
-                               cropsTableData={cropsTableData}
+                            <FishTable
+                               fishArray={fishArray}
                                onAddButtonClick={onAddButtonClick}
                                onRemoveButtonClick={onRemoveButtonClick}
                             />
@@ -128,39 +84,58 @@ class ProductionStep3CreateComponent extends Component {
                                 style={customStyles}
                                contentLabel="Minimal Modal Example">
                                <div>
+
                                     <h1>
-                                      Add Crop
+                                      Add Fish
                                        <button type="button" className="btn btn-secondary btn-lg float-right" onClick={onCloseModalClick}>
                                            <span className="fa fa-times"></span>
                                        </button>
                                     </h1>
 
-                                   <div className="row">
-                                       <div className="col-md-8 mx-auto mt-2">
-                                           <form className="needs-validation" noValidate>
+
+                                    <div className="row">
+                                        <div className="col-md-8 mx-auto mt-2">
+
+                                            <BootstrapErrorsProcessingAlert errors={errors} />
+
+                                            <form className="needs-validation" noValidate>
 
                                                <p>All fields which have the (*) symbol are required to be filled out.</p>
 
                                                <BootstrapSingleSelect
-                                                   label="Crop (*)"
-                                                   name="crop"
-                                                   defaultOptionLabel="Please crop to add."
-                                                   options={cropOptions}
-                                                   value={crop}
-                                                   error={errors.crop}
-                                                   onSelectChange={onCropSelectChange}
+                                                   label="Fish (*)"
+                                                   name="fish"
+                                                   defaultOptionLabel="Please fish to add."
+                                                   options={fishOptions}
+                                                   value={fish}
+                                                   error={errors.fish}
+                                                   onSelectChange={onFishSelectChange}
                                                />
+
+                                               {showOther &&
+                                                   <BootstrapInput
+                                                       inputClassName="form-control"
+                                                       borderColour="border-primary"
+                                                       error={errors.fishOther}
+                                                       label="Other - Please specify plant (*)"
+                                                       onChange={onTextChange}
+                                                       value={fishOther}
+                                                       name="fishOther"
+                                                       type="text"
+                                                       placeholder="Please specify the plant you will be growing."
+                                                   />
+                                               }
 
                                                <BootstrapInput
                                                    inputClassName="form-control"
                                                    borderColour="border-primary"
-                                                   error={errors.cropQuantity}
+                                                   error={errors.quantity}
                                                    label="Quantity (*)"
                                                    onChange={onTextChange}
-                                                   value={cropQuantity}
-                                                   name="cropQuantity"
+                                                   value={quantity}
+                                                   name="quantity"
                                                    type="number"
-                                                   placeholder="Please write a title for your production. Ex: My Aquaponic Setup."
+                                                   placeholder="Please specify how many plants there will be.."
                                                />
                                                <button
                                                    onClick={onCloseModalClick}
@@ -181,6 +156,7 @@ class ProductionStep3CreateComponent extends Component {
                             </ReactModal>
 
 
+                            <br />
                             <div className="form-group">
                                 <button type="text" className="btn btn-lg float-left pl-4 pr-4 btn-secondary" onClick={onBackClick}>
                                     <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
@@ -189,9 +165,6 @@ class ProductionStep3CreateComponent extends Component {
                                     Next&nbsp;<i className="fas fa-arrow-circle-right"></i>
                                 </button>
                             </div>
-
-
-
 
                         </form>
                     </div>
@@ -204,10 +177,9 @@ class ProductionStep3CreateComponent extends Component {
 export default ProductionStep3CreateComponent;
 
 
-class CropsTableRow extends Component {
+class FishTableRow extends Component {
     render() {
         const { slug, name, quantity, onRemoveButtonClick } = this.props;
-        console.log(this.props);
         return (
             <tr key={slug}>
                 <td>
@@ -227,28 +199,32 @@ class CropsTableRow extends Component {
 }
 
 
-class CropsTable extends Component {
+class FishTable extends Component {
     render() {
-        const { cropsTableData, onAddButtonClick, onRemoveButtonClick } = this.props;
-
-        console.log("cropsTableData >", cropsTableData);
+        const { fishArray, onAddButtonClick, onRemoveButtonClick } = this.props;
 
         let elements = [];
-        for (let i = 0; i < cropsTableData.length; i++) {
-            let rowData = cropsTableData[i];
-            console.log("cropsTableData > rowData >", rowData);
-            elements.push(
-                <CropsTableRow
-                    slug={rowData.slug}
-                    name={rowData.name}
-                    quantity={rowData.quantity}
-                    onRemoveButtonClick={onRemoveButtonClick} />
-            );
+        if (fishArray !== undefined && fishArray !== null) {
+            for (let i = 0; i < fishArray.length; i++) {
+                let rowData = fishArray[i];
+                if (rowData !== null && rowData !== undefined) {
+                    elements.push(
+                        <FishTableRow
+                            key={rowData.slug}
+                            slug={rowData.slug}
+                            name={rowData.name}
+                            quantity={rowData.quantity}
+                            onRemoveButtonClick={onRemoveButtonClick}
+                        />
+                    );
+                }
+            }
         }
+
         return (
             <div className="table-responsive">
 
-               <p>Please the plants and or fish you will be growing.</p>
+
                 <table className="table table-striped">
 
                 <thead>
