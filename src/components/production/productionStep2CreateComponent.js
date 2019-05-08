@@ -14,8 +14,8 @@ class ProductionStep2CreateComponent extends Component {
     render() {
         const {
             onBackClick, onNextClick,
-            cropOptions, crop, cropQuantity, cropsTableData,
-            onTextChange, onSelectChange, onCropSelectChange, onAddButtonClick, onRemoveButtonClick, onSaveModalClick, onCloseModalClick, onSubmit, errors, showModal
+            cropOptions, crop, quantity, cropsArray,
+            onTextChange, onSelectChange, onCropSelectChange, onAddButtonClick, onRemoveButtonClick, onSaveModalClick, onCloseModalClick,  errors, showModal
         } = this.props;
 
         // Apply our styling for our modal component.
@@ -72,14 +72,10 @@ class ProductionStep2CreateComponent extends Component {
                     <div className="col-md-5 mx-auto mt-2">
                         <form className="needs-validation" noValidate>
 
-                            <p>All fields which have the (*) symbol are required to be filled out.</p>
-
-                            <BootstrapErrorsProcessingAlert errors={errors} />
-
-                            <p className="border-bottom mb-3 pb-1 text-secondary">Crops Table</p>
+                            <p>Please add all the plants you will be growing if any.</p>
 
                             <CropsTable
-                               cropsTableData={cropsTableData}
+                               cropsArray={cropsArray}
                                onAddButtonClick={onAddButtonClick}
                                onRemoveButtonClick={onRemoveButtonClick}
                             />
@@ -89,6 +85,7 @@ class ProductionStep2CreateComponent extends Component {
                                 style={customStyles}
                                contentLabel="Minimal Modal Example">
                                <div>
+
                                     <h1>
                                       Add Crop
                                        <button type="button" className="btn btn-secondary btn-lg float-right" onClick={onCloseModalClick}>
@@ -96,9 +93,14 @@ class ProductionStep2CreateComponent extends Component {
                                        </button>
                                     </h1>
 
-                                   <div className="row">
-                                       <div className="col-md-8 mx-auto mt-2">
-                                           <form className="needs-validation" noValidate>
+
+
+                                    <div className="row">
+                                        <div className="col-md-8 mx-auto mt-2">
+
+                                            <BootstrapErrorsProcessingAlert errors={errors} />
+
+                                            <form className="needs-validation" noValidate>
 
                                                <p>All fields which have the (*) symbol are required to be filled out.</p>
 
@@ -115,11 +117,11 @@ class ProductionStep2CreateComponent extends Component {
                                                <BootstrapInput
                                                    inputClassName="form-control"
                                                    borderColour="border-primary"
-                                                   error={errors.cropQuantity}
+                                                   error={errors.quantity}
                                                    label="Quantity (*)"
                                                    onChange={onTextChange}
-                                                   value={cropQuantity}
-                                                   name="cropQuantity"
+                                                   value={quantity}
+                                                   name="quantity"
                                                    type="number"
                                                    placeholder="Please write a title for your production. Ex: My Aquaponic Setup."
                                                />
@@ -142,6 +144,7 @@ class ProductionStep2CreateComponent extends Component {
                             </ReactModal>
 
 
+                            <br />
                             <div className="form-group">
                                 <button type="text" className="btn btn-lg float-left pl-4 pr-4 btn-secondary" onClick={onBackClick}>
                                     <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
@@ -150,9 +153,6 @@ class ProductionStep2CreateComponent extends Component {
                                     Next&nbsp;<i className="fas fa-arrow-circle-right"></i>
                                 </button>
                             </div>
-
-
-
 
                         </form>
                     </div>
@@ -168,7 +168,6 @@ export default ProductionStep2CreateComponent;
 class CropsTableRow extends Component {
     render() {
         const { slug, name, quantity, onRemoveButtonClick } = this.props;
-        console.log(this.props);
         return (
             <tr key={slug}>
                 <td>
@@ -190,26 +189,31 @@ class CropsTableRow extends Component {
 
 class CropsTable extends Component {
     render() {
-        const { cropsTableData, onAddButtonClick, onRemoveButtonClick } = this.props;
-
-        console.log("cropsTableData >", cropsTableData);
+        const { cropsArray, onAddButtonClick, onRemoveButtonClick } = this.props;
 
         let elements = [];
-        for (let i = 0; i < cropsTableData.length; i++) {
-            let rowData = cropsTableData[i];
-            console.log("cropsTableData > rowData >", rowData);
-            elements.push(
-                <CropsTableRow
-                    slug={rowData.slug}
-                    name={rowData.name}
-                    quantity={rowData.quantity}
-                    onRemoveButtonClick={onRemoveButtonClick} />
-            );
+        if (cropsArray !== undefined && cropsArray !== null) {
+            console.log(cropsArray);
+            for (let i = 0; i < cropsArray.length; i++) {
+                let rowData = cropsArray[i];
+                if (rowData !== null && rowData !== undefined) {
+                    elements.push(
+                        <CropsTableRow
+                            key={rowData.slug}
+                            slug={rowData.slug}
+                            name={rowData.name}
+                            quantity={rowData.quantity}
+                            onRemoveButtonClick={onRemoveButtonClick}
+                        />
+                    );
+                }
+            }
         }
+
         return (
             <div className="table-responsive">
 
-               <p>Please the plants and or fish you will be growing.</p>
+
                 <table className="table table-striped">
 
                 <thead>

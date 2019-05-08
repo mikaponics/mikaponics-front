@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import Scroll from 'react-scroll';
 
+import { validateStep2Input } from '../../validations/productionCreateValidator';
 import ProductionStep2CreateComponent from "../../components/production/productionStep2CreateComponent";
 import { pullCropList } from "../../actions/cropListActions";
 import { pullDeviceList } from "../../actions/deviceListActions";
@@ -16,6 +18,15 @@ class ProductionStep2CreateContainer extends Component {
 
     constructor(props) {
         super(props);
+
+        // Extract our crops array (which is used to populate the table) from
+        // the users's local storage.
+        const stringCropsArr = localStorage.getItem("temp-crops");
+        let cropsArr = JSON.parse(stringCropsArr);
+        if (cropsArr  === undefined || cropsArr === null) {
+            cropsArr = [];
+        }
+
         this.state = {
             // DEVELOPERS NOTE: This variable is used as the main way to add
             // GUI modification to the fields. Simply adding a key and the
@@ -25,36 +36,17 @@ class ProductionStep2CreateContainer extends Component {
             errors: {},
 
             referrer: '',
+
+            // Variable used to indicate if the modal should appear.
             showModal: false,
-            name: null,
-            description: null,
-            device: null,
 
             // DEVELOPERS NOTE: The following state objects are used to store
             // the data from the modal.
             crop: null,
             cropOther: null,
-            cropQuantity: null,
-            cropsTableData: [],
-
-            /**
-            --- PRODUCTION ---
-            environment
-            is_commercial
-            type_of
-            grow_system
-            grow_system_other
-            started_at
-
-            --- PRODUCTION CROP ---
-            crop_other
-            quantity
-            substrate
-            substrate_other
-
-            */
+            quantity: null,
+            cropsArray: cropsArr,
         }
-        this.getDeviceOptions = this.getDeviceOptions.bind(this);
         this.getCropOptions = this.getCropOptions.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
         this.onSelectChange = this.onSelectChange.bind(this);
@@ -63,34 +55,8 @@ class ProductionStep2CreateContainer extends Component {
         this.onRemoveButtonClick = this.onRemoveButtonClick.bind(this);
         this.onSaveModalClick = this.onSaveModalClick.bind(this);
         this.onCloseModalClick = this.onCloseModalClick.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
         this.onBackClick = this.onBackClick.bind(this);
         this.onNextClick = this.onNextClick.bind(this);
-    }
-
-    /**
-     *  Utility function will take the device list objects we have from the
-     *  API endpoint and generate options data for the `react-select` component
-     *  we are using.
-     */
-    getDeviceOptions() {
-        const deviceOptions = [];
-        const deviceList = this.props.deviceList;
-        if (deviceList !== undefined && deviceList !== null) {
-            const results = deviceList.results;
-            if (results !== undefined && results !== null) {
-                for (let i = 0; i < results.length; i++) {
-                    let device = results[i];
-                    // console.log(device); // For debugging purposes.
-                    deviceOptions.push({
-                        selectName: "device",
-                        value: device.slug,
-                        label: device.name
-                    });
-                }
-            }
-        }
-        return deviceOptions;
     }
 
     /**
@@ -158,16 +124,31 @@ class ProductionStep2CreateContainer extends Component {
     }
 
     onRemoveButtonClick(slug) {
-        let a = this.state.cropsTableData.slice(); //creates the clone of the state
-        for (let i = 0; i < a.length; i++) {
-            let row = a[i];
-            console.log(">>>",row);
+        const cropsArray = this.state.cropsArray;
+        for (let i = 0; i < cropsArray.length; i++) {
+            let row = cropsArray[i];
             if (row.slug === slug) {
-                console.log(">>>>>>",row, " <> ", slug);
-                delete row[i]; // delete element at our index.
+                //
+                // Special thanks: https://flaviocopes.com/how-to-remove-item-from-array/
+                //
+                const filteredItems = cropsArray.slice(
+                    0, i
+                ).concat(
+                    cropsArray.slice(
+                        i + 1, cropsArray.length
+                    )
+                )
+
+                // Update our state with our NEW ARRAY which no longer has
+                // the item we deleted.
                 this.setState({
-                    cropsTableData: a
+                    cropsArray: filteredItems
                 });
+
+                // Save our table data.
+                localStorage.setItem("temp-crops", JSON.stringify(filteredItems))
+
+                // Terminate our for-loop.
                 return;
             }
         }
@@ -184,32 +165,14 @@ class ProductionStep2CreateContainer extends Component {
      *  return error to fields or save to our state and exit modal.
      */
     onSaveModalClick() {
-        let errors = {};
-        let hasError = false;
-        if (this.state.crop === undefined || this.state.crop === null) {
-            errors['crop'] = "Please pick a crop";
-            hasError = true;
-        }
-        if (this.state.cropQuantity === undefined || this.state.cropQuantity === null) {
-            errors['cropQuantity'] = "Please pick a quantity";
-            hasError = true;
-        }
-
-        // CHECK TO SEE IF WE HAVE ANY ERRORS DETECTED IN THIS MODAL FORM SUBMISSION.
-        // IF THERE IS ANY ERRORS THEN WE RETURN THE ERRORS.
-        if (hasError) {
-            this.setState({
-                errors: errors
-            })
-
-        // ELSE WE CHANGE THE STATE TO REFLECT WHAT THE USER SAVED.
-        } else {
+        const { errors, isValid } = validateStep2Input(this.state);
+        if (isValid) {
             // Append our array.
-            let a = this.state.cropsTableData.slice(); //creates the clone of the state
+            let a = this.state.cropsArray.slice(); //creates the clone of the state
             a.push({
                 slug: this.state.cropOption.value,
                 name: this.state.cropOption.label,
-                quantity: this.state.cropQuantity,
+                quantity: this.state.quantity,
             });
 
             // Close the modal, reset any errors and clear field values.
@@ -217,29 +180,42 @@ class ProductionStep2CreateContainer extends Component {
                 showModal: false,
                 errors: {},
                 crop: null,
-                cropQuantity: null,
-                cropsTableData: a
+                quantity: null,
+                cropsArray: a
             });
+
+            // Save our table data.
+            localStorage.setItem("temp-crops", JSON.stringify(a))
+        } else {
+            this.setState({
+                errors: errors
+            })
+
+            // The following code will cause the screen to scroll to the top of
+            // the page. Please see ``react-scroll`` for more information:
+            // https://github.com/fisshy/react-scroll
+            var scroll = Scroll.animateScroll;
+            scroll.scrollToTop();
         }
     }
 
-    onCloseModalClick() {
+    onCloseModalClick(e) {
+        e.preventDefault();
         this.setState({
             showModal: false
         })
     }
 
-    onSubmit(e) {
-        alert("SUBMITTING...");
-    }
 
     onBackClick(e) {
+        e.preventDefault();
         this.setState({
             referrer: '/add-production-step-1'
         })
     }
 
     onNextClick(e) {
+        e.preventDefault();
         this.setState({
             referrer: '/add-production-step-3'
         })
@@ -252,22 +228,27 @@ class ProductionStep2CreateContainer extends Component {
 
     render() {
         const {
-            name, description, device, crop, cropOther, cropQuantity, cropsTableData, errors, showModal, referrer
+            name,
+            description,
+            device,
+            crop,
+            cropOther,
+            quantity,
+            cropsArray,
+            errors,
+            showModal,
+             referrer
         } = this.state;
         if (referrer) {
             return <Redirect to={referrer} />
         }
         return (
             <ProductionStep2CreateComponent
-                name={name}
-                description={description}
-                deviceOptions={this.getDeviceOptions()}
-                device={device}
                 cropOptions={this.getCropOptions()}
                 crop={crop}
                 cropOther={cropOther}
-                cropQuantity={cropQuantity}
-                cropsTableData={cropsTableData}
+                quantity={quantity}
+                cropsArray={cropsArray}
                 onTextChange={this.onTextChange}
                 onSelectChange={this.onSelectChange}
                 onCropSelectChange={this.onCropSelectChange}
@@ -275,7 +256,6 @@ class ProductionStep2CreateContainer extends Component {
                 onRemoveButtonClick={this.onRemoveButtonClick}
                 onSaveModalClick={this.onSaveModalClick}
                 onCloseModalClick={this.onCloseModalClick}
-                onSubmit={this.onSubmit}
                 errors={errors}
                 showModal={showModal}
                 onBackClick={this.onBackClick}
