@@ -6,6 +6,7 @@ import { BootstrapInput } from '../bootstrap/bootstrapInput';
 import { BootstrapSingleSelect } from '../bootstrap/bootstrapSingleSelect';
 import { BootstrapTextarea } from '../bootstrap/bootstrapTextarea';
 import { BootstrapCheckbox } from "../bootstrap/bootstrapCheckbox";
+import { PRODUCTION_OTHER_SYSTEM } from "../../constants/api";
 
 
 class ProductionStep1CreateComponent extends Component {
@@ -14,6 +15,8 @@ class ProductionStep1CreateComponent extends Component {
             name, description, isCommercial, deviceOptions, device, environmentOptions, environment, typeOfOptions, typeOf, growSystemOptions, growSystem, growSystemOther,
             onTextChange, onSelectChange, onCheckboxChange, onCancelClick, onNextClick, errors
         } = this.props;
+
+        const showGrowSystemOtherField = growSystem === PRODUCTION_OTHER_SYSTEM;
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -121,7 +124,7 @@ class ProductionStep1CreateComponent extends Component {
                             />
 
                             <BootstrapSingleSelect
-                                label="Grow Type (*)"
+                                label="Type (*)"
                                 name="typeOf"
                                 defaultOptionLabel="Please select the type of grow setup."
                                 options={typeOfOptions}
@@ -139,7 +142,19 @@ class ProductionStep1CreateComponent extends Component {
                                 error={errors.growSystem}
                                 onSelectChange={onSelectChange}
                             />
-
+                            {showGrowSystemOtherField &&
+                                <BootstrapInput
+                                    inputClassName="form-control"
+                                    borderColour="border-primary"
+                                    error={errors.growSystemOther}
+                                    label="Other (*)"
+                                    onChange={onTextChange}
+                                    value={growSystemOther}
+                                    name="growSystemOther"
+                                    type="text"
+                                    placeholder="Please write the name of your grow system."
+                                />
+                            }
 
                             <br />
 

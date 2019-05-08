@@ -1,21 +1,41 @@
 import validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
+import isNaN from 'lodash/isNaN';
+
+import { PRODUCTION_OTHER_SYSTEM } from "../constants/api";
 
 
 export function validateStep1Input(data) {
     let errors = {};
 
-    if (validator.isEmpty(data.name) || data.name === "")
-    {
+    if (data.name === undefined || data.name === null || validator.isEmpty(data.name) || data.name === "") {
         errors.name = 'This field is required';
     }
 
-    if (validator.isEmpty(data.description)) {
+    if (data.description === undefined || data.description === null || validator.isEmpty(data.description) || data.description === "") {
         errors.description = 'This field is required';
     }
 
-    if (validator.isEmpty(data.device)) {
+    if (data.device === undefined || data.device === null || validator.isEmpty(data.device)) {
         errors.device = 'This field is required';
+    }
+
+    if (data.environment === undefined || data.environment === null || isNaN(data.environment)) {
+        errors.environment = 'This field is required';
+    }
+
+    if (data.typeOf === undefined || data.typeOf === null || isNaN(data.typeOf)) {
+        errors.typeOf = 'This field is required';
+    }
+
+    if (data.growSystem === undefined || data.growSystem === null || isNaN(data.growSystem)) {
+        errors.growSystem = 'This field is required';
+    } else {
+        if (data.growSystem === PRODUCTION_OTHER_SYSTEM) {
+            if (data.growSystemOther === undefined || data.growSystemOther === null || isEmpty(data.growSystemOther)) {
+                errors.growSystemOther = 'This field is required';
+            }
+        }
     }
 
     return {
