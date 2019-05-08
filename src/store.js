@@ -32,6 +32,7 @@ import invoiceDetailReducer from "./reducers/invoiceDetailReducer";
 import productionListReducer from "./reducers/productionListReducer";
 import productionDetailReducer from "./reducers/productionDetailReducer";
 import cropListReducer from "./reducers/cropListReducer";
+import cropSubstrateListReducer from "./reducers/cropSubstrateListReducer";
 
 
 // Combine Reducers
@@ -55,6 +56,7 @@ const appReducer = combineReducers({
     productionListState: productionListReducer,
     productionDetailState: productionDetailReducer,
     cropListState: cropListReducer,
+    cropSubstrateListState: cropSubstrateListReducer,
 });
 
 

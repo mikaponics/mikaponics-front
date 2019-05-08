@@ -7,6 +7,7 @@ import { CROP_FISHSTOCK_TYPE } from '../../constants/api';
 import { validateStep3Input } from '../../validations/productionCreateValidator';
 import ProductionStep3CreateComponent from "../../components/production/productionStep3CreateComponent";
 import { pullCropList } from "../../actions/cropListActions";
+import { pullCropSubstrateList } from "../../actions/cropSubstrateListActions";
 
 
 class ProductionStep3CreateContainer extends Component {
@@ -85,6 +86,7 @@ class ProductionStep3CreateContainer extends Component {
 
     componentDidMount() {
         this.props.pullCropList(this.props.user, 1, CROP_FISHSTOCK_TYPE); // Get latest data from API.
+        this.props.pullCropSubstrateList(this.props.user, 1, CROP_FISHSTOCK_TYPE); // Get latest data from API.
         window.scrollTo(0, 0);  // Start the page at the top of the page.
     }
 
@@ -273,6 +275,11 @@ const mapDispatchToProps = dispatch => {
         pullCropList: (user, page, typeOf) => {
             dispatch(
                 pullCropList(user, page, typeOf)
+            )
+        },
+        pullCropSubstrateList: (user, page, typeOf) => {
+            dispatch(
+                pullCropSubstrateList(user, page, typeOf)
             )
         }
     }
