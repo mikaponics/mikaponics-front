@@ -16,7 +16,7 @@ class DashboardComponent extends Component {
                                 <i className="fas fa-industry fa-3x"></i>
                             </div>
                             <div className="card-body">
-                                <h3 className="card-title">View Crop Production</h3>
+                                <h3 className="card-title">View Production</h3>
                                 <p className="card-text">List all the growing crops that being monitored.</p>
                                 <Link to="/productions" className="btn btn-success btn-lg">
                                     View&nbsp;<i className="fas fa-arrow-circle-right"></i>

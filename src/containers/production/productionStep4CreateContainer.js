@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import Scroll from 'react-scroll';
 
 import ProductionStep1CreateComponent from "../../components/production/productionStep4CreateComponent";
+import { postProductionDetail } from "../../actions/productionActions";
 import { pullDevice } from "../../actions/deviceActions";
 import { validateStep4Input } from '../../validations/productionCreateValidator';
 
@@ -52,6 +53,8 @@ class ProductionStep4CreateContainer extends Component {
         }
         this.onBackClick = this.onBackClick.bind(this);
         this.onNextClick = this.onNextClick.bind(this);
+        this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
+        this.onFailedSubmissionCallback = this.onFailedSubmissionCallback.bind(this);
     }
 
     componentDidMount() {
@@ -85,9 +88,14 @@ class ProductionStep4CreateContainer extends Component {
 
         const { errors, isValid } = validateStep4Input(this.state);
         if (isValid) {
-            this.setState({
-                referrer: '/add-production-step-5'
-            })
+            // Once our state has been validated `client-side` then we will
+            // make an API request with the server to create our new production.
+            this.props.postProductionDetail(
+                this.props.user,
+                this.state,
+                this.onSuccessfulSubmissionCallback,
+                this.onFailedSubmissionCallback
+            );
         } else {
             this.setState({
                 errors: errors
@@ -99,6 +107,24 @@ class ProductionStep4CreateContainer extends Component {
             var scroll = Scroll.animateScroll;
             scroll.scrollToTop();
         }
+    }
+
+    onSuccessfulSubmissionCallback() {
+        this.setState({
+            referrer: '/add-production-step-5'
+        })
+    }
+
+    onFailedSubmissionCallback() {
+        this.setState({
+            errors: this.props.productionDetail.errors
+        })
+
+        // The following code will cause the screen to scroll to the top of
+        // the page. Please see ``react-scroll`` for more information:
+        // https://github.com/fisshy/react-scroll
+        var scroll = Scroll.animateScroll;
+        scroll.scrollToTop();
     }
 
     /**
@@ -131,6 +157,7 @@ const mapStateToProps = function(store) {
     return {
         user: store.userState,
         device: store.deviceState,
+        productionDetail: store.productionDetailState,
     };
 }
 
@@ -139,6 +166,11 @@ const mapDispatchToProps = dispatch => {
         pullDevice: (user, slug) => {
             dispatch(
                 pullDevice(user, slug)
+            )
+        },
+        postProductionDetail: (user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback) => {
+            dispatch(
+                postProductionDetail(user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback)
             )
         },
     }

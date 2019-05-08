@@ -27,6 +27,11 @@ const authenticatedFullMenuData = [
         title: "Dashboard",
         url: "/dashboard"
     },{
+        id: "full-crops",
+        icon: "industry",
+        title: "Production",
+        url: "/productions"
+    },{
         id: "full-devices",
         icon: "cubes",
         title: "Devices",
