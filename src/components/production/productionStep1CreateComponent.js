@@ -11,7 +11,8 @@ import { BootstrapCheckbox } from "../bootstrap/bootstrapCheckbox";
 class ProductionStep1CreateComponent extends Component {
     render() {
         const {
-            name, description, isCommercial, deviceOptions, device, onTextChange, onSelectChange, onCheckboxChange, errors, onCancelClick, onNextClick
+            name, description, isCommercial, deviceOptions, device, environmentOptions, environment, typeOfOptions, typeOf, growSystemOptions, growSystem, growSystemOther,
+            onTextChange, onSelectChange, onCheckboxChange, onCancelClick, onNextClick, errors
         } = this.props;
         return (
             <div>
@@ -106,6 +107,39 @@ class ProductionStep1CreateComponent extends Component {
                                 error={errors.device}
                                 onSelectChange={onSelectChange}
                             />
+
+                            <p className="border-bottom mb-3 pb-1 text-secondary">Operation</p>
+
+                            <BootstrapSingleSelect
+                                label="Environment (*)"
+                                name="environment"
+                                defaultOptionLabel="Please select operating environment."
+                                options={environmentOptions}
+                                value={environment}
+                                error={errors.environment}
+                                onSelectChange={onSelectChange}
+                            />
+
+                            <BootstrapSingleSelect
+                                label="Grow Type (*)"
+                                name="typeOf"
+                                defaultOptionLabel="Please select the type of grow setup."
+                                options={typeOfOptions}
+                                value={typeOf}
+                                error={errors.typeOf}
+                                onSelectChange={onSelectChange}
+                            />
+
+                            <BootstrapSingleSelect
+                                label="Grow System (*)"
+                                name="growSystem"
+                                defaultOptionLabel="Please select the grow system used."
+                                options={growSystemOptions}
+                                value={growSystem}
+                                error={errors.growSystem}
+                                onSelectChange={onSelectChange}
+                            />
+
 
                             <br />
 

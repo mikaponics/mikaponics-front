@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Scroll from 'react-scroll';
 
+import { PRODUCTION_TYPE_OPTION_CHOICES, PRODUCTION_ENVIRONMENT_OPTION_CHOICES, PRODUCTION_GROW_SYSTEM_OPTION_CHOICES } from "../../constants/api";
 import { validateStep1Input } from '../../validations/productionCreateValidator';
 import ProductionStep1CreateComponent from "../../components/production/productionStep1CreateComponent";
 import { pullDeviceList } from "../../actions/deviceListActions";
@@ -26,28 +27,15 @@ class ProductionStep1CreateContainer extends Component {
             errors: {},
 
             referrer: '',
-            showModal: false,
             name: localStorage.getItem('temp-name'),
             description: localStorage.getItem('temp-description'),
             isCommercial: localStorage.getItem('temp-isCommercial') === 'true',
             device: localStorage.getItem('temp-device'),
-
-            /**
-            --- PRODUCTION ---
-            environment
-            is_commercial
-            type_of
-            grow_system
-            grow_system_other
-            started_at
-
-            --- PRODUCTION CROP ---
-            crop_other
-            quantity
-            substrate
-            substrate_other
-
-            */
+            environment: parseInt(localStorage.getItem('temp-environment')),
+            typeOf: parseInt(localStorage.getItem('temp-typeOf')),
+            growSystem: parseInt(localStorage.getItem('temp-growSystem')),
+            growSystemOther: localStorage.getItem('temp-growSystemOther'),
+            startedAt: localStorage.getItem('temp-startedAt'),
         }
         this.getDeviceOptions = this.getDeviceOptions.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
@@ -155,7 +143,10 @@ class ProductionStep1CreateContainer extends Component {
      */
 
     render() {
-        const { name, description, isCommercial, device, errors, showModal, referrer } = this.state;
+        const {
+            name, description, isCommercial, device, environment, typeOf, growSystem, growSystemOther, startedAt,
+            errors, referrer
+        } = this.state;
         if (referrer) {
             return <Redirect to={referrer} />
         }
@@ -166,11 +157,18 @@ class ProductionStep1CreateContainer extends Component {
                 isCommercial={isCommercial}
                 deviceOptions={this.getDeviceOptions()}
                 device={device}
+                environmentOptions={PRODUCTION_ENVIRONMENT_OPTION_CHOICES}
+                environment={environment}
+                typeOfOptions={PRODUCTION_TYPE_OPTION_CHOICES}
+                typeOf={typeOf}
+                growSystemOptions={PRODUCTION_GROW_SYSTEM_OPTION_CHOICES}
+                growSystem={growSystem}
+                growSystemOther={growSystemOther}
+                startedAt={startedAt}
                 onTextChange={this.onTextChange}
                 onSelectChange={this.onSelectChange}
                 onCheckboxChange={this.onCheckboxChange}
                 errors={errors}
-                showModal={showModal}
                 onCancelClick={this.onCancelClick}
                 onNextClick={this.onNextClick}
             />
