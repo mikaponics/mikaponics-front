@@ -97,3 +97,19 @@ export function validateStep3Input(data) {
         isValid: isEmpty(errors)
     }
 }
+
+
+export function validateStep4Input(data) {
+    let errors = {};
+
+    const hasNoCrops = isEmpty(data.cropsArray);
+    const hasNoFish = isEmpty(data.fishArray);
+    if (hasNoCrops && hasNoFish) {
+        errors['Missing Crops'] = 'You did not select any plants nor fish. Please select one before submitting.';
+    }
+
+    return {
+        errors,
+        isValid: isEmpty(errors)
+    }
+}

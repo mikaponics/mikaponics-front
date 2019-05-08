@@ -1,16 +1,43 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
+import validator from 'validator';
+import isEmpty from 'lodash/isEmpty';
+
 import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
 import { BootstrapInput } from '../bootstrap/bootstrapInput';
 import { BootstrapSingleSelect } from '../bootstrap/bootstrapSingleSelect';
 import { BootstrapTextarea } from '../bootstrap/bootstrapTextarea';
 
 
+class CropUnorderedList extends Component {
+    render() {
+        const { cropsArray } = this.props;
+        if (isEmpty(cropsArray) === false) {
+            let elements = [];
+            for (let i = 0; i < cropsArray.length; i++) {
+                let cropObj = cropsArray[i];
+                elements.push(
+                    <li>
+                        {cropObj.name}&nbsp;x&nbsp;{cropObj.quantity}
+                    </li>
+                );
+            }
+            return (
+                <ul>
+                    {elements}
+                </ul>
+            );
+        }
+        return <p>-</p>;
+    }
+}
+
+
 class ProductionStep4CreateComponent extends Component {
     render() {
         const {
-            name, description, deviceOptions, device, onTextChange, onSelectChange, errors, onCancelClick, onNextClick
+            name, description, device, plantsArray, fishArray, errors, onBackClick, onNextClick
         } = this.props;
 
         return (
@@ -43,7 +70,9 @@ class ProductionStep4CreateComponent extends Component {
                             </Link>
                         </div>
                         <div id="step-3" className="st-grey">
-                            <span className="num">3.</span><span className="">Fish</span>
+                            <Link to="/add-production-step-3">
+                                <span className="num">3.</span><span className="">Fish</span>
+                            </Link>
                         </div>
                         <div id="step-4" className="st-grey active">
                             <span className="num">4.</span><span className="">Review</span>
@@ -54,68 +83,88 @@ class ProductionStep4CreateComponent extends Component {
                     </div>
                 </div>
 
-                <h3 className="pt-4 pb-2 text-center">General Information Form</h3>
-                <div className="row">
-                    <div className="col-md-5 mx-auto mt-2">
-                        <form className="needs-validation" noValidate>
 
-                            <p>All fields which have the (*) symbol are required to be filled out.</p>
+                <div className="row mt-4 pt-3 mb-4 pb-2">
+                    <div className="col-md-10 mx-auto p-2">
 
-                            <BootstrapErrorsProcessingAlert errors={errors} />
+                        <BootstrapErrorsProcessingAlert errors={errors} />
 
-                            <p className="border-bottom mb-3 pb-1 text-secondary">General Information</p>
+                        <p><strong>Please confirm these details before submitting the crop production:</strong></p>
+                        <table className="table table-bordered custom-cell-w">
+                            <tbody>
 
-                            <BootstrapInput
-                                inputClassName="form-control"
-                                borderColour="border-primary"
-                                error={errors.name}
-                                label="Name (*)"
-                                onChange={onTextChange}
-                                value={name}
-                                name="name"
-                                type="text"
-                                placeholder="Please write a title for your production. Ex: My Aquaponic Setup."
-                            />
-                            <BootstrapTextarea
-                                name="description"
-                                borderColour="border-primary"
-                                label="Description"
-                                placeholder="Please write a short description of your production."
-                                rows="5"
-                                value={description}
-                                helpText="This is the description of the production."
-                                onChange={onTextChange}
-                                error={errors.description}
-                            />
-
-                            <p className="border-bottom mb-3 pb-1 text-secondary">Telemetry</p>
-
-                            <BootstrapSingleSelect
-                                label="Device (*)"
-                                name="device"
-                                defaultOptionLabel="Please select the monitoring hardware for your production."
-                                options={deviceOptions}
-                                value={device}
-                                error={errors.device}
-                                onSelectChange={onSelectChange}
-                            />
-
-                            <br />
+                                <tr className="bg-dark">
+                                    <th scope="row" colSpan="2" className="text-light">General details</th>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Name</th>
+                                    <td>{name}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Description</th>
+                                    <td>{description}</td>
+                                </tr>
 
 
-                            <div className="form-group">
-                                <button type="text" className="btn btn-lg float-left pl-4 pr-4 btn-secondary" onClick={onCancelClick}>
-                                    <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
-                                </button>
-                                <button type="text" className="btn btn-lg float-right pl-4 pr-4 btn-primary" onClick={onNextClick}>
-                                    Next&nbsp;<i className="fas fa-arrow-circle-right"></i>
-                                </button>
-                            </div>
+                                <tr className="bg-dark">
+                                    <th scope="row" colSpan="2" className="text-light">Device details</th>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Name</th>
+                                    <td>{device.name}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Description</th>
+                                    <td>{device.description}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Link</th>
+                                    <td>
+                                        <Link to={device.absoluteUrl} target="_blank" rel="noopener noreferrer">
+                                            View&nbsp;<i className="fas fa-external-link-alt"></i>
+                                        </Link>
+                                    </td>
+                                </tr>
 
 
-                        </form>
+                                <tr className="bg-dark">
+                                    <th scope="row" colSpan="2" className="text-light">Plant Details</th>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Growing</th>
+                                    <td>
+                                        <CropUnorderedList cropsArray={plantsArray} />
+                                    </td>
+                                </tr>
+
+
+                                <tr className="bg-dark">
+                                    <th scope="row" colSpan="2" className="text-light">Fish Details</th>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Growing</th>
+                                    <td>
+                                        <CropUnorderedList cropsArray={fishArray} />
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                        <br />
+                        <div className="form-group">
+                            <button type="text" className="btn btn-lg float-left pl-4 pr-4 btn-secondary" onClick={onBackClick}>
+                                <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
+                            </button>
+                            <button type="text" className="btn btn-lg float-right pl-4 pr-4 btn-success" onClick={onNextClick}>
+                                <i className="fas fa-check"></i>&nbsp;Submit
+                            </button>
+                        </div>
                     </div>
                 </div>
+
+
+
             </div>
         );
     }

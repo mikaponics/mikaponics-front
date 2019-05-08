@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import Scroll from 'react-scroll';
 
 import ProductionStep1CreateComponent from "../../components/production/productionStep4CreateComponent";
-import { pullDeviceList } from "../../actions/deviceListActions";
+import { pullDevice } from "../../actions/deviceActions";
+import { validateStep4Input } from '../../validations/productionCreateValidator';
 
 
 class ProductionStep4CreateContainer extends Component {
@@ -15,6 +17,23 @@ class ProductionStep4CreateContainer extends Component {
 
     constructor(props) {
         super(props);
+
+        // Extract our crops array (which is used to populate the table) from
+        // the users's local storage.
+        const stringCropsArr = localStorage.getItem("temp-crops");
+        let cropsArr = JSON.parse(stringCropsArr);
+        if (cropsArr  === undefined || cropsArr === null) {
+            cropsArr = [];
+        }
+
+        // Extract our fish array (which is used to populate the table) from
+        // the users's local storage.
+        const stringFishArr = localStorage.getItem("temp-fish");
+        let fishArr = JSON.parse(stringFishArr);
+        if (fishArr  === undefined || fishArr === null) {
+            fishArr = [];
+        }
+
         this.state = {
             // DEVELOPERS NOTE: This variable is used as the main way to add
             // GUI modification to the fields. Simply adding a key and the
@@ -24,62 +43,20 @@ class ProductionStep4CreateContainer extends Component {
             errors: {},
 
             referrer: '',
-            showModal: false,
-            name: null,
-            description: null,
-            device: null,
 
-            /**
-            --- PRODUCTION ---
-            environment
-            is_commercial
-            type_of
-            grow_system
-            grow_system_other
-            started_at
-
-            --- PRODUCTION CROP ---
-            crop_other
-            quantity
-            substrate
-            substrate_other
-
-            */
+            name: localStorage.getItem('temp-name'),
+            description: localStorage.getItem('temp-description'),
+            deviceSlug: localStorage.getItem('temp-device'),
+            cropsArray: cropsArr,
+            fishArray: fishArr
         }
-        this.getDeviceOptions = this.getDeviceOptions.bind(this);
-        this.onTextChange = this.onTextChange.bind(this);
-        this.onSelectChange = this.onSelectChange.bind(this);
-        this.onCancelClick = this.onCancelClick.bind(this);
+        this.onBackClick = this.onBackClick.bind(this);
         this.onNextClick = this.onNextClick.bind(this);
     }
 
-    /**
-     *  Utility function will take the device list objects we have from the
-     *  API endpoint and generate options data for the `react-select` component
-     *  we are using.
-     */
-    getDeviceOptions() {
-        const deviceOptions = [];
-        const deviceList = this.props.deviceList;
-        if (deviceList !== undefined && deviceList !== null) {
-            const results = deviceList.results;
-            if (results !== undefined && results !== null) {
-                for (let i = 0; i < results.length; i++) {
-                    let device = results[i];
-                    // console.log(device); // For debugging purposes.
-                    deviceOptions.push({
-                        selectName: "device",
-                        value: device.slug,
-                        label: device.name
-                    });
-                }
-            }
-        }
-        return deviceOptions;
-    }
-
     componentDidMount() {
-        this.props.pullDeviceList(this.props.user); // Get latest data from API.
+        const deviceSlug = localStorage.getItem('temp-device');
+        this.props.pullDevice(this.props.user, deviceSlug); // Get latest data from API.
         window.scrollTo(0, 0);  // Start the page at the top of the page.
     }
 
@@ -97,28 +74,31 @@ class ProductionStep4CreateContainer extends Component {
      *------------------------------------------------------------
      */
 
-    onTextChange(e) {
-        this.setState({
-            [e.target.name]: e.target.value,
-        })
-    }
-
-    onSelectChange(option) {
-        this.setState({
-            [option.selectName]: option.value
-        })
-    }
-
-    onCancelClick(e) {
+    onBackClick(e) {
         this.setState({
             referrer: '/add-production-step-3'
         })
     }
 
     onNextClick(e) {
-        this.setState({
-            referrer: '/add-production-step-5'
-        })
+        e.preventDefault();
+
+        const { errors, isValid } = validateStep4Input(this.state);
+        if (isValid) {
+            this.setState({
+                referrer: '/add-production-step-5'
+            })
+        } else {
+            this.setState({
+                errors: errors
+            })
+
+            // The following code will cause the screen to scroll to the top of
+            // the page. Please see ``react-scroll`` for more information:
+            // https://github.com/fisshy/react-scroll
+            var scroll = Scroll.animateScroll;
+            scroll.scrollToTop();
+        }
     }
 
     /**
@@ -127,7 +107,8 @@ class ProductionStep4CreateContainer extends Component {
      */
 
     render() {
-        const { name, description, device, errors, showModal, referrer } = this.state;
+        const { name, description, cropsArray, fishArray, errors, showModal, referrer } = this.state;
+        const { device } = this.props;
         if (referrer) {
             return <Redirect to={referrer} />
         }
@@ -135,13 +116,11 @@ class ProductionStep4CreateContainer extends Component {
             <ProductionStep1CreateComponent
                 name={name}
                 description={description}
-                deviceOptions={this.getDeviceOptions()}
                 device={device}
-                onTextChange={this.onTextChange}
-                onSelectChange={this.onSelectChange}
+                plantsArray={cropsArray}
+                fishArray={fishArray}
                 errors={errors}
-                showModal={showModal}
-                onCancelClick={this.onCancelClick}
+                onBackClick={this.onBackClick}
                 onNextClick={this.onNextClick}
             />
         );
@@ -151,15 +130,15 @@ class ProductionStep4CreateContainer extends Component {
 const mapStateToProps = function(store) {
     return {
         user: store.userState,
-        deviceList: store.deviceListState,
+        device: store.deviceState,
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        pullDeviceList: (user, page) => {
+        pullDevice: (user, slug) => {
             dispatch(
-                pullDeviceList(user, page)
+                pullDevice(user, slug)
             )
         },
     }
