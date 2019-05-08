@@ -50,7 +50,12 @@ class ProductionStep4CreateContainer extends Component {
             isCommercial: localStorage.getItem('temp-isCommercial') === 'true',
             deviceSlug: localStorage.getItem('temp-device'),
             cropsArray: cropsArr,
-            fishArray: fishArr
+            fishArray: fishArr,
+            environment: parseInt(localStorage.getItem('temp-environment')),
+            typeOf: parseInt(localStorage.getItem('temp-typeOf')),
+            growSystem: parseInt(localStorage.getItem('temp-growSystem')),
+            growSystemOther: localStorage.getItem('temp-growSystemOther'),
+            startedAt: localStorage.getItem('temp-startedAt'),
         }
         this.onBackClick = this.onBackClick.bind(this);
         this.onNextClick = this.onNextClick.bind(this);

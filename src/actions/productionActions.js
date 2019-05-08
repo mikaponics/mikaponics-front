@@ -209,13 +209,10 @@ export function postProductionDetail(user, data, successCallback, failedCallback
                 setProductionDetailSuccess(device)
             );
         }).catch( (errorResult) => {
-            console.error(errorResult);
+            // console.error("postProductionDetail - ERROR",errorResult);
             const responseData = errorResult.response.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
             let errors = camelizeKeys(responseData);
             // console.log(errors);
-
-            // Run our failure callback function.
-            failedCallback(errors);
 
             store.dispatch(
                 setProductionDetailFailure({
@@ -223,6 +220,9 @@ export function postProductionDetail(user, data, successCallback, failedCallback
                     errors: errors
                 })
             );
+
+            // Run our failure callback function.
+            failedCallback(errors);
 
         }).then( () => {
             // Do nothing.
