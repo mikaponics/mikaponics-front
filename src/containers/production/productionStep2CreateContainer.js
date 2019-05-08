@@ -45,7 +45,7 @@ class ProductionStep2CreateContainer extends Component {
             // the data from the modal.
             crop: null,
             cropOther: null,
-            showOther: false,
+            showCropOther: false,
             quantity: null,
             cropsArray: cropsArr,
         }
@@ -114,7 +114,7 @@ class ProductionStep2CreateContainer extends Component {
         this.setState({
             crop: option.value,
             cropOption: option,
-            showOther: (option.value == "other")
+            showCropOther: (option.value == "other")
         })
     }
 
@@ -229,7 +229,7 @@ class ProductionStep2CreateContainer extends Component {
             device,
             crop,
             cropOther,
-            showOther,
+            showCropOther,
             quantity,
             cropsArray,
             errors,
@@ -244,7 +244,7 @@ class ProductionStep2CreateContainer extends Component {
                 cropOptions={this.getCropOptions()}
                 crop={crop}
                 cropOther={cropOther}
-                showOther={showOther}
+                showCropOther={showCropOther}
                 quantity={quantity}
                 cropsArray={cropsArray}
                 onTextChange={this.onTextChange}

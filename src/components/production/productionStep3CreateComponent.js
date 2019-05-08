@@ -11,7 +11,7 @@ class ProductionStep3CreateComponent extends Component {
     render() {
         const {
             onBackClick, onNextClick,
-            fishOptions, fish, fishOther, showOther, quantity, fishArray,
+            fishOptions, fish, fishOther, showFishOther, quantity, fishArray,
             onTextChange, onFishSelectChange, onAddButtonClick, onRemoveButtonClick, onSaveModalClick, onCloseModalClick,  errors, showModal
         } = this.props;
 
@@ -112,7 +112,7 @@ class ProductionStep3CreateComponent extends Component {
                                                    onSelectChange={onFishSelectChange}
                                                />
 
-                                               {showOther &&
+                                               {showFishOther &&
                                                    <BootstrapInput
                                                        inputClassName="form-control"
                                                        borderColour="border-primary"
@@ -229,7 +229,7 @@ class FishTable extends Component {
 
                 <thead>
                 <tr>
-                    <th>Name</th>
+                    <th>Fish</th>
                     <th>Quantity</th>
                     <th>
                     <button type="button" className="btn btn-success float-right" onClick={onAddButtonClick}>

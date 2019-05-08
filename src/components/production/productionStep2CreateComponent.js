@@ -11,7 +11,7 @@ class ProductionStep2CreateComponent extends Component {
     render() {
         const {
             onBackClick, onNextClick,
-            cropOptions, crop, cropOther, showOther, quantity, cropsArray,
+            cropOptions, crop, cropOther, showCropOther, quantity, cropsArray,
             onTextChange, onCropSelectChange, onAddButtonClick, onRemoveButtonClick, onSaveModalClick, onCloseModalClick,  errors, showModal
         } = this.props;
 
@@ -110,7 +110,7 @@ class ProductionStep2CreateComponent extends Component {
                                                    onSelectChange={onCropSelectChange}
                                                />
 
-                                               {showOther &&
+                                               {showCropOther &&
                                                    <BootstrapInput
                                                        inputClassName="form-control"
                                                        borderColour="border-primary"
@@ -227,7 +227,7 @@ class CropsTable extends Component {
 
                 <thead>
                 <tr>
-                    <th>Name</th>
+                    <th>Plant</th>
                     <th>Quantity</th>
                     <th>
                     <button type="button" className="btn btn-success float-right" onClick={onAddButtonClick}>

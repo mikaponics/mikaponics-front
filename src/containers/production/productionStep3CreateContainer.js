@@ -45,7 +45,7 @@ class ProductionStep3CreateContainer extends Component {
             // the data from the modal.
             fish: null,
             fishOther: null,
-            showOther: false,
+            showFishOther: false,
             quantity: null,
             fishArray: fishArr,
         }
@@ -114,7 +114,7 @@ class ProductionStep3CreateContainer extends Component {
         this.setState({
             fish: option.value,
             fishOption: option,
-            showOther: (option.value == "other")
+            showFishOther: (option.value == "other")
         })
     }
 
@@ -228,7 +228,7 @@ class ProductionStep3CreateContainer extends Component {
             device,
             fish,
             fishOther,
-            showOther,
+            showFishOther,
             quantity,
             fishArray,
             errors,
@@ -243,7 +243,7 @@ class ProductionStep3CreateContainer extends Component {
                 fishOptions={this.getCropOptions()}
                 fish={fish}
                 fishOther={fishOther}
-                showOther={showOther}
+                showFishOther={showFishOther}
                 quantity={quantity}
                 fishArray={fishArray}
                 onTextChange={this.onTextChange}

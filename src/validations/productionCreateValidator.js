@@ -56,7 +56,7 @@ export function validateStep2Input(data) {
             // If the user selected the "Other" option then we need to verify
             // that the "Other" textfield has been inputted, else raise a
             // validation error.
-            if (data.showOther) {
+            if (data.showCropOther) {
                 if (data.cropOther === "" || data.cropOther === null || data.cropOther === undefined) {
                     errors.cropOther = 'This field is required';
                 }
@@ -93,7 +93,7 @@ export function validateStep3Input(data) {
             // If the user selected the "Other" option then we need to verify
             // that the "Other" textfield has been inputted, else raise a
             // validation error.
-            if (data.showOther) {
+            if (data.showFishOther) {
                 if (data.fishOther === "" || data.fishOther === null || data.fishOther === undefined) {
                     errors.fishOther = 'This field is required';
                 }
