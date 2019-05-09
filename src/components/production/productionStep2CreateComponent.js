@@ -10,9 +10,8 @@ import { BootstrapSingleSelect } from '../bootstrap/bootstrapSingleSelect';
 class ProductionStep2CreateComponent extends Component {
     render() {
         const {
-            onBackClick, onNextClick,
-            plantOptions, plant, plantOther, showCropOther, quantity, plantsArray,
-            onTextChange, onCropSelectChange, onAddButtonClick, onRemoveButtonClick, onSaveModalClick, onCloseModalClick,  errors, showModal
+            plantOptions, plant, plantOther, showPlantOther, quantity, plantsArray, onPlantSelectChange,
+            onTextChange, onAddButtonClick, onRemoveButtonClick, onSaveModalClick, onCloseModalClick,  errors, showModal, onBackClick, onNextClick,
         } = this.props;
 
         // Apply our styling for our modal component.
@@ -33,7 +32,7 @@ class ProductionStep2CreateComponent extends Component {
                            <Link to="/dashboard"><i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard</Link>
                         </li>
                         <li className="breadcrumb-item">
-                            <Link to="/productions"><i className="fas fa-industry"></i>&nbsp;Crop Production</Link>
+                            <Link to="/productions"><i className="fas fa-industry"></i>&nbsp;Plant Production</Link>
                         </li>
                         <li className="breadcrumb-item active" aria-current="page">
                             <i className="fas fa-plus"></i>&nbsp;Add
@@ -71,7 +70,7 @@ class ProductionStep2CreateComponent extends Component {
 
                             <p>Please add all the plants you will be growing if any.</p>
 
-                            <CropsTable
+                            <PlantsTable
                                plantsArray={plantsArray}
                                onAddButtonClick={onAddButtonClick}
                                onRemoveButtonClick={onRemoveButtonClick}
@@ -84,7 +83,7 @@ class ProductionStep2CreateComponent extends Component {
                                <div>
 
                                     <h1>
-                                      Add Crop
+                                      Add Plant
                                        <button type="button" className="btn btn-secondary btn-lg float-right" onClick={onCloseModalClick}>
                                            <span className="fa fa-times"></span>
                                        </button>
@@ -107,10 +106,10 @@ class ProductionStep2CreateComponent extends Component {
                                                    options={plantOptions}
                                                    value={plant}
                                                    error={errors.plant}
-                                                   onSelectChange={onCropSelectChange}
+                                                   onSelectChange={onPlantSelectChange}
                                                />
 
-                                               {showCropOther &&
+                                               {showPlantOther &&
                                                    <BootstrapInput
                                                        inputClassName="form-control"
                                                        borderColour="border-primary"
@@ -175,7 +174,7 @@ class ProductionStep2CreateComponent extends Component {
 export default ProductionStep2CreateComponent;
 
 
-class CropsTableRow extends Component {
+class PlantsTableRow extends Component {
     render() {
         const { slug, name, quantity, onRemoveButtonClick } = this.props;
         return (
@@ -197,7 +196,7 @@ class CropsTableRow extends Component {
 }
 
 
-class CropsTable extends Component {
+class PlantsTable extends Component {
     render() {
         const { plantsArray, onAddButtonClick, onRemoveButtonClick } = this.props;
 
@@ -207,7 +206,7 @@ class CropsTable extends Component {
                 let rowData = plantsArray[i];
                 if (rowData !== null && rowData !== undefined) {
                     elements.push(
-                        <CropsTableRow
+                        <PlantsTableRow
                             key={rowData.slug}
                             slug={rowData.slug}
                             name={rowData.name}
