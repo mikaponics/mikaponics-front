@@ -14,8 +14,8 @@ class ProductionCard extends Component {
                         <i className="fas fa-leaf fa-3x"></i>
                     </div>
                     <div className="card-body">
-                        <h3 className="card-title">{productionObj.prettyTypeOf}</h3>
-                        <p className="card-text">{productionObj.prettyGrowSystem}</p>
+                        <h3 className="card-title">{productionObj.name}</h3>
+                        <p className="card-text">{productionObj.description}</p>
                         <Link to={productionObj.absoluteURL} className="btn btn-success btn-lg">
                             Go&nbsp;<i className="fas fa-arrow-circle-right"></i>
                         </Link>
@@ -61,7 +61,7 @@ class NoProductionJumbotron extends Component {
                         <p>If you would like to have a crop production running, start by clicking below.</p>
                         <p className="lead">
                             <Link className="btn btn-success btn-lg" to="/add-production-step-1">
-                                <i className="fas fa-plus"></i>&nbsp;Add Production
+                                <i className="fas fa-plus"></i>&nbsp;Add
                             </Link>
                         </p>
                     </div>

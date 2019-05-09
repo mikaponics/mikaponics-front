@@ -11,7 +11,7 @@ class ProductionCropCardItem extends Component {
             <div className="col-sm-4" key={crop.slug}>
                 <div className="card box-shadow text-center mx-auto">
                     <div className="card-custom-top-2">
-                        <i className="fas fa-user fa-3x"></i>
+                        <i className="fas fa-leaf fa-3x"></i>
                     </div>
                     <div className="card-body">
                         <h3 className="card-title">{crop.crop}</h3>
@@ -43,7 +43,7 @@ class ProductionCropCards extends Component {
                 </div>
             );
         }
-        return null;        
+        return null;
     }
 }
 

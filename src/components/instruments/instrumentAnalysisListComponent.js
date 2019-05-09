@@ -95,13 +95,15 @@ class InstrumentAnalysisListComponent extends Component {
         let elements;
         if (instrumentAnalysisList !== undefined && instrumentAnalysisList !== null) {
             const { results } = instrumentAnalysisList;
-            if (results.length === 0) {
-                elements = <NoAnalysesJumbotron instrument={instrument} />;
-            } else {
-                elements = (
-                    <InstrumentReportTable instrumentAnalysisList={instrumentAnalysisList} />
-                );
-            }
+            if (results !== undefined && results !== null) {
+                if (results.length === 0) {
+                    elements = <NoAnalysesJumbotron instrument={instrument} />;
+                } else {
+                    elements = (
+                        <InstrumentReportTable instrumentAnalysisList={instrumentAnalysisList} />
+                    );
+                }
+            }            
         }
 
         return (

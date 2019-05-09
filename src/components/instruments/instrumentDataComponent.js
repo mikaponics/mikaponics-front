@@ -16,15 +16,18 @@ class InstrumentDataChartComponent extends Component {
         }
 
         let tableRows = [];
-        var arrayLength = tableData.results.length;
-        for (var i = 0; i < arrayLength; i++) {
-            let rowData =  tableData.results[i];
-            tableRows.push({
-                key: rowData.timestamp,
-                value: rowData.value,
-                timestamp: rowData.timestamp
-            });
+        if (tableData !== undefined && tableData !== null) {
+            var arrayLength = tableData.results.length;
+            for (var i = 0; i < arrayLength; i++) {
+                let rowData =  tableData.results[i];
+                tableRows.push({
+                    key: rowData.timestamp,
+                    value: rowData.value,
+                    timestamp: rowData.timestamp
+                });
+            }
         }
+
 
         return (
             <div className="row">
