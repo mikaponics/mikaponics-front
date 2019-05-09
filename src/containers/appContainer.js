@@ -55,7 +55,9 @@ import ProductionStep2CreateContainer from  "./production/productionStep2CreateC
 import ProductionStep3CreateContainer from  "./production/productionStep3CreateContainer";
 import ProductionStep4CreateContainer from  "./production/productionStep4CreateContainer";
 import ProductionStep5CreateContainer from  "./production/productionStep5CreateContainer";
-
+import ProductionTerminateContainer from "./production/productionTerminateContainer";
+import ProductionInspectionContainer from "./production/productionInspectionContainer";
+import ProductionProfileContainer from "./production/productionProfileContainer";
 
 
 class AppContainer extends React.Component {
@@ -126,6 +128,9 @@ class AppContainer extends React.Component {
                             <Route path="/add-production-step-3" exact component={ProductionStep3CreateContainer} />
                             <Route path="/add-production-step-4" exact component={ProductionStep4CreateContainer} />
                             <Route path="/add-production-step-5" exact component={ProductionStep5CreateContainer} />
+                            <Route path="/production/:slug/terminate" exact component={ProductionTerminateContainer} />
+                            <Route path="/production/:slug/inspection" exact component={ProductionInspectionContainer} />
+                            <Route path="/production/:slug/profile" exact component={ProductionProfileContainer} />
                             <Route component={NotFound404Container} />
                         </Switch>
                     </main>

@@ -67,7 +67,7 @@ class ProductionDetailComponent extends Component {
                             <div className="card-body">
                                 <h3 className="card-title">Profile</h3>
                                 <p className="card-text">View and add inspections to this production.</p>
-                                <Link to="#" className="btn btn-success btn-lg">
+                                <Link to={`/production/${productionDetail.slug}/profile`} className="btn btn-success btn-lg">
                                     Go&nbsp;<i className="fas fa-arrow-circle-right"></i>
                                 </Link>
                             </div>
@@ -81,7 +81,7 @@ class ProductionDetailComponent extends Component {
                             <div className="card-body">
                                 <h3 className="card-title">Inspection</h3>
                                 <p className="card-text">View and add inspections to this production.</p>
-                                <Link to="#" className="btn btn-success btn-lg">
+                                <Link to={`/production/${productionDetail.slug}/inspection`} className="btn btn-success btn-lg">
                                     Go&nbsp;<i className="fas fa-arrow-circle-right"></i>
                                 </Link>
                             </div>
@@ -95,7 +95,7 @@ class ProductionDetailComponent extends Component {
                             <div className="card-body">
                                 <h3 className="card-title">Harvest / Close</h3>
                                 <p className="card-text">View and add inspections to this production.</p>
-                                <Link to="#" className="btn btn-success btn-lg">
+                                <Link to={`/production/${productionDetail.slug}/terminate`} className="btn btn-success btn-lg">
                                     Go&nbsp;<i className="fas fa-arrow-circle-right"></i>
                                 </Link>
                             </div>
