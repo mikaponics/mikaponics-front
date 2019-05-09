@@ -4,50 +4,6 @@ import Moment from 'react-moment';
 import 'moment-timezone';
 
 
-class ProductionCropCardItem extends Component {
-    render() {
-        const { crop } = this.props;
-        return (
-            <div className="col-sm-4" key={crop.slug}>
-                <div className="card box-shadow text-center mx-auto">
-                    <div className="card-custom-top-2">
-                        <i className="fas fa-leaf fa-3x"></i>
-                    </div>
-                    <div className="card-body">
-                        <h3 className="card-title">{crop.crop}</h3>
-                        <p className="card-text">Quantity: {crop.quantity}</p>
-                        <Link to={crop.absoluteURL} className="btn btn-success btn-lg">
-                            Go&nbsp;<i className="fas fa-arrow-circle-right"></i>
-                        </Link>
-                    </div>
-                </div>
-            </div>
-        );
-    }
-}
-
-
-class ProductionCropCards extends Component {
-    render() {
-        const { crops } = this.props.object;
-        let elements = [];
-        if (crops !== undefined && crops !== null) {
-            for (let i = 0; i < crops.length; i++) {
-                elements.push(
-                    <ProductionCropCardItem crop={crops[i]} key={crops[i].slug} />
-                );
-            }
-            return (
-                <div className="card-group row">
-                    {elements}
-                </div>
-            );
-        }
-        return null;
-    }
-}
-
-
 class ProductionSummaryTable extends Component {
     render() {
         const { absoluteURL, crops, slug } = this.props.object;
@@ -83,17 +39,6 @@ class ProductionSummaryTable extends Component {
 class ProductionDetailComponent extends Component {
     render() {
         const { productionDetail } = this.props;
-
-        let elements = [];
-        if (productionDetail !== undefined && productionDetail !== null) {
-            elements.push(
-                <ProductionCropCards object={productionDetail} key="prod-crop-cards" />
-            )
-            elements.push(
-                <ProductionSummaryTable object={productionDetail} key="prod-crop-table" />
-            );
-        }
-
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -105,12 +50,62 @@ class ProductionDetailComponent extends Component {
                             <Link to="/productions"><i className="fas fa-industry"></i>&nbsp;Crop Production</Link>
                         </li>
                         <li className="breadcrumb-item active" aria-current="page">
-                            <i className="fas fa-leaf"></i>&nbsp;{productionDetail.prettyTypeOf}
+                            <i className="fas fa-leaf"></i>&nbsp;{productionDetail.name}
                         </li>
                     </ol>
                 </nav>
-                <h1><i className="fas fa-leaf"></i>&nbsp;{productionDetail.prettyTypeOf}</h1>
-                {elements}
+                <h1>
+                    <i className="fas fa-leaf"></i>&nbsp;{productionDetail.name}
+                </h1>
+
+                <div className="card-group row">
+                    <div className="col-sm-4" key="inspections">
+                        <div className="card box-shadow text-center mx-auto">
+                            <div className="card-custom-top-2">
+                                <i className="fas fa-info fa-3x"></i>
+                            </div>
+                            <div className="card-body">
+                                <h3 className="card-title">Profile</h3>
+                                <p className="card-text">View and add inspections to this production.</p>
+                                <Link to="#" className="btn btn-success btn-lg">
+                                    Go&nbsp;<i className="fas fa-arrow-circle-right"></i>
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-sm-4" key="inspections">
+                        <div className="card box-shadow text-center mx-auto">
+                            <div className="card-custom-top-2">
+                                <i className="fas fa-eye fa-3x"></i>
+                            </div>
+                            <div className="card-body">
+                                <h3 className="card-title">Inspection</h3>
+                                <p className="card-text">View and add inspections to this production.</p>
+                                <Link to="#" className="btn btn-success btn-lg">
+                                    Go&nbsp;<i className="fas fa-arrow-circle-right"></i>
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-sm-4" key="inspections">
+                        <div className="card box-shadow text-center mx-auto">
+                            <div className="card-custom-top-2">
+                                <i className="fas fa-shopping-basket fa-3x"></i>
+                            </div>
+                            <div className="card-body">
+                                <h3 className="card-title">Harvest / Close</h3>
+                                <p className="card-text">View and add inspections to this production.</p>
+                                <Link to="#" className="btn btn-success btn-lg">
+                                    Go&nbsp;<i className="fas fa-arrow-circle-right"></i>
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
             </div>
         );
     }

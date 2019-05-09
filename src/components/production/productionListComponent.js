@@ -38,6 +38,24 @@ class ProductionCards extends Component {
             )
         }
 
+        // Attach our "Add Production" GUI element.
+        elements.push(
+            <div className="col-sm-4">
+                <div className="card box-shadow text-center mx-auto">
+                    <div className="card-custom-top-2">
+                        <i className="fas fa-plus fa-3x"></i>
+                    </div>
+                    <div className="card-body">
+                        <h3 className="card-title">Add Production</h3>
+                        <p className="card-text">Add a crop production to the systen.</p>
+                        <Link to="/add-production-step-1" className="btn btn-success btn-lg">
+                            Go&nbsp;<i className="fas fa-arrow-circle-right"></i>
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        );
+
         return (
             <div className="card-group row">
                 {elements}
@@ -101,9 +119,6 @@ class ProductionListComponent extends Component {
                 </nav>
                 <h1>
                     <i className="fas fa-industry"></i>&nbsp;Crop Production
-                    <Link to="/add-production-step-1" className="btn btn-success btn-lg float-right">
-                        <i className="fas fa-plus"></i>&nbsp;Add
-                    </Link>
                 </h1>
                 {elements}
             </div>
