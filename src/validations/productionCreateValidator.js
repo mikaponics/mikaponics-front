@@ -50,15 +50,15 @@ export function validateStep2Input(data) {
 
     // Only do validation if we are running the modal.
     if (data.showModal) {
-        if (data.crop === "" || data.crop === null || data.crop === undefined) {
-            errors.crop = 'This field is required';
+        if (data.plant === "" || data.plant === null || data.plant === undefined) {
+            errors.plant = 'This field is required';
         } else {
             // If the user selected the "Other" option then we need to verify
             // that the "Other" textfield has been inputted, else raise a
             // validation error.
-            if (data.showCropOther) {
-                if (data.cropOther === "" || data.cropOther === null || data.cropOther === undefined) {
-                    errors.cropOther = 'This field is required';
+            if (data.showPlantOther) {
+                if (data.plantOther === "" || data.plantOther === null || data.plantOther === undefined) {
+                    errors.plantOther = 'This field is required';
                 }
             }
         }
@@ -122,9 +122,9 @@ export function validateStep3Input(data) {
 export function validateStep4Input(data) {
     let errors = {};
 
-    const hasNoCrops = isEmpty(data.plantsArray);
+    const hasNoPlants = isEmpty(data.plantsArray);
     const hasNoFish = isEmpty(data.fishArray);
-    if (hasNoCrops && hasNoFish) {
+    if (hasNoPlants && hasNoFish) {
         errors['Missing Crops'] = 'You did not select any plants nor fish. Please select one before submitting.';
     }
 

@@ -11,7 +11,7 @@ class ProductionStep2CreateComponent extends Component {
     render() {
         const {
             onBackClick, onNextClick,
-            cropOptions, crop, cropOther, showCropOther, quantity, cropsArray,
+            plantOptions, plant, plantOther, showCropOther, quantity, plantsArray,
             onTextChange, onCropSelectChange, onAddButtonClick, onRemoveButtonClick, onSaveModalClick, onCloseModalClick,  errors, showModal
         } = this.props;
 
@@ -72,7 +72,7 @@ class ProductionStep2CreateComponent extends Component {
                             <p>Please add all the plants you will be growing if any.</p>
 
                             <CropsTable
-                               cropsArray={cropsArray}
+                               plantsArray={plantsArray}
                                onAddButtonClick={onAddButtonClick}
                                onRemoveButtonClick={onRemoveButtonClick}
                             />
@@ -101,12 +101,12 @@ class ProductionStep2CreateComponent extends Component {
                                                <p>All fields which have the (*) symbol are required to be filled out.</p>
 
                                                <BootstrapSingleSelect
-                                                   label="Crop (*)"
-                                                   name="crop"
-                                                   defaultOptionLabel="Please crop to add."
-                                                   options={cropOptions}
-                                                   value={crop}
-                                                   error={errors.crop}
+                                                   label="Plant (*)"
+                                                   name="plant"
+                                                   defaultOptionLabel="Please plant to add."
+                                                   options={plantOptions}
+                                                   value={plant}
+                                                   error={errors.plant}
                                                    onSelectChange={onCropSelectChange}
                                                />
 
@@ -114,11 +114,11 @@ class ProductionStep2CreateComponent extends Component {
                                                    <BootstrapInput
                                                        inputClassName="form-control"
                                                        borderColour="border-primary"
-                                                       error={errors.cropOther}
+                                                       error={errors.plantOther}
                                                        label="Other - Please specify plant (*)"
                                                        onChange={onTextChange}
-                                                       value={cropOther}
-                                                       name="cropOther"
+                                                       value={plantOther}
+                                                       name="plantOther"
                                                        type="text"
                                                        placeholder="Please specify the plant you will be growing."
                                                    />
@@ -199,12 +199,12 @@ class CropsTableRow extends Component {
 
 class CropsTable extends Component {
     render() {
-        const { cropsArray, onAddButtonClick, onRemoveButtonClick } = this.props;
+        const { plantsArray, onAddButtonClick, onRemoveButtonClick } = this.props;
 
         let elements = [];
-        if (cropsArray !== undefined && cropsArray !== null) {
-            for (let i = 0; i < cropsArray.length; i++) {
-                let rowData = cropsArray[i];
+        if (plantsArray !== undefined && plantsArray !== null) {
+            for (let i = 0; i < plantsArray.length; i++) {
+                let rowData = plantsArray[i];
                 if (rowData !== null && rowData !== undefined) {
                     elements.push(
                         <CropsTableRow

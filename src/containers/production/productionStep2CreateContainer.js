@@ -20,12 +20,12 @@ class ProductionStep2CreateContainer extends Component {
     constructor(props) {
         super(props);
 
-        // Extract our crops array (which is used to populate the table) from
+        // Extract our plants array (which is used to populate the table) from
         // the users's local storage.
-        const stringCropsArr = localStorage.getItem("temp-crops");
-        let cropsArr = JSON.parse(stringCropsArr);
-        if (cropsArr  === undefined || cropsArr === null) {
-            cropsArr = [];
+        const stringPlantsArr = localStorage.getItem("temp-plants");
+        let plantsArr = JSON.parse(stringPlantsArr);
+        if (plantsArr  === undefined || plantsArr === null) {
+            plantsArr = [];
         }
 
         this.state = {
@@ -43,15 +43,15 @@ class ProductionStep2CreateContainer extends Component {
 
             // DEVELOPERS NOTE: The following state objects are used to store
             // the data from the modal.
-            crop: null,
-            cropOther: null,
-            showCropOther: false,
+            plant: null,
+            plantOther: null,
+            showPlantOther: false,
             quantity: null,
-            cropsArray: cropsArr,
+            plantsArray: plantsArr,
         }
-        this.getCropOptions = this.getCropOptions.bind(this);
+        this.getPlantOptions = this.getPlantOptions.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
-        this.onCropSelectChange = this.onCropSelectChange.bind(this);
+        this.onPlantSelectChange = this.onPlantSelectChange.bind(this);
         this.onAddButtonClick = this.onAddButtonClick.bind(this);
         this.onRemoveButtonClick = this.onRemoveButtonClick.bind(this);
         this.onSaveModalClick = this.onSaveModalClick.bind(this);
@@ -61,27 +61,27 @@ class ProductionStep2CreateContainer extends Component {
     }
 
     /**
-     *  Utility function will take the crop list objects we have from the
+     *  Utility function will take the plant list objects we have from the
      *  API endpoint and generate options data for the `react-select` component
      *  we are using.
      */
-    getCropOptions() {
-        const cropOptions = [];
-        const cropList = this.props.cropList;
-        if (cropList !== undefined && cropList !== null) {
-            const results = cropList.results;
+    getPlantOptions() {
+        const plantOptions = [];
+        const plantList = this.props.plantList;
+        if (plantList !== undefined && plantList !== null) {
+            const results = plantList.results;
             if (results !== undefined && results !== null) {
                 for (let i = 0; i < results.length; i++) {
-                    let crop = results[i];
-                    cropOptions.push({
-                        selectName: "crop",
-                        value: crop.slug,
-                        label: crop.name
+                    let plant = results[i];
+                    plantOptions.push({
+                        selectName: "plant",
+                        value: plant.slug,
+                        label: plant.name
                     });
                 }
             }
         }
-        return cropOptions;
+        return plantOptions;
     }
 
     componentDidMount() {
@@ -110,38 +110,38 @@ class ProductionStep2CreateContainer extends Component {
         })
     }
 
-    onCropSelectChange(option) {
+    onPlantSelectChange(option) {
         this.setState({
-            crop: option.value,
-            cropOption: option,
-            showCropOther: (option.value == "other")
+            plant: option.value,
+            plantOption: option,
+            showPlantOther: (option.value == "other")
         })
     }
 
     onRemoveButtonClick(slug) {
-        const cropsArray = this.state.cropsArray;
-        for (let i = 0; i < cropsArray.length; i++) {
-            let row = cropsArray[i];
+        const plantsArray = this.state.plantsArray;
+        for (let i = 0; i < plantsArray.length; i++) {
+            let row = plantsArray[i];
             if (row.slug === slug) {
                 //
                 // Special thanks: https://flaviocopes.com/how-to-remove-item-from-array/
                 //
-                const filteredItems = cropsArray.slice(
+                const filteredItems = plantsArray.slice(
                     0, i
                 ).concat(
-                    cropsArray.slice(
-                        i + 1, cropsArray.length
+                    plantsArray.slice(
+                        i + 1, plantsArray.length
                     )
                 )
 
                 // Update our state with our NEW ARRAY which no longer has
                 // the item we deleted.
                 this.setState({
-                    cropsArray: filteredItems
+                    plantsArray: filteredItems
                 });
 
                 // Save our table data.
-                localStorage.setItem("temp-crops", JSON.stringify(filteredItems))
+                localStorage.setItem("temp-plants", JSON.stringify(filteredItems))
 
                 // Terminate our for-loop.
                 return;
@@ -163,11 +163,11 @@ class ProductionStep2CreateContainer extends Component {
         const { errors, isValid } = validateStep2Input(this.state);
         if (isValid) {
             // Append our array.
-            let a = this.state.cropsArray.slice(); //creates the clone of the state
+            let a = this.state.plantsArray.slice(); //creates the clone of the state
             a.push({
-                slug: this.state.cropOption.value,
-                name: this.state.cropOption.label,
-                name_other: this.state.cropOther,
+                slug: this.state.plantOption.value,
+                name: this.state.plantOption.label,
+                name_other: this.state.plantOther,
                 quantity: this.state.quantity,
             });
 
@@ -175,13 +175,13 @@ class ProductionStep2CreateContainer extends Component {
             this.setState({
                 showModal: false,
                 errors: {},
-                crop: null,
+                plant: null,
                 quantity: null,
-                cropsArray: a
+                plantsArray: a
             });
 
             // Save our table data.
-            localStorage.setItem("temp-crops", JSON.stringify(a))
+            localStorage.setItem("temp-plants", JSON.stringify(a))
         } else {
             this.setState({
                 errors: errors
@@ -227,11 +227,11 @@ class ProductionStep2CreateContainer extends Component {
             name,
             description,
             device,
-            crop,
-            cropOther,
-            showCropOther,
+            plant,
+            plantOther,
+            showPlantOther,
             quantity,
-            cropsArray,
+            plantsArray,
             errors,
             showModal,
              referrer
@@ -241,14 +241,14 @@ class ProductionStep2CreateContainer extends Component {
         }
         return (
             <ProductionStep2CreateComponent
-                cropOptions={this.getCropOptions()}
-                crop={crop}
-                cropOther={cropOther}
-                showCropOther={showCropOther}
+                plantOptions={this.getPlantOptions()}
+                plant={plant}
+                plantOther={plantOther}
+                showPlantOther={showPlantOther}
                 quantity={quantity}
-                cropsArray={cropsArray}
+                plantsArray={plantsArray}
                 onTextChange={this.onTextChange}
-                onCropSelectChange={this.onCropSelectChange}
+                onPlantSelectChange={this.onPlantSelectChange}
                 onAddButtonClick={this.onAddButtonClick}
                 onRemoveButtonClick={this.onRemoveButtonClick}
                 onSaveModalClick={this.onSaveModalClick}
@@ -264,7 +264,7 @@ class ProductionStep2CreateContainer extends Component {
 
 const mapStateToProps = function(store) {
     return {
-        cropList: store.cropListState,
+        plantList: store.cropListState,
         user: store.userState,
         deviceList: store.deviceListState,
         // productionList: store.productionListState,
