@@ -93,8 +93,8 @@ class ProductionDetailComponent extends Component {
                                 <i className="fas fa-shopping-basket fa-3x"></i>
                             </div>
                             <div className="card-body">
-                                <h3 className="card-title">Harvest / Close</h3>
-                                <p className="card-text">View and add inspections to this production.</p>
+                                <h3 className="card-title">Harvest or Terminate</h3>
+                                <p className="card-text">Close this production by marking it harvested or termianted.</p>
                                 <Link to={`/production/${productionDetail.slug}/terminate`} className="btn btn-success btn-lg">
                                     Go&nbsp;<i className="fas fa-arrow-circle-right"></i>
                                 </Link>
