@@ -18,9 +18,14 @@ class CropUnorderedList extends Component {
             for (let i = 0; i < cropsArray.length; i++) {
                 let cropObj = cropsArray[i];
                 elements.push(
-                    <li>
-                        {cropObj.name}&nbsp;x&nbsp;{cropObj.quantity}
-                    </li>
+                    <div>
+                        {cropObj.plant &&
+                            <li>{cropObj.plant}&nbsp;x&nbsp;{cropObj.quantity}</li>
+                        }
+                        {cropObj.fish &&
+                            <li>{cropObj.fish}&nbsp;x&nbsp;{cropObj.quantity}</li>
+                        }
+                    </div>
                 );
             }
             return (

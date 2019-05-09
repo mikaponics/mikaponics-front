@@ -176,17 +176,17 @@ export default ProductionStep2CreateComponent;
 
 class PlantsTableRow extends Component {
     render() {
-        const { slug, name, quantity, onRemoveButtonClick } = this.props;
+        const { plantSlug, plant, quantity, onRemoveButtonClick } = this.props;
         return (
-            <tr key={slug}>
+            <tr key={plantSlug}>
                 <td>
-                    {name}
+                    {plant}
                 </td>
                 <td>
                     {quantity}
                 </td>
                 <td>
-                    <button type="button" className="btn btn-danger float-right" aria-label="prev" onClick={() => onRemoveButtonClick(slug)}>
+                    <button type="button" className="btn btn-danger float-right" aria-label="prev" onClick={() => onRemoveButtonClick(plantSlug)}>
                         <span className="fa fa-minus"></span>
                     </button>
                 </td>
@@ -207,9 +207,9 @@ class PlantsTable extends Component {
                 if (rowData !== null && rowData !== undefined) {
                     elements.push(
                         <PlantsTableRow
-                            key={rowData.slug}
-                            slug={rowData.slug}
-                            name={rowData.name}
+                            key={rowData.plantSlug}
+                            plantSlug={rowData.plantSlug}
+                            plant={rowData.plant}
                             quantity={rowData.quantity}
                             onRemoveButtonClick={onRemoveButtonClick}
                         />

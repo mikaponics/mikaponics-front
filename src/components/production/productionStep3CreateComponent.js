@@ -179,17 +179,17 @@ export default ProductionStep3CreateComponent;
 
 class FishTableRow extends Component {
     render() {
-        const { slug, name, quantity, onRemoveButtonClick } = this.props;
+        const { fishSlug, fish, quantity, onRemoveButtonClick } = this.props;
         return (
-            <tr key={slug}>
+            <tr key={fishSlug}>
                 <td>
-                    {name}
+                    {fish}
                 </td>
                 <td>
                     {quantity}
                 </td>
                 <td>
-                    <button type="button" className="btn btn-danger float-right" aria-label="prev" onClick={() => onRemoveButtonClick(slug)}>
+                    <button type="button" className="btn btn-danger float-right" aria-label="prev" onClick={() => onRemoveButtonClick(fishSlug)}>
                         <span className="fa fa-minus"></span>
                     </button>
                 </td>
@@ -210,9 +210,9 @@ class FishTable extends Component {
                 if (rowData !== null && rowData !== undefined) {
                     elements.push(
                         <FishTableRow
-                            key={rowData.slug}
-                            slug={rowData.slug}
-                            name={rowData.name}
+                            key={rowData.fishSlug}
+                            fishSlug={rowData.fishSlug}
+                            fish={rowData.fish}
                             quantity={rowData.quantity}
                             onRemoveButtonClick={onRemoveButtonClick}
                         />

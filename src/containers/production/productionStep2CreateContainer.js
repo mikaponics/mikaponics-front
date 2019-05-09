@@ -122,7 +122,7 @@ class ProductionStep2CreateContainer extends Component {
         const plantsArray = this.state.plantsArray;
         for (let i = 0; i < plantsArray.length; i++) {
             let row = plantsArray[i];
-            if (row.slug === slug) {
+            if (row.plantSlug === slug) {
                 //
                 // Special thanks: https://flaviocopes.com/how-to-remove-item-from-array/
                 //
@@ -165,9 +165,9 @@ class ProductionStep2CreateContainer extends Component {
             // Append our array.
             let a = this.state.plantsArray.slice(); //creates the clone of the state
             a.push({
-                slug: this.state.plantOption.value,
-                name: this.state.plantOption.label,
-                name_other: this.state.plantOther,
+                plantSlug: this.state.plantOption.value,
+                plant: this.state.plantOption.label,
+                plantOther: this.state.plantOther,
                 quantity: this.state.quantity,
             });
 

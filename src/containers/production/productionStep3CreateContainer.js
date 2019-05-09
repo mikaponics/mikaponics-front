@@ -122,7 +122,7 @@ class ProductionStep3CreateContainer extends Component {
         const fishArray = this.state.fishArray;
         for (let i = 0; i < fishArray.length; i++) {
             let row = fishArray[i];
-            if (row.slug === slug) {
+            if (row.fishSlug === slug) {
                 //
                 // Special thanks: https://flaviocopes.com/how-to-remove-item-from-array/
                 //
@@ -165,8 +165,9 @@ class ProductionStep3CreateContainer extends Component {
             // Append our array.
             let a = this.state.fishArray.slice(); //creates the clone of the state
             a.push({
-                slug: this.state.fishOption.value,
-                name: this.state.fishOption.label,
+                fishSlug: this.state.fishOption.value,
+                fish: this.state.fishOption.label,
+                fishOther: this.state.fishOther,
                 quantity: this.state.quantity,
             });
 

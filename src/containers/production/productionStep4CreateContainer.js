@@ -21,7 +21,7 @@ class ProductionStep4CreateContainer extends Component {
 
         // Extract our crops array (which is used to populate the table) from
         // the users's local storage.
-        const stringCropsArr = localStorage.getItem("temp-crops");
+        const stringCropsArr = localStorage.getItem("temp-plants");
         let cropsArr = JSON.parse(stringCropsArr);
         if (cropsArr  === undefined || cropsArr === null) {
             cropsArr = [];
@@ -61,6 +61,8 @@ class ProductionStep4CreateContainer extends Component {
         this.onNextClick = this.onNextClick.bind(this);
         this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
         this.onFailedSubmissionCallback = this.onFailedSubmissionCallback.bind(this);
+
+        console.log(")))", this.state);
     }
 
     componentDidMount() {
