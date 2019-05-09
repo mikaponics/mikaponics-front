@@ -10,9 +10,9 @@ import { BootstrapSingleSelect } from '../bootstrap/bootstrapSingleSelect';
 class ProductionStep3CreateComponent extends Component {
     render() {
         const {
-            onBackClick, onNextClick,
             fishOptions, fish, fishOther, showFishOther, quantity, fishArray,
-            onTextChange, onFishSelectChange, onAddButtonClick, onRemoveButtonClick, onSaveModalClick, onCloseModalClick,  errors, showModal
+            substrateOptions, substrate, substrateOther, showSubstrateOther, substratesArray, onSubstrateSelectChange,
+            onTextChange, onFishSelectChange, onAddButtonClick, onRemoveButtonClick, onSaveModalClick, onCloseModalClick,  errors, showModal, onBackClick, onNextClick,
         } = this.props;
 
         // Apply our styling for our modal component.
@@ -137,6 +137,31 @@ class ProductionStep3CreateComponent extends Component {
                                                    type="number"
                                                    placeholder="Please specify how many plants there will be.."
                                                />
+
+                                               <BootstrapSingleSelect
+                                                   label="Substrate (*)"
+                                                   name="substrate"
+                                                   defaultOptionLabel="Please substrate to add."
+                                                   options={substrateOptions}
+                                                   value={substrate}
+                                                   error={errors.substrate}
+                                                   onSelectChange={onSubstrateSelectChange}
+                                               />
+
+                                               {showSubstrateOther &&
+                                                   <BootstrapInput
+                                                       inputClassName="form-control"
+                                                       borderColour="border-primary"
+                                                       error={errors.substrateOther}
+                                                       label="Other - Please specify substrate (*)"
+                                                       onChange={onTextChange}
+                                                       value={substrateOther}
+                                                       name="substrateOther"
+                                                       type="text"
+                                                       placeholder="Please specify the substrate you will be growing."
+                                                   />
+                                               }
+                                               
                                                <button
                                                    onClick={onCloseModalClick}
                                                    type="button"

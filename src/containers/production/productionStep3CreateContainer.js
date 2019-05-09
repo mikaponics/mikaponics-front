@@ -47,11 +47,22 @@ class ProductionStep3CreateContainer extends Component {
             fishOther: null,
             showFishOther: false,
             quantity: null,
+
+            // ALL OUR OBJECTS ARE STORED HERE.
             fishArray: fishArr,
+
+            // DEVELOPERS NOTE: The following state objects are used to store
+            // the data from the modal.
+            substrate: null,
+            substrateOther: null,
+            showSubstrateOther: false,
+            quantity: null,
         }
         this.getCropOptions = this.getCropOptions.bind(this);
+        this.getSubstrateOptions = this.getSubstrateOptions.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
         this.onFishSelectChange = this.onFishSelectChange.bind(this);
+        this.onSubstrateSelectChange = this.onSubstrateSelectChange.bind(this);
         this.onAddButtonClick = this.onAddButtonClick.bind(this);
         this.onRemoveButtonClick = this.onRemoveButtonClick.bind(this);
         this.onSaveModalClick = this.onSaveModalClick.bind(this);
@@ -82,6 +93,30 @@ class ProductionStep3CreateContainer extends Component {
             }
         }
         return fishOptions;
+    }
+
+    /**
+     *  Utility function will take the substrate list objects we have from the
+     *  API endpoint and generate options data for the `react-select` component
+     *  we are using.
+     */
+    getSubstrateOptions() {
+        const substrateOptions = [];
+        const substrateList = this.props.substrateList;
+        if (substrateList !== undefined && substrateList !== null) {
+            const results = substrateList.results;
+            if (results !== undefined && results !== null) {
+                for (let i = 0; i < results.length; i++) {
+                    let substrate = results[i];
+                    substrateOptions.push({
+                        selectName: "substrate",
+                        value: substrate.slug,
+                        label: substrate.name
+                    });
+                }
+            }
+        }
+        return substrateOptions;
     }
 
     componentDidMount() {
@@ -115,6 +150,14 @@ class ProductionStep3CreateContainer extends Component {
             fish: option.value,
             fishOption: option,
             showFishOther: (option.value == "other")
+        })
+    }
+
+    onSubstrateSelectChange(option) {
+        this.setState({
+            substrate: option.value,
+            substrateOption: option,
+            showSubstrateOther: (option.value == "other")
         })
     }
 
@@ -169,6 +212,9 @@ class ProductionStep3CreateContainer extends Component {
                 fish: this.state.fishOption.label,
                 fishOther: this.state.fishOther,
                 quantity: this.state.quantity,
+                substrateSlug: this.state.substrateOption.value,
+                substrate: this.state.substrateOption.label,
+                substrateOther: this.state.substrateOther,
             });
 
             // Close the modal, reset any errors and clear field values.
@@ -177,6 +223,8 @@ class ProductionStep3CreateContainer extends Component {
                 errors: {},
                 fish: null,
                 quantity: null,
+                substrate: null,
+                substrateOther: null,
                 fishArray: a
             });
 
@@ -231,6 +279,9 @@ class ProductionStep3CreateContainer extends Component {
             fishOther,
             showFishOther,
             quantity,
+            substrate,
+            substrateOther,
+            showSubstrateOther,
             fishArray,
             errors,
             showModal,
@@ -247,6 +298,13 @@ class ProductionStep3CreateContainer extends Component {
                 showFishOther={showFishOther}
                 quantity={quantity}
                 fishArray={fishArray}
+
+                substrateOptions={this.getSubstrateOptions()}
+                substrate={substrate}
+                substrateOther={substrateOther}
+                showSubstrateOther={showSubstrateOther}
+                onSubstrateSelectChange={this.onSubstrateSelectChange}
+
                 onTextChange={this.onTextChange}
                 onFishSelectChange={this.onFishSelectChange}
                 onAddButtonClick={this.onAddButtonClick}
@@ -265,6 +323,7 @@ class ProductionStep3CreateContainer extends Component {
 const mapStateToProps = function(store) {
     return {
         cropList: store.cropListState,
+        substrateList: store.cropSubstrateListState,
         user: store.userState,
         deviceList: store.deviceListState,
         // productionList: store.productionListState,

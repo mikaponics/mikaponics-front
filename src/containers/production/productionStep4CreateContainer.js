@@ -61,8 +61,6 @@ class ProductionStep4CreateContainer extends Component {
         this.onNextClick = this.onNextClick.bind(this);
         this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
         this.onFailedSubmissionCallback = this.onFailedSubmissionCallback.bind(this);
-
-        console.log(")))", this.state);
     }
 
     componentDidMount() {
