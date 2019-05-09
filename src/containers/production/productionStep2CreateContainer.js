@@ -47,11 +47,22 @@ class ProductionStep2CreateContainer extends Component {
             plantOther: null,
             showPlantOther: false,
             quantity: null,
+
+            // ALL OUR OBJECTS ARE STORED HERE.
             plantsArray: plantsArr,
+
+            // DEVELOPERS NOTE: The following state objects are used to store
+            // the data from the modal.
+            substrate: null,
+            substrateOther: null,
+            showSubstrateOther: false,
+            quantity: null,
         }
         this.getPlantOptions = this.getPlantOptions.bind(this);
+        this.getSubstrateOptions = this.getSubstrateOptions.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
         this.onPlantSelectChange = this.onPlantSelectChange.bind(this);
+        this.onSubstrateSelectChange = this.onSubstrateSelectChange.bind(this);
         this.onAddButtonClick = this.onAddButtonClick.bind(this);
         this.onRemoveButtonClick = this.onRemoveButtonClick.bind(this);
         this.onSaveModalClick = this.onSaveModalClick.bind(this);
@@ -82,6 +93,30 @@ class ProductionStep2CreateContainer extends Component {
             }
         }
         return plantOptions;
+    }
+
+    /**
+     *  Utility function will take the substrate list objects we have from the
+     *  API endpoint and generate options data for the `react-select` component
+     *  we are using.
+     */
+    getSubstrateOptions() {
+        const substrateOptions = [];
+        const substrateList = this.props.substrateList;
+        if (substrateList !== undefined && substrateList !== null) {
+            const results = substrateList.results;
+            if (results !== undefined && results !== null) {
+                for (let i = 0; i < results.length; i++) {
+                    let substrate = results[i];
+                    substrateOptions.push({
+                        selectName: "substrate",
+                        value: substrate.slug,
+                        label: substrate.name
+                    });
+                }
+            }
+        }
+        return substrateOptions;
     }
 
     componentDidMount() {
@@ -115,6 +150,14 @@ class ProductionStep2CreateContainer extends Component {
             plant: option.value,
             plantOption: option,
             showPlantOther: (option.value == "other")
+        })
+    }
+
+    onSubstrateSelectChange(option) {
+        this.setState({
+            substrate: option.value,
+            substrateOption: option,
+            showSubstrateOther: (option.value == "other")
         })
     }
 
@@ -169,6 +212,9 @@ class ProductionStep2CreateContainer extends Component {
                 plant: this.state.plantOption.label,
                 plantOther: this.state.plantOther,
                 quantity: this.state.quantity,
+                substrateSlug: this.state.substrateOption.value,
+                substrate: this.state.substrateOption.label,
+                substrateOther: this.state.substrateOther,
             });
 
             // Close the modal, reset any errors and clear field values.
@@ -176,7 +222,10 @@ class ProductionStep2CreateContainer extends Component {
                 showModal: false,
                 errors: {},
                 plant: null,
+                plantOther: null,
                 quantity: null,
+                substrate: null,
+                substrateOther: null,
                 plantsArray: a
             });
 
@@ -232,6 +281,9 @@ class ProductionStep2CreateContainer extends Component {
             showPlantOther,
             quantity,
             plantsArray,
+            substrate,
+            substrateOther,
+            showSubstrateOther,
             errors,
             showModal,
              referrer
@@ -247,8 +299,15 @@ class ProductionStep2CreateContainer extends Component {
                 showPlantOther={showPlantOther}
                 quantity={quantity}
                 plantsArray={plantsArray}
+
+                substrateOptions={this.getSubstrateOptions()}
+                substrate={substrate}
+                substrateOther={substrateOther}
+                showSubstrateOther={showSubstrateOther}
+
                 onTextChange={this.onTextChange}
                 onPlantSelectChange={this.onPlantSelectChange}
+                onSubstrateSelectChange={this.onSubstrateSelectChange}
                 onAddButtonClick={this.onAddButtonClick}
                 onRemoveButtonClick={this.onRemoveButtonClick}
                 onSaveModalClick={this.onSaveModalClick}
@@ -265,6 +324,7 @@ class ProductionStep2CreateContainer extends Component {
 const mapStateToProps = function(store) {
     return {
         plantList: store.cropListState,
+        substrateList: store.cropSubstrateListState,
         user: store.userState,
         deviceList: store.deviceListState,
         // productionList: store.productionListState,

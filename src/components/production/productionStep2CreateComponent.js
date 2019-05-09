@@ -11,6 +11,7 @@ class ProductionStep2CreateComponent extends Component {
     render() {
         const {
             plantOptions, plant, plantOther, showPlantOther, quantity, plantsArray, onPlantSelectChange,
+            substrateOptions, substrate, substrateOther, showSubstrateOther, substratesArray, onSubstrateSelectChange,
             onTextChange, onAddButtonClick, onRemoveButtonClick, onSaveModalClick, onCloseModalClick,  errors, showModal, onBackClick, onNextClick,
         } = this.props;
 
@@ -134,6 +135,31 @@ class ProductionStep2CreateComponent extends Component {
                                                    type="number"
                                                    placeholder="Please specify how many plants there will be.."
                                                />
+
+                                               <BootstrapSingleSelect
+                                                   label="Substrate (*)"
+                                                   name="substrate"
+                                                   defaultOptionLabel="Please substrate to add."
+                                                   options={substrateOptions}
+                                                   value={substrate}
+                                                   error={errors.substrate}
+                                                   onSelectChange={onSubstrateSelectChange}
+                                               />
+
+                                               {showSubstrateOther &&
+                                                   <BootstrapInput
+                                                       inputClassName="form-control"
+                                                       borderColour="border-primary"
+                                                       error={errors.substrateOther}
+                                                       label="Other - Please specify substrate (*)"
+                                                       onChange={onTextChange}
+                                                       value={substrateOther}
+                                                       name="substrateOther"
+                                                       type="text"
+                                                       placeholder="Please specify the substrate you will be growing."
+                                                   />
+                                               }
+
                                                <button
                                                    onClick={onCloseModalClick}
                                                    type="button"

@@ -31,17 +31,19 @@ class ProductionCropCards extends Component {
     render() {
         const { crops } = this.props.object;
         let elements = [];
-
-        for (let i = 0; i < crops.length; i++) {
-            elements.push(
-                <ProductionCropCardItem crop={crops[i]} key={crops[i].slug} />
+        if (crops !== undefined && crops !== null) {
+            for (let i = 0; i < crops.length; i++) {
+                elements.push(
+                    <ProductionCropCardItem crop={crops[i]} key={crops[i].slug} />
+                );
+            }
+            return (
+                <div className="card-group row">
+                    {elements}
+                </div>
             );
         }
-        return (
-            <div className="card-group row">
-                {elements}
-            </div>
-        );
+        return null;        
     }
 }
 
