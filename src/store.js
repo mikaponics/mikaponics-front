@@ -11,7 +11,11 @@ import {
     PROFILE_SUCCESS,
     DEVICE_SUCCESS,
     INSTRUMENT_SUCCESS,
-    PURCHASE_DEVICE_SUCCESS
+    PURCHASE_DEVICE_SUCCESS,
+    PRODUCTION_LIST_SUCCESS,
+    PRODUCTION_DETAIL_SUCCESS,
+    CROP_LIST_SUCCESS,
+    CROP_SUBSTRATE_LIST_SUCCESS
 } from "./constants/actionTypes";
 import userReducer from "./reducers/userReducer";
 import onboardingReducer from "./reducers/onboardingReducer";
@@ -84,7 +88,7 @@ const rootReducer = (state, action) => {
 const localStorageMiddleware = ({ getState }) => {
     return next => action => {
         const result = next(action);
-        if ([ LOGIN_SUCCESS, LOGOUT_SUCCESS, ONBOARDING_SUCCESS, DASHBOARD_SUCCESS, PROFILE_SUCCESS, DEVICE_SUCCESS, INSTRUMENT_SUCCESS, PURCHASE_DEVICE_SUCCESS ].includes(result.type)) {
+        if ([ LOGIN_SUCCESS, LOGOUT_SUCCESS, ONBOARDING_SUCCESS, DASHBOARD_SUCCESS, PROFILE_SUCCESS, DEVICE_SUCCESS, INSTRUMENT_SUCCESS, PURCHASE_DEVICE_SUCCESS, PRODUCTION_LIST_SUCCESS, PRODUCTION_DETAIL_SUCCESS, CROP_LIST_SUCCESS, CROP_SUBSTRATE_LIST_SUCCESS ].includes(result.type)) {
             console.log("De-hydrating store...");
             localStorage.setItem(APP_STATE, JSON.stringify(getState()))
         }

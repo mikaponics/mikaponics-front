@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import Moment from 'react-moment';
 import 'moment-timezone';
 
+import { FlashMessageComponent } from "../flashMessageComponent";
+
 
 class ProductionSummaryTable extends Component {
     render() {
@@ -38,7 +40,7 @@ class ProductionSummaryTable extends Component {
 
 class ProductionDetailComponent extends Component {
     render() {
-        const { productionDetail } = this.props;
+        const { productionDetail, flashMessage } = this.props;
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -57,6 +59,8 @@ class ProductionDetailComponent extends Component {
                 <h1>
                     <i className="fas fa-leaf"></i>&nbsp;{productionDetail.name}
                 </h1>
+
+                <FlashMessageComponent object={flashMessage} />
 
                 <div className="card-group row">
                     <div className="col-sm-4" key="inspections">
@@ -103,8 +107,6 @@ class ProductionDetailComponent extends Component {
                     </div>
 
                 </div>
-
-
 
             </div>
         );

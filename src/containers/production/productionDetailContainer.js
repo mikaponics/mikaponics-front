@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import ProductionDetailComponent from "../../components/production/productionDetailComponent";
 import { pullProductionDetail } from "../../actions/productionActions";
+import { clearFlashMessage } from "../../actions/flashMessageActions";
 
 
 class ProductionListContainer extends Component {
@@ -41,6 +42,7 @@ class ProductionListContainer extends Component {
     }
 
     componentWillUnmount() {
+        this.props.clearFlashMessage(); // Clear the messages.
         clearInterval(this.timerID); // Clear our timer.
 
         // This code will fix the "ReactJS & Redux: Can't perform a React state
@@ -55,6 +57,7 @@ class ProductionListContainer extends Component {
         return (
             <ProductionDetailComponent
                 productionDetail={this.props.productionDetail}
+                flashMessage={this.props.flashMessage}
             />
         );
     }
@@ -64,6 +67,7 @@ const mapStateToProps = function(store) {
     return {
         user: store.userState,
         productionDetail: store.productionDetailState,
+        flashMessage: store.flashMessageState,
     };
 }
 
@@ -74,6 +78,9 @@ const mapDispatchToProps = dispatch => {
                 pullProductionDetail(user, slug)
             )
         },
+        clearFlashMessage: () => {
+            dispatch(clearFlashMessage())
+        }
     }
 }
 

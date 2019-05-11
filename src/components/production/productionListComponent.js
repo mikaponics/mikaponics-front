@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import Moment from 'react-moment';
 import 'moment-timezone';
 
+import { FlashMessageComponent } from "../flashMessageComponent";
+
 
 class ProductionCard extends Component {
     render() {
@@ -92,7 +94,7 @@ class NoProductionJumbotron extends Component {
 
 class ProductionListComponent extends Component {
     render() {
-        const { productionList } = this.props;
+        const { productionList, flashMessage } = this.props;
 
         let elements = [];
         if (productionList !== undefined && productionList !== null) {
@@ -117,6 +119,9 @@ class ProductionListComponent extends Component {
                             <i className="fas fa-industry"></i>&nbsp;Crop Production</li>
                     </ol>
                 </nav>
+
+                <FlashMessageComponent object={flashMessage} />
+
                 <h1>
                     <i className="fas fa-industry"></i>&nbsp;Crop Production
                 </h1>
