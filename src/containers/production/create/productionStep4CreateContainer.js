@@ -7,6 +7,7 @@ import ProductionStep1CreateComponent from "../../../components/production/creat
 import { postProductionDetail } from "../../../actions/productionActions";
 import { pullDevice } from "../../../actions/deviceActions";
 import { validateStep4Input } from '../../../validations/productionCreateValidator';
+import { setFlashMessage } from "../../../actions/flashMessageActions";
 
 
 class ProductionStep4CreateContainer extends Component {
@@ -116,9 +117,10 @@ class ProductionStep4CreateContainer extends Component {
     }
 
     onSuccessfulSubmissionCallback() {
+        this.props.setFlashMessage("success", "Production has been successfully created.");
         this.setState({
-            referrer: '/add-production-step-5'
-        })
+            referrer: '/productions'
+        });
     }
 
     onFailedSubmissionCallback() {
@@ -179,6 +181,9 @@ const mapDispatchToProps = dispatch => {
             dispatch(
                 postProductionDetail(user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback)
             )
+        },
+        setFlashMessage: (typeOf, text) => {
+            dispatch(setFlashMessage(typeOf, text))
         },
     }
 }
