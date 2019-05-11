@@ -38,7 +38,7 @@ class ProductionTerminateStartComponent extends Component {
                         </li>
                     </ol>
                 </nav>
-                <h1><i className="fas fa-shopping-basket"></i>&nbsp;Harvest or Terminate - LAst</h1>
+                <h1><i className="fas fa-shopping-basket"></i>&nbsp;Harvest or Terminate</h1>
 
                 <ProductionTerminateWizard
                    pageIndex={0}

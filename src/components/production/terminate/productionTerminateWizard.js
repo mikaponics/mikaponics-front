@@ -28,7 +28,7 @@ export default class ProductionTerminateWizard extends Component {
                     </div>
                     {elements}
                     <div id="step-5" className={classnames('st-grey', { 'active': isLast })}>
-                        <span className="num">{finalNum}.</span><span className="">Confirmation</span>
+                        <span className="num">{finalNum}.</span><span className="">Review</span>
                     </div>
                 </div>
             </div>
