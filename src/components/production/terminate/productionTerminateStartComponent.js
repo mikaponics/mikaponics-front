@@ -48,6 +48,11 @@ class ProductionTerminateStartComponent extends Component {
                    isLast={false}
                 />
 
+                <div className="jumbotron">
+                    <h1 className="display-4">Note</h1>
+                    <p className="lead">You are about to terminate this production, please click below to being.</p>
+                </div>
+
                 <div className="col-md-5 mx-auto mt-2">
                     <form className="needs-validation" noValidate>
 

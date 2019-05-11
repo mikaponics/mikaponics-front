@@ -34,11 +34,12 @@ class ProductionTerminateCropContainer extends Component {
             pageIndex: pageIndex,
             errors: Object(),
             crops: [],
+            crop: {}
         }
         this.onSubmit = this.onSubmit.bind(this);
         this.onBackClick = this.onBackClick.bind(this);
-        // this.getNextCropFromSlug = this.getNextCropFromSlug.bind(this);
-        // this.onSelectChange = this.onSelectChange.bind(this);
+        this.onSelectChange = this.onSelectChange.bind(this);
+        this.onTextChange = this.onTextChange.bind(this);
         // this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
         // this.onFailedSubmissionCallback = this.onFailedSubmissionCallback.bind(this);
     }
@@ -54,7 +55,8 @@ class ProductionTerminateCropContainer extends Component {
 
         this.setState({
             crops: this.props.productionDetail.crops,
-            pageIndex: pageIndex
+            pageIndex: pageIndex,
+            crop: this.props.productionDetail.crops[pageIndex]
         });
 
         // For debugging purposes only.
@@ -70,28 +72,6 @@ class ProductionTerminateCropContainer extends Component {
             return;
         };
     }
-
-    // getNextCropFromSlug(cropsArray, slug) {
-    //     for (let i = 0; i < cropsArray.length; i++) {
-    //         let cropObj = cropsArray[i];
-    //         if (cropObj.slug === slug) {
-    //
-    //             let j = i + 1;
-    //             if (j < cropsArray.length) {
-    //                 let nextCropObj = cropsArray[j];
-    //                 if (nextCropObj !== null && nextCropObj !== undefined) {
-    //                     if (typeof nextCropObj === 'object') {
-    //                         console.log(nextCropObj);
-    //                         return nextCropObj;
-    //                     }
-    //
-    //                 }
-    //
-    //             }
-    //         }
-    //     }
-    //     return null;
-    // }
 
     /**
      *  Event handling functions
@@ -111,12 +91,15 @@ class ProductionTerminateCropContainer extends Component {
             localStorage.setItem('terminateCropPageIndex', previousPageIndex)
             this.setState({
                 pageIndex: previousPageIndex,
-            })
+                crop: this.props.productionDetail.crops[previousPageIndex]
+            });
         } else {
             this.setState({
                 referrer: '/production/'+ this.state.pageSlug + '/terminate-start'
             })
         }
+
+        window.scrollTo(0, 0);  // Start the page at the top of the page.
     }
 
     onSubmit(e) {
@@ -132,7 +115,8 @@ class ProductionTerminateCropContainer extends Component {
             localStorage.setItem('terminateCropPageIndex', nextPageIndex)
             this.setState({
                 pageIndex: nextPageIndex,
-            })
+                crop: this.props.productionDetail.crops[nextPageIndex]
+            });
         } else {
             this.setState({
                 referrer: '/production/'+ this.state.pageSlug + '/terminate-finish'
@@ -146,6 +130,8 @@ class ProductionTerminateCropContainer extends Component {
         //     this.onSuccessfulSubmissionCallback,
         //     this.onFailedSubmissionCallback
         // );
+
+        window.scrollTo(0, 0);  // Start the page at the top of the page.
     }
 
     onSuccessfulSubmissionCallback() {
@@ -167,48 +153,23 @@ class ProductionTerminateCropContainer extends Component {
         scroll.scrollToTop();
     }
 
-    onSelectChange(typeOf, slug, name, value) {
-        // // STEP 1:
-        // // CHECK TO SEE IF WE NEED TO UPDATE THE `PLANTS` STATE OR THE `FISH`
-        // // STATE.
-        // let cropsArray = [];
-        // if (typeOf === 'plants') {
-        //     cropsArray = this.state.plants;
-        // }
-        // if (typeOf === 'fish') {
-        //     cropsArray = this.state.fish;
-        // }
-        //
-        // // STEP 2:
-        // // ITERATE THROUGH ALL THE PLANTS AND FIND THE `SLUG`.
-        // for (let i = 0; i < cropsArray.length; i++) {
-        //     let crop = cropsArray[i];
-        //     if (crop.slug === slug) {
-        //
-        //         // STEP 3: UPDATE OUR PLANT
-        //         crop[name] = value;
-        //
-        //         console.log(typeOf, slug, name, value);
-        //
-        //         // STEP 3: DELETE
-        //         //
-        //         // Special thanks: https://flaviocopes.com/how-to-remove-item-from-array/
-        //         //
-        //         const newCropsArray = cropsArray.slice(
-        //             0, i
-        //         ).concat(
-        //             cropsArray.slice(
-        //                 i + 1, cropsArray.length
-        //             )
-        //         )
-        //
-        //         // STEP 4:
-        //         // UPDATE OUR STATE WITH THE ARRAY.
-        //         this.setState({
-        //             crops: newCropsArray
-        //         });
-        //     }
-        // } // end FOR
+    onSelectChange(name, value) {
+        let { crop } = this.state;
+
+        // // STEP 3: UPDATE OUR PLANT
+        crop[name] = value;
+
+        // UPDATE OUR STATE WITH THE ARRAY.
+        this.setState({
+            crop: crop
+        });
+    }
+
+    onTextChange(name, value) {
+        // this.setState({
+        //     [e.target.name]: e.target.value,
+        // })
+        // localStorage.setItem('temp-'+[e.target.name], e.target.value);
     }
 
     /**
@@ -221,7 +182,7 @@ class ProductionTerminateCropContainer extends Component {
         console.log("render | PageIndex", this.state.pageIndex);
         console.log("render | ArrayLength", this.state.crops.length);
 
-        const { pageIndex, crops, pageSlug, referrer, errors, finishedAt } = this.state;
+        const { pageIndex, crops, crop, pageSlug, referrer, errors, finishedAt } = this.state;
         const { name, slug, plants, fish } = this.props.productionDetail;
         if (referrer) {
             return <Redirect to={referrer} />
@@ -231,6 +192,7 @@ class ProductionTerminateCropContainer extends Component {
             <ProductionTerminateCropComponent
                 pageIndex={pageIndex}
                 crops={crops}
+                crop={crop}
                 name={name}
                 slug={slug}
                 errors={errors}
@@ -240,6 +202,7 @@ class ProductionTerminateCropContainer extends Component {
                 onSubmit={this.onSubmit}
                 onBackClick={this.onBackClick}
                 onSelectChange={this.onSelectChange}
+                onTextChange={this.onTextChange}
             />
         );
     }

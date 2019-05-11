@@ -57,8 +57,8 @@ class ProductionTerminateStartComponent extends Component {
                             <button type="text" className="btn btn-lg float-left pl-4 pr-4 btn-secondary" onClick={onBackClick}>
                                 <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
                             </button>
-                            <button type="text" className="btn btn-lg float-right pl-4 pr-4 btn-primary" onClick={onSubmit}>
-                                Begin&nbsp;<i className="fas fa-arrow-circle-right"></i>
+                            <button type="text" className="btn btn-lg float-right pl-4 pr-4 btn-success" onClick={onSubmit}>
+                                <i className="fas fa-check"></i>&nbsp;Submit
                             </button>
                         </div>
 

@@ -16,176 +16,22 @@ import {
 import ProductionTerminateWizard from './productionTerminateWizard';
 
 
-class PlantTerminationSurveyFormSection extends Component {
-    render() {
-        const { plants, errors, onSelectChange } = this.props;
-        let elements = [];
-        for (let i = 0; i < plants.length; i++) {
-            let plantItem = plants[i];
-
-            // IF THE PLANTS DIED OR WERE TERMINATED.
-            let shouldDisplayStateFailure = false;
-            if (plantItem.stateAtFinish === PRODUCTION_CROPS_DIED || plantItem.stateAtFinish === PRODUCTION_CROPS_WERE_TERMINATED) {
-                shouldDisplayStateFailure = true;
-            }
-
-            // IF THE HARVEST FAILED.
-            let shouldDisplayHarvestFailure = false;
-            if (plantItem.harvestAtFinish === PRODUCTION_CROPS_TERRIBLE_HARVEST_REVIEW || plantItem.harvestAtFinish === PRODUCTION_CROPS_BAD_HARVEST_REVIEW) {
-                shouldDisplayHarvestFailure = true;
-            }
-
-            elements.push(
-                <div>
-                    <p className="border-bottom mb-3 pb-1 text-secondary">{plantItem.crop}</p>
-                    <BootstrapSingleSelect
-                        label="What happened to the crops? (*)"
-                        name="stateAtFinish"
-                        defaultOptionLabel="Please select the monitoring hardware for your production."
-                        options={PRODUCTION_CROP_STATE_AT_FINISH_OPTION_CHOICES}
-                        value={plantItem.stateAtFinish}
-                        error={errors.stateAtFinish}
-                        onSelectChange={ option => onSelectChange('plants', plantItem.slug, option.selectName, option.value) }
-                    />
-
-                    {shouldDisplayStateFailure &&
-                        <BootstrapTextarea
-                            name="description"
-                            borderColour="border-primary"
-                            label="Please describe the reason:"
-                            placeholder="Please describe why this happend to the crop"
-                            rows={5}
-                            value={null}
-                            helpText={null}
-                            onChange={null}
-                            error={errors.description}
-                        />
-                    }
-
-                    <BootstrapSingleSelect
-                        label="How would you describe the plant harvest? (*)"
-                        name="harvestAtFinish"
-                        defaultOptionLabel="Please select the monitoring hardware for your production."
-                        options={PRODUCTION_CROPS_HARVEST_REVIEW_AT_FINISH_OPTION_CHOICES}
-                        value={plantItem.harvestAtFinish}
-                        error={errors.harvestAtFinish}
-                        onSelectChange={ option => onSelectChange('plants', plantItem.slug, option.selectName, option.value) }
-                    />
-
-                    {shouldDisplayHarvestFailure &&
-                        <BootstrapTextarea
-                            name="descriptionsss"
-                            borderColour="border-primary"
-                            label="Please what happened:"
-                            placeholder="Please describe why this happend to the crop"
-                            rows={5}
-                            value={null}
-                            helpText={null}
-                            onChange={null}
-                            error={errors.description}
-                        />
-                    }
-
-                    <BootstrapTextarea
-                        name="description"
-                        borderColour="border-success"
-                        label="Any comments?"
-                        placeholder="Please describe why this happend to the crop"
-                        rows={5}
-                        value={null}
-                        helpText={null}
-                        onChange={null}
-                        error={errors.description}
-                    />
-
-                </div>
-            );
-        }
-        return (
-            <div>
-                {elements}
-            </div>
-        );
-    }
-}
-
-
-class FishTerminationSurveyFormSection extends Component {
-    render() {
-        const { fish, errors, onSelectChange } = this.props;
-        let elements = [];
-        for (let i = 0; i < fish.length; i++) {
-            let fishItem = fish[i];
-
-            let shouldDisplayStateFailure = false;
-            if (fishItem.stateAtFinish === PRODUCTION_CROPS_DIED || fishItem.stateAtFinish === PRODUCTION_CROPS_WERE_TERMINATED) {
-                shouldDisplayStateFailure = true;
-            }
-
-            elements.push(
-                <div>
-                    <p className="border-bottom mb-3 pb-1 text-secondary">{fishItem.crop}</p>
-
-                    <BootstrapSingleSelect
-                        label="What happened to the fish? (*)"
-                        name="stateAtFinish"
-                        defaultOptionLabel="Please select the monitoring hardware for your production."
-                        options={PRODUCTION_CROP_STATE_AT_FINISH_OPTION_CHOICES}
-                        value={fishItem.stateAtFinish}
-                        error={errors.stateAtFinish}
-                        onSelectChange={ option => onSelectChange('fish', fishItem.slug, option.selectName, option.value) }
-                    />
-
-                    {shouldDisplayStateFailure &&
-                        <BootstrapTextarea
-                            name="description"
-                            borderColour="border-primary"
-                            label="Reason"
-                            placeholder="Please describe why this happend to the crop"
-                            rows={5}
-                            value={null}
-                            helpText={null}
-                            onChange={null}
-                            error={errors.description}
-                        />
-                    }
-
-                    <BootstrapSingleSelect
-                        label="How would you describe the fish harvest? (*)"
-                        name="harvestAtFinish"
-                        defaultOptionLabel="Please select the monitoring hardware for your production."
-                        options={PRODUCTION_CROPS_HARVEST_REVIEW_AT_FINISH_OPTION_CHOICES}
-                        value={fishItem.harvestAtFinish}
-                        error={errors.harvestAtFinish}
-                        onSelectChange={ option => onSelectChange('fish', fishItem.slug, option.selectName, option.value) }
-                    />
-
-                    <BootstrapTextarea
-                        name="description"
-                        borderColour="border-success"
-                        label="Any comments?"
-                        placeholder="Please describe why this happend to the crop"
-                        rows={5}
-                        value={null}
-                        helpText={null}
-                        onChange={null}
-                        error={errors.description}
-                    />
-
-                </div>
-            );
-        }
-        return (
-            <div>
-                {elements}
-            </div>
-        );
-    }
-}
-
 class ProductionTerminateStartComponent extends Component {
     render() {
-        const { pageIndex, crops, name, slug, plants, fish, errors, finishedAt, onBackClick, onSubmit, onSelectChange } = this.props;
+        const { pageIndex, crops, crop, name, slug, plants, fish, errors, finishedAt, onBackClick, onSubmit, onSelectChange, onTextChange } = this.props;
+
+        // IF THE PLANTS DIED OR WERE TERMINATED.
+        let shouldDisplayStateFailure = false;
+        if (crop.stateAtFinish === PRODUCTION_CROPS_DIED || crop.stateAtFinish === PRODUCTION_CROPS_WERE_TERMINATED) {
+            shouldDisplayStateFailure = true;
+        }
+
+        // IF THE HARVEST FAILED.
+        let shouldDisplayHarvestFailure = false;
+        if (crop.harvestAtFinish === PRODUCTION_CROPS_TERRIBLE_HARVEST_REVIEW || crop.harvestAtFinish === PRODUCTION_CROPS_BAD_HARVEST_REVIEW) {
+            shouldDisplayHarvestFailure = true;
+        }
+
         return (
             <div>
 
@@ -216,9 +62,84 @@ class ProductionTerminateStartComponent extends Component {
 
                 <div className="col-md-5 mx-auto mt-2">
                     <form className="needs-validation" noValidate>
+                        <h3>{crop.crop}</h3>
+                        <p className="border-bottom mb-3 pb-1 text-secondary">Lifespan</p>
 
+                        <BootstrapSingleSelect
+                            label="What happened to the crops? (*)"
+                            name="stateAtFinish"
+                            defaultOptionLabel="Please select the monitoring hardware for your production."
+                            options={PRODUCTION_CROP_STATE_AT_FINISH_OPTION_CHOICES}
+                            value={crop.stateAtFinish}
+                            error={errors.stateAtFinish}
+                            onSelectChange={ option => onSelectChange(option.selectName, option.value) }
+                        />
 
+                        {shouldDisplayStateFailure &&
+                            <BootstrapTextarea
+                                name="harvestFailureReasonAtFinish"
+                                borderColour="border-primary"
+                                label="Why? (*)"
+                                placeholder="Please describe why this happend to the crop(s)."
+                                rows={5}
+                                value={crop.harvestFailureReasonAtFinish}
+                                helpText={null}
+                                onChange={ event => onTextChange(event.name, event.value) }
+                                error={errors.harvestFailureReasonAtFinish}
+                            />
+                        }
 
+                        <p className="border-bottom mb-3 pb-1 text-secondary">Harvest</p>
+
+                        <BootstrapSingleSelect
+                            label="How would you describe the plant harvest? (*)"
+                            name="harvestAtFinish"
+                            defaultOptionLabel="Please select the monitoring hardware for your production."
+                            options={PRODUCTION_CROPS_HARVEST_REVIEW_AT_FINISH_OPTION_CHOICES}
+                            value={crop.harvestAtFinish}
+                            error={errors.harvestAtFinish}
+                            onSelectChange={ option => onSelectChange(option.selectName, option.value) }
+                        />
+
+                        {shouldDisplayHarvestFailure &&
+                            <BootstrapTextarea
+                                name="harvestFailureReasonAtFinish"
+                                borderColour="border-primary"
+                                label="Why? (*)"
+                                placeholder="Please describe why this happend to the crop"
+                                rows={5}
+                                value={crop.harvestFailureReasonAtFinish}
+                                helpText={null}
+                                onChange={ event => onTextChange(event.name, event.value) }
+                                error={errors.harvestFailureReasonAtFinish}
+                            />
+                        }
+
+                        <BootstrapTextarea
+                            name="harvestNotesAtFinish"
+                            borderColour="border-success"
+                            label="Any notes about the harvest?"
+                            placeholder="Add any additional notes you have out the harves."
+                            rows={5}
+                            value={crop.harvestNotesAtFinish}
+                            helpText={null}
+                            onChange={ event => onTextChange(event.name, event.value) }
+                            error={errors.harvestNotesAtFinish}
+                        />
+
+                        <p className="border-bottom mb-3 pb-1 text-secondary">Additional</p>
+
+                        <BootstrapTextarea
+                            name="notesAtFinish"
+                            borderColour="border-success"
+                            label="Any final comments?"
+                            placeholder="Add any final comments about this crop?"
+                            rows={5}
+                            value={crop.notesAtFinish}
+                            helpText={null}
+                            onChange={ event => onTextChange(event.name, event.value) }
+                            error={errors.notesAtFinish}
+                        />
 
                         <div className="form-group">
                             <button type="text" className="btn btn-lg float-left pl-4 pr-4 btn-secondary" onClick={onBackClick}>
