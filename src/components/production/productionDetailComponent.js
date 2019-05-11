@@ -99,7 +99,7 @@ class ProductionDetailComponent extends Component {
                             <div className="card-body">
                                 <h3 className="card-title">Harvest or Terminate</h3>
                                 <p className="card-text">Close this production by marking it harvested or termianted.</p>
-                                <Link to={`/production/${productionDetail.slug}/terminate`} className="btn btn-success btn-lg">
+                                <Link to={`/production/${productionDetail.slug}/terminate-start`} className="btn btn-success btn-lg">
                                     Go&nbsp;<i className="fas fa-arrow-circle-right"></i>
                                 </Link>
                             </div>
