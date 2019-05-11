@@ -50,11 +50,11 @@ import PurchaseDeviceSubmissionContainer from "./purchase/purchaseDeviceSubmissi
 import PurchaseDeviceSuccessContainer from  "./purchase/purchaseDeviceSuccessContainer";
 import ProductionListContainer from  "./production/productionListContainer";
 import ProductionDetailContainer from  "./production/productionDetailContainer";
-import ProductionStep1CreateContainer from  "./production/productionStep1CreateContainer";
-import ProductionStep2CreateContainer from  "./production/productionStep2CreateContainer";
-import ProductionStep3CreateContainer from  "./production/productionStep3CreateContainer";
-import ProductionStep4CreateContainer from  "./production/productionStep4CreateContainer";
-import ProductionStep5CreateContainer from  "./production/productionStep5CreateContainer";
+import ProductionStep1CreateContainer from  "./production/create/productionStep1CreateContainer";
+import ProductionStep2CreateContainer from  "./production/create/productionStep2CreateContainer";
+import ProductionStep3CreateContainer from  "./production/create/productionStep3CreateContainer";
+import ProductionStep4CreateContainer from  "./production/create/productionStep4CreateContainer";
+import ProductionStep5CreateContainer from  "./production/create/productionStep5CreateContainer";
 import ProductionTerminateStartContainer from "./production/terminate/productionTerminateStartContainer";
 import ProductionTerminateCropContainer from "./production/terminate/productionTerminateCropContainer";
 import ProductionTerminateFinishContainer from "./production/terminate/productionTerminateFinishContainer";

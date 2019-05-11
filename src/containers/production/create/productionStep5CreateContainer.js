@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import ProductionStep1CreateComponent from "../../components/production/productionStep5CreateComponent";
-import { pullDeviceList } from "../../actions/deviceListActions";
+import ProductionStep1CreateComponent from "../../../components/production/create/productionStep5CreateComponent";
+import { pullDeviceList } from "../../../actions/deviceListActions";
 
 
 class ProductionStep5CreateContainer extends Component {

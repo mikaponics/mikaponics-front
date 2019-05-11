@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Scroll from 'react-scroll';
 
-import ProductionStep1CreateComponent from "../../components/production/productionStep4CreateComponent";
-import { postProductionDetail } from "../../actions/productionActions";
-import { pullDevice } from "../../actions/deviceActions";
-import { validateStep4Input } from '../../validations/productionCreateValidator';
+import ProductionStep1CreateComponent from "../../../components/production/create/productionStep4CreateComponent";
+import { postProductionDetail } from "../../../actions/productionActions";
+import { pullDevice } from "../../../actions/deviceActions";
+import { validateStep4Input } from '../../../validations/productionCreateValidator';
 
 
 class ProductionStep4CreateContainer extends Component {

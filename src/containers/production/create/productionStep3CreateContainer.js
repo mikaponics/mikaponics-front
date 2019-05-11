@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Scroll from 'react-scroll';
 
-import { CROP_PLANT_TYPE } from '../../constants/api';
-import { validateStep2Input } from '../../validations/productionCreateValidator';
-import ProductionStep2CreateComponent from "../../components/production/productionStep2CreateComponent";
-import { pullCropList } from "../../actions/cropListActions";
-import { pullCropSubstrateList } from "../../actions/cropSubstrateListActions";
+import { CROP_FISHSTOCK_TYPE } from '../../../constants/api';
+import { validateStep3Input } from '../../../validations/productionCreateValidator';
+import ProductionStep3CreateComponent from "../../../components/production/create/productionStep3CreateComponent";
+import { pullCropList } from "../../../actions/cropListActions";
+import { pullCropSubstrateList } from "../../../actions/cropSubstrateListActions";
 
 
-class ProductionStep2CreateContainer extends Component {
+class ProductionStep3CreateContainer extends Component {
 
     /**
      *  Initializer, component life-cycle and utility functions.
@@ -20,12 +20,12 @@ class ProductionStep2CreateContainer extends Component {
     constructor(props) {
         super(props);
 
-        // Extract our plants array (which is used to populate the table) from
+        // Extract our fish array (which is used to populate the table) from
         // the users's local storage.
-        const stringPlantsArr = localStorage.getItem("temp-plants");
-        let plantsArr = JSON.parse(stringPlantsArr);
-        if (plantsArr  === undefined || plantsArr === null) {
-            plantsArr = [];
+        const stringFishArr = localStorage.getItem("temp-fish");
+        let fishArr = JSON.parse(stringFishArr);
+        if (fishArr  === undefined || fishArr === null) {
+            fishArr = [];
         }
 
         this.state = {
@@ -43,13 +43,13 @@ class ProductionStep2CreateContainer extends Component {
 
             // DEVELOPERS NOTE: The following state objects are used to store
             // the data from the modal.
-            plant: null,
-            plantOther: null,
-            showPlantOther: false,
+            fish: null,
+            fishOther: null,
+            showFishOther: false,
             quantity: null,
 
             // ALL OUR OBJECTS ARE STORED HERE.
-            plantsArray: plantsArr,
+            fishArray: fishArr,
 
             // DEVELOPERS NOTE: The following state objects are used to store
             // the data from the modal.
@@ -58,10 +58,10 @@ class ProductionStep2CreateContainer extends Component {
             showSubstrateOther: false,
             quantity: null,
         }
-        this.getPlantOptions = this.getPlantOptions.bind(this);
+        this.getCropOptions = this.getCropOptions.bind(this);
         this.getSubstrateOptions = this.getSubstrateOptions.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
-        this.onPlantSelectChange = this.onPlantSelectChange.bind(this);
+        this.onFishSelectChange = this.onFishSelectChange.bind(this);
         this.onSubstrateSelectChange = this.onSubstrateSelectChange.bind(this);
         this.onAddButtonClick = this.onAddButtonClick.bind(this);
         this.onRemoveButtonClick = this.onRemoveButtonClick.bind(this);
@@ -72,27 +72,27 @@ class ProductionStep2CreateContainer extends Component {
     }
 
     /**
-     *  Utility function will take the plant list objects we have from the
+     *  Utility function will take the fish list objects we have from the
      *  API endpoint and generate options data for the `react-select` component
      *  we are using.
      */
-    getPlantOptions() {
-        const plantOptions = [];
-        const plantList = this.props.plantList;
-        if (plantList !== undefined && plantList !== null) {
-            const results = plantList.results;
+    getCropOptions() {
+        const fishOptions = [];
+        const cropList = this.props.cropList;
+        if (cropList !== undefined && cropList !== null) {
+            const results = cropList.results;
             if (results !== undefined && results !== null) {
                 for (let i = 0; i < results.length; i++) {
-                    let plant = results[i];
-                    plantOptions.push({
-                        selectName: "plant",
-                        value: plant.slug,
-                        label: plant.name
+                    let fish = results[i];
+                    fishOptions.push({
+                        selectName: "fish",
+                        value: fish.slug,
+                        label: fish.name
                     });
                 }
             }
         }
-        return plantOptions;
+        return fishOptions;
     }
 
     /**
@@ -120,8 +120,8 @@ class ProductionStep2CreateContainer extends Component {
     }
 
     componentDidMount() {
-        this.props.pullCropList(this.props.user, 1, CROP_PLANT_TYPE); // Get latest data from API.
-        this.props.pullCropSubstrateList(this.props.user, 1, CROP_PLANT_TYPE); // Get latest data from API.
+        this.props.pullCropList(this.props.user, 1, CROP_FISHSTOCK_TYPE); // Get latest data from API.
+        this.props.pullCropSubstrateList(this.props.user, 1, CROP_FISHSTOCK_TYPE); // Get latest data from API.
         window.scrollTo(0, 0);  // Start the page at the top of the page.
     }
 
@@ -145,11 +145,11 @@ class ProductionStep2CreateContainer extends Component {
         })
     }
 
-    onPlantSelectChange(option) {
+    onFishSelectChange(option) {
         this.setState({
-            plant: option.value,
-            plantOption: option,
-            showPlantOther: (option.value == "other")
+            fish: option.value,
+            fishOption: option,
+            showFishOther: (option.value == "other")
         })
     }
 
@@ -162,29 +162,29 @@ class ProductionStep2CreateContainer extends Component {
     }
 
     onRemoveButtonClick(slug) {
-        const plantsArray = this.state.plantsArray;
-        for (let i = 0; i < plantsArray.length; i++) {
-            let row = plantsArray[i];
-            if (row.plantSlug === slug) {
+        const fishArray = this.state.fishArray;
+        for (let i = 0; i < fishArray.length; i++) {
+            let row = fishArray[i];
+            if (row.fishSlug === slug) {
                 //
                 // Special thanks: https://flaviocopes.com/how-to-remove-item-from-array/
                 //
-                const filteredItems = plantsArray.slice(
+                const filteredItems = fishArray.slice(
                     0, i
                 ).concat(
-                    plantsArray.slice(
-                        i + 1, plantsArray.length
+                    fishArray.slice(
+                        i + 1, fishArray.length
                     )
                 )
 
                 // Update our state with our NEW ARRAY which no longer has
                 // the item we deleted.
                 this.setState({
-                    plantsArray: filteredItems
+                    fishArray: filteredItems
                 });
 
                 // Save our table data.
-                localStorage.setItem("temp-plants", JSON.stringify(filteredItems))
+                localStorage.setItem("temp-fish", JSON.stringify(filteredItems))
 
                 // Terminate our for-loop.
                 return;
@@ -203,14 +203,14 @@ class ProductionStep2CreateContainer extends Component {
      *  return error to fields or save to our state and exit modal.
      */
     onSaveModalClick() {
-        const { errors, isValid } = validateStep2Input(this.state);
+        const { errors, isValid } = validateStep3Input(this.state);
         if (isValid) {
             // Append our array.
-            let a = this.state.plantsArray.slice(); //creates the clone of the state
+            let a = this.state.fishArray.slice(); //creates the clone of the state
             a.push({
-                plantSlug: this.state.plantOption.value,
-                plant: this.state.plantOption.label,
-                plantOther: this.state.plantOther,
+                fishSlug: this.state.fishOption.value,
+                fish: this.state.fishOption.label,
+                fishOther: this.state.fishOther,
                 quantity: this.state.quantity,
                 substrateSlug: this.state.substrateOption.value,
                 substrate: this.state.substrateOption.label,
@@ -221,16 +221,15 @@ class ProductionStep2CreateContainer extends Component {
             this.setState({
                 showModal: false,
                 errors: {},
-                plant: null,
-                plantOther: null,
+                fish: null,
                 quantity: null,
                 substrate: null,
                 substrateOther: null,
-                plantsArray: a
+                fishArray: a
             });
 
             // Save our table data.
-            localStorage.setItem("temp-plants", JSON.stringify(a))
+            localStorage.setItem("temp-fish", JSON.stringify(a))
         } else {
             this.setState({
                 errors: errors
@@ -255,14 +254,14 @@ class ProductionStep2CreateContainer extends Component {
     onBackClick(e) {
         e.preventDefault();
         this.setState({
-            referrer: '/add-production-step-1'
+            referrer: '/add-production-step-2'
         })
     }
 
     onNextClick(e) {
         e.preventDefault();
         this.setState({
-            referrer: '/add-production-step-3'
+            referrer: '/add-production-step-4'
         })
     }
 
@@ -276,14 +275,14 @@ class ProductionStep2CreateContainer extends Component {
             name,
             description,
             device,
-            plant,
-            plantOther,
-            showPlantOther,
+            fish,
+            fishOther,
+            showFishOther,
             quantity,
-            plantsArray,
             substrate,
             substrateOther,
             showSubstrateOther,
+            fishArray,
             errors,
             showModal,
              referrer
@@ -292,22 +291,22 @@ class ProductionStep2CreateContainer extends Component {
             return <Redirect to={referrer} />
         }
         return (
-            <ProductionStep2CreateComponent
-                plantOptions={this.getPlantOptions()}
-                plant={plant}
-                plantOther={plantOther}
-                showPlantOther={showPlantOther}
+            <ProductionStep3CreateComponent
+                fishOptions={this.getCropOptions()}
+                fish={fish}
+                fishOther={fishOther}
+                showFishOther={showFishOther}
                 quantity={quantity}
-                plantsArray={plantsArray}
+                fishArray={fishArray}
 
                 substrateOptions={this.getSubstrateOptions()}
                 substrate={substrate}
                 substrateOther={substrateOther}
                 showSubstrateOther={showSubstrateOther}
+                onSubstrateSelectChange={this.onSubstrateSelectChange}
 
                 onTextChange={this.onTextChange}
-                onPlantSelectChange={this.onPlantSelectChange}
-                onSubstrateSelectChange={this.onSubstrateSelectChange}
+                onFishSelectChange={this.onFishSelectChange}
                 onAddButtonClick={this.onAddButtonClick}
                 onRemoveButtonClick={this.onRemoveButtonClick}
                 onSaveModalClick={this.onSaveModalClick}
@@ -323,7 +322,7 @@ class ProductionStep2CreateContainer extends Component {
 
 const mapStateToProps = function(store) {
     return {
-        plantList: store.cropListState,
+        cropList: store.cropListState,
         substrateList: store.cropSubstrateListState,
         user: store.userState,
         deviceList: store.deviceListState,
@@ -350,4 +349,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(ProductionStep2CreateContainer);
+)(ProductionStep3CreateContainer);

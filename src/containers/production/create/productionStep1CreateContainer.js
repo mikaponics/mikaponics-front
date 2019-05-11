@@ -3,10 +3,14 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Scroll from 'react-scroll';
 
-import { PRODUCTION_TYPE_OPTION_CHOICES, PRODUCTION_ENVIRONMENT_OPTION_CHOICES, PRODUCTION_GROW_SYSTEM_OPTION_CHOICES } from "../../constants/api";
-import { validateStep1Input } from '../../validations/productionCreateValidator';
-import ProductionStep1CreateComponent from "../../components/production/productionStep1CreateComponent";
-import { pullDeviceList } from "../../actions/deviceListActions";
+import {
+    PRODUCTION_TYPE_OPTION_CHOICES,
+    PRODUCTION_ENVIRONMENT_OPTION_CHOICES,
+    PRODUCTION_GROW_SYSTEM_OPTION_CHOICES
+} from "../../../constants/api";
+import { validateStep1Input } from '../../../validations/productionCreateValidator';
+import ProductionStep1CreateComponent from "../../../components/production/create/productionStep1CreateComponent";
+import { pullDeviceList } from "../../../actions/deviceListActions";
 
 
 class ProductionStep1CreateContainer extends Component {

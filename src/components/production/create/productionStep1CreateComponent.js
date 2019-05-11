@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
-import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
-import { BootstrapInput } from '../bootstrap/bootstrapInput';
-import { BootstrapSingleSelect } from '../bootstrap/bootstrapSingleSelect';
-import { BootstrapTextarea } from '../bootstrap/bootstrapTextarea';
-import { BootstrapCheckbox } from "../bootstrap/bootstrapCheckbox";
-import { PRODUCTION_OTHER_SYSTEM } from "../../constants/api";
+import { BootstrapErrorsProcessingAlert } from "../../bootstrap/bootstrapAlert";
+import { BootstrapInput } from '../../bootstrap/bootstrapInput';
+import { BootstrapSingleSelect } from '../../bootstrap/bootstrapSingleSelect';
+import { BootstrapTextarea } from '../../bootstrap/bootstrapTextarea';
+import { BootstrapCheckbox } from "../../bootstrap/bootstrapCheckbox";
+import { PRODUCTION_OTHER_SYSTEM } from "../../../constants/api";
 
 
 class ProductionStep1CreateComponent extends Component {

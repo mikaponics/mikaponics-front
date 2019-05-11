@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
-import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
-import { BootstrapInput } from '../bootstrap/bootstrapInput';
-import { BootstrapSingleSelect } from '../bootstrap/bootstrapSingleSelect';
-import { BootstrapTextarea } from '../bootstrap/bootstrapTextarea';
+import { BootstrapErrorsProcessingAlert } from "../../bootstrap/bootstrapAlert";
+import { BootstrapInput } from '../../bootstrap/bootstrapInput';
+import { BootstrapSingleSelect } from '../../bootstrap/bootstrapSingleSelect';
+import { BootstrapTextarea } from '../../bootstrap/bootstrapTextarea';
 
 
 class ProductionStep5CreateComponent extends Component {

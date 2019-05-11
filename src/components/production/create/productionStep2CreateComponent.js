@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import ReactModal from 'react-modal';
 
-import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
-import { BootstrapInput } from '../bootstrap/bootstrapInput';
-import { BootstrapSingleSelect } from '../bootstrap/bootstrapSingleSelect';
+import { BootstrapErrorsProcessingAlert } from "../../bootstrap/bootstrapAlert";
+import { BootstrapInput } from '../../bootstrap/bootstrapInput';
+import { BootstrapSingleSelect } from '../../bootstrap/bootstrapSingleSelect';
 
 
 class ProductionStep2CreateComponent extends Component {

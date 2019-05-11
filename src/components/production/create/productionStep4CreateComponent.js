@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
-import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
-import { BootstrapInput } from '../bootstrap/bootstrapInput';
-import { BootstrapSingleSelect } from '../bootstrap/bootstrapSingleSelect';
-import { BootstrapTextarea } from '../bootstrap/bootstrapTextarea';
+import { BootstrapErrorsProcessingAlert } from "../../bootstrap/bootstrapAlert";
+import { BootstrapInput } from '../../bootstrap/bootstrapInput';
+import { BootstrapSingleSelect } from '../../bootstrap/bootstrapSingleSelect';
+import { BootstrapTextarea } from '../../bootstrap/bootstrapTextarea';
 
 
 class CropUnorderedList extends Component {

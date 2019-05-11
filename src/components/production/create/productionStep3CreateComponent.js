@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import ReactModal from 'react-modal';
 
-import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
-import { BootstrapInput } from '../bootstrap/bootstrapInput';
-import { BootstrapSingleSelect } from '../bootstrap/bootstrapSingleSelect';
+import { BootstrapErrorsProcessingAlert } from "../../bootstrap/bootstrapAlert";
+import { BootstrapInput } from '../../bootstrap/bootstrapInput';
+import { BootstrapSingleSelect } from '../../bootstrap/bootstrapSingleSelect';
 
 
 class ProductionStep3CreateComponent extends Component {
@@ -161,7 +161,7 @@ class ProductionStep3CreateComponent extends Component {
                                                        placeholder="Please specify the substrate you will be growing."
                                                    />
                                                }
-                                               
+
                                                <button
                                                    onClick={onCloseModalClick}
                                                    type="button"
