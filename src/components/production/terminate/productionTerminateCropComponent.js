@@ -62,6 +62,8 @@ class ProductionTerminateStartComponent extends Component {
 
                 <div className="col-md-5 mx-auto mt-2">
                     <form className="needs-validation" noValidate>
+                        <BootstrapErrorsProcessingAlert errors={errors} />
+
                         <h3>{crop.crop}</h3>
                         <p className="border-bottom mb-3 pb-1 text-secondary">Lifespan</p>
 
@@ -77,15 +79,15 @@ class ProductionTerminateStartComponent extends Component {
 
                         {shouldDisplayStateFailure &&
                             <BootstrapTextarea
-                                name="harvestFailureReasonAtFinish"
+                                name="stateFailureReasonAtFinish"
                                 borderColour="border-primary"
                                 label="Why? (*)"
                                 placeholder="Please describe why this happend to the crop(s)."
                                 rows={5}
-                                value={crop.harvestFailureReasonAtFinish}
+                                value={crop.stateFailureReasonAtFinish}
                                 helpText={null}
-                                onChange={ event => onTextChange(event.name, event.value) }
-                                error={errors.harvestFailureReasonAtFinish}
+                                onChange={ onTextChange }
+                                error={errors.stateFailureReasonAtFinish}
                             />
                         }
 
@@ -110,7 +112,7 @@ class ProductionTerminateStartComponent extends Component {
                                 rows={5}
                                 value={crop.harvestFailureReasonAtFinish}
                                 helpText={null}
-                                onChange={ event => onTextChange(event.name, event.value) }
+                                onChange={ onTextChange }
                                 error={errors.harvestFailureReasonAtFinish}
                             />
                         }
@@ -123,7 +125,7 @@ class ProductionTerminateStartComponent extends Component {
                             rows={5}
                             value={crop.harvestNotesAtFinish}
                             helpText={null}
-                            onChange={ event => onTextChange(event.name, event.value) }
+                            onChange={ onTextChange }
                             error={errors.harvestNotesAtFinish}
                         />
 
@@ -137,7 +139,7 @@ class ProductionTerminateStartComponent extends Component {
                             rows={5}
                             value={crop.notesAtFinish}
                             helpText={null}
-                            onChange={ event => onTextChange(event.name, event.value) }
+                            onChange={ onTextChange }
                             error={errors.notesAtFinish}
                         />
 

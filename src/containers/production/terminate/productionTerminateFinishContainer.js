@@ -5,8 +5,9 @@ import Scroll from 'react-scroll';
 
 import ProductionTerminateFinishComponent from "../../../components/production/terminate/productionTerminateFinishComponent";
 import { pullProductionDetail } from "../../../actions/productionActions";
-import { putProductionTermination } from "../../../actions/productionActions";
+import { putProductionDetail } from "../../../actions/productionActions";
 import { setFlashMessage } from "../../../actions/flashMessageActions";
+import { PRODUCTION_TERMINATED_STATE } from "../../../constants/api";
 
 
 class ProductionTerminateFinishContainer extends Component {
@@ -28,13 +29,12 @@ class ProductionTerminateFinishContainer extends Component {
             errors: Object(),
             plants: [],
             fish: [],
-            crops: []
+            crops: [],
         }
         this.onSubmit = this.onSubmit.bind(this);
         this.onBackClick = this.onBackClick.bind(this);
-        // this.onSelectChange = this.onSelectChange.bind(this);
-        // this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
-        // this.onFailedSubmissionCallback = this.onFailedSubmissionCallback.bind(this);
+        this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
+        this.onFailedSubmissionCallback = this.onFailedSubmissionCallback.bind(this);
     }
 
     componentDidMount() {
@@ -43,7 +43,19 @@ class ProductionTerminateFinishContainer extends Component {
             finishedAt: this.props.productionDetail.finishedAt,
             plants: this.props.productionDetail.plants,
             fish: this.props.productionDetail.fish,
-            crops: this.props.productionDetail.crops
+            crops: this.props.productionDetail.crops,
+
+            // Set the production object.
+            slug: this.props.productionDetail.slug,
+            name: this.props.productionDetail.name,
+            description: this.props.productionDetail.description,
+            isCommercial: this.props.productionDetail.isCommercial,
+            device: this.props.productionDetail.device,
+            environment: parseInt(this.props.productionDetail.environment),
+            typeOf: parseInt(this.props.productionDetail.typeOf),
+            growSystem: parseInt(this.props.productionDetail.growSystem),
+            growSystemOther: this.props.productionDetail.growSystemOther,
+            startedAt: this.props.productionDetail.startedAt,
         });
     }
 
@@ -71,77 +83,38 @@ class ProductionTerminateFinishContainer extends Component {
     onSubmit(e) {
         e.preventDefault();
 
-        // Once our state has been validated `client-side` then we will
-        // make an API request with the server to create our new production.
-        this.props.putProductionTermination(
-            this.props.user,
-            this.state,
-            this.onSuccessfulSubmissionCallback,
-            this.onFailedSubmissionCallback
-        );
+        // Change the state of the object and then submit to API endpoint.
+        this.setState({
+            state: PRODUCTION_TERMINATED_STATE
+        },() => {
+            // Once our state has been validated `client-side` then we will
+            // make an API request with the server to create our new production.
+            this.props.putProductionDetail(
+                this.props.user,
+                this.state,
+                this.onSuccessfulSubmissionCallback,
+                this.onFailedSubmissionCallback
+            );
+        });
     }
 
     onSuccessfulSubmissionCallback() {
-        // this.props.setFlashMessage("success", "This production has been successfully terminated.");
-        // this.setState({
-        //     referrer: this.props.productionDetail.absoluteURL
-        // });
+        this.props.setFlashMessage("success", "This production has been successfully terminated.");
+        this.setState({
+            referrer: '/productions'
+        });
     }
 
     onFailedSubmissionCallback() {
-        // this.setState({
-        //     errors: this.props.productionDetail.errors
-        // })
+        this.setState({
+            errors: this.props.productionDetail.errors
+        })
 
         // The following code will cause the screen to scroll to the top of
         // the page. Please see ``react-scroll`` for more information:
         // https://github.com/fisshy/react-scroll
         var scroll = Scroll.animateScroll;
         scroll.scrollToTop();
-    }
-
-    onSelectChange(typeOf, slug, name, value) {
-        // // STEP 1:
-        // // CHECK TO SEE IF WE NEED TO UPDATE THE `PLANTS` STATE OR THE `FISH`
-        // // STATE.
-        // let cropsArray = [];
-        // if (typeOf === 'plants') {
-        //     cropsArray = this.state.plants;
-        // }
-        // if (typeOf === 'fish') {
-        //     cropsArray = this.state.fish;
-        // }
-        //
-        // // STEP 2:
-        // // ITERATE THROUGH ALL THE PLANTS AND FIND THE `SLUG`.
-        // for (let i = 0; i < cropsArray.length; i++) {
-        //     let crop = cropsArray[i];
-        //     if (crop.slug === slug) {
-        //
-        //         // STEP 3: UPDATE OUR PLANT
-        //         crop[name] = value;
-        //
-        //         console.log(typeOf, slug, name, value);
-        //
-        //         // STEP 3: DELETE
-        //         //
-        //         // Special thanks: https://flaviocopes.com/how-to-remove-item-from-array/
-        //         //
-        //         const newCropsArray = cropsArray.slice(
-        //             0, i
-        //         ).concat(
-        //             cropsArray.slice(
-        //                 i + 1, cropsArray.length
-        //             )
-        //         )
-        //
-        //         // STEP 4:
-        //         // UPDATE OUR STATE WITH THE ARRAY.
-        //         this.setState({
-        //             crops: newCropsArray
-        //         });
-        //     }
-        // } // end FOR
     }
 
     /**
@@ -166,7 +139,6 @@ class ProductionTerminateFinishContainer extends Component {
                 fish={fish}
                 onSubmit={this.onSubmit}
                 onBackClick={this.onBackClick}
-                onSelectChange={this.onSelectChange}
             />
         );
     }
@@ -190,9 +162,9 @@ const mapDispatchToProps = dispatch => {
         setFlashMessage: (typeOf, text) => {
             dispatch(setFlashMessage(typeOf, text))
         },
-        putProductionTermination: (user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback) => {
+        putProductionDetail: (user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback) => {
             dispatch(
-                putProductionTermination(user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback)
+                putProductionDetail(user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback)
             )
         },
     }

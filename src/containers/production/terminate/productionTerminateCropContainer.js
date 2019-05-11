@@ -4,8 +4,8 @@ import { Redirect } from 'react-router-dom';
 import Scroll from 'react-scroll';
 
 import ProductionTerminateCropComponent from "../../../components/production/terminate/productionTerminateCropComponent";
-import { pullProductionDetail } from "../../../actions/productionActions";
-import { putProductionTermination } from "../../../actions/productionActions";
+import { pullProductionCropDetail } from "../../../actions/productionCropActions";
+import { putProductionCropDetail } from "../../../actions/productionCropActions";
 import { setFlashMessage } from "../../../actions/flashMessageActions";
 
 
@@ -40,8 +40,8 @@ class ProductionTerminateCropContainer extends Component {
         this.onBackClick = this.onBackClick.bind(this);
         this.onSelectChange = this.onSelectChange.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
-        // this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
-        // this.onFailedSubmissionCallback = this.onFailedSubmissionCallback.bind(this);
+        this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
+        this.onFailedSubmissionCallback = this.onFailedSubmissionCallback.bind(this);
     }
 
     componentDidMount() {
@@ -112,51 +112,60 @@ class ProductionTerminateCropContainer extends Component {
         console.log("onSubmit | ArrayLength", this.state.crops.length);
 
         if (this.state.pageIndex < this.state.crops.length - 1) {
-            localStorage.setItem('terminateCropPageIndex', nextPageIndex)
-            this.setState({
-                pageIndex: nextPageIndex,
-                crop: this.props.productionDetail.crops[nextPageIndex]
-            });
+
+            console.log("onSubmit | ", this.state.crop);
+
+            // Once our state has been validated `client-side` then we will
+            // make an API request with the server to create our new production.
+            this.props.putProductionCropDetail(
+                this.props.user,
+                this.state.crop,
+                this.onSuccessfulSubmissionCallback,
+                this.onFailedSubmissionCallback
+            );
+
         } else {
             this.setState({
                 referrer: '/production/'+ this.state.pageSlug + '/terminate-finish'
             })
         }
-        // // Once our state has been validated `client-side` then we will
-        // // make an API request with the server to create our new production.
-        // this.props.putProductionTermination(
-        //     this.props.user,
-        //     this.state,
-        //     this.onSuccessfulSubmissionCallback,
-        //     this.onFailedSubmissionCallback
-        // );
-
-        window.scrollTo(0, 0);  // Start the page at the top of the page.
     }
 
     onSuccessfulSubmissionCallback() {
-        // this.props.setFlashMessage("success", "This production has been successfully terminated.");
-        // this.setState({
-        //     referrer: this.props.productionDetail.absoluteURL
-        // });
+        window.scrollTo(0, 0);  // Start the page at the top of the page.
+
+        const nextPageIndex = parseInt(this.state.pageIndex) + 1;
+
+        // For debugging purposes only.
+        console.log("onSuccessfulSubmissionCallback | PageIndex", nextPageIndex);
+        console.log("onSuccessfulSubmissionCallback | ArrayLength", this.state.crops.length);
+
+        localStorage.setItem('terminateCropPageIndex', nextPageIndex)
+        this.setState({
+            pageIndex: nextPageIndex,
+            crop: this.props.productionDetail.crops[nextPageIndex],
+            errors: {}
+        });
     }
 
     onFailedSubmissionCallback() {
-        this.setState({
-            errors: this.props.productionDetail.errors
-        })
+        console.log(this.props.productionCropDetail);
+        if (this.props.productionCropDetail !== undefined && this.props.productionCropDetail !== null) {
+            this.setState({
+                errors: this.props.productionCropDetail.errors
+            })
 
-        // The following code will cause the screen to scroll to the top of
-        // the page. Please see ``react-scroll`` for more information:
-        // https://github.com/fisshy/react-scroll
-        var scroll = Scroll.animateScroll;
-        scroll.scrollToTop();
+            // The following code will cause the screen to scroll to the top of
+            // the page. Please see ``react-scroll`` for more information:
+            // https://github.com/fisshy/react-scroll
+            var scroll = Scroll.animateScroll;
+            scroll.scrollToTop();
+        }
+
     }
 
     onSelectChange(name, value) {
         let { crop } = this.state;
-
-        // // STEP 3: UPDATE OUR PLANT
         crop[name] = value;
 
         // UPDATE OUR STATE WITH THE ARRAY.
@@ -165,11 +174,17 @@ class ProductionTerminateCropContainer extends Component {
         });
     }
 
-    onTextChange(name, value) {
-        // this.setState({
-        //     [e.target.name]: e.target.value,
-        // })
-        // localStorage.setItem('temp-'+[e.target.name], e.target.value);
+    onTextChange(e) {
+        const name = [e.target.name];
+        const value = e.target.value;
+
+        let { crop } = this.state;
+        crop[name] = value;
+
+        // UPDATE OUR STATE WITH THE ARRAY.
+        this.setState({
+            crop: crop
+        });
     }
 
     /**
@@ -213,22 +228,23 @@ const mapStateToProps = function(store) {
     return {
         user: store.userState,
         productionDetail: store.productionDetailState,
+        productionCropDetail: store.productionCropDetailState,
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        pullProductionDetail: (user, slug) => {
+        pullProductionCropDetail: (user, slug) => {
             dispatch(
-                pullProductionDetail(user, slug)
+                pullProductionCropDetail(user, slug)
             )
         },
         setFlashMessage: (typeOf, text) => {
             dispatch(setFlashMessage(typeOf, text))
         },
-        putProductionTermination: (user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback) => {
+        putProductionCropDetail: (user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback) => {
             dispatch(
-                putProductionTermination(user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback)
+                putProductionCropDetail(user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback)
             )
         },
     }

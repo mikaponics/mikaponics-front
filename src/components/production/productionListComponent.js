@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import Moment from 'react-moment';
 import 'moment-timezone';
+import { PRODUCTION_OPERATING_STATE, PRODUCTION_TERMINATED_STATE } from "../../constants/api";
 
 import { FlashMessageComponent } from "../flashMessageComponent";
 
@@ -30,33 +31,39 @@ class ProductionCard extends Component {
 
 class ProductionCards extends Component {
     render() {
-        const { productionList } = this.props;
+        const { productionList, state } = this.props;
         let elements = [];
 
         for (let i = 0; i < productionList.results.length; i++) {
             let productionItem = productionList.results[i];
-            elements.push(
-                <ProductionCard productionObj={productionItem} key={productionItem.slug} />
-            )
+            console.log(productionItem, state);
+            if (productionItem.state === state) {
+                elements.push(
+                    <ProductionCard productionObj={productionItem} key={productionItem.slug} />
+                )
+            }
+
         }
 
         // Attach our "Add Production" GUI element.
-        elements.push(
-            <div className="col-sm-4">
-                <div className="card box-shadow text-center mx-auto">
-                    <div className="card-custom-top-2">
-                        <i className="fas fa-plus fa-3x"></i>
-                    </div>
-                    <div className="card-body">
-                        <h3 className="card-title">Add Production</h3>
-                        <p className="card-text">Add a crop production to the systen.</p>
-                        <Link to="/add-production-step-1" className="btn btn-success btn-lg">
-                            Go&nbsp;<i className="fas fa-arrow-circle-right"></i>
-                        </Link>
+        if (state === PRODUCTION_OPERATING_STATE) {
+            elements.push(
+                <div className="col-sm-4">
+                    <div className="card box-shadow text-center mx-auto">
+                        <div className="card-custom-top-2">
+                            <i className="fas fa-plus fa-3x"></i>
+                        </div>
+                        <div className="card-body">
+                            <h3 className="card-title">Add Production</h3>
+                            <p className="card-text">Add a crop production to the systen.</p>
+                            <Link to="/add-production-step-1" className="btn btn-success btn-lg">
+                                Go&nbsp;<i className="fas fa-arrow-circle-right"></i>
+                            </Link>
+                        </div>
                     </div>
                 </div>
-            </div>
-        );
+            );
+        }
 
         return (
             <div className="card-group row">
@@ -96,15 +103,18 @@ class ProductionListComponent extends Component {
     render() {
         const { productionList, flashMessage } = this.props;
 
-        let elements = [];
+        let operatingElements = [];
+        let terminatedElements = [];
         if (productionList !== undefined && productionList !== null) {
             const { results } = productionList;
             if (results !== undefined && results !== null) {
-                if (results.length === 0) {
-                    elements = <NoProductionJumbotron />;
-                } else {
-                    elements = <ProductionCards productionList={productionList} />;
-                }
+                operatingElements = <ProductionCards productionList={productionList} state={PRODUCTION_OPERATING_STATE} />;
+            }
+        }
+        if (productionList !== undefined && productionList !== null) {
+            const { results } = productionList;
+            if (results !== undefined && results !== null) {
+                terminatedElements = <ProductionCards productionList={productionList} state={PRODUCTION_TERMINATED_STATE} />;
             }
         }
 
@@ -125,7 +135,16 @@ class ProductionListComponent extends Component {
                 <h1>
                     <i className="fas fa-industry"></i>&nbsp;Crop Production
                 </h1>
-                {elements}
+
+                <div>
+                    <h3><i className="fas fa-check-circle"></i>&nbsp;Operating</h3>
+                    {operatingElements}
+                </div>
+
+                <div>
+                    <h3><i className="fas fa-times-circle"></i>&nbsp;Teriminated</h3>
+                    {terminatedElements}
+                </div>
             </div>
         );
     }

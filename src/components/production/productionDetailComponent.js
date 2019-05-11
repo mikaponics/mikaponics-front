@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import Moment from 'react-moment';
 import 'moment-timezone';
+import classnames from 'classnames';
 
 import { FlashMessageComponent } from "../flashMessageComponent";
 
@@ -41,6 +42,7 @@ class ProductionSummaryTable extends Component {
 class ProductionDetailComponent extends Component {
     render() {
         const { productionDetail, flashMessage } = this.props;
+        const isLocked = productionDetail.state === 4;
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -71,7 +73,7 @@ class ProductionDetailComponent extends Component {
                             <div className="card-body">
                                 <h3 className="card-title">Profile</h3>
                                 <p className="card-text">View and add inspections to this production.</p>
-                                <Link to={`/production/${productionDetail.slug}/profile`} className="btn btn-success btn-lg">
+                                <Link to={`/production/${productionDetail.slug}/profile`} className={classnames('btn btn-success btn-lg', { 'disabled': isLocked })}>
                                     Go&nbsp;<i className="fas fa-arrow-circle-right"></i>
                                 </Link>
                             </div>
@@ -85,7 +87,7 @@ class ProductionDetailComponent extends Component {
                             <div className="card-body">
                                 <h3 className="card-title">Inspection</h3>
                                 <p className="card-text">View and add inspections to this production.</p>
-                                <Link to={`/production/${productionDetail.slug}/inspection`} className="btn btn-success btn-lg">
+                                <Link to={`/production/${productionDetail.slug}/inspection`} className={classnames('btn btn-success btn-lg', { 'disabled': isLocked })}>
                                     Go&nbsp;<i className="fas fa-arrow-circle-right"></i>
                                 </Link>
                             </div>
@@ -99,7 +101,7 @@ class ProductionDetailComponent extends Component {
                             <div className="card-body">
                                 <h3 className="card-title">Harvest or Terminate</h3>
                                 <p className="card-text">Close this production by marking it harvested or termianted.</p>
-                                <Link to={`/production/${productionDetail.slug}/terminate-start`} className="btn btn-success btn-lg">
+                                <Link to={`/production/${productionDetail.slug}/terminate-start`} className={classnames('btn btn-success btn-lg', { 'disabled': isLocked })}>
                                     Go&nbsp;<i className="fas fa-arrow-circle-right"></i>
                                 </Link>
                             </div>

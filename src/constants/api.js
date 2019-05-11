@@ -33,6 +33,8 @@ export const MIKAPONICS_PRODUCTION_RETRIEVE_UPDATE_API_URL = process.env.REACT_A
 export const MIKAPONICS_CROP_LIST_API_URL = process.env.REACT_APP_API_HOST+'/api/crops';
 export const MIKAPONICS_CROP_SUBSTRATE_LIST_API_URL = process.env.REACT_APP_API_HOST+'/api/crop-substrates';
 export const MIKAPONICS_PRODUCTION_TERMINATION_API_URL = process.env.REACT_APP_API_HOST+'/api/production-termination/';
+export const MIKAPONICS_PRODUCTION_CROP_LIST_CREATE_API_URL = process.env.REACT_APP_API_HOST+'/api/production-crops';
+export const MIKAPONICS_PRODUCTION_CROP_RETRIEVE_UPDATE_API_URL = process.env.REACT_APP_API_HOST+'/api/production-crop/';
 
 /**
  *  The available choices for the ``subscription_status`` field in the user API.
@@ -210,5 +212,27 @@ export const PRODUCTION_CROPS_HARVEST_REVIEW_AT_FINISH_OPTION_CHOICES = [
         selectName: "harvestAtFinish",
         value: PRODUCTION_CROPS_EXCELLENT_HARVEST_REVIEW,
         label: "Excellent"
+    }
+];
+
+/**
+ *  The `state` variable for the `Production` API endpoint.
+ */
+export const PRODUCTION_PREPARING_STATE = 1;
+export const PRODUCTION_OPERATING_STATE = 3;
+export const PRODUCTION_TERMINATED_STATE = 4;
+export const PRODUCTION_STATE_CHOICES = [
+    {
+        selectName: "state",
+        value: PRODUCTION_PREPARING_STATE,
+        label: "Preparing"
+    },{
+        selectName: "state",
+        value: PRODUCTION_OPERATING_STATE,
+        label: "Operating"
+    },{
+        selectName: "state",
+        value: PRODUCTION_TERMINATED_STATE,
+        label: "Terminated"
     }
 ];
