@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import Scroll from 'react-scroll';
 
 import ProductionTerminateComponent from "../../components/production/productionTerminateComponent";
 import { pullProductionDetail } from "../../actions/productionActions";
+import { putProductionTermination } from "../../actions/productionActions";
 import { setFlashMessage } from "../../actions/flashMessageActions";
 
 
@@ -31,6 +33,8 @@ class ProductionTerminateContainer extends Component {
         this.onSubmit = this.onSubmit.bind(this);
         this.onBackClick = this.onBackClick.bind(this);
         this.onSelectChange = this.onSelectChange.bind(this);
+        this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
+        this.onFailedSubmissionCallback = this.onFailedSubmissionCallback.bind(this);
     }
 
     componentDidMount() {
@@ -65,10 +69,34 @@ class ProductionTerminateContainer extends Component {
 
     onSubmit(e) {
         e.preventDefault();
+
+        // Once our state has been validated `client-side` then we will
+        // make an API request with the server to create our new production.
+        this.props.putProductionTermination(
+            this.props.user,
+            this.state,
+            this.onSuccessfulSubmissionCallback,
+            this.onFailedSubmissionCallback
+        );
+    }
+
+    onSuccessfulSubmissionCallback() {
         this.props.setFlashMessage("success", "This production has been successfully terminated.");
         this.setState({
             referrer: this.props.productionDetail.absoluteURL
         });
+    }
+
+    onFailedSubmissionCallback() {
+        this.setState({
+            errors: this.props.productionDetail.errors
+        })
+
+        // The following code will cause the screen to scroll to the top of
+        // the page. Please see ``react-scroll`` for more information:
+        // https://github.com/fisshy/react-scroll
+        var scroll = Scroll.animateScroll;
+        scroll.scrollToTop();
     }
 
     onSelectChange(typeOf, slug, name, value) {
@@ -159,7 +187,12 @@ const mapDispatchToProps = dispatch => {
         },
         setFlashMessage: (typeOf, text) => {
             dispatch(setFlashMessage(typeOf, text))
-        }
+        },
+        putProductionTermination: (user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback) => {
+            dispatch(
+                putProductionTermination(user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback)
+            )
+        },
     }
 }
 
