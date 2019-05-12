@@ -24,9 +24,6 @@ class ProductionTerminateFinishContainer extends Component {
         const { slug } = this.props.match.params;
         this.state = {
             pageSlug: slug,
-            errors: Object(),
-            plants: [],
-            fish: [],
             crops: [],
         }
         this.onSubmit = this.onSubmit.bind(this);
@@ -38,9 +35,6 @@ class ProductionTerminateFinishContainer extends Component {
     componentDidMount() {
         window.scrollTo(0, 0);  // Start the page at the top of the page.
         this.setState({
-            finishedAt: this.props.productionDetail.finishedAt,
-            plants: this.props.productionDetail.plants,
-            fish: this.props.productionDetail.fish,
             crops: this.props.productionDetail.crops,
 
             // Set the production object.
@@ -103,10 +97,6 @@ class ProductionTerminateFinishContainer extends Component {
     }
 
     onFailedSubmissionCallback() {
-        this.setState({
-            errors: this.props.productionDetail.errors
-        })
-
         // The following code will cause the screen to scroll to the top of
         // the page. Please see ``react-scroll`` for more information:
         // https://github.com/fisshy/react-scroll
@@ -120,17 +110,9 @@ class ProductionTerminateFinishContainer extends Component {
      */
 
     render() {
-        const { crops, errors, finishedAt } = this.state;
-        const { name, slug, plants, fish } = this.props.productionDetail;
         return (
             <ProductionTerminateFinishComponent
-                crops={crops}
-                name={name}
-                slug={slug}
-                errors={errors}
-                finishedAt={finishedAt}
-                plants={plants}
-                fish={fish}
+                productionDetail={this.props.productionDetail}
                 onSubmit={this.onSubmit}
                 onBackClick={this.onBackClick}
             />
