@@ -249,8 +249,6 @@ export function putProductionDetail(user, data, successCallback, failedCallback)
         // data so our API endpoint will be able to read it.
         let decamelizedData = decamelizeKeys(data);
 
-        console.log(decamelizedData);
-
         // Perform our API submission.
         axios.put(MIKAPONICS_PRODUCTION_RETRIEVE_UPDATE_API_URL+data.slug, decamelizedData, config).then( (successResult) => {
 

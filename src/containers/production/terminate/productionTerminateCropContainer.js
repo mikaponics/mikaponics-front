@@ -140,7 +140,6 @@ class ProductionTerminateCropContainer extends Component {
     }
 
     onFailedSubmissionCallback() {
-        console.log(this.props.productionCropDetail);
         if (this.props.productionCropDetail !== undefined && this.props.productionCropDetail !== null) {
             this.setState({
                 errors: this.props.productionCropDetail.errors
