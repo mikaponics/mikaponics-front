@@ -13,19 +13,19 @@ import {
     PRODUCTION_CROPS_TERRIBLE_HARVEST_REVIEW,
     PRODUCTION_CROPS_BAD_HARVEST_REVIEW
 } from '../../../constants/api';
-import ProductionTerminateWizard from './productionTerminateWizard';
+import ProductionTerminateWizardComponent from './productionTerminateWizardComponent';
 
 
 class CropTable extends Component {
     render() {
-        const { crop, stateAtFinish, stateFailureReasonAtFinish, harvestAtFinish, harvestFailureReasonAtFinish, harvestNotesAtFinish, notesAtFinish } = this.props.crop;
+        const { prettyName, stateAtFinish, stateFailureReasonAtFinish, harvestAtFinish, harvestFailureReasonAtFinish, harvestNotesAtFinish, notesAtFinish } = this.props.crop;
         const displayCropFailureError = (stateAtFinish===PRODUCTION_CROPS_DIED)||(stateAtFinish===PRODUCTION_CROPS_WERE_TERMINATED)
         const displayHarvestFailureError = (harvestAtFinish===PRODUCTION_CROPS_TERRIBLE_HARVEST_REVIEW)||(harvestAtFinish===PRODUCTION_CROPS_BAD_HARVEST_REVIEW)
         return (
             <table className="table table-bordered custom-cell-w">
                 <tbody>
                     <tr className="bg-dark">
-                        <th scope="row" colSpan="2" className="text-light">{crop}</th>
+                        <th scope="row" colSpan="2" className="text-light">{prettyName}</th>
                     </tr>
                     <tr>
                         <th scope="row" className="bg-light">Crop</th>
@@ -90,8 +90,7 @@ class ProductionTerminateStartComponent extends Component {
                 </nav>
                 <h1><i className="fas fa-shopping-basket"></i>&nbsp;Harvest</h1>
 
-                <ProductionTerminateWizard
-                   pageIndex={0}
+                <ProductionTerminateWizardComponent
                    crops={crops}
                    isFirst={false}
                    isLast={true}

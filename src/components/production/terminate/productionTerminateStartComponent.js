@@ -16,7 +16,7 @@ import {
     PRODUCTION_CROPS_TERRIBLE_HARVEST_REVIEW,
     PRODUCTION_CROPS_BAD_HARVEST_REVIEW
 } from '../../../constants/api';
-import ProductionTerminateWizard from './productionTerminateWizard';
+import ProductionTerminateWizardComponent from './productionTerminateWizardComponent';
 
 
 class ProductionTerminateStartComponent extends Component {
@@ -56,8 +56,7 @@ class ProductionTerminateStartComponent extends Component {
 
                 <h1><i className="fas fa-shopping-basket"></i>&nbsp;Harvest</h1>
 
-                <ProductionTerminateWizard
-                   pageIndex={pageIndex}
+                <ProductionTerminateWizardComponent
                    crops={crops}
                    isFirst={true}
                    isLast={false}

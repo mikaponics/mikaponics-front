@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import classnames from 'classnames';
 
 
-export default class ProductionTerminateWizard extends Component {
+export default class ProductionTerminateWizardComponent extends Component {
     render() {
         const { crop, crops, isFirst, isLast } = this.props;
         if (crops === undefined || crops === null) { return null; }
@@ -14,10 +14,9 @@ export default class ProductionTerminateWizard extends Component {
             let num = i + 2;
             let searchCrop = crops[i];
             let isThis = (searchCrop === crop) && (isLast === false) && (isFirst === false);
-            console.log("ProductionTerminateWizard", searchCrop, "===", crop);
             elements.push(
                 <div id="step-5" className={classnames('st-grey', { 'active': isThis })}>
-                    <span className="num">{num}.</span><span className="">{searchCrop.crop}</span>
+                    <span className="num">{num}.</span><span className="">{searchCrop.prettyName}</span>
                 </div>
             )
         }

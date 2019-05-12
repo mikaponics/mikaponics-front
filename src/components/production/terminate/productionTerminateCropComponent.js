@@ -13,7 +13,7 @@ import {
     PRODUCTION_CROPS_TERRIBLE_HARVEST_REVIEW,
     PRODUCTION_CROPS_BAD_HARVEST_REVIEW
 } from '../../../constants/api';
-import ProductionTerminateWizard from './productionTerminateWizard';
+import ProductionTerminateWizardComponent from './productionTerminateWizardComponent';
 
 
 class ProductionTerminateCropComponent extends Component {
@@ -61,7 +61,7 @@ class ProductionTerminateCropComponent extends Component {
                 </nav>
                 <h1><i className="fas fa-shopping-basket"></i>&nbsp;Harvest</h1>
 
-                <ProductionTerminateWizard
+                <ProductionTerminateWizardComponent
                    crops={crops}
                    crop={crop}
                    isFirst={false}
@@ -72,7 +72,7 @@ class ProductionTerminateCropComponent extends Component {
                     <form className="needs-validation" noValidate>
                         <BootstrapErrorsProcessingAlert errors={errors} />
 
-                        <h3>{crop.crop}</h3>
+                        <h3>{crop.prettyName}</h3>
                         <p className="border-bottom mb-3 pb-1 text-secondary">Lifespan</p>
 
                         <BootstrapSingleSelect
