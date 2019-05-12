@@ -57,7 +57,7 @@ import ProductionStep4CreateContainer from  "./production/create/productionStep4
 import ProductionTerminateStartContainer from "./production/terminate/productionTerminateStartContainer";
 import ProductionTerminateCropContainer from "./production/terminate/productionTerminateCropContainer";
 import ProductionTerminateFinishContainer from "./production/terminate/productionTerminateFinishContainer";
-import ProductionInspectionContainer from "./production/productionInspectionContainer";
+import ProductionInspectionContainer from "./production/inspection/productionInspectionContainer";
 import ProductionProfileContainer from "./production/productionProfileContainer";
 
 

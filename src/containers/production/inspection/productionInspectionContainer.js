@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import ProductionInspectionComponent from "../../components/production/productionInspectionComponent";
+import ProductionInspectionComponent from "../../../components/production/inspection/productionInspectionComponent";
 
 
 class ProductionInspectionContainer extends Component {
