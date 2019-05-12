@@ -5,18 +5,19 @@ import classnames from 'classnames';
 
 export default class ProductionTerminateWizard extends Component {
     render() {
-        const { pageIndex=0, crops, isFirst, isLast } = this.props;
+        const { crop, crops, isFirst, isLast } = this.props;
         if (crops === undefined || crops === null) { return null; }
         const elements = [];
 
         let finalNum = crops.length + 2;
         for (let i = 0; i < crops.length; i++) {
             let num = i + 2;
-            let crop = crops[i];
-            let isThis = (i === pageIndex) && (isLast === false) && (isFirst === false);
+            let searchCrop = crops[i];
+            let isThis = (searchCrop === crop) && (isLast === false) && (isFirst === false);
+            console.log("ProductionTerminateWizard", searchCrop, "===", crop);
             elements.push(
                 <div id="step-5" className={classnames('st-grey', { 'active': isThis })}>
-                    <span className="num">{num}.</span><span className="">{crop.crop}</span>
+                    <span className="num">{num}.</span><span className="">{searchCrop.crop}</span>
                 </div>
             )
         }

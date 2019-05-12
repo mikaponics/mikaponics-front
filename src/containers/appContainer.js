@@ -129,7 +129,7 @@ class AppContainer extends React.Component {
                             <Route path="/add-production-step-3" exact component={ProductionStep3CreateContainer} />
                             <Route path="/add-production-step-4" exact component={ProductionStep4CreateContainer} />
                             <Route path="/production/:slug/terminate-start" exact component={ProductionTerminateStartContainer} />
-                            <Route path="/production/:slug/terminate-crop" exact component={ProductionTerminateCropContainer} />
+                            <Route path="/production/:slug/terminate-crop/:index" exact component={ProductionTerminateCropContainer} />
                             <Route path="/production/:slug/terminate-finish" exact component={ProductionTerminateFinishContainer} />
                             <Route path="/production/:slug/inspection" exact component={ProductionInspectionContainer} />
                             <Route path="/production/:slug/profile" exact component={ProductionProfileContainer} />

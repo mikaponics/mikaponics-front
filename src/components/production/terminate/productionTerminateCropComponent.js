@@ -16,16 +16,19 @@ import {
 import ProductionTerminateWizard from './productionTerminateWizard';
 
 
-class ProductionTerminateStartComponent extends Component {
+class ProductionTerminateCropComponent extends Component {
     render() {
-        const { pageIndex, crops, crop, name, slug, plants, fish, errors, finishedAt, onBackClick, onSubmit, onSelectChange, onTextChange } = this.props;
+        const { crops, crop, name, slug, plants, fish, errors, finishedAt, onBackClick, onSubmit, onSelectChange, onTextChange } = this.props;
 
         // IF THE PLANTS DIED OR WERE TERMINATED.
         let shouldDisplayStateFailure = false;
         let shouldDisplayHarvestFailure = false;
 
         // DEFENSIVE CODE: PREVENT NULLS.
-        if (crop === undefined || crop === null) { return null; }
+        if (crop === undefined || crop === null) {
+            console.error("ProductionTerminateCropComponent | render | null crop.");
+            return null;
+        }
 
         // IF THE CROP FAILED.
         if (crop.stateAtFinish === PRODUCTION_CROPS_DIED || crop.stateAtFinish === PRODUCTION_CROPS_WERE_TERMINATED) {
@@ -59,8 +62,8 @@ class ProductionTerminateStartComponent extends Component {
                 <h1><i className="fas fa-shopping-basket"></i>&nbsp;Harvest or Terminate</h1>
 
                 <ProductionTerminateWizard
-                   pageIndex={pageIndex}
                    crops={crops}
+                   crop={crop}
                    isFirst={false}
                    isLast={false}
                 />
@@ -166,4 +169,4 @@ class ProductionTerminateStartComponent extends Component {
 }
 
 
-export default ProductionTerminateStartComponent;
+export default ProductionTerminateCropComponent;

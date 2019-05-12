@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import Scroll from 'react-scroll';
 
 import ProductionTerminateCropComponent from "../../../components/production/terminate/productionTerminateCropComponent";
@@ -18,20 +17,7 @@ class ProductionTerminateCropContainer extends Component {
 
     constructor(props) {
         super(props);
-
-        let pageIndex = 0;
-        const terminateCropPageIndex = localStorage.getItem('terminateCropPageIndex');
-        if (terminateCropPageIndex !== undefined && terminateCropPageIndex !== null) {
-            pageIndex = parseInt(terminateCropPageIndex);
-        }
-
-        // Since we are using the ``react-routes-dom`` library then we
-        // fetch the URL argument as follows.
-        const { slug } = this.props.match.params;
         this.state = {
-            referrer: null,
-            pageSlug: slug,
-            pageIndex: pageIndex,
             errors: Object(),
             crops: [],
             crop: {}
@@ -46,22 +32,11 @@ class ProductionTerminateCropContainer extends Component {
 
     componentDidMount() {
         window.scrollTo(0, 0);  // Start the page at the top of the page.
-
-        let pageIndex = 0;
-        const terminateCropPageIndex = localStorage.getItem('terminateCropPageIndex');
-        if (terminateCropPageIndex !== undefined && terminateCropPageIndex !== null) {
-            pageIndex = parseInt(terminateCropPageIndex);
-        }
-
+        const { index } = this.props.match.params;
         this.setState({
             crops: this.props.productionDetail.crops,
-            pageIndex: pageIndex,
-            crop: this.props.productionDetail.crops[pageIndex]
+            crop: this.props.productionDetail.crops[index]
         });
-
-        // For debugging purposes only.
-        console.log("componentDidMount | PageIndex", pageIndex);
-        console.log("componentDidMount | ArrayLength", this.props.productionDetail.crops.length);
     }
 
     componentWillUnmount() {
@@ -80,26 +55,20 @@ class ProductionTerminateCropContainer extends Component {
 
     onBackClick(e) {
         e.preventDefault();
-
-        const previousPageIndex = this.state.pageIndex - 1;
-
-        // For debugging purposes only.
-        console.log("onSubmit | PageIndex", previousPageIndex);
-        console.log("onSubmit | ArrayLength", this.state.crops.length);
-
-        if (this.state.pageIndex > 0) {
-            localStorage.setItem('terminateCropPageIndex', previousPageIndex)
-            this.setState({
-                pageIndex: previousPageIndex,
-                crop: this.props.productionDetail.crops[previousPageIndex]
-            });
+        window.scrollTo(0, 0);  // Start the page at the top of the page.
+        const { slug, index } = this.props.match.params;
+        const nextPageIndex = parseInt(index) - 1;
+        if (nextPageIndex < 0) {
+            this.props.history.push( '/production/'+ slug + '/terminate-start');
         } else {
             this.setState({
-                referrer: '/production/'+ this.state.pageSlug + '/terminate-start'
-            })
+                crops: this.props.productionDetail.crops,
+                crop: this.props.productionDetail.crops[nextPageIndex]
+            }, () => {
+                const aURL = '/production/'+ slug + '/terminate-crop/'+nextPageIndex.toString();
+                this.props.history.push(aURL);
+            });
         }
-
-        window.scrollTo(0, 0);  // Start the page at the top of the page.
     }
 
     onSubmit(e) {
@@ -117,25 +86,19 @@ class ProductionTerminateCropContainer extends Component {
 
     onSuccessfulSubmissionCallback() {
         window.scrollTo(0, 0);  // Start the page at the top of the page.
-
-        const nextPageIndex = parseInt(this.state.pageIndex) + 1;
-
-        // For debugging purposes only.
-        console.log("onSuccessfulSubmissionCallback | PageIndex", nextPageIndex);
-        console.log("onSuccessfulSubmissionCallback | ArrayLength", this.state.crops.length);
-
-        localStorage.setItem('terminateCropPageIndex', nextPageIndex)
-
+        const { slug, index } = this.props.match.params;
+        const nextPageIndex = parseInt(index) + 1;
         if (nextPageIndex < this.state.crops.length) {
             this.setState({
-                pageIndex: nextPageIndex,
-                crop: this.props.productionDetail.crops[nextPageIndex],
-                errors: {}
+                crops: this.props.productionDetail.crops,
+                crop: this.props.productionDetail.crops[nextPageIndex]
+            }, ()=>{
+                const aURL = '/production/'+ slug + '/terminate-crop/'+nextPageIndex.toString();
+                this.props.history.push(aURL);
             });
+
         } else {
-            this.setState({
-                referrer: '/production/'+ this.state.pageSlug + '/terminate-finish'
-            })
+            this.props.history.push( '/production/'+ slug + '/terminate-finish');
         }
     }
 
@@ -151,7 +114,6 @@ class ProductionTerminateCropContainer extends Component {
             var scroll = Scroll.animateScroll;
             scroll.scrollToTop();
         }
-
     }
 
     onSelectChange(name, value) {
@@ -183,19 +145,11 @@ class ProductionTerminateCropContainer extends Component {
      */
 
     render() {
-        // For debugging purposes only.
-        console.log("render | PageIndex", this.state.pageIndex);
-        console.log("render | ArrayLength", this.state.crops.length);
-
-        const { pageIndex, crops, crop, pageSlug, referrer, errors, finishedAt } = this.state;
+        const { index } = this.props.match.params;
+        const { crops, crop, errors, finishedAt } = this.state;
         const { name, slug, plants, fish } = this.props.productionDetail;
-        if (referrer) {
-            return <Redirect to={referrer} />
-            // return this.props.history.push(referrer);
-        }
         return (
             <ProductionTerminateCropComponent
-                pageIndex={pageIndex}
                 crops={crops}
                 crop={crop}
                 name={name}

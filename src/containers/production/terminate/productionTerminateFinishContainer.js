@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import Scroll from 'react-scroll';
 
 import ProductionTerminateFinishComponent from "../../../components/production/terminate/productionTerminateFinishComponent";
@@ -24,7 +23,6 @@ class ProductionTerminateFinishContainer extends Component {
         // fetch the URL argument as follows.
         const { slug } = this.props.match.params;
         this.state = {
-            referrer: null,
             pageSlug: slug,
             errors: Object(),
             plants: [],
@@ -75,9 +73,10 @@ class ProductionTerminateFinishContainer extends Component {
 
     onBackClick(e) {
         e.preventDefault();
-        this.setState({
-            referrer: '/production/'+ this.state.pageSlug + '/terminate-crop'
-        });
+        let len = this.state.crops.length;
+        len -= 1;
+        const aURL = '/production/'+ this.state.pageSlug + '/terminate-crop/'+len.toString()
+        this.props.history.push(aURL);
     }
 
     onSubmit(e) {
@@ -100,9 +99,7 @@ class ProductionTerminateFinishContainer extends Component {
 
     onSuccessfulSubmissionCallback() {
         this.props.setFlashMessage("success", "This production has been successfully terminated.");
-        this.setState({
-            referrer: '/productions'
-        });
+        this.props.history.push('/productions');
     }
 
     onFailedSubmissionCallback() {
@@ -123,11 +120,8 @@ class ProductionTerminateFinishContainer extends Component {
      */
 
     render() {
-        const { crops, referrer, errors, finishedAt } = this.state;
+        const { crops, errors, finishedAt } = this.state;
         const { name, slug, plants, fish } = this.props.productionDetail;
-        if (referrer) {
-            return <Redirect to={referrer} />
-        }
         return (
             <ProductionTerminateFinishComponent
                 crops={crops}

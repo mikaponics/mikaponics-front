@@ -128,9 +128,8 @@ class ProductionTerminateStartContainer extends Component {
     }
 
     onSuccessfulSubmissionCallback() {
-        localStorage.setItem('terminateCropPageIndex', 0);
         this.setState({
-            referrer: '/production/'+ this.state.slug + '/terminate-crop'
+            referrer: '/production/'+ this.state.slug + '/terminate-crop/0'
         });
     }
 
@@ -157,8 +156,6 @@ class ProductionTerminateStartContainer extends Component {
         if (referrer) {
             return <Redirect to={referrer} />
         }
-        console.log("render | PageIndex", 0);
-        console.log("render | ArrayLength", this.props.productionDetail.crops.length);
         return (
             <ProductionTerminateStartComponent
                 name={name}
