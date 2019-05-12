@@ -22,12 +22,17 @@ class ProductionTerminateStartComponent extends Component {
 
         // IF THE PLANTS DIED OR WERE TERMINATED.
         let shouldDisplayStateFailure = false;
+        let shouldDisplayHarvestFailure = false;
+
+        // DEFENSIVE CODE: PREVENT NULLS.
+        if (crop === undefined || crop === null) { return null; }
+
+        // IF THE CROP FAILED.
         if (crop.stateAtFinish === PRODUCTION_CROPS_DIED || crop.stateAtFinish === PRODUCTION_CROPS_WERE_TERMINATED) {
             shouldDisplayStateFailure = true;
         }
 
         // IF THE HARVEST FAILED.
-        let shouldDisplayHarvestFailure = false;
         if (crop.harvestAtFinish === PRODUCTION_CROPS_TERRIBLE_HARVEST_REVIEW || crop.harvestAtFinish === PRODUCTION_CROPS_BAD_HARVEST_REVIEW) {
             shouldDisplayHarvestFailure = true;
         }

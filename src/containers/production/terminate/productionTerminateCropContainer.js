@@ -105,30 +105,14 @@ class ProductionTerminateCropContainer extends Component {
     onSubmit(e) {
         e.preventDefault();
 
-        const nextPageIndex = parseInt(this.state.pageIndex) + 1;
-
-        // For debugging purposes only.
-        console.log("onSubmit | PageIndex", nextPageIndex);
-        console.log("onSubmit | ArrayLength", this.state.crops.length);
-
-        if (this.state.pageIndex < this.state.crops.length - 1) {
-
-            console.log("onSubmit | ", this.state.crop);
-
-            // Once our state has been validated `client-side` then we will
-            // make an API request with the server to create our new production.
-            this.props.putProductionCropDetail(
-                this.props.user,
-                this.state.crop,
-                this.onSuccessfulSubmissionCallback,
-                this.onFailedSubmissionCallback
-            );
-
-        } else {
-            this.setState({
-                referrer: '/production/'+ this.state.pageSlug + '/terminate-finish'
-            })
-        }
+        // Once our state has been validated `client-side` then we will
+        // make an API request with the server to create our new production.
+        this.props.putProductionCropDetail(
+            this.props.user,
+            this.state.crop,
+            this.onSuccessfulSubmissionCallback,
+            this.onFailedSubmissionCallback
+        );
     }
 
     onSuccessfulSubmissionCallback() {
@@ -141,11 +125,18 @@ class ProductionTerminateCropContainer extends Component {
         console.log("onSuccessfulSubmissionCallback | ArrayLength", this.state.crops.length);
 
         localStorage.setItem('terminateCropPageIndex', nextPageIndex)
-        this.setState({
-            pageIndex: nextPageIndex,
-            crop: this.props.productionDetail.crops[nextPageIndex],
-            errors: {}
-        });
+
+        if (nextPageIndex < this.state.crops.length) {
+            this.setState({
+                pageIndex: nextPageIndex,
+                crop: this.props.productionDetail.crops[nextPageIndex],
+                errors: {}
+            });
+        } else {
+            this.setState({
+                referrer: '/production/'+ this.state.pageSlug + '/terminate-finish'
+            })
+        }
     }
 
     onFailedSubmissionCallback() {
