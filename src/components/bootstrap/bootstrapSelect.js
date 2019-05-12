@@ -46,7 +46,7 @@ export const BootstrapSelect = ({
     // Render our output for this component.
     return (
         <div className="form-group">
-            <label for={id}>{label}</label>
+            <label htmlFor={id}>{label}</label>
             <select multiple={allowMultipleSelect} className="form-control" id={id} name={field} onChange={onChange}>
                 {defaultOptionLabel&&<option>{defaultOptionLabel}</option>}
                 {elements}

@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import DatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css";
 
+import { BootstrapCheckbox } from "../../bootstrap/bootstrapCheckbox";
 import { BootstrapInput } from "../../bootstrap/bootstrapInput";
 import { BootstrapTextarea } from "../../bootstrap/bootstrapTextarea";
 import { BootstrapErrorsProcessingAlert } from "../../bootstrap/bootstrapAlert";
@@ -18,7 +21,19 @@ import ProductionTerminateWizard from './productionTerminateWizard';
 
 class ProductionTerminateStartComponent extends Component {
     render() {
-        const { pageIndex, name, slug, plants, fish, crops, errors, finishedAt, onBackClick, onSubmit, onSelectChange } = this.props;
+        const {
+            pageIndex, name, slug, crops, errors, finishedAt,
+            wasSuccessAtFinish, failureReasonAtFinish, notesAtFinish,
+            onBackClick, onSubmit, onSelectChange, onFinishedAtChange,
+            onTextChange, onCheckboxChange
+        } = this.props;
+
+        // IF THE HARVEST FAILED.
+        let shouldDisplaWasFailure = false;
+        if (wasSuccessAtFinish === false) {
+            shouldDisplaWasFailure = true;
+        }
+
         return (
             <div>
 
@@ -48,23 +63,62 @@ class ProductionTerminateStartComponent extends Component {
                    isLast={false}
                 />
 
-                <div className="jumbotron">
-                    <h1 className="display-4">Note</h1>
-                    <p className="lead">You are about to terminate this production, please click below to being.</p>
-                </div>
-
                 <div className="col-md-5 mx-auto mt-2">
                     <form className="needs-validation" noValidate>
+                        <p>All fields which have the (*) symbol are required to be filled out.</p>
 
+                        <BootstrapErrorsProcessingAlert errors={errors} />
 
+                        <BootstrapCheckbox
+                            inputClassName="form-check-input form-check-input-lg"
+                            borderColour="border-success"
+                            error={errors.wasSuccessAtFinish}
+                            label="This production was a success."
+                            onChange={onCheckboxChange}
+                            value={wasSuccessAtFinish}
+                            name="wasSuccessAtFinish"
+                        />
 
+                        {shouldDisplaWasFailure &&
+                            <BootstrapTextarea
+                                name="failureReasonAtFinish"
+                                borderColour="border-primary"
+                                label="Why is this a failure? (*)"
+                                placeholder="Please describe why this production is consisdered a failure?"
+                                rows={5}
+                                value={failureReasonAtFinish}
+                                helpText={null}
+                                onChange={onTextChange}
+                                error={errors.failureReasonAtFinish}
+                            />
+                        }
+
+                        When did this production complete?
+                        <DatePicker
+                            selected={finishedAt}
+                            onChange={onFinishedAtChange}
+                        />
+
+                        <br /><br />
+
+                        <BootstrapTextarea
+                            name="notesAtFinish"
+                            borderColour="border-success"
+                            label="Any additional notes / comments?"
+                            placeholder="Feel free to add any additional notes or comments."
+                            rows={5}
+                            value={notesAtFinish}
+                            helpText={null}
+                            onChange={onTextChange}
+                            error={errors.notesAtFinish}
+                        />
 
                         <div className="form-group">
                             <button type="text" className="btn btn-lg float-left pl-4 pr-4 btn-secondary" onClick={onBackClick}>
                                 <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
                             </button>
                             <button type="text" className="btn btn-lg float-right pl-4 pr-4 btn-primary" onClick={onSubmit}>
-                                Begin&nbsp;<i className="fas fa-arrow-circle-right"></i>
+                                Next&nbsp;<i className="fas fa-arrow-circle-right"></i>
                             </button>
                         </div>
 

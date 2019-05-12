@@ -24,7 +24,7 @@ export default class ProductionTerminateWizard extends Component {
             <div className="row">
                 <div className="step-navigation">
                     <div id="step-1" className={classnames('st-grey', { 'active': isFirst })}>
-                        <span className="num">1.</span><span className="">Begin</span>
+                        <span className="num">1.</span><span className="">Overall</span>
                     </div>
                     {elements}
                     <div id="step-5" className={classnames('st-grey', { 'active': isLast })}>
