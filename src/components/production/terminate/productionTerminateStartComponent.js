@@ -23,7 +23,7 @@ class ProductionTerminateStartComponent extends Component {
     render() {
         const {
             pageIndex, name, slug, crops, errors, finishedAt,
-            wasSuccessAtFinish, failureReasonAtFinish, notesAtFinish,
+            wasSuccessAtFinish, failureReason, notesAtFinish,
             onBackClick, onSubmit, onSelectChange, onFinishedAtChange,
             onTextChange, onCheckboxChange
         } = this.props;
@@ -73,7 +73,7 @@ class ProductionTerminateStartComponent extends Component {
                             inputClassName="form-check-input form-check-input-lg"
                             borderColour="border-success"
                             error={errors.wasSuccessAtFinish}
-                            label="This production was a success."
+                            label="Overall this production was a success."
                             onChange={onCheckboxChange}
                             value={wasSuccessAtFinish}
                             name="wasSuccessAtFinish"
@@ -81,15 +81,15 @@ class ProductionTerminateStartComponent extends Component {
 
                         {shouldDisplaWasFailure &&
                             <BootstrapTextarea
-                                name="failureReasonAtFinish"
+                                name="failureReason"
                                 borderColour="border-primary"
                                 label="Why is this a failure? (*)"
                                 placeholder="Please describe why this production is consisdered a failure?"
                                 rows={5}
-                                value={failureReasonAtFinish}
+                                value={failureReason}
                                 helpText={null}
                                 onChange={onTextChange}
-                                error={errors.failureReasonAtFinish}
+                                error={errors.failureReason}
                             />
                         }
 

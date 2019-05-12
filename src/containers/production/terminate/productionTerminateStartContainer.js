@@ -29,7 +29,7 @@ class ProductionTerminateStartContainer extends Component {
             crops: [],
             finishedAt: null,
             wasSuccessAtFinish: false,
-            failureReasonAtFinish: "",
+            failureReason: "",
             notesAtFinish: ""
         }
         this.onSubmit = this.onSubmit.bind(this);
@@ -58,7 +58,7 @@ class ProductionTerminateStartContainer extends Component {
             fish: this.props.productionDetail.fish,
             crops: this.props.productionDetail.crops,
             wasSuccessAtFinish: wasSuccessAtFinish,
-            failureReasonAtFinish: this.props.productionDetail.failureReasonAtFinish,
+            failureReason: this.props.productionDetail.failureReason,
             notesAtFinish: this.props.productionDetail.notesAtFinish,
 
             // DEFAULT VALUES
@@ -152,7 +152,7 @@ class ProductionTerminateStartContainer extends Component {
      */
 
     render() {
-        const { referrer, errors, finishedAt, wasSuccessAtFinish, failureReasonAtFinish, notesAtFinish, crops } = this.state;
+        const { referrer, errors, finishedAt, wasSuccessAtFinish, failureReason, notesAtFinish, crops } = this.state;
         const { name, slug, plants, fish } = this.props.productionDetail;
         if (referrer) {
             return <Redirect to={referrer} />
@@ -166,7 +166,7 @@ class ProductionTerminateStartContainer extends Component {
                 errors={errors}
                 finishedAt={finishedAt}
                 wasSuccessAtFinish={wasSuccessAtFinish}
-                failureReasonAtFinish={failureReasonAtFinish}
+                failureReason={failureReason}
                 notesAtFinish={notesAtFinish}
                 plants={plants}
                 fish={fish}
