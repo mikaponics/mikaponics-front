@@ -84,11 +84,11 @@ class ProductionTerminateStartComponent extends Component {
                             <Link to={`/production/${slug}`}><i className="fas fa-leaf"></i>&nbsp;{name}</Link>
                         </li>
                         <li className="breadcrumb-item active" aria-current="page">
-                            <i className="fas fa-shopping-basket"></i>&nbsp;Harvest - Terminate
+                            <i className="fas fa-shopping-basket"></i>&nbsp;Harvest
                         </li>
                     </ol>
                 </nav>
-                <h1><i className="fas fa-shopping-basket"></i>&nbsp;Harvest or Terminate</h1>
+                <h1><i className="fas fa-shopping-basket"></i>&nbsp;Harvest</h1>
 
                 <ProductionTerminateWizard
                    pageIndex={0}
@@ -126,9 +126,9 @@ class ProductionTerminateStartComponent extends Component {
                                 </tr>
                             </tbody>
                         </table>
-
-                        {crops.map((crop, i) => <CropTable crop={crop} key={i} />)}
-
+                        {crops.map(
+                            (crop, i) => <CropTable crop={crop} key={i} />)
+                        }
                     </div>
                 </div>
 
