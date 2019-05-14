@@ -245,6 +245,7 @@ class ProductionInspectionCreateCropContainer extends Component {
 
         return (
             <ProductionInspectionCreateCropComponent
+                productionInspectionDetail={this.props.productionInspectionDetail}
                 stageOptions={this.getStageOptions()}
                 productionDetail={this.props.productionDetail}
                 crops={crops}

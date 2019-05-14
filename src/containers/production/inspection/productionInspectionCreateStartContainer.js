@@ -136,6 +136,7 @@ class ProductionInspectionCreateStartContainer extends Component {
         const { name, slug, plants, fish } = this.props.productionDetail;
         return (
             <ProductionInspectionCreateStartComponent
+                productionInspectionDetail={this.props.productionInspectionDetail}
                 productionDetail={this.props.productionDetail}
                 name={name}
                 slug={slug}

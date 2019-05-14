@@ -10,13 +10,14 @@ import {
     PRODUCTION_CROPS_INSPECTION_BAD_REVIEW,
     PRODUCTION_CROPS_INSPECTION_REVIEW_OPTION_CHOICES
 } from '../../../constants/api';
-import ProductionCreateWizardNavigationComponent from './productionCreateWizardNavigationComponent';
+import ProductionInspectionCreateWizardNavigationComponent from './productionInspectionCreateWizardNavigationComponent';
 
 
 
 class ProductionInspectionCreateCropComponent extends Component {
     render() {
         const {
+            productionInspectionDetail,
             stageOptions=[], productionDetail, crops, crop,
             review, failureReason, stage, notes, errors,
             onBackClick, onSubmit, onSelectChange, onTextChange
@@ -63,11 +64,11 @@ class ProductionInspectionCreateCropComponent extends Component {
                 </nav>
                 <h1><i className="fas fa-plus"></i>&nbsp;Add</h1>
 
-                <ProductionCreateWizardNavigationComponent
-                   crops={crops}
-                   crop={crop}
-                   isFirst={false}
-                   isLast={false}
+                <ProductionInspectionCreateWizardNavigationComponent
+                    productionInspectionDetail={productionInspectionDetail}
+                    productionCropInspectionDetail={crop}
+                    isFirst={false}
+                    isLast={false}
                 />
 
                 <div className="col-md-5 mx-auto mt-2">

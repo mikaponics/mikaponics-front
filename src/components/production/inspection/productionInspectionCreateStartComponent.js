@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom';
 import { BootstrapCheckbox } from "../../bootstrap/bootstrapCheckbox";
 import { BootstrapTextarea } from "../../bootstrap/bootstrapTextarea";
 import { BootstrapErrorsProcessingAlert } from "../../bootstrap/bootstrapAlert";
-import ProductionCreateWizardNavigationComponent from './productionCreateWizardNavigationComponent';
+import ProductionInspectionCreateWizardNavigationComponent from './productionInspectionCreateWizardNavigationComponent';
 
 
 class ProductionInspectionCreateStartComponent extends Component {
     render() {
 
         const {
+            productionInspectionDetail,
             productionDetail,
             pageIndex, name, slug, crops, errors={},
             didPass, failureReason, notes,
@@ -51,8 +52,9 @@ class ProductionInspectionCreateStartComponent extends Component {
 
                 <h1><i className="fas fa-plus"></i>&nbsp;Add</h1>
 
-                <ProductionCreateWizardNavigationComponent
-                   crops={crops}
+                <ProductionInspectionCreateWizardNavigationComponent
+                   productionInspectionDetail={productionInspectionDetail}
+                   productionCropInspectionDetail={null}
                    isFirst={true}
                    isLast={false}
                 />
