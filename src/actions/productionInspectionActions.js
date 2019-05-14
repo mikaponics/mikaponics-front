@@ -134,18 +134,18 @@ export function pullDefaultDraftProductionInspectionDetail(user, productionSlug)
             // console.log(successResult); // For debugging purposes.
 
             const responseData = successResult.data;
-            let profile = camelizeKeys(responseData);
+            let productionInspection = camelizeKeys(responseData);
 
             // Extra.
-            profile['isAPIRequestRunning'] = false;
-            profile['errors'] = {};
+            productionInspection['isAPIRequestRunning'] = false;
+            productionInspection['errors'] = {};
 
-            // console.log(profile); // For debugging purposes.
+            // console.log(productionInspection); // For debugging purposes.
 
             // Update the global state of the application to store our
-            // user profile for the application.
+            // user productionInspection for the application.
             store.dispatch(
-                setProductionInspectionDetailSuccess(profile)
+                setProductionInspectionDetailSuccess(productionInspection)
             );
 
         }).catch( (errorResult) => { // ERROR
@@ -169,6 +169,77 @@ export function pullDefaultDraftProductionInspectionDetail(user, productionSlug)
     }
 }
 
+
+export function pullProductionInspectionDetail(user, slug, successCallback=null, failedCallback=null) {
+    return dispatch => {
+        // Change the global state to attempting to fetch latest user details.
+        store.dispatch(
+            setProductionInspectionDetailRequest()
+        );
+
+        // Create our oAuth 2.0 authenticated API header to use with our
+        // submission.
+        const config = {
+            headers: {'Authorization': "Bearer " + user.token}
+        };
+
+        const aURL = MIKAPONICS_PRODUCTION_INSPECTION_RETRIEVE_UPDATE_API_URL+slug;
+
+        axios.get(
+            aURL,
+            config
+        ).then( (successResult) => { // SUCCESS
+            // console.log(successResult); // For debugging purposes.
+
+            const responseData = successResult.data;
+            let productionInspection = camelizeKeys(responseData);
+
+            // Extra.
+            productionInspection['isAPIRequestRunning'] = false;
+            productionInspection['errors'] = {};
+
+            // console.log(productionInspection); // For debugging purposes.
+
+            // Update the global state of the application to store our
+            // user productionInspection for the application.
+            store.dispatch(
+                setProductionInspectionDetailSuccess(productionInspection)
+            );
+
+            // DEVELOPERS NOTE:
+            // IF A CALLBACK FUNCTION WAS SET THEN WE WILL RETURN THE JSON
+            // OBJECT WE GOT FROM THE API.
+            if (successCallback) {
+                successCallback(productionInspection);
+            }
+
+        }).catch( (errorResult) => { // ERROR
+            // console.log(errorResult);
+            // alert("Error fetching latest invoice.");
+
+            const responseData = errorResult.data;
+            let errors = camelizeKeys(responseData);
+
+            store.dispatch(
+                setProductionInspectionDetailFailure({
+                    isAPIRequestRunning: false,
+                    errors: errors
+                })
+            );
+
+            // DEVELOPERS NOTE:
+            // IF A CALLBACK FUNCTION WAS SET THEN WE WILL RETURN THE JSON
+            // OBJECT WE GOT FROM THE API.
+            if (failedCallback) {
+                failedCallback(errors);
+            }
+
+        }).then( () => { // FINALLY
+            // Do nothing.
+        });
+
+    }
+}
 
 
 // /**
@@ -197,18 +268,18 @@ export function pullDefaultDraftProductionInspectionDetail(user, productionSlug)
 //             // console.log(successResult); // For debugging purposes.
 //
 //             const responseData = successResult.data;
-//             let profile = camelizeKeys(responseData);
+//             let productionInspection = camelizeKeys(responseData);
 //
 //             // Extra.
-//             profile['isAPIRequestRunning'] = false;
-//             profile['errors'] = {};
+//             productionInspection['isAPIRequestRunning'] = false;
+//             productionInspection['errors'] = {};
 //
-//             // console.log(profile); // For debugging purposes.
+//             // console.log(productionInspection); // For debugging purposes.
 //
 //             // Update the global state of the application to store our
-//             // user profile for the application.
+//             // user productionInspection for the application.
 //             store.dispatch(
-//                 setProductionInspectionDetailSuccess(profile)
+//                 setProductionInspectionDetailSuccess(productionInspection)
 //             );
 //
 //         }).catch( (errorResult) => { // ERROR

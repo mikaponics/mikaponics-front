@@ -20,6 +20,8 @@ import {
     PRODUCTION_CROP_DETAIL_SUCCESS,
     PRODUCTION_INSPECTION_LIST_SUCCESS,
     PRODUCTION_INSPECTION_DETAIL_SUCCESS,
+    PRODUCTION_CROP_INSPECTION_LIST_SUCCESS,
+    PRODUCTION_CROP_INSPECTION_DETAIL_SUCCESS,
 } from "./constants/actionTypes";
 import userReducer from "./reducers/userReducer";
 import onboardingReducer from "./reducers/onboardingReducer";
@@ -45,6 +47,8 @@ import productionCropListReducer from "./reducers/productionCropListReducer";
 import productionCropDetailReducer from "./reducers/productionCropDetailReducer";
 import productionInspectionListReducer from "./reducers/productionInspectionListReducer";
 import productionInspectionDetailReducer from "./reducers/productionInspectionDetailReducer";
+import productionCropInspectionListReducer from "./reducers/productionCropInspectionListReducer";
+import productionCropInspectionDetailReducer from "./reducers/productionCropInspectionDetailReducer";
 
 
 // Combine Reducers
@@ -73,6 +77,8 @@ const appReducer = combineReducers({
     productionCropDetailState: productionCropDetailReducer,
     productionInspectionListState: productionInspectionListReducer,
     productionInspectionDetailState: productionInspectionDetailReducer,
+    productionCropInspectioListState: productionCropInspectionListReducer,
+    productionCropInspectionDetailState: productionCropInspectionDetailReducer,
 });
 
 

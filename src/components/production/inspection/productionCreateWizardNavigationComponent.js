@@ -13,10 +13,15 @@ export default class ProductionCreateWizardNavigationComponent extends Component
         for (let i = 0; i < crops.length; i++) {
             let num = i + 2;
             let searchCrop = crops[i];
-            let isThis = (searchCrop === crop) && (isLast === false) && (isFirst === false);
+            let isThis = false;
+
+            if (crop !== undefined && crop !== null) {
+                isThis = (searchCrop.slug === crop.productionCropSlug) && (isLast === false) && (isFirst === false);
+            }
+
             elements.push(
                 <div id="step-5" className={classnames('st-grey', { 'active': isThis })}>
-                    <span className="num">{num}.</span><span className="">{searchCrop.productionCropName}</span>
+                    <span className="num">{num}.</span><span className="">{searchCrop.prettyName}</span>
                 </div>
             )
         }

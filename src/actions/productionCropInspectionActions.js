@@ -111,7 +111,7 @@ export const setProductionCropInspectionDetailFailure = productionList => ({
 
 
 
-export function pullProductionCropInspectionDetail(user, slug) {
+export function pullProductionCropInspectionDetail(user, slug, successCallback=null, failedCallback=null) {
     return dispatch => {
         // Change the global state to attempting to fetch latest user details.
         store.dispatch(
@@ -133,19 +133,26 @@ export function pullProductionCropInspectionDetail(user, slug) {
             // console.log(successResult); // For debugging purposes.
 
             const responseData = successResult.data;
-            let profile = camelizeKeys(responseData);
+            let productionCropInspection = camelizeKeys(responseData);
 
             // Extra.
-            profile['isAPIRequestRunning'] = false;
-            profile['errors'] = {};
+            productionCropInspection['isAPIRequestRunning'] = false;
+            productionCropInspection['errors'] = {};
 
-            // console.log(profile); // For debugging purposes.
+            // console.log(productionCropInspection); // For debugging purposes.
 
             // Update the global state of the application to store our
-            // user profile for the application.
+            // user productionCropInspection for the application.
             store.dispatch(
-                setProductionCropInspectionDetailSuccess(profile)
+                setProductionCropInspectionDetailSuccess(productionCropInspection)
             );
+
+            // DEVELOPERS NOTE:
+            // IF A CALLBACK FUNCTION WAS SET THEN WE WILL RETURN THE JSON
+            // OBJECT WE GOT FROM THE API.
+            if (successCallback) {
+                successCallback(productionCropInspection);
+            }
 
         }).catch( (errorResult) => { // ERROR
             // console.log(errorResult);
@@ -160,6 +167,13 @@ export function pullProductionCropInspectionDetail(user, slug) {
                     errors: errors
                 })
             );
+
+            // DEVELOPERS NOTE:
+            // IF A CALLBACK FUNCTION WAS SET THEN WE WILL RETURN THE JSON
+            // OBJECT WE GOT FROM THE API.
+            if (failedCallback) {
+                failedCallback(errors);
+            }
 
         }).then( () => { // FINALLY
             // Do nothing.

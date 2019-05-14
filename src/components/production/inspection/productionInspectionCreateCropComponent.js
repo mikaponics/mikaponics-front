@@ -25,7 +25,6 @@ class ProductionInspectionCreateCropComponent extends Component {
 
         // IF THE PLANTS DIED OR WERE TERMINATED.
         let shouldDisplayReviewFailure = false;
-        let shouldDisplayHarvestFailure = false;
 
         // DEFENSIVE CODE: PREVENT NULLS.
         if (crop === undefined || crop === null) {
@@ -34,7 +33,7 @@ class ProductionInspectionCreateCropComponent extends Component {
         }
 
         // IF THE REVIEW FAILED.
-        if (crop.review === PRODUCTION_CROPS_INSPECTION_TERRIBLE_REVIEW || crop.review === PRODUCTION_CROPS_INSPECTION_BAD_REVIEW) {
+        if (review === PRODUCTION_CROPS_INSPECTION_TERRIBLE_REVIEW || review === PRODUCTION_CROPS_INSPECTION_BAD_REVIEW) {
             shouldDisplayReviewFailure = true;
         }
 
@@ -107,7 +106,7 @@ class ProductionInspectionCreateCropComponent extends Component {
                                 label="Why? (*)"
                                 placeholder="Please describe why this rating?"
                                 rows={5}
-                                value={crop.failureReason}
+                                value={failureReason}
                                 helpText={null}
                                 onChange={ onTextChange }
                                 error={errors.failureReason}
