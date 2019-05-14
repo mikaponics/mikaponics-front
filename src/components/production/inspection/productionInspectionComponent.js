@@ -30,7 +30,7 @@ class ProductionInspectionComponent extends Component {
                 <section className="row text-center placeholders">
                     <div className="col-sm-3 placeholder">
                         <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-pink">
-                            <Link to={`/production/${productionDetail.slug}/inspection/get-or-create`} className="d-block link-ndecor" title="Clients">
+                            <Link to={`/production/${productionDetail.slug}/create-inspection/start`} className="d-block link-ndecor" title="Clients">
                                 <h1 className="circle-title">
                                     <i className="fas fa-plus"></i>
                                 </h1>

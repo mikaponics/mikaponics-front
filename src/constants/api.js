@@ -35,6 +35,9 @@ export const MIKAPONICS_CROP_SUBSTRATE_LIST_API_URL = process.env.REACT_APP_API_
 export const MIKAPONICS_PRODUCTION_TERMINATION_API_URL = process.env.REACT_APP_API_HOST+'/api/production-termination/';
 export const MIKAPONICS_PRODUCTION_CROP_LIST_CREATE_API_URL = process.env.REACT_APP_API_HOST+'/api/production-crops';
 export const MIKAPONICS_PRODUCTION_CROP_RETRIEVE_UPDATE_API_URL = process.env.REACT_APP_API_HOST+'/api/production-crop/';
+export const MIKAPONICS_PRODUCTION_INSPECTION_LIST_CREATE_API_URL = process.env.REACT_APP_API_HOST+'/api/production-inspections';
+export const MIKAPONICS_PRODUCTION_INSPECTION_RETRIEVE_UPDATE_API_URL = process.env.REACT_APP_API_HOST+'/api/production-inspection/';
+export const MIKAPONICS_PRODUCTION_INSPECTION_RETRIEVE_OR_CREATE_DEFAULT_DRAFT_API_URL = process.env.REACT_APP_API_HOST+'/api/production-default-draft-inspection/';
 
 /**
  *  The available choices for the ``subscription_status`` field in the user API.
