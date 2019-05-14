@@ -59,6 +59,7 @@ import ProductionTerminateCropContainer from "./production/terminate/productionT
 import ProductionTerminateFinishContainer from "./production/terminate/productionTerminateFinishContainer";
 import ProductionInspectionContainer from "./production/inspection/productionInspectionContainer";
 import ProductionInspectionCreateStartContainer from "./production/inspection/productionInspectionCreateStartContainer";
+import ProductionInspectionCreateCropContainer from "./production/inspection/productionInspectionCreateCropContainer";
 import ProductionProfileContainer from "./production/productionProfileContainer";
 
 
@@ -134,6 +135,7 @@ class AppContainer extends React.Component {
                             <Route path="/production/:slug/terminate-finish" exact component={ProductionTerminateFinishContainer} />
                             <Route path="/production/:slug/inspection" exact component={ProductionInspectionContainer} />
                             <Route path="/production/:slug/create-inspection/start" exact component={ProductionInspectionCreateStartContainer} />
+                            <Route path="/production/:slug/create-inspection/crop/:index" exact component={ProductionInspectionCreateCropContainer} />
                             <Route path="/production/:slug/profile" exact component={ProductionProfileContainer} />
                             <Route component={NotFound404Container} />
                         </Switch>

@@ -231,65 +231,73 @@ export function pullDefaultDraftProductionInspectionDetail(user, productionSlug)
 //
 //     }
 // }
-//
-//
-// export function putProductionInspectionDetail(user, data, successCallback, failedCallback) {
-//     return dispatch => {
-//         // Change the global state to attempting to log in.
-//         store.dispatch(
-//             setProductionInspectionDetailRequest()
-//         );
-//
-//         // Create our oAuth 2.0 authenticated API header to use with our
-//         // submission.
-//         const config = {
-//             headers: {'Authorization': "Bearer " + user.token}
-//         };
-//
-//         // The following code will convert the `camelized` data into `snake case`
-//         // data so our API endpoint will be able to read it.
-//         let decamelizedData = decamelizeKeys(data);
-//
-//         const url = MIKAPONICS_PRODUCTION_INSPECTION_RETRIEVE_UPDATE_API_URL+data.slug;
-//
-//         // Perform our API submission.
-//         axios.put(url, decamelizedData, config).then( (successResult) => {
-//
-//             const responseData = successResult.data;
-//             let device = camelizeKeys(responseData);
-//
-//             // Extra.
-//             device['isAPIRequestRunning'] = false;
-//             device['errors'] = {};
-//
-//             // Update the global state of the application to store our
-//             // user device for the application.
-//             store.dispatch(
-//                 setProductionInspectionDetailSuccess(device)
-//             );
-//
-//             // Run our success callback function.
-//             successCallback(device);
-//
-//         }).catch( (errorResult) => {
-//             // console.error("postProductionInspectionDetail - ERROR",errorResult);
-//             const responseData = errorResult.response.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
-//             let errors = camelizeKeys(responseData);
-//             // console.log(errors);
-//
-//             store.dispatch(
-//                 setProductionInspectionDetailFailure({
-//                     isAPIRequestRunning: false,
-//                     errors: errors
-//                 })
-//             );
-//
-//             // Run our failure callback function.
-//             failedCallback(errors);
-//
-//         }).then( () => {
-//             // Do nothing.
-//         });
-//
-//     }
-// }
+
+
+export function putProductionInspectionDetail(user, data, slug, successCallback, failedCallback) {
+    return dispatch => {
+        // Change the global state to attempting to log in.
+        store.dispatch(
+            setProductionInspectionDetailRequest()
+        );
+
+        // For debugging purposes only.
+        if (failedCallback === undefined || failedCallback === null) {
+            alert("failedCallback is null value in parameter!");
+            return;
+        }
+
+        // Create our oAuth 2.0 authenticated API header to use with our
+        // submission.
+        const config = {
+            headers: {'Authorization': "Bearer " + user.token}
+        };
+
+        // The following code will convert the `camelized` data into `snake case`
+        // data so our API endpoint will be able to read it.
+        let decamelizedData = decamelizeKeys(data);
+
+        const url = MIKAPONICS_PRODUCTION_INSPECTION_RETRIEVE_UPDATE_API_URL+slug;
+
+        // Perform our API submission.
+        axios.put(url, decamelizedData, config).then( (successResult) => {
+
+            const responseData = successResult.data;
+            let device = camelizeKeys(responseData);
+
+            // Extra.
+            device['isAPIRequestRunning'] = false;
+            device['errors'] = {};
+
+            // Update the global state of the application to store our
+            // user device for the application.
+            store.dispatch(
+                setProductionInspectionDetailSuccess(device)
+            );
+
+            // Run our success callback function.
+            successCallback(device);
+
+        }).catch( (errorResult) => {
+            // console.error("postProductionInspectionDetail - ERROR",errorResult);
+            const responseData = errorResult.response.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
+            let errors = camelizeKeys(responseData);
+            // console.log(errors);
+
+            store.dispatch(
+                setProductionInspectionDetailFailure({
+                    isAPIRequestRunning: false,
+                    errors: errors
+                })
+            );
+
+            // Run our failure callback function.
+            if (failedCallback !== undefined && failedCallback !== null) {
+                failedCallback(errors);
+            }
+
+        }).then( () => {
+            // Do nothing.
+        });
+
+    }
+}
