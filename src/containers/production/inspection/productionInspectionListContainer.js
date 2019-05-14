@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import ProductionInspectionComponent from "../../../components/production/inspection/productionInspectionComponent";
+import ProductionInspectionListComponent from "../../../components/production/inspection/productionInspectionListComponent";
 
 
 class ProductionInspectionContainer extends Component {
@@ -37,7 +37,7 @@ class ProductionInspectionContainer extends Component {
             return <Redirect to={referrer} />
         }
         return (
-            <ProductionInspectionComponent
+            <ProductionInspectionListComponent
                 productionDetail={this.props.productionDetail}
             />
         );

@@ -57,7 +57,7 @@ import ProductionStep4CreateContainer from  "./production/create/productionStep4
 import ProductionTerminateStartContainer from "./production/terminate/productionTerminateStartContainer";
 import ProductionTerminateCropContainer from "./production/terminate/productionTerminateCropContainer";
 import ProductionTerminateFinishContainer from "./production/terminate/productionTerminateFinishContainer";
-import ProductionInspectionContainer from "./production/inspection/productionInspectionContainer";
+import ProductionInspectionListContainer from "./production/inspection/productionInspectionListContainer";
 import ProductionInspectionCreateStartContainer from "./production/inspection/productionInspectionCreateStartContainer";
 import ProductionInspectionCreateCropContainer from "./production/inspection/productionInspectionCreateCropContainer";
 import ProductionProfileContainer from "./production/productionProfileContainer";
@@ -133,7 +133,7 @@ class AppContainer extends React.Component {
                             <Route path="/production/:slug/terminate-start" exact component={ProductionTerminateStartContainer} />
                             <Route path="/production/:slug/terminate-crop/:index" exact component={ProductionTerminateCropContainer} />
                             <Route path="/production/:slug/terminate-finish" exact component={ProductionTerminateFinishContainer} />
-                            <Route path="/production/:slug/inspection" exact component={ProductionInspectionContainer} />
+                            <Route path="/production/:slug/inspection" exact component={ProductionInspectionListContainer} />
                             <Route path="/production/:slug/create-inspection/start" exact component={ProductionInspectionCreateStartContainer} />
                             <Route path="/production/:slug/create-inspection/crop/:index" exact component={ProductionInspectionCreateCropContainer} />
                             <Route path="/production/:slug/profile" exact component={ProductionProfileContainer} />
