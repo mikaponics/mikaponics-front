@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import Scroll from 'react-scroll';
 
 import ProductionInspectionCreateCropComponent from "../../../components/production/inspection/productionInspectionCreateCropComponent";
-import { pullProductionCropDetail } from "../../../actions/productionCropActions";
-import { putProductionCropDetail } from "../../../actions/productionCropActions";
+import {
+    pullProductionCropInspectionDetail,
+    putProductionCropInspectionDetail
+} from "../../../actions/productionCropInspectionActions";
 import { setFlashMessage } from "../../../actions/flashMessageActions";
 
 
@@ -18,10 +20,18 @@ class ProductionInspectionCreateCropContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            // DEVELOPERS NOTE:
+            // THE ERRORS DICTIONARY CONTAINS KEY-VALUES OF THE THE FIELDS AND
+            // THEIR RESPECTED ERRORS TO DISPLAY TO THE USER.
             errors: Object(),
             crops: [],
-            crop: {}
+            crop: {},
+            review: null,
+            failureReason: null,
+            stage: null,
+            notes: null,
         }
+        this.getStageOptions = this.getStageOptions.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onBackClick = this.onBackClick.bind(this);
         this.onSelectChange = this.onSelectChange.bind(this);
@@ -31,12 +41,47 @@ class ProductionInspectionCreateCropContainer extends Component {
     }
 
     componentDidMount() {
-        window.scrollTo(0, 0);  // Start the page at the top of the page.
+        // DEVELOPERS NOTE:
+        // (1) FETCH THE INDEX NUMBER FROM THE URL AND LOOK THAT NUMBER UP IN
+        //     CROPS ARRAY. THIS WILL RETRIEVE THE CROP WE WILL BE PROCESSING
+        //     IN THIS COMPONENT!
+        // (2) EXTRACT THE CROP INSPECTION `SLUG` AND CALL THE API TO GET THE
+        //     DETAILS FOR THE CROP INSPECTION OBJECT.
+        // (3) POPULATE OUR COMPONENT STATE WITH THE DATA RECEIVED FROM API.
         const { index } = this.props.match.params;
+        const cropInspection = this.props.productionInspectionDetail.crops[index];
+        this.props.pullProductionCropInspectionDetail(this.props.user, cropInspection.slug);
         this.setState({
             crops: this.props.productionDetail.crops,
-            crop: this.props.productionDetail.crops[index]
+            crop: cropInspection,
+            review: cropInspection.review,
+            failureReason: cropInspection.failureReason,
+            stage: cropInspection.stage,
+            notes: cropInspection.notes,
         });
+
+        // AUTOMATICALLY SCROLL TO THE TOP (WITHOUT ANIMATIONS!)
+        window.scrollTo(0, 0);  // Start the page at the top of the page.
+    }
+
+    getStageOptions() {
+        const stageOptions = [];
+        if (this.state.crop) {
+            const stageList = this.state.crop.productionCropStages;
+            if (stageList !== undefined && stageList !== null) {
+
+                for (let i = 0; i < stageList.length; i++) {
+                    let stageItem = stageList[i];
+                    stageOptions.push({
+                        selectName: "stage",
+                        value: stageItem.id,
+                        label: stageItem.value
+                    });
+                }
+
+            }
+        }
+        return stageOptions;
     }
 
     componentWillUnmount() {
@@ -59,13 +104,13 @@ class ProductionInspectionCreateCropContainer extends Component {
         const { slug, index } = this.props.match.params;
         const nextPageIndex = parseInt(index) - 1;
         if (nextPageIndex < 0) {
-            this.props.history.push( '/production/'+ slug + '/terminate-start');
+            this.props.history.push( '/production/'+ slug + '/create-inspection/start');
         } else {
             this.setState({
                 crops: this.props.productionDetail.crops,
                 crop: this.props.productionDetail.crops[nextPageIndex]
             }, () => {
-                const aURL = '/production/'+ slug + '/terminate-crop/'+nextPageIndex.toString();
+                const aURL = '/production/'+ slug + '/create-inspection/crop/'+nextPageIndex.toString();
                 this.props.history.push(aURL);
             });
         }
@@ -76,9 +121,10 @@ class ProductionInspectionCreateCropContainer extends Component {
 
         // Once our state has been validated `client-side` then we will
         // make an API request with the server to create our new production.
-        this.props.putProductionCropDetail(
+        this.props.putProductionCropInspectionDetail(
             this.props.user,
-            this.state.crop,
+            this.state,
+            this.state.crop.slug,
             this.onSuccessfulSubmissionCallback,
             this.onFailedSubmissionCallback
         );
@@ -103,26 +149,25 @@ class ProductionInspectionCreateCropContainer extends Component {
     }
 
     onFailedSubmissionCallback() {
-        if (this.props.productionCropDetail !== undefined && this.props.productionCropDetail !== null) {
-            this.setState({
-                errors: this.props.productionCropDetail.errors
-            })
+        const { index } = this.props.match.params;
+        const cropInspection = this.props.productionInspectionDetail.crops[index];
+        console.log(">", this.props.productionInspectionDetail);
 
-            // The following code will cause the screen to scroll to the top of
-            // the page. Please see ``react-scroll`` for more information:
-            // https://github.com/fisshy/react-scroll
-            var scroll = Scroll.animateScroll;
-            scroll.scrollToTop();
-        }
+        this.setState({
+            errors: this.props.productionInspectionDetail.errors
+        })
+
+        // The following code will cause the screen to scroll to the top of
+        // the page. Please see ``react-scroll`` for more information:
+        // https://github.com/fisshy/react-scroll
+        var scroll = Scroll.animateScroll;
+        scroll.scrollToTop();
     }
 
     onSelectChange(name, value) {
-        let { crop } = this.state;
-        crop[name] = value;
-
-        // UPDATE OUR STATE WITH THE ARRAY.
+        console.log(name,"|", value);
         this.setState({
-            crop: crop
+            [name]: value
         });
     }
 
@@ -146,18 +191,19 @@ class ProductionInspectionCreateCropContainer extends Component {
 
     render() {
         const { index } = this.props.match.params;
-        const { crops, crop, errors, finishedAt } = this.state;
-        const { name, slug, plants, fish } = this.props.productionDetail;
+        const { crops, crop, review, failureReason, stage, notes, errors } = this.state;
+
         return (
             <ProductionInspectionCreateCropComponent
+                stageOptions={this.getStageOptions()}
+                productionDetail={this.props.productionDetail}
                 crops={crops}
                 crop={crop}
-                name={name}
-                slug={slug}
+                review={review}
+                failureReason={failureReason}
+                stage={stage}
+                notes={notes}
                 errors={errors}
-                finishedAt={finishedAt}
-                plants={plants}
-                fish={fish}
                 onSubmit={this.onSubmit}
                 onBackClick={this.onBackClick}
                 onSelectChange={this.onSelectChange}
@@ -172,23 +218,23 @@ const mapStateToProps = function(store) {
     return {
         user: store.userState,
         productionDetail: store.productionDetailState,
-        productionCropDetail: store.productionCropDetailState,
+        productionInspectionDetail: store.productionInspectionDetailState,
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        pullProductionCropDetail: (user, slug) => {
+        pullProductionCropInspectionDetail: (user, slug) => {
             dispatch(
-                pullProductionCropDetail(user, slug)
+                pullProductionCropInspectionDetail(user, slug)
             )
         },
         setFlashMessage: (typeOf, text) => {
             dispatch(setFlashMessage(typeOf, text))
         },
-        putProductionCropDetail: (user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback) => {
+        putProductionCropInspectionDetail: (user, state, slug, onSuccessfulSubmissionCallback, onFailedSubmissionCallback) => {
             dispatch(
-                putProductionCropDetail(user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback)
+                putProductionCropInspectionDetail(user, state, slug, onSuccessfulSubmissionCallback, onFailedSubmissionCallback)
             )
         },
     }

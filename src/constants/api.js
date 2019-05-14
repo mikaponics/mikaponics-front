@@ -38,7 +38,8 @@ export const MIKAPONICS_PRODUCTION_CROP_RETRIEVE_UPDATE_API_URL = process.env.RE
 export const MIKAPONICS_PRODUCTION_INSPECTION_LIST_CREATE_API_URL = process.env.REACT_APP_API_HOST+'/api/production-inspections';
 export const MIKAPONICS_PRODUCTION_INSPECTION_RETRIEVE_UPDATE_API_URL = process.env.REACT_APP_API_HOST+'/api/production-inspection/';
 export const MIKAPONICS_PRODUCTION_INSPECTION_RETRIEVE_OR_CREATE_DEFAULT_DRAFT_API_URL = process.env.REACT_APP_API_HOST+'/api/production-default-draft-inspection/';
-
+export const MIKAPONICS_PRODUCTION_CROP_INSPECTION_LIST_CREATE_API_URL = process.env.REACT_APP_API_HOST+'/api/production-crop-inspections';
+export const MIKAPONICS_PRODUCTION_CROP_INSPECTION_RETRIEVE_UPDATE_API_URL = process.env.REACT_APP_API_HOST+'/api/production-crop-inspection/';
 /**
  *  The available choices for the ``subscription_status`` field in the user API.
  */
@@ -237,5 +238,38 @@ export const PRODUCTION_STATE_CHOICES = [
         selectName: "state",
         value: PRODUCTION_TERMINATED_STATE,
         label: "Terminated"
+    }
+];
+
+
+/**
+ *  The `review` variable for the `ProductionCrop` API endpoint.
+ */
+export const PRODUCTION_CROPS_INSPECTION_TERRIBLE_REVIEW = 1;
+export const PRODUCTION_CROPS_INSPECTION_BAD_REVIEW = 2;
+export const PRODUCTION_CROPS_INSPECTION_AVERAGE_REVIEW = 3;
+export const PRODUCTION_CROPS_INSPECTION_GOOD_REVIEW = 4;
+export const PRODUCTION_CROPS_INSPECTION_EXCELLENT_REVIEW = 5;
+export const PRODUCTION_CROPS_INSPECTION_REVIEW_OPTION_CHOICES = [
+    {
+        selectName: "review",
+        value: PRODUCTION_CROPS_INSPECTION_TERRIBLE_REVIEW,
+        label: "Terrible"
+    },{
+        selectName: "review",
+        value: PRODUCTION_CROPS_INSPECTION_BAD_REVIEW,
+        label: "Bad"
+    },{
+        selectName: "review",
+        value: PRODUCTION_CROPS_INSPECTION_AVERAGE_REVIEW,
+        label: "Average"
+    },{
+        selectName: "review",
+        value: PRODUCTION_CROPS_INSPECTION_GOOD_REVIEW,
+        label: "Good"
+    },{
+        selectName: "review",
+        value: PRODUCTION_CROPS_INSPECTION_EXCELLENT_REVIEW,
+        label: "Excellent"
     }
 ];
