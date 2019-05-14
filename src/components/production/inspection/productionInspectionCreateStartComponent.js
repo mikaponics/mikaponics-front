@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { BootstrapCheckbox } from "../../bootstrap/bootstrapCheckbox";
 import { BootstrapTextarea } from "../../bootstrap/bootstrapTextarea";
 import { BootstrapErrorsProcessingAlert } from "../../bootstrap/bootstrapAlert";
-import ProductionInspectionCreateWizardNavigationComponent from './productionInspectionCreateWizardNavigationComponent';
+import ProductionInspectionCreateStepNavigationComponent from './productionInspectionCreateStepNavigationComponent';
 
 
 class ProductionInspectionCreateStartComponent extends Component {
@@ -52,7 +52,7 @@ class ProductionInspectionCreateStartComponent extends Component {
 
                 <h1><i className="fas fa-plus"></i>&nbsp;Add</h1>
 
-                <ProductionInspectionCreateWizardNavigationComponent
+                <ProductionInspectionCreateStepNavigationComponent
                    productionInspectionDetail={productionInspectionDetail}
                    productionCropInspectionDetail={null}
                    isFirst={true}

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import classnames from 'classnames';
 
 
-export default class ProductionInspectionCreateWizardNavigationComponent extends Component {
+export default class ProductionInspectionCreateStepNavigationComponent extends Component {
     render() {
         const {
             productionInspectionDetail=null,

@@ -10,7 +10,7 @@ import {
     PRODUCTION_CROPS_INSPECTION_BAD_REVIEW,
     PRODUCTION_CROPS_INSPECTION_REVIEW_OPTION_CHOICES
 } from '../../../constants/api';
-import ProductionInspectionCreateWizardNavigationComponent from './productionInspectionCreateWizardNavigationComponent';
+import ProductionInspectionCreateStepNavigationComponent from './productionInspectionCreateStepNavigationComponent';
 
 
 
@@ -64,7 +64,7 @@ class ProductionInspectionCreateCropComponent extends Component {
                 </nav>
                 <h1><i className="fas fa-plus"></i>&nbsp;Add</h1>
 
-                <ProductionInspectionCreateWizardNavigationComponent
+                <ProductionInspectionCreateStepNavigationComponent
                     productionInspectionDetail={productionInspectionDetail}
                     productionCropInspectionDetail={crop}
                     isFirst={false}
