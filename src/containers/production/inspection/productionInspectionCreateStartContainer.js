@@ -31,7 +31,6 @@ class ProductionInspectionCreateStartContainer extends Component {
 
         this.onSubmit = this.onSubmit.bind(this);
         this.onBackClick = this.onBackClick.bind(this);
-        this.onFinishedAtChange = this.onFinishedAtChange.bind(this);
         this.onCheckboxChange = this.onCheckboxChange.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
         this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
@@ -95,12 +94,6 @@ class ProductionInspectionCreateStartContainer extends Component {
         );
     }
 
-    onFinishedAtChange(finishedAt) {
-        this.setState({
-            finishedAt: finishedAt,
-        })
-    }
-
     onTextChange(e) {
         this.setState({
             [e.target.name]: e.target.value
@@ -139,7 +132,7 @@ class ProductionInspectionCreateStartContainer extends Component {
      */
 
     render() {
-        const { referrer, errors, finishedAt, didPass, failureReason, notes, crops } = this.state;
+        const { referrer, errors, didPass, failureReason, notes, crops } = this.state;
         const { name, slug, plants, fish } = this.props.productionDetail;
         return (
             <ProductionInspectionCreateStartComponent
@@ -147,7 +140,6 @@ class ProductionInspectionCreateStartContainer extends Component {
                 name={name}
                 slug={slug}
                 errors={errors}
-                finishedAt={finishedAt}
                 didPass={didPass}
                 failureReason={failureReason}
                 notes={notes}
@@ -159,7 +151,6 @@ class ProductionInspectionCreateStartContainer extends Component {
                 onSelectChange={this.onSelectChange}
                 onTextChange={this.onTextChange}
                 onCheckboxChange={this.onCheckboxChange}
-                onFinishedAtChange={this.onFinishedAtChange}
             />
         );
     }

@@ -9,6 +9,8 @@ export default class ProductionCreateWizardNavigationComponent extends Component
         if (crops === undefined || crops === null) { return null; }
         const elements = [];
 
+        console.log(crops);
+
         let finalNum = crops.length + 2;
         for (let i = 0; i < crops.length; i++) {
             let num = i + 2;

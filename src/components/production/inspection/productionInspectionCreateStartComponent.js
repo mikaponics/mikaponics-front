@@ -2,16 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import { BootstrapCheckbox } from "../../bootstrap/bootstrapCheckbox";
-import { BootstrapInput } from "../../bootstrap/bootstrapInput";
 import { BootstrapTextarea } from "../../bootstrap/bootstrapTextarea";
 import { BootstrapErrorsProcessingAlert } from "../../bootstrap/bootstrapAlert";
-import { BootstrapSingleSelect } from '../../bootstrap/bootstrapSingleSelect';
-import {
-    PRODUCTION_CROP_STATE_AT_FINISH_OPTION_CHOICES,
-    PRODUCTION_CROPS_HARVEST_REVIEW_AT_FINISH_OPTION_CHOICES,
-    PRODUCTION_CROPS_TERRIBLE_HARVEST_REVIEW,
-    PRODUCTION_CROPS_BAD_HARVEST_REVIEW
-} from '../../../constants/api';
 import ProductionCreateWizardNavigationComponent from './productionCreateWizardNavigationComponent';
 
 
@@ -20,9 +12,9 @@ class ProductionInspectionCreateStartComponent extends Component {
 
         const {
             productionDetail,
-            pageIndex, name, slug, crops, errors={}, finishedAt,
+            pageIndex, name, slug, crops, errors={},
             didPass, failureReason, notes,
-            onBackClick, onSubmit, onSelectChange, onFinishedAtChange,
+            onBackClick, onSubmit, onSelectChange,
             onTextChange, onCheckboxChange
         } = this.props;
 
