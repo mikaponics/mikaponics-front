@@ -3,7 +3,7 @@ import store from '../store';
 import { camelizeKeys, decamelizeKeys } from 'humps';
 
 import {
-    // PRODUCTION_INSPECTION_LIST_REQUEST, PRODUCTION_INSPECTION_LIST_SUCCESS, PRODUCTION_INSPECTION_LIST_FAILURE,
+    PRODUCTION_INSPECTION_LIST_REQUEST, PRODUCTION_INSPECTION_LIST_SUCCESS, PRODUCTION_INSPECTION_LIST_FAILURE,
     PRODUCTION_INSPECTION_DETAIL_REQUEST, PRODUCTION_INSPECTION_DETAIL_SUCCESS, PRODUCTION_INSPECTION_DETAIL_FAILURE,
 } from "../constants/actionTypes";
 import {
@@ -13,81 +13,89 @@ import {
 } from "../constants/api";
 
 
-// export const setProductionInspectionListRequest = () => ({
-//     type: PRODUCTION_INSPECTION_LIST_REQUEST,
-//     payload: {
-//         isAPIRequestRunning: true,
-//         errors: {}
-//     },
-// });
-//
-//
-// export const setProductionInspectionListSuccess = productionList => ({
-//     type: PRODUCTION_INSPECTION_LIST_SUCCESS,
-//     payload: productionList,
-// });
-//
-//
-// export const setProductionInspectionListFailure = productionList => ({
-//     type: PRODUCTION_INSPECTION_LIST_FAILURE,
-//     payload: productionList,
-// });
-//
-//
-// export function pullProductionInspectionList(user, page=1) {
-//     return dispatch => {
-//         // Change the global state to attempting to fetch latest user details.
-//         store.dispatch(
-//             setProductionInspectionListRequest()
-//         );
-//
-//         // Create our oAuth 2.0 authenticated API header to use with our
-//         // submission.
-//         const config = {
-//             headers: {'Authorization': "Bearer " + user.token}
-//         };
-//
-//         axios.get(
-//             MIKAPONICS_PRODUCTION_INSPECTION_LIST_CREATE_API_URL+"?page="+page,
-//             config
-//         ).then( (successResult) => { // SUCCESS
-//             // console.log(successResult); // For debugging purposes.
-//
-//             const responseData = successResult.data;
-//             let productionList = camelizeKeys(responseData);
-//
-//             // Extra.
-//             productionList['isAPIRequestRunning'] = false;
-//             productionList['errors'] = {};
-//
-//             // console.log(productionList); // For debugging purposes.
-//
-//             // Update the global state of the application to store our
-//             // user productionList for the application.
-//             store.dispatch(
-//                 setProductionInspectionListSuccess(productionList)
-//             );
-//
-//         }).catch( (errorResult) => { // ERROR
-//             // // console.log(errorResult);
-//             // alert("Error fetching latest productionList");
-//
-//             const responseData = errorResult.data;
-//             let errors = camelizeKeys(responseData);
-//
-//             store.dispatch(
-//                 setProductionInspectionListFailure({
-//                     isAPIRequestRunning: false,
-//                     errors: errors
-//                 })
-//             );
-//
-//         }).then( () => { // FINALLY
-//             // Do nothing.
-//         });
-//
-//     }
-// }
+export const setProductionInspectionListRequest = () => ({
+    type: PRODUCTION_INSPECTION_LIST_REQUEST,
+    payload: {
+        isAPIRequestRunning: true,
+        errors: {}
+    },
+});
+
+
+export const setProductionInspectionListSuccess = productionList => ({
+    type: PRODUCTION_INSPECTION_LIST_SUCCESS,
+    payload: productionList,
+});
+
+
+export const setProductionInspectionListFailure = productionList => ({
+    type: PRODUCTION_INSPECTION_LIST_FAILURE,
+    payload: productionList,
+});
+
+
+export function pullProductionInspectionList(user, page=1, productionSlugFilter=null, stateFilter=null) {
+    return dispatch => {
+        // Change the global state to attempting to fetch latest user details.
+        store.dispatch(
+            setProductionInspectionListRequest()
+        );
+
+        // Create our oAuth 2.0 authenticated API header to use with our
+        // submission.
+        const config = {
+            headers: {'Authorization': "Bearer " + user.token}
+        };
+
+        let aURL = MIKAPONICS_PRODUCTION_INSPECTION_LIST_CREATE_API_URL+"?page="+page;
+        if (productionSlugFilter !== undefined && productionSlugFilter !== null) {
+            aURL += "&production_slug="+productionSlugFilter;
+        }
+        if (stateFilter !== undefined && stateFilter !== null) {
+            aURL += "&state="+stateFilter;
+        }
+
+        axios.get(
+            aURL,
+            config
+        ).then( (successResult) => { // SUCCESS
+            // console.log(successResult); // For debugging purposes.
+
+            const responseData = successResult.data;
+            let productionList = camelizeKeys(responseData);
+
+            // Extra.
+            productionList['isAPIRequestRunning'] = false;
+            productionList['errors'] = {};
+
+            // console.log(productionList); // For debugging purposes.
+
+            // Update the global state of the application to store our
+            // user productionList for the application.
+            store.dispatch(
+                setProductionInspectionListSuccess(productionList)
+            );
+
+        }).catch( (errorResult) => { // ERROR
+            // // console.log(errorResult);
+            // alert("Error fetching latest productionList");
+
+            const responseData = errorResult.data;
+            let errors = camelizeKeys(responseData);
+
+            store.dispatch(
+                setProductionInspectionListFailure({
+                    isAPIRequestRunning: false,
+                    errors: errors
+                })
+            );
+
+        }).then( () => { // FINALLY
+            // Do nothing.
+        });
+
+    }
+}
 
 
 export const setProductionInspectionDetailRequest = () => ({

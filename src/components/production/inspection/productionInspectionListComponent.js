@@ -1,12 +1,140 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import moment from 'moment'
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 import { FlashMessageComponent } from "../../flashMessageComponent";
 
 
+class ProductionInspectionaRowComponent extends Component {
+    render() {
+        const { didPass, createdAt, absoluteUrl } = this.props.productionInspection;
+        const { timezone } = this.props;
+
+        const didPassText = didPass ? "Yes" : "No";
+        return (
+            <tr key={createdAt}>
+                <th scope="row">{didPassText}</th>
+                <td>
+                    <Moment tz={timezone} format="YYYY/MM/DD hh:mm:ss a">
+                        {createdAt}
+                    </Moment>
+                </td>
+                <td>
+                    <Link to={absoluteUrl}>
+                        View&nbsp;<i className="fas fa-chevron-right"></i>
+                    </Link>
+                </td>
+            </tr>
+        )
+    }
+}
+
+
+class ProductionInspectionaTableComponent extends Component {
+    render() {
+        const { user, productionDetail, productionInspectionList } = this.props;
+        if (productionInspectionList === undefined || productionInspectionList === null || productionInspectionList.results === null || productionInspectionList.results === undefined) {
+            return null;
+        }
+
+        let tableRows = [];
+        var arrayLength = productionInspectionList.results.length;
+        for (var i = 0; i < arrayLength; i++) {
+            let productionInspection =  productionInspectionList.results[i];
+            tableRows.push(
+                <ProductionInspectionaRowComponent
+                    productionInspection={productionInspection}
+                    key={productionInspection.createdAt}
+                    timezone={user.timezone}
+                />
+            );
+        }
+
+        return (
+            <div className="table-responsive">
+                <table className="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Did Pass</th>
+                            <th scope="col">Timestamp</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {tableRows}
+                    </tbody>
+                </table>
+            </div>
+        )
+    }
+}
+
+
+
+class InstrumentDataTablePagination extends Component {
+    render() {
+
+        let nextButtonElement;
+        let previousButtonElement;
+        const { next, previous, page } = this.props.productionInspectionList;
+        const { onPaginatorNextClick, onPaginatorPreviousClick, nextIsLoading, previousIsLoading } = this.props;
+        const onlyOnePage = next && previous;
+
+        if (next) {
+            nextButtonElement = (
+                <button
+                    disabled={nextIsLoading}
+                    className="btn btn-lg btn-success float-right"
+                    onClick={onPaginatorNextClick}>
+                        {nextIsLoading &&
+                            <img src="/img/ajax-loading.gif" alt="Busy" height="32" width="32" />
+                        }
+                        Next&nbsp;<i className={'fas fa-arrow-right'}></i>
+                </button>
+            )
+        }
+        if (previous) {
+            previousButtonElement = (
+                <button
+                    disabled={previousIsLoading}
+                    className="btn btn-lg btn-success float-left"
+                    onClick={onPaginatorPreviousClick}>
+                        {previousIsLoading &&
+                            <img src="/img/ajax-loading.gif" alt="Busy" height="32" width="32" />
+                        }
+                        <i className={'fas fa-arrow-left'}></i>&nbsp;Previous
+                </button>
+            )
+        }
+
+        return (
+            <div>
+                <div className="container-fluid">
+                    <div className="row">
+                        <div className="col-sm">
+                            {previousButtonElement}
+                        </div>
+                        {onlyOnePage &&
+                            <div className="col-sm">
+                                <p style={{textAlign: 'center'}}>Page: {page}</p>
+                            </div>
+                        }
+                        <div className="col-sm">
+                            {nextButtonElement}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}
+
+
 class ProductionInspectionComponent extends Component {
     render() {
-        const { productionDetail, flashMessage } = this.props;
+        const { user, productionDetail, productionInspectionList, flashMessage } = this.props;
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -46,6 +174,24 @@ class ProductionInspectionComponent extends Component {
                     </div>
 
                 </section>
+
+                <div className="row">
+                    <div className="col-md-12">
+                        <h2><i className="fas fa-th-list"></i>&nbsp;Table</h2>
+                        <ProductionInspectionaTableComponent
+                            user={user}
+                            productionDetail={productionDetail}
+                            productionInspectionList={productionInspectionList}
+                        />
+                    </div>
+                </div>
+                <InstrumentDataTablePagination
+                    productionInspectionList={productionInspectionList}
+                    onPaginatorNextClick={null}
+                    onPaginatorPreviousClick={null}
+                    nextIsLoading={false}
+                    previousIsLoading={false}
+                />
             </div>
         );
     }
