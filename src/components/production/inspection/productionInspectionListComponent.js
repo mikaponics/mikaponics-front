@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
+import { FlashMessageComponent } from "../../flashMessageComponent";
+
 
 class ProductionInspectionComponent extends Component {
     render() {
-        const { productionDetail } = this.props;
+        const { productionDetail, flashMessage } = this.props;
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -23,6 +25,9 @@ class ProductionInspectionComponent extends Component {
                         </li>
                     </ol>
                 </nav>
+
+                <FlashMessageComponent object={flashMessage} />
+
                 <h1>
                     <i className="fas fa-eye"></i>&nbsp;Inspection
                 </h1>

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import ProductionInspectionListComponent from "../../../components/production/inspection/productionInspectionListComponent";
+import { clearFlashMessage } from "../../../actions/flashMessageActions";
 
 
 class ProductionInspectionContainer extends Component {
@@ -23,6 +24,8 @@ class ProductionInspectionContainer extends Component {
     }
 
     componentWillUnmount() {
+        this.props.clearFlashMessage(); // Clear the messages.
+        
         // This code will fix the "ReactJS & Redux: Can't perform a React state
         // update on an unmounted component" issue as explained in:
         // https://stackoverflow.com/a/53829700
@@ -39,6 +42,7 @@ class ProductionInspectionContainer extends Component {
         return (
             <ProductionInspectionListComponent
                 productionDetail={this.props.productionDetail}
+                flashMessage={this.props.flashMessage}
             />
         );
     }
@@ -49,11 +53,16 @@ const mapStateToProps = function(store) {
     return {
         user: store.userState,
         productionDetail: store.productionDetailState,
+        flashMessage: store.flashMessageState,
     };
 }
 
 const mapDispatchToProps = dispatch => {
-    return {}
+    return {
+        clearFlashMessage: () => {
+            dispatch(clearFlashMessage())
+        }
+    }
 }
 
 

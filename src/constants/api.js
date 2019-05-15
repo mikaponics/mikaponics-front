@@ -243,7 +243,25 @@ export const PRODUCTION_STATE_CHOICES = [
 
 
 /**
- *  The `review` variable for the `ProductionCrop` API endpoint.
+ *  The `state` variable for the `ProductionInspection` API endpoint.
+ */
+export const PRODUCTION_INSPECTION_DRAFT_STATE = 1;
+export const PRODUCTION_INSPECTION_SUBMITTED_STATE = 2;
+export const PRODUCTION_INSPECTION_STATE_OPTION_CHOICES = [
+    {
+        selectName: "state",
+        value: PRODUCTION_INSPECTION_DRAFT_STATE,
+        label: "Draft"
+    },{
+        selectName: "state",
+        value: PRODUCTION_INSPECTION_SUBMITTED_STATE,
+        label: "Submitted"
+    }
+];
+
+
+/**
+ *  The `review` variable for the `ProductionCropInspection` API endpoint.
  */
 export const PRODUCTION_CROPS_INSPECTION_TERRIBLE_REVIEW = 1;
 export const PRODUCTION_CROPS_INSPECTION_BAD_REVIEW = 2;

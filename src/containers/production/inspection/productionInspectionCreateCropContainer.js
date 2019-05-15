@@ -129,14 +129,15 @@ class ProductionInspectionCreateCropContainer extends Component {
         // make an API request with the server to create our new production.
         // TODO: CLIENT SIDE VALIDATION.
 
+        const data = {
+            review: this.state.review,
+            failureReason: this.state.failureReason,
+            stage: this.state.stage,
+            notes: this.state.notes
+        };
         this.props.putProductionCropInspectionDetail(
             this.props.user,
-            {
-                review: this.state.review,
-                failureReason: this.state.failureReason,
-                stage: this.state.stage,
-                notes: this.state.notes
-            },
+            data,
             this.state.crop.slug,
             this.onSuccessfulPutCallback,
             this.onFailedPutCallback
@@ -193,7 +194,7 @@ class ProductionInspectionCreateCropContainer extends Component {
                 this.onFailedGetCallback,
             );
         } else {
-            this.props.history.push( '/production/'+ slug + '/terminate-finish');
+            this.props.history.push( '/production/'+ slug + '/create-inspection/finish');
         }
 
         // NON-ANIMATED SCROLL TO THE TOP.
