@@ -38,7 +38,7 @@ class ProductionProfileComponent extends Component {
                     <div className="col-md-10 mx-auto p-2">
 
 
-                        <h2><i className="fas fa-table"></i>&nbsp;Production Summary</h2>
+                        <h2><i className="fas fa-table"></i>&nbsp;Details</h2>
 
                         <table className="table table-bordered custom-cell-w">
                             <tbody>
@@ -102,7 +102,7 @@ class ProductionProfileComponent extends Component {
 
                             </tbody>
                         </table>
-                        <p><strong>Note: The following information is read-only.</strong></p>
+                        <p><strong>Note: The this information is read-only.</strong></p>
 
                     </div>
                 </div>

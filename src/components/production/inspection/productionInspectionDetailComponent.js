@@ -93,7 +93,7 @@ class ProductionInspectionDetailomponent extends Component {
 
                 <div className="row mt-4 pt-3 mb-4 pb-2">
                     <div className="col-md-10 mx-auto p-2">
-
+                        <h2><i className="fas fa-table"></i>&nbsp;Details</h2>
                         <table className="table table-bordered custom-cell-w">
                             <tbody>
                                 <tr className="bg-dark">
@@ -118,6 +118,7 @@ class ProductionInspectionDetailomponent extends Component {
                         {crops.map(
                             (crop, i) => <ProductionCropInspectionTableComponent crop={crop} key={i} />)
                         }
+                        <p><strong>Note: The this information is read-only.</strong></p>
                     </div>
                 </div>
 
