@@ -18,6 +18,9 @@ export default class ProductionInspectionCreateStepNavigationComponent extends C
         // EXTRACT THE `CROP INSPECTIONS` ASSOCIATED WITH THIS `INSPECTION`.
         const cropInspectionsArr = productionInspectionDetail.crops;
 
+        // DEFENSIVE CODE: DO NOT LOAD THE STEP NAVIGTION IF ARRAY WAS NOT DEFINED.
+        if (cropInspectionsArr === undefined || cropInspectionsArr === null) { return null; }
+
         // VARIABLE USED FOR POPULATING OUR GUI.
         const elements = [];
 
