@@ -9,7 +9,7 @@ import { FlashMessageComponent } from "../flashMessageComponent";
 
 class ProductionSummaryTable extends Component {
     render() {
-        const { absoluteURL, crops, slug } = this.props.object;
+        const { absoluteUrl, crops, slug } = this.props.object;
         return (
 
             <div className="row">
@@ -72,7 +72,7 @@ class ProductionDetailComponent extends Component {
                             </div>
                             <div className="card-body">
                                 <h3 className="card-title">Profile</h3>
-                                <p className="card-text">View and add inspections to this production.</p>
+                                <p className="card-text">View details pertaining to this production.</p>
                                 <Link to={`/production/${productionDetail.slug}/profile`} className={classnames('btn btn-success btn-lg', { 'disabled': isLocked })}>
                                     Go&nbsp;<i className="fas fa-arrow-circle-right"></i>
                                 </Link>

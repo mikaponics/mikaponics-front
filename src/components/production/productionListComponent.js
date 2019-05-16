@@ -19,7 +19,7 @@ class ProductionCard extends Component {
                     <div className="card-body">
                         <h3 className="card-title">{productionObj.name}</h3>
                         <p className="card-text">{productionObj.description}</p>
-                        <Link to={productionObj.absoluteURL} className="btn btn-success btn-lg">
+                        <Link to={productionObj.absoluteUrl} className="btn btn-success btn-lg">
                             Go&nbsp;<i className="fas fa-arrow-circle-right"></i>
                         </Link>
                     </div>

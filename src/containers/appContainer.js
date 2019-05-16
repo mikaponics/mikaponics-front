@@ -62,7 +62,7 @@ import ProductionInspectionCreateStartContainer from "./production/inspection/pr
 import ProductionInspectionCreateCropContainer from "./production/inspection/productionInspectionCreateCropContainer";
 import ProductionInspectionCreateFinishContainer from "./production/inspection/productionInspectionCreateFinishContainer";
 import ProductionInspectionDetailContainer from "./production/inspection/productionInspectionDetailContainer";
-import ProductionProfileContainer from "./production/productionProfileContainer";
+import ProductionProfileContainer from "./production/profile/productionProfileContainer";
 
 
 class AppContainer extends React.Component {
