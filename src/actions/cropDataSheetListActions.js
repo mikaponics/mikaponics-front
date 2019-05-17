@@ -2,12 +2,16 @@ import axios from 'axios';
 import store from '../store';
 import { camelizeKeys } from 'humps';
 
-import { CROP_LIST_REQUEST, CROP_LIST_FAILURE, CROP_LIST_SUCCESS } from '../constants/actionTypes';
-import { MIKAPONICS_CROP_LIST_API_URL } from '../constants/api';
+import {
+    CROP_DATA_SHEET_LIST_REQUEST,
+    CROP_DATA_SHEET_LIST_FAILURE,
+    CROP_DATA_SHEET_LIST_SUCCESS
+} from '../constants/actionTypes';
+import { MIKAPONICS_CROP_DATA_SHEET_LIST_API_URL } from '../constants/api';
 
 
-export const setCropListRequest = () => ({
-    type: CROP_LIST_REQUEST,
+export const setCropDataSheetListRequest = () => ({
+    type: CROP_DATA_SHEET_LIST_REQUEST,
     payload: {
         isAPIRequestRunning: true,
         page: 1,
@@ -16,14 +20,14 @@ export const setCropListRequest = () => ({
 });
 
 
-export const setCropListFailure = (info) => ({
-    type: CROP_LIST_FAILURE,
+export const setCropDataSheetListFailure = (info) => ({
+    type: CROP_DATA_SHEET_LIST_FAILURE,
     payload: info,
 });
 
 
-export const setCropListSuccess = (info) => ({
-    type: CROP_LIST_SUCCESS,
+export const setCropDataSheetListSuccess = (info) => ({
+    type: CROP_DATA_SHEET_LIST_SUCCESS,
     payload: info,
 });
 
@@ -32,11 +36,11 @@ export const setCropListSuccess = (info) => ({
  *  Function will pull the ``crop`` API endpoint and override our
  *  global application state for the 'dashboard'.
  */
-export function pullCropList(user, page=1, typeOf=null) {
+export function pullCropDataSheetList(user, page=1, typeOf=null) {
     return dispatch => {
         // Change the global state to attempting to fetch latest user details.
         store.dispatch(
-            setCropListRequest()
+            setCropDataSheetListRequest()
         );
 
         // Create our oAuth 2.0 authenticated API header to use with our
@@ -46,7 +50,7 @@ export function pullCropList(user, page=1, typeOf=null) {
         };
 
         // Generate the URL.
-        let aURL = MIKAPONICS_CROP_LIST_API_URL+"?page="+page;
+        let aURL = MIKAPONICS_CROP_DATA_SHEET_LIST_API_URL+"?page="+page;
 
         // Append our URL parameter if we have a `type_of` variable to filter
         // by.
@@ -74,7 +78,7 @@ export function pullCropList(user, page=1, typeOf=null) {
             // Update the global state of the application to store our
             // user data for the application.
             store.dispatch(
-                setCropListSuccess(data)
+                setCropDataSheetListSuccess(data)
             );
 
         }).catch( (errorResult) => { // ERROR
@@ -85,7 +89,7 @@ export function pullCropList(user, page=1, typeOf=null) {
             let errors = camelizeKeys(responseData);
 
             store.dispatch(
-                setCropListFailure({
+                setCropDataSheetListFailure({
                     isAPIRequestRunning: false,
                     errors: errors,
                     page: page,

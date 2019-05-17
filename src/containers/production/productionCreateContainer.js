@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import ProductionCreateComponent from "../../components/production/productionCreateComponent";
-import { pullCropList } from "../../actions/cropListActions";
+import { pullCropDataSheetList } from "../../actions/cropDataSheetListActions";
 import { pullDeviceList } from "../../actions/deviceListActions";
 
 
@@ -117,7 +117,7 @@ class ProductionCreateContainer extends Component {
 
     componentDidMount() {
         this.props.pullDeviceList(this.props.user); // Get latest data from API.
-        this.props.pullCropList(this.props.user);
+        this.props.pullCropDataSheetList(this.props.user);
         window.scrollTo(0, 0);  // Start the page at the top of the page.
     }
 
@@ -265,7 +265,7 @@ class ProductionCreateContainer extends Component {
 
 const mapStateToProps = function(store) {
     return {
-        cropList: store.cropListState,
+        cropList: store.cropDataSheetListState,
         user: store.userState,
         deviceList: store.deviceListState,
         // productionList: store.productionListState,
@@ -274,9 +274,9 @@ const mapStateToProps = function(store) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        pullCropList: (user, page) => {
+        pullCropDataSheetList: (user, page) => {
             dispatch(
-                pullCropList(user, page)
+                pullCropDataSheetList(user, page)
             )
         },
         pullDeviceList: (user, page) => {

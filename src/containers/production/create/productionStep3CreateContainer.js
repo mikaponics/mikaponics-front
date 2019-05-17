@@ -6,7 +6,7 @@ import Scroll from 'react-scroll';
 import { CROP_FISHSTOCK_TYPE } from '../../../constants/api';
 import { validateStep3Input } from '../../../validations/productionCreateValidator';
 import ProductionStep3CreateComponent from "../../../components/production/create/productionStep3CreateComponent";
-import { pullCropList } from "../../../actions/cropListActions";
+import { pullCropDataSheetList } from "../../../actions/cropDataSheetListActions";
 import { pullCropSubstrateList } from "../../../actions/cropSubstrateListActions";
 
 
@@ -120,7 +120,7 @@ class ProductionStep3CreateContainer extends Component {
     }
 
     componentDidMount() {
-        this.props.pullCropList(this.props.user, 1, CROP_FISHSTOCK_TYPE); // Get latest data from API.
+        this.props.pullCropDataSheetList(this.props.user, 1, CROP_FISHSTOCK_TYPE); // Get latest data from API.
         this.props.pullCropSubstrateList(this.props.user, 1, CROP_FISHSTOCK_TYPE); // Get latest data from API.
         window.scrollTo(0, 0);  // Start the page at the top of the page.
     }
@@ -322,7 +322,7 @@ class ProductionStep3CreateContainer extends Component {
 
 const mapStateToProps = function(store) {
     return {
-        cropList: store.cropListState,
+        cropList: store.cropDataSheetListState,
         substrateList: store.cropSubstrateListState,
         user: store.userState,
         deviceList: store.deviceListState,
@@ -332,9 +332,9 @@ const mapStateToProps = function(store) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        pullCropList: (user, page, typeOf) => {
+        pullCropDataSheetList: (user, page, typeOf) => {
             dispatch(
-                pullCropList(user, page, typeOf)
+                pullCropDataSheetList(user, page, typeOf)
             )
         },
         pullCropSubstrateList: (user, page, typeOf) => {

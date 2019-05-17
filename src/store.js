@@ -14,7 +14,7 @@ import {
     PURCHASE_DEVICE_SUCCESS,
     PRODUCTION_LIST_SUCCESS,
     PRODUCTION_DETAIL_SUCCESS,
-    CROP_LIST_SUCCESS,
+    CROP_DATA_SHEET_LIST_SUCCESS,
     CROP_SUBSTRATE_LIST_SUCCESS,
     PRODUCTION_CROP_LIST_SUCCESS,
     PRODUCTION_CROP_DETAIL_SUCCESS,
@@ -41,7 +41,7 @@ import invoiceListReducer from "./reducers/invoiceListReducer";
 import invoiceDetailReducer from "./reducers/invoiceDetailReducer";
 import productionListReducer from "./reducers/productionListReducer";
 import productionDetailReducer from "./reducers/productionDetailReducer";
-import cropListReducer from "./reducers/cropListReducer";
+import cropDataSheetListReducer from "./reducers/cropDataSheetListReducer";
 import cropSubstrateListReducer from "./reducers/cropSubstrateListReducer";
 import productionCropListReducer from "./reducers/productionCropListReducer";
 import productionCropDetailReducer from "./reducers/productionCropDetailReducer";
@@ -71,7 +71,7 @@ const appReducer = combineReducers({
     invoiceDetailState: invoiceDetailReducer,
     productionListState: productionListReducer,
     productionDetailState: productionDetailReducer,
-    cropListState: cropListReducer,
+    cropDataSheetListState: cropDataSheetListReducer,
     cropSubstrateListState: cropSubstrateListReducer,
     productionCropListState: productionCropListReducer,
     productionCropDetailState: productionCropDetailReducer,
@@ -106,8 +106,8 @@ const rootReducer = (state, action) => {
 const localStorageMiddleware = ({ getState }) => {
     return next => action => {
         const result = next(action);
-        if ([ LOGIN_SUCCESS, LOGOUT_SUCCESS, ONBOARDING_SUCCESS, DASHBOARD_SUCCESS, PROFILE_SUCCESS, DEVICE_SUCCESS, INSTRUMENT_SUCCESS, PURCHASE_DEVICE_SUCCESS, PRODUCTION_LIST_SUCCESS, PRODUCTION_DETAIL_SUCCESS, CROP_LIST_SUCCESS, CROP_SUBSTRATE_LIST_SUCCESS, PRODUCTION_CROP_LIST_SUCCESS, PRODUCTION_CROP_DETAIL_SUCCESS, PRODUCTION_INSPECTION_LIST_SUCCESS, PRODUCTION_INSPECTION_DETAIL_SUCCESS ].includes(result.type)) {
-            console.log("De-hydrating store...");
+        if ([ LOGIN_SUCCESS, LOGOUT_SUCCESS, ONBOARDING_SUCCESS, DASHBOARD_SUCCESS, PROFILE_SUCCESS, DEVICE_SUCCESS, INSTRUMENT_SUCCESS, PURCHASE_DEVICE_SUCCESS, PRODUCTION_LIST_SUCCESS, PRODUCTION_DETAIL_SUCCESS, CROP_DATA_SHEET_LIST_SUCCESS, CROP_SUBSTRATE_LIST_SUCCESS, PRODUCTION_CROP_LIST_SUCCESS, PRODUCTION_CROP_DETAIL_SUCCESS, PRODUCTION_INSPECTION_LIST_SUCCESS, PRODUCTION_INSPECTION_DETAIL_SUCCESS ].includes(result.type)) {
+            // console.log("De-hydrating store...");
             localStorage.setItem(APP_STATE, JSON.stringify(getState()))
         }
         return result;
@@ -124,9 +124,9 @@ const localStorageMiddleware = ({ getState }) => {
 const reHydrateStore = () => {
     const data = localStorage.getItem(APP_STATE);
     if (data) {
-        console.log("Re-hydrating Store...");
+        // console.log("Re-hydrating Store...");
         const jsonData = JSON.parse(data);
-        console.log("Store Contents:", jsonData); // For debugging purposes only.
+        // console.log("Store Contents:", jsonData); // For debugging purposes only.
         return jsonData;
     }
     return undefined;
