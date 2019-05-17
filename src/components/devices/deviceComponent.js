@@ -8,18 +8,12 @@ import { FlashMessageComponent } from "../flashMessageComponent";
 
 class InstrumentTable extends Component {
     render() {
-        // function get(dict, key) {
-        //     if (dict === null || dict === undefined) {
-        //         return null;
-        //     }
-        //     return dict.hasOwnProperty(key) ? dict[key] : null;
-        // }
-
         const { title, icon, instrument } = this.props;
 
-        if (instrument === undefined) {
-            return null;
-        }
+        // DEFENSIVE CODE: Do not run this component if any of these errors occur.
+        if (instrument === undefined || instrument === null) { return null; }
+        if (instrument.lastMeasuredPrettyValue === undefined || instrument.lastMeasuredPrettyValue === null) { return null; }
+        if (instrument.lastMeasuredPrettyAt === undefined || instrument.lastMeasuredPrettyAt === null) { return null; }
 
         return (
             <div>
@@ -55,6 +49,14 @@ class InstrumentTable extends Component {
 class DeviceSummaryTable extends Component {
     render() {
         const { device } = this.props;
+
+        // DEFENSIVE CODE: Do not run this component if any of these errors occur.
+        if (device === undefined || device === null) { return null; }
+        if (device.state === undefined || device.state === null) { return null; }
+        if (device.lastMeasuredPrettyValue === undefined || device.lastMeasuredPrettyValue === null) { return null; }
+        if (device.timezone === undefined || device.timezone === null) { return null; }
+        if (device.lastMeasuredPrettyAt === undefined || device.lastMeasuredPrettyAt === null) { return null; }
+
         return (
             <div className="row">
                 <div className="col-md-12">
