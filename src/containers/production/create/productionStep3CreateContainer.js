@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import isEmpty from 'lodash/isEmpty';
 import Scroll from 'react-scroll';
 
 import { CROP_FISHSTOCK_TYPE } from '../../../constants/api';
@@ -54,14 +55,17 @@ class ProductionStep3CreateContainer extends Component {
 
             // DEVELOPERS NOTE: The following state objects are used to store
             // the data from the modal.
+            stage: null,
             substrate: null,
             substrateOther: null,
             showSubstrateOther: false,
             quantity: null,
         }
+        this.getStageOptions = this.getStageOptions.bind(this);
         this.getCropOptions = this.getCropOptions.bind(this);
         this.getSubstrateOptions = this.getSubstrateOptions.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
+        this.onStageSelectChange = this.onStageSelectChange.bind(this);
         this.onFishSelectChange = this.onFishSelectChange.bind(this);
         this.onSubstrateSelectChange = this.onSubstrateSelectChange.bind(this);
         this.onAddButtonClick = this.onAddButtonClick.bind(this);
@@ -70,6 +74,32 @@ class ProductionStep3CreateContainer extends Component {
         this.onCloseModalClick = this.onCloseModalClick.bind(this);
         this.onBackClick = this.onBackClick.bind(this);
         this.onNextClick = this.onNextClick.bind(this);
+    }
+
+    /**
+     *  Utility function will take the plant list objects we have from the
+     *  API endpoint and generate options data for the `react-select` component
+     *  we are using.
+     */
+    getStageOptions() {
+        const stageOptions = [];
+        const stageList = this.props.cropLifeCycleStageList;
+        const isNotProductionsEmpty = isEmpty(stageList) === false;
+        if (isNotProductionsEmpty) {
+            const results = stageList.results;
+            const isResultsNotEmpty = isEmpty(results) === false;
+            if (isResultsNotEmpty) {
+                for (let i = 0; i < results.length; i++) {
+                    let stage = results[i];
+                    stageOptions.push({
+                        selectName: "stage",
+                        value: stage.slug,
+                        label: stage.name
+                    });
+                }
+            }
+        }
+        return stageOptions;
     }
 
     /**
@@ -155,6 +185,13 @@ class ProductionStep3CreateContainer extends Component {
         })
     }
 
+    onStageSelectChange(option) {
+        this.setState({
+            stage: option.value,
+            stageOption: option,
+        })
+    }
+
     onSubstrateSelectChange(option) {
         this.setState({
             substrate: option.value,
@@ -214,6 +251,8 @@ class ProductionStep3CreateContainer extends Component {
                 fish: this.state.fishOption.label,
                 fishOther: this.state.fishOther,
                 quantity: this.state.quantity,
+                stage: this.state.stageOption.label,
+                stageSlug: this.state.stageOption.value,
                 substrateSlug: this.state.substrateOption.value,
                 substrate: this.state.substrateOption.label,
                 substrateOther: this.state.substrateOther,
@@ -281,6 +320,7 @@ class ProductionStep3CreateContainer extends Component {
             fishOther,
             showFishOther,
             quantity,
+            stage,
             substrate,
             substrateOther,
             showSubstrateOther,
@@ -294,6 +334,8 @@ class ProductionStep3CreateContainer extends Component {
         }
         return (
             <ProductionStep3CreateComponent
+                stageOptions={this.getStageOptions()}
+                stage={stage}
                 fishOptions={this.getCropOptions()}
                 fish={fish}
                 fishOther={fishOther}
@@ -308,6 +350,7 @@ class ProductionStep3CreateContainer extends Component {
                 onSubstrateSelectChange={this.onSubstrateSelectChange}
 
                 onTextChange={this.onTextChange}
+                onStageSelectChange={this.onStageSelectChange}
                 onFishSelectChange={this.onFishSelectChange}
                 onAddButtonClick={this.onAddButtonClick}
                 onRemoveButtonClick={this.onRemoveButtonClick}
@@ -324,6 +367,7 @@ class ProductionStep3CreateContainer extends Component {
 
 const mapStateToProps = function(store) {
     return {
+        cropLifeCycleStageList: store.cropLifeCycleStageListState,
         cropList: store.cropDataSheetListState,
         substrateList: store.cropSubstrateListState,
         user: store.userState,

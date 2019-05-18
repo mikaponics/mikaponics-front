@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import isEmpty from 'lodash/isEmpty';
 import Scroll from 'react-scroll';
 
 import { CROP_PLANT_TYPE } from '../../../constants/api';
@@ -54,14 +55,17 @@ class ProductionStep2CreateContainer extends Component {
 
             // DEVELOPERS NOTE: The following state objects are used to store
             // the data from the modal.
+            stage: null,
             substrate: null,
             substrateOther: null,
             showSubstrateOther: false,
             quantity: null,
         }
+        this.getStageOptions = this.getStageOptions.bind(this);
         this.getPlantOptions = this.getPlantOptions.bind(this);
         this.getSubstrateOptions = this.getSubstrateOptions.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
+        this.onStageSelectChange = this.onStageSelectChange.bind(this);
         this.onPlantSelectChange = this.onPlantSelectChange.bind(this);
         this.onSubstrateSelectChange = this.onSubstrateSelectChange.bind(this);
         this.onAddButtonClick = this.onAddButtonClick.bind(this);
@@ -70,6 +74,32 @@ class ProductionStep2CreateContainer extends Component {
         this.onCloseModalClick = this.onCloseModalClick.bind(this);
         this.onBackClick = this.onBackClick.bind(this);
         this.onNextClick = this.onNextClick.bind(this);
+    }
+
+    /**
+     *  Utility function will take the plant list objects we have from the
+     *  API endpoint and generate options data for the `react-select` component
+     *  we are using.
+     */
+    getStageOptions() {
+        const stageOptions = [];
+        const stageList = this.props.cropLifeCycleStageList;
+        const isNotProductionsEmpty = isEmpty(stageList) === false;
+        if (isNotProductionsEmpty) {
+            const results = stageList.results;
+            const isResultsNotEmpty = isEmpty(results) === false;
+            if (isResultsNotEmpty) {
+                for (let i = 0; i < results.length; i++) {
+                    let stage = results[i];
+                    stageOptions.push({
+                        selectName: "stage",
+                        value: stage.slug,
+                        label: stage.name
+                    });
+                }
+            }
+        }
+        return stageOptions;
     }
 
     /**
@@ -147,6 +177,13 @@ class ProductionStep2CreateContainer extends Component {
         })
     }
 
+    onStageSelectChange(option) {
+        this.setState({
+            stage: option.value,
+            stageOption: option,
+        })
+    }
+
     onPlantSelectChange(option) {
         this.setState({
             plant: option.value,
@@ -214,6 +251,8 @@ class ProductionStep2CreateContainer extends Component {
                 plant: this.state.plantOption.label,
                 plantOther: this.state.plantOther,
                 quantity: this.state.quantity,
+                stage: this.state.stageOption.label,
+                stageSlug: this.state.stageOption.value,
                 substrateSlug: this.state.substrateOption.value,
                 substrate: this.state.substrateOption.label,
                 substrateOther: this.state.substrateOther,
@@ -282,6 +321,7 @@ class ProductionStep2CreateContainer extends Component {
             plantOther,
             showPlantOther,
             quantity,
+            stage,
             plantsArray,
             substrate,
             substrateOther,
@@ -295,6 +335,8 @@ class ProductionStep2CreateContainer extends Component {
         }
         return (
             <ProductionStep2CreateComponent
+                stageOptions={this.getStageOptions()}
+                stage={stage}
                 plantOptions={this.getPlantOptions()}
                 plant={plant}
                 plantOther={plantOther}
@@ -308,6 +350,7 @@ class ProductionStep2CreateContainer extends Component {
                 showSubstrateOther={showSubstrateOther}
 
                 onTextChange={this.onTextChange}
+                onStageSelectChange={this.onStageSelectChange}
                 onPlantSelectChange={this.onPlantSelectChange}
                 onSubstrateSelectChange={this.onSubstrateSelectChange}
                 onAddButtonClick={this.onAddButtonClick}
@@ -325,11 +368,11 @@ class ProductionStep2CreateContainer extends Component {
 
 const mapStateToProps = function(store) {
     return {
+        cropLifeCycleStageList: store.cropLifeCycleStageListState,
         plantList: store.cropDataSheetListState,
         substrateList: store.cropSubstrateListState,
         user: store.userState,
         deviceList: store.deviceListState,
-        cropLifeCycleStageList: store.cropLifeCycleStageListState,
     };
 }
 

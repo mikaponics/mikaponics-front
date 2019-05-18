@@ -10,7 +10,7 @@ import { BootstrapSingleSelect } from '../../bootstrap/bootstrapSingleSelect';
 class ProductionStep3CreateComponent extends Component {
     render() {
         const {
-            fishOptions, fish, fishOther, showFishOther, quantity, fishArray,
+            stageOptions, stage,fishOptions, fish, fishOther, showFishOther, quantity, fishArray, onStageSelectChange,
             substrateOptions, substrate, substrateOther, showSubstrateOther, substratesArray, onSubstrateSelectChange,
             onTextChange, onFishSelectChange, onAddButtonClick, onRemoveButtonClick, onSaveModalClick, onCloseModalClick,  errors, showModal, onBackClick, onNextClick,
         } = this.props;
@@ -122,6 +122,16 @@ class ProductionStep3CreateComponent extends Component {
                                                        placeholder="Please specify the plant you will be growing."
                                                    />
                                                }
+
+                                               <BootstrapSingleSelect
+                                                   label="Stage of growth (*)"
+                                                   name="stage"
+                                                   defaultOptionLabel="Please plant to add."
+                                                   options={stageOptions}
+                                                   value={stage}
+                                                   error={errors.stage}
+                                                   onSelectChange={onStageSelectChange}
+                                               />
 
                                                <BootstrapInput
                                                    inputClassName="form-control"

@@ -62,6 +62,9 @@ export function validateStep2Input(data) {
                 }
             }
         }
+        if (data.stage === "" || data.stage === null || data.stage === undefined) {
+            errors.stage = 'This field is required';
+        }
         if (data.quantity === "" || data.quantity === null || data.quantity === undefined) {
             errors.quantity = 'This field is required';
         } else {
