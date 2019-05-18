@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import isEmpty from 'lodash/isEmpty';
 import Moment from 'react-moment';
 import 'moment-timezone';
 
@@ -36,28 +37,44 @@ class DeviceInstrumentTableRowComponent extends Component {
 class DeviceInstrumentsTableComponent extends Component {
     render() {
         const { instruments } = this.props;
+
+        let isInstrumentsEmpty = isEmpty(instruments) === true;
+        let isInstrumentsNotEmpty = isEmpty(instruments) === false;
+
         return (
             <div className="row">
                 <div className="col-md-12">
-                <h2><i className="fas fa-microchip"></i>&nbsp;Instruments</h2>
-                <div className="table-responsive">
-                    <table className="table table-striped">
-                        <thead>
-                        <tr>
-                            <th></th>
-                            <th>Name</th>
-                            <th>Last Modified</th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {instruments.map(
-                            (instrument, i) => <DeviceInstrumentTableRowComponent instrument={instrument} key={i} />)
-                        }
-                        </tbody>
-                    </table>
+                    <h2><i className="fas fa-microchip"></i>&nbsp;Instruments</h2>
+                    {isInstrumentsNotEmpty &&
+                         <div className="table-responsive">
+
+                            <table className="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Name</th>
+                                    <th>Last Modified</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {instruments.map(
+                                    (instrument, i) => <DeviceInstrumentTableRowComponent instrument={instrument} key={i} />)
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    {isInstrumentsEmpty &&
+                        <div className="jumbotron">
+                            <h1 className="display-4">
+                                <i className="fas fa-bullhorn"></i>&nbsp;Attention
+                            </h1>
+                            <p className="lead">You currently do not have any instruments setup for this device.</p>
+                        </div>
+                    }
                 </div>
-            </div></div>
+            </div>
         );
     }
 }
