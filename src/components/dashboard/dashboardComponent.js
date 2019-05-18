@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import isEmpty from 'lodash/isEmpty';
 
 import { Link } from "react-router-dom";
 
@@ -50,6 +51,10 @@ class DashboardProductionComponent extends Component {
 class DashboardComponent extends Component {
     render() {
         const { productions } = this.props.dashboard;
+
+        let isProductionsEmpty = isEmpty(productions) === true;
+        let isNotProductionsEmpty = isEmpty(productions) === false;
+
         return (
             <div className="Dashboard">
                 <h1><i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard</h1>
@@ -114,8 +119,25 @@ class DashboardComponent extends Component {
                         <h2><i className="fas fa-industry"></i>&nbsp;Production List</h2>
                     </div>
                 </div>
-                {productions.map(
-                    (production, i) => <DashboardProductionComponent production={production} key={i} />)
+                {isNotProductionsEmpty &&
+                    <div>{productions.map(
+                        (production, i) => <DashboardProductionComponent production={production} key={i} />)
+                    }</div>
+                }
+                {isProductionsEmpty &&
+                    <div className="jumbotron">
+                        <h1 className="display-4">
+                            <i className="fas fa-bullhorn"></i>&nbsp;Attention
+                        </h1>
+                        <p className="lead">You currently do not have any crop productions running at the moment.</p>
+                        <hr className="my-4" />
+                        <p>If you would like to start running a crop production, please start by clicking below.</p>
+                        <p className="lead">
+                            <Link to="/add-production-step-1" className="btn btn-success btn-lg">
+                                <i className="fas fa-plus"></i>&nbsp;Add
+                            </Link>
+                        </p>
+                    </div>
                 }
 
             </div>
