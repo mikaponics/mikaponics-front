@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import isEmpty from 'lodash/isEmpty';
 import moment from 'moment'
 import Moment from 'react-moment';
 import 'moment-timezone';
@@ -135,6 +136,9 @@ class InstrumentDataTablePagination extends Component {
 class ProductionInspectionComponent extends Component {
     render() {
         const { user, productionDetail, productionInspectionList, flashMessage } = this.props;
+        const objectList = productionInspectionList.results;
+        const isObjectListNotEmpty = isEmpty(objectList) === false;
+        const isObjectListEmpty = isEmpty(objectList) === true;
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -160,38 +164,55 @@ class ProductionInspectionComponent extends Component {
                     <i className="fas fa-eye"></i>&nbsp;Inspection
                 </h1>
 
-                <section className="row text-center placeholders">
-                    <div className="col-sm-3 placeholder">
-                        <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-pink">
-                            <Link to={`/production/${productionDetail.slug}/create-inspection/start`} className="d-block link-ndecor" title="Clients">
-                                <h1 className="circle-title">
-                                    <i className="fas fa-plus"></i>
-                                </h1>
-                            </Link>
+                {isObjectListNotEmpty &&
+                    <div>
+                        <section className="row text-center placeholders">
+                            <div className="col-sm-3 placeholder">
+                                <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-pink">
+                                    <Link to={`/production/${productionDetail.slug}/create-inspection/start`} className="d-block link-ndecor" title="Clients">
+                                        <h1 className="circle-title">
+                                            <i className="fas fa-plus"></i>
+                                        </h1>
+                                    </Link>
+                                </div>
+                                <h4>Add Inspection</h4>
+                                <div className="text-muted">Add your production inspection</div>
+                            </div>
+                        </section>
+                        <div className="row">
+                            <div className="col-md-12">
+                                <h2><i className="fas fa-th-list"></i>&nbsp;Table</h2>
+                                <ProductionInspectionaTableComponent
+                                    user={user}
+                                    productionDetail={productionDetail}
+                                    productionInspectionList={productionInspectionList}
+                                />
+                            </div>
                         </div>
-                        <h4>Add Inspection</h4>
-                        <div className="text-muted">Add your production inspection</div>
-                    </div>
-
-                </section>
-
-                <div className="row">
-                    <div className="col-md-12">
-                        <h2><i className="fas fa-th-list"></i>&nbsp;Table</h2>
-                        <ProductionInspectionaTableComponent
-                            user={user}
-                            productionDetail={productionDetail}
+                        <InstrumentDataTablePagination
                             productionInspectionList={productionInspectionList}
+                            onPaginatorNextClick={null}
+                            onPaginatorPreviousClick={null}
+                            nextIsLoading={false}
+                            previousIsLoading={false}
                         />
                     </div>
-                </div>
-                <InstrumentDataTablePagination
-                    productionInspectionList={productionInspectionList}
-                    onPaginatorNextClick={null}
-                    onPaginatorPreviousClick={null}
-                    nextIsLoading={false}
-                    previousIsLoading={false}
-                />
+                }
+                {isObjectListEmpty &&
+                    <div className="jumbotron">
+                        <h1 className="display-4">
+                            <i className="fas fa-bullhorn"></i>&nbsp;Attention
+                        </h1>
+                        <p className="lead">You currently do not have any production inspections at the moment.</p>
+                        <hr className="my-4" />
+                        <p>If you would like to create an inspection, please start by clicking below.</p>
+                        <p className="lead">
+                            <Link to={`/production/${productionDetail.slug}/create-inspection/start`} className="btn btn-success btn-lg">
+                                <i className="fas fa-plus"></i>&nbsp;Add
+                            </Link>
+                        </p>
+                    </div>
+                }
             </div>
         );
     }
