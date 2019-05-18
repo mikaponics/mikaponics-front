@@ -52,8 +52,8 @@ class DashboardComponent extends Component {
     render() {
         const { productions } = this.props.dashboard;
 
-        let isProductionsEmpty = isEmpty(productions) === true;
-        let isNotProductionsEmpty = isEmpty(productions) === false;
+        const isProductionsEmpty = isEmpty(productions) === true;
+        const isNotProductionsEmpty = isEmpty(productions) === false;
 
         return (
             <div className="Dashboard">
@@ -120,9 +120,11 @@ class DashboardComponent extends Component {
                     </div>
                 </div>
                 {isNotProductionsEmpty &&
-                    <div>{productions.map(
-                        (production, i) => <DashboardProductionComponent production={production} key={i} />)
-                    }</div>
+                    <div>
+                        {productions.map(
+                            (production, i) => <DashboardProductionComponent production={production} key={i} />)
+                        }
+                    </div>
                 }
                 {isProductionsEmpty &&
                     <div className="jumbotron">
