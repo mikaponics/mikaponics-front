@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import isEmpty from 'lodash/isEmpty';
 import Moment from 'react-moment';
 import 'moment-timezone';
 import { PRODUCTION_OPERATING_STATE, PRODUCTION_TERMINATED_STATE } from "../../constants/api";
@@ -105,13 +106,15 @@ class ProductionListComponent extends Component {
 
         let operatingElements = [];
         let terminatedElements = [];
-        if (productionList !== undefined && productionList !== null) {
+        const isProductionListNotEmpty = isEmpty(productionList) === false;
+
+        if (isProductionListNotEmpty) {
             const { results } = productionList;
             if (results !== undefined && results !== null) {
                 operatingElements = <ProductionCards productionList={productionList} state={PRODUCTION_OPERATING_STATE} />;
             }
         }
-        if (productionList !== undefined && productionList !== null) {
+        if (isProductionListNotEmpty) {
             const { results } = productionList;
             if (results !== undefined && results !== null) {
                 terminatedElements = <ProductionCards productionList={productionList} state={PRODUCTION_TERMINATED_STATE} />;
@@ -135,16 +138,19 @@ class ProductionListComponent extends Component {
                 <h1>
                     <i className="fas fa-industry"></i>&nbsp;Crop Production
                 </h1>
+                {isProductionListNotEmpty &&
+                    <div>
+                        <div>
+                            <h3><i className="fas fa-check-circle"></i>&nbsp;Operating</h3>
+                            {operatingElements}
+                        </div>
 
-                <div>
-                    <h3><i className="fas fa-check-circle"></i>&nbsp;Operating</h3>
-                    {operatingElements}
-                </div>
-
-                <div>
-                    <h3><i className="fas fa-times-circle"></i>&nbsp;Teriminated</h3>
-                    {terminatedElements}
-                </div>
+                        <div>
+                            <h3><i className="fas fa-times-circle"></i>&nbsp;Teriminated</h3>
+                            {terminatedElements}
+                        </div>
+                    </div>
+                }
             </div>
         );
     }
