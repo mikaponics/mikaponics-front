@@ -92,7 +92,7 @@ class ProductionTerminateStartContainer extends Component {
     onBackClick(e) {
         e.preventDefault();
         this.setState({
-            referrer: this.props.productionDetail.absoluteURL
+            referrer: this.props.productionDetail.absoluteUrl
         });
     }
 

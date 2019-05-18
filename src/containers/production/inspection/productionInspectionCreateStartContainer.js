@@ -77,7 +77,7 @@ class ProductionInspectionCreateStartContainer extends Component {
 
     onBackClick(e) {
         e.preventDefault();
-        this.props.history.push(this.props.productionDetail.absoluteURL+"/inspection");
+        this.props.history.push(this.props.productionDetail.absoluteUrl+"/inspection");
     }
 
     onSubmit(e) {

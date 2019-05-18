@@ -105,7 +105,7 @@ class ProductionInspectionCreateFinishContainer extends Component {
             errors: {},
         });
         this.props.setFlashMessage("success", "Inspection has been successfully created.");
-        this.props.history.push(this.props.productionDetail.absoluteURL+"/inspection");
+        this.props.history.push(this.props.productionDetail.absoluteUrl+"/inspection");
     }
 
     onFailedSubmissionCallback() {
