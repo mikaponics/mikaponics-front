@@ -14,6 +14,7 @@ import {
     PURCHASE_DEVICE_SUCCESS,
     PRODUCTION_LIST_SUCCESS,
     PRODUCTION_DETAIL_SUCCESS,
+    CROP_LIFE_CYCLE_STAGE_LIST_SUCCESS,
     CROP_DATA_SHEET_LIST_SUCCESS,
     CROP_SUBSTRATE_LIST_SUCCESS,
     PRODUCTION_CROP_LIST_SUCCESS,
@@ -41,6 +42,7 @@ import invoiceListReducer from "./reducers/invoiceListReducer";
 import invoiceDetailReducer from "./reducers/invoiceDetailReducer";
 import productionListReducer from "./reducers/productionListReducer";
 import productionDetailReducer from "./reducers/productionDetailReducer";
+import cropLifeCycleStageListReducer from "./reducers/cropLifeCycleStageListReducer";
 import cropDataSheetListReducer from "./reducers/cropDataSheetListReducer";
 import cropSubstrateListReducer from "./reducers/cropSubstrateListReducer";
 import productionCropListReducer from "./reducers/productionCropListReducer";
@@ -71,6 +73,7 @@ const appReducer = combineReducers({
     invoiceDetailState: invoiceDetailReducer,
     productionListState: productionListReducer,
     productionDetailState: productionDetailReducer,
+    cropLifeCycleStageListState: cropLifeCycleStageListReducer,
     cropDataSheetListState: cropDataSheetListReducer,
     cropSubstrateListState: cropSubstrateListReducer,
     productionCropListState: productionCropListReducer,
@@ -106,7 +109,7 @@ const rootReducer = (state, action) => {
 const localStorageMiddleware = ({ getState }) => {
     return next => action => {
         const result = next(action);
-        if ([ LOGIN_SUCCESS, LOGOUT_SUCCESS, ONBOARDING_SUCCESS, DASHBOARD_SUCCESS, PROFILE_SUCCESS, DEVICE_SUCCESS, INSTRUMENT_SUCCESS, PURCHASE_DEVICE_SUCCESS, PRODUCTION_LIST_SUCCESS, PRODUCTION_DETAIL_SUCCESS, CROP_DATA_SHEET_LIST_SUCCESS, CROP_SUBSTRATE_LIST_SUCCESS, PRODUCTION_CROP_LIST_SUCCESS, PRODUCTION_CROP_DETAIL_SUCCESS, PRODUCTION_INSPECTION_LIST_SUCCESS, PRODUCTION_INSPECTION_DETAIL_SUCCESS ].includes(result.type)) {
+        if ([ LOGIN_SUCCESS, LOGOUT_SUCCESS, ONBOARDING_SUCCESS, DASHBOARD_SUCCESS, PROFILE_SUCCESS, DEVICE_SUCCESS, INSTRUMENT_SUCCESS, PURCHASE_DEVICE_SUCCESS, PRODUCTION_LIST_SUCCESS, PRODUCTION_DETAIL_SUCCESS, CROP_LIFE_CYCLE_STAGE_LIST_SUCCESS, CROP_DATA_SHEET_LIST_SUCCESS, CROP_SUBSTRATE_LIST_SUCCESS, PRODUCTION_CROP_LIST_SUCCESS, PRODUCTION_CROP_DETAIL_SUCCESS, PRODUCTION_INSPECTION_LIST_SUCCESS, PRODUCTION_INSPECTION_DETAIL_SUCCESS ].includes(result.type)) {
             // console.log("De-hydrating store...");
             localStorage.setItem(APP_STATE, JSON.stringify(getState()))
         }

@@ -31,6 +31,7 @@ export const MIKAPONICS_INVOICE_SEND_EMAIL_API_URL = process.env.REACT_APP_API_H
 export const MIKAPONICS_PRODUCTION_LIST_CREATE_API_URL = process.env.REACT_APP_API_HOST+'/api/productions';
 export const MIKAPONICS_PRODUCTION_RETRIEVE_UPDATE_API_URL = process.env.REACT_APP_API_HOST+'/api/production/';
 export const MIKAPONICS_CROP_DATA_SHEET_LIST_API_URL = process.env.REACT_APP_API_HOST+'/api/crop-data-sheets';
+export const MIKAPONICS_CROP_LIFE_CYCLE_STAGE_LIST_API_URL = process.env.REACT_APP_API_HOST+'/api/crop-life-cycle-stages';
 export const MIKAPONICS_CROP_SUBSTRATE_LIST_API_URL = process.env.REACT_APP_API_HOST+'/api/crop-substrates';
 export const MIKAPONICS_PRODUCTION_TERMINATION_API_URL = process.env.REACT_APP_API_HOST+'/api/production-termination/';
 export const MIKAPONICS_PRODUCTION_CROP_LIST_CREATE_API_URL = process.env.REACT_APP_API_HOST+'/api/production-crops';
