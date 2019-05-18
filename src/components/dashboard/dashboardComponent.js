@@ -5,11 +5,11 @@ import { Link } from "react-router-dom";
 
 class DashboardProductionCropComponent extends Component {
     render() {
-        const { prettyName } = this.props.crop;
+        const { prettyName, prettyScore } = this.props.crop;
         return (
             <tr>
-                <th scope="row" className="bg-light">{ prettyName }</th>
-                <td>A+</td>
+                <th scope="row" className="bg-light">{prettyName}</th>
+                <td>{prettyScore}</td>
             </tr>
         );
     }
