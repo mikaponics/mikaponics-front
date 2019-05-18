@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 
 import DashboardComponent from "../../components/dashboard/dashboardComponent";
+import { pullDashboard } from "../../actions/dashboardActions";
 
 
 class DashboardContainer extends Component {
@@ -15,9 +16,18 @@ class DashboardContainer extends Component {
     }
 
     componentDidMount() {
-        // Start the page at the top of the page.
-        window.scrollTo(0, 0);
-    } // end FUNC.
+        this.props.pullDashboard(this.props.user);
+        window.scrollTo(0, 0);  // Start the page at the top of the page.
+    }
+
+    componentWillUnmount() {
+        // This code will fix the "ReactJS & Redux: Can't perform a React state
+        // update on an unmounted component" issue as explained in:
+        // https://stackoverflow.com/a/53829700
+        this.setState = (state,callback)=>{
+            return;
+        };
+    }
 
     render() {
 
@@ -30,17 +40,23 @@ class DashboardContainer extends Component {
         }
 
         return (
-            <DashboardComponent />
+            <DashboardComponent dashboard={this.props.dashboard} />
         );
     }
 }
 
 const mapStateToProps = function(store) {
-    return {};
+    return {
+        user: store.userState,
+        dashboard: store.dashboardState,
+    };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
+        pullDashboard: (user) => {
+            dispatch(pullDashboard(user))
+        }
     }
 }
 
