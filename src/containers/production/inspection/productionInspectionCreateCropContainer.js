@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import isEmpty from 'lodash/isEmpty';
 import Scroll from 'react-scroll';
 
 import ProductionInspectionCreateCropComponent from "../../../components/production/inspection/productionInspectionCreateCropComponent";
@@ -7,6 +8,7 @@ import {
     pullProductionCropInspectionDetail,
     putProductionCropInspectionDetail
 } from "../../../actions/productionCropInspectionActions";
+import { pullCropLifeCycleStageList } from "../../../actions/cropLifeCycleStageListActions";
 import { pullProductionInspectionDetail } from "../../../actions/productionInspectionActions";
 
 class ProductionInspectionCreateCropContainer extends Component {
@@ -27,8 +29,8 @@ class ProductionInspectionCreateCropContainer extends Component {
             crop: {},
             review: null,
             failureReason: null,
-            stage: null,
             notes: null,
+            stage: null,
         }
         this.getStageOptions = this.getStageOptions.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -51,6 +53,7 @@ class ProductionInspectionCreateCropContainer extends Component {
         // (3) POPULATE OUR COMPONENT STATE WITH THE DATA RECEIVED FROM API.
         const { index } = this.props.match.params;
         const cropInspection = this.props.productionInspectionDetail.crops[index];
+        this.props.pullCropLifeCycleStageList(this.props.user, 1, cropInspection.stage.typeOf); // Get latest data from API.
         this.props.pullProductionCropInspectionDetail(this.props.user, cropInspection.slug);
         this.setState({
             crops: this.props.productionDetail.crops,
@@ -67,19 +70,20 @@ class ProductionInspectionCreateCropContainer extends Component {
 
     getStageOptions() {
         const stageOptions = [];
-        if (this.state.crop) {
-            const stageList = this.state.crop.productionCropStages;
-            if (stageList !== undefined && stageList !== null) {
-
-                for (let i = 0; i < stageList.length; i++) {
-                    let stageItem = stageList[i];
+        const stageList = this.props.cropLifeCycleStageList;
+        const isNotProductionsEmpty = isEmpty(stageList) === false;
+        if (isNotProductionsEmpty) {
+            const results = stageList.results;
+            const isResultsNotEmpty = isEmpty(results) === false;
+            if (isResultsNotEmpty) {
+                for (let i = 0; i < results.length; i++) {
+                    let stage = results[i];
                     stageOptions.push({
                         selectName: "stage",
-                        value: stageItem.id,
-                        label: stageItem.value
+                        value: stage.slug,
+                        label: stage.name
                     });
                 }
-
             }
         }
         return stageOptions;
@@ -248,12 +252,12 @@ class ProductionInspectionCreateCropContainer extends Component {
             <ProductionInspectionCreateCropComponent
                 productionInspectionDetail={this.props.productionInspectionDetail}
                 stageOptions={this.getStageOptions()}
+                stage={stage}
                 productionDetail={this.props.productionDetail}
                 crops={crops}
                 crop={crop}
                 review={review}
                 failureReason={failureReason}
-                stage={stage}
                 notes={notes}
                 errors={errors}
                 onSubmit={this.onSubmit}
@@ -272,11 +276,17 @@ const mapStateToProps = function(store) {
         productionDetail: store.productionDetailState,
         productionInspectionDetail: store.productionInspectionDetailState,
         productionCropInspectionDetail: store.productionCropInspectionDetailState,
+        cropLifeCycleStageList: store.cropLifeCycleStageListState,
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
+        pullCropLifeCycleStageList: (user, page, slug) => {
+            dispatch(
+                pullCropLifeCycleStageList(user, page, slug)
+            )
+        },
         pullProductionCropInspectionDetail: (user, slug, onSuccessfulPutCallback, onFailedPutCallback) => {
             dispatch(
                 pullProductionCropInspectionDetail(user, slug, onSuccessfulPutCallback, onFailedPutCallback)
