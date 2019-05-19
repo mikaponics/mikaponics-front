@@ -56,6 +56,7 @@ class RegisterComponent extends React.Component {
                                 onChange={onTextChange}
                                 value={email}
                                 name="email"
+                                type="email"
                             />
 
                             <BootstrapInput

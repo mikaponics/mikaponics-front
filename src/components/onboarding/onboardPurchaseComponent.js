@@ -159,7 +159,7 @@ class OnboardPurchaseComponent extends React.Component {
                                 onChange={onTextChange}
                                 value={billingEmail}
                                 name="billingEmail"
-                                type="text"
+                                type="email"
                                 disabled={false}
                             />
 
@@ -271,7 +271,7 @@ class OnboardPurchaseComponent extends React.Component {
                                     onChange={onTextChange}
                                     value={shippingEmail}
                                     name="shippingEmail"
-                                    type="text"
+                                    type="email"
                                     disabled={false}
                                 />
 
