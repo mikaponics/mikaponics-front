@@ -53,7 +53,7 @@ class ProductionInspectionCreateCropContainer extends Component {
         // (3) POPULATE OUR COMPONENT STATE WITH THE DATA RECEIVED FROM API.
         const { index } = this.props.match.params;
         const cropInspection = this.props.productionInspectionDetail.crops[index];
-        this.props.pullCropLifeCycleStageList(this.props.user, 1, cropInspection.stage.typeOf); // Get latest data from API.
+        this.props.pullCropLifeCycleStageList(this.props.user, 1, cropInspection.productionCropTypeOf); // Get latest data from API.
         this.props.pullProductionCropInspectionDetail(this.props.user, cropInspection.slug);
         this.setState({
             crops: this.props.productionDetail.crops,
@@ -112,6 +112,7 @@ class ProductionInspectionCreateCropContainer extends Component {
             this.props.history.push( '/production/'+ slug + '/create-inspection/start');
         } else {
             const cropInspection = this.props.productionInspectionDetail.crops[nextPageIndex];
+            this.props.pullCropLifeCycleStageList(this.props.user, 1, cropInspection.productionCropTypeOf); // Get latest data from API.
             this.setState({
                 errors: Object(),
                 crop: cropInspection,
@@ -152,6 +153,7 @@ class ProductionInspectionCreateCropContainer extends Component {
         const { slug, index } = this.props.match.params;
         const nextPageIndex = parseInt(index) + 1;
         const cropInspection = this.props.productionInspectionDetail.crops[nextPageIndex];
+        this.props.pullCropLifeCycleStageList(this.props.user, 1, cropInspection.productionCropTypeOf); // Get latest data from API.
         this.setState({
             errors: Object(),
             crop: cropInspection,
