@@ -23,20 +23,23 @@ class ProductionCropRowComponent extends Component {
 class ProductionTableComponent extends Component {
     render() {
         const { name, crops, absoluteUrl } = this.props.production;
+        const isCropsNotEmpty = isEmpty(crops) === false;
         return (
             <div className="row">
                 <div className="col-md-12">
                     <h2><i className="fas fa-th-list"></i>&nbsp;Table</h2>
-                    <table className="table table-bordered custom-cell-w">
-                        <tbody>
-                        <tr className="bg-dark">
-                            <th scope="row" colSpan="2" className="text-light">Crops Evaluation</th>
-                        </tr>
-                        {crops.map(
-                            (crop, i) => <ProductionCropRowComponent crop={crop} key={i} />)
-                        }
-                        </tbody>
-                    </table>
+                    {isCropsNotEmpty &&
+                        <table className="table table-bordered custom-cell-w">
+                            <tbody>
+                            <tr className="bg-dark">
+                                <th scope="row" colSpan="2" className="text-light">Crops Evaluation</th>
+                            </tr>
+                            {crops.map(
+                                (crop, i) => <ProductionCropRowComponent crop={crop} key={i} />)
+                            }
+                            </tbody>
+                        </table>
+                    }
                 </div>
             </div>
         );
