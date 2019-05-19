@@ -15,7 +15,7 @@ class ProductionCropInspectionTableComponent extends Component {
             prettyReview,
             review,
             failureReason,
-            prettyStage,
+            stage,
             notes
         } = this.props.crop;
         const reviewWasFailure = (review === PRODUCTION_CROPS_INSPECTION_TERRIBLE_REVIEW) || (review === PRODUCTION_CROPS_INSPECTION_BAD_REVIEW);
@@ -37,7 +37,7 @@ class ProductionCropInspectionTableComponent extends Component {
                     }
                     <tr>
                         <th scope="row" className="bg-light">Stage</th>
-                        <td>{prettyStage}</td>
+                        <td>{stage.name}</td>
                     </tr>
                     <tr>
                         <th scope="row" className="bg-light">Additional note(s)</th>
