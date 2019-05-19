@@ -14,7 +14,7 @@ class ProductionCropInspectionTableComponent extends Component {
             prettyReview,
             review,
             failureReason,
-            prettyStage,
+            stage,
             notes
         } = this.props.crop;
         const reviewWasFailure = (review === PRODUCTION_CROPS_INSPECTION_TERRIBLE_REVIEW) || (review === PRODUCTION_CROPS_INSPECTION_BAD_REVIEW);
@@ -36,7 +36,7 @@ class ProductionCropInspectionTableComponent extends Component {
                     }
                     <tr>
                         <th scope="row" className="bg-light">Stage</th>
-                        <td>{prettyStage}</td>
+                        <td>{stage.name}</td>
                     </tr>
                     <tr>
                         <th scope="row" className="bg-light">Additional note(s)</th>
@@ -62,7 +62,6 @@ class ProductionInspectionDetailomponent extends Component {
             crops,
             notes,
         } = productionInspectionDetail;
-        const didPassText = didPass === true ? "Yes" : "No";
         const didNotPass = didPass === false;
         return (
             <div>
@@ -101,7 +100,14 @@ class ProductionInspectionDetailomponent extends Component {
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Did this inspection pass?</th>
-                                    <td>{didPassText}</td>
+                                    <td>
+                                        {didPass &&
+                                            <i className={'fas fa-check-circle'} style={{color:'green'}}></i>
+                                        }
+                                        {didNotPass &&
+                                            <i className={'fas fa-times-circle'} style={{color:'red'}}></i>
+                                        }
+                                    </td>
                                 </tr>
                                 {didNotPass &&
                                     <tr>

@@ -12,11 +12,17 @@ class ProductionInspectionaRowComponent extends Component {
     render() {
         const { didPass, createdAt, absoluteUrl } = this.props.productionInspection;
         const { timezone } = this.props;
-
-        const didPassText = didPass ? "Yes" : "No";
+        const didNotPass = didPass === false;
         return (
             <tr key={createdAt}>
-                <th scope="row">{didPassText}</th>
+                <th scope="row">
+                    {didPass &&
+                        <i className={'fas fa-check-circle'} style={{color:'green'}}></i>
+                    }
+                    {didNotPass &&
+                        <i className={'fas fa-times-circle'} style={{color:'red'}}></i>
+                    }
+                </th>
                 <td>
                     <Moment tz={timezone} format="YYYY/MM/DD hh:mm:ss a">
                         {createdAt}
@@ -58,7 +64,7 @@ class ProductionInspectionaTableComponent extends Component {
                 <table className="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col">Did Pass</th>
+                            <th scope="col">Pass?</th>
                             <th scope="col">Timestamp</th>
                             <th scope="col"></th>
                         </tr>
