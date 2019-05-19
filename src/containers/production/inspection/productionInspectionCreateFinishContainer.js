@@ -71,17 +71,19 @@ class ProductionInspectionCreateFinishContainer extends Component {
     onSubmit(e) {
         e.preventDefault();
 
+        const data = {
+            state: PRODUCTION_INSPECTION_SUBMITTED_STATE,
+            didPass: this.props.productionInspectionDetail.didPass,
+            failureReason: this.props.productionInspectionDetail.failureReason,
+            notes: this.props.productionInspectionDetail.notes
+        };
+        console.log("onSubmit | data:", data); // For debugging purposes only.
+
         // Once our state has been validated `client-side` then we will
         // make an API request with the server to create our new production.
         this.props.putProductionInspectionDetail(
             this.props.user,
-            {
-                state: PRODUCTION_INSPECTION_SUBMITTED_STATE,
-                review: this.props.productionInspectionDetail.review,
-                failureRason: this.props.productionInspectionDetail.failureReason,
-                stage: this.props.productionInspectionDetail.stage,
-                notes: this.props.productionInspectionDetail.notes
-            },
+            data,
             this.props.productionInspectionDetail.slug,
             this.onSuccessfulSubmissionCallback,
             this.onFailedSubmissionCallback

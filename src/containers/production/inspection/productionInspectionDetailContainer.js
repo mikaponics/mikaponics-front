@@ -70,7 +70,7 @@ class ProductionInspectionDetailContainer extends Component {
         //     {
         //         state: PRODUCTION_INSPECTION_SUBMITTED_STATE,
         //         review: this.props.productionInspectionDetail.review,
-        //         failureRason: this.props.productionInspectionDetail.failureReason,
+        //         failureReason: this.props.productionInspectionDetail.failureReason,
         //         stage: this.props.productionInspectionDetail.stage,
         //         notes: this.props.productionInspectionDetail.notes
         //     },

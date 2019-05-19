@@ -166,6 +166,7 @@ class ProductionInspectionCreateCropContainer extends Component {
             stage: this.state.stage,
             notes: this.state.notes
         };
+        console.log("onSubmit | data:", data);
         this.props.putProductionCropInspectionDetail(
             this.props.user,
             data,
@@ -187,8 +188,12 @@ class ProductionInspectionCreateCropContainer extends Component {
             console.log("onSuccessfulGetCallback | stageSlug:",stageSlug)
         }
 
+        console.log("onSuccessfulGetCallback | notes:",cropInspection.notes)
+
         // DEVELOPERS NOTE: CALL OUR API TO GET LIST FILTERED BY CROP TYPE (I.E. PLANT OR FISH).
         this.props.pullCropLifeCycleStageList(this.props.user, 1, cropInspection.productionCropTypeOf); // Get latest data from API.
+
+        // UPDATE OUR STATE AND LOAD UP THE NEXT PAGE.
         this.setState({
             errors: Object(),
             crop: cropInspection,
@@ -265,15 +270,8 @@ class ProductionInspectionCreateCropContainer extends Component {
     }
 
     onTextChange(e) {
-        const name = [e.target.name];
-        const value = e.target.value;
-
-        let { crop } = this.state;
-        crop[name] = value;
-
-        // UPDATE OUR STATE WITH THE ARRAY.
         this.setState({
-            crop: crop
+            [e.target.name]: e.target.value
         });
     }
 

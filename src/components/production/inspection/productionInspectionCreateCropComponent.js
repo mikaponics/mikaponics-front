@@ -38,6 +38,11 @@ class ProductionInspectionCreateCropComponent extends Component {
             shouldDisplayReviewFailure = true;
         }
 
+        // DEVELOPERS NOTE:
+        // IF PREVIOUS RESULT IS NULL THEN SET THIS TO BE EMPTY.
+        const theNotes = (notes === null || notes === undefined) ? "" : notes
+
+        // RENDER OUR JSX CODE.
         return (
             <div>
 
@@ -122,7 +127,7 @@ class ProductionInspectionCreateCropComponent extends Component {
                             label="Any final comments?"
                             placeholder="Add any final comments about this crop?"
                             rows={5}
-                            value={crop.notes}
+                            value={theNotes}
                             helpText={null}
                             onChange={ onTextChange }
                             error={errors.notes}
