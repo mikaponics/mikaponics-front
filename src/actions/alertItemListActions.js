@@ -1,6 +1,7 @@
 import axios from 'axios';
 import store from '../store';
-import { camelizeKeys } from 'humps';
+import { camelizeKeys, decamelize } from 'humps';
+import isEmpty from 'lodash/isEmpty';
 
 import {
     ALERT_ITEM_LIST_REQUEST,
@@ -43,7 +44,7 @@ export const setClearAlertItemList = () => ({
  *  Function will pull the ``instrument`` API endpoint and override our
  *  global application state for the 'dashboard'.
  */
-export function pullAlertItemList(user, instrumentSlug=null, page=1) {
+export function pullAlertItemList(user, page=1, filtersMap=new Map()) {
     return dispatch => {
         // Change the global state to attempting to fetch latest user details.
         store.dispatch(
@@ -56,13 +57,16 @@ export function pullAlertItemList(user, instrumentSlug=null, page=1) {
             headers: {'Authorization': "Bearer " + user.token}
         };
 
-        // Generate the URL.
-        let aURL = "";
-        if (instrumentSlug) {
-            aURL = MIKAPONICS_ALERT_ITEM_LIST_API_URL+"?instrument_slug="+instrumentSlug+"&page="+page;
-        } else {
-            aURL = MIKAPONICS_ALERT_ITEM_LIST_API_URL+"?page="+page;
-        }
+        // Generate the URL from the map.
+        // Note: Learn about `Map` iteration via https://hackernoon.com/what-you-should-know-about-es6-maps-dc66af6b9a1e
+        let aURL = MIKAPONICS_ALERT_ITEM_LIST_API_URL+"?page="+page;
+        filtersMap.forEach(
+            (value, key) => {
+                let decamelizedkey = decamelize(key)
+                aURL += "&"+decamelizedkey+"="+value;
+            }
+
+        )
 
         // Make the API call.
         axios.get(

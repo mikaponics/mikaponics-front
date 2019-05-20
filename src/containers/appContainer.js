@@ -30,7 +30,7 @@ import DeviceListContainer from "./devices/deviceListContainer";
 import DeviceContainer from "./devices/deviceContainer";
 import DeviceProfileContainer from "./devices/deviceProfileContainer";
 import InstrumentContainer from "./instruments/instrumentContainer";
-import AlertItemContainer from "./instruments/alertItemContainer";
+import AlertItemListContainer from "./instruments/alertItemListContainer";
 import AlertItemDetailContainer from "./instruments/alertItemDetailContainer";
 import AlertItemConfigContainer from "./instruments/alertItemConfigContainer";
 import InstrumentDataContainer from "./instruments/instrumentDataContainer";
@@ -105,7 +105,7 @@ class AppContainer extends React.Component {
                             <Route path="/device/:slug" exact component={requiresAuth(DeviceContainer)} />
                             <Route path="/device/:slug/profile" exact component={requiresAuth(DeviceProfileContainer)} />
                             <Route path="/instrument/:slug" exact component={requiresAuth(InstrumentContainer)} />
-                            <Route path="/instrument/:slug/alerts" exact component={requiresAuth(AlertItemContainer)} />
+                            <Route path="/instrument/:slug/alerts" exact component={requiresAuth(AlertItemListContainer)} />
                             <Route path="/instrument-alert/:slug" exact component={requiresAuth(AlertItemDetailContainer)} />
                             <Route path="/instrument/:slug/alerts/config" exact component={requiresAuth(AlertItemConfigContainer)} />
                             <Route path="/instrument/:slug/data" exact component={requiresAuth(InstrumentDataContainer)} />

@@ -12,7 +12,7 @@ class AlertListContainer extends Component {
     }
 
     componentDidMount() {
-        this.props.pullAlertItemList(this.props.user, this.props.match.params.slug);
+        this.props.pullAlertItemList(this.props.user, 1);
         window.scrollTo(0, 0);  // Start the page at the top of the page.
 
         // This function will call the API backend every second to get the
@@ -28,7 +28,7 @@ class AlertListContainer extends Component {
      *  backend to get the latest device data.
      */
     tick() {
-        this.props.pullAlertItemList(this.props.user, this.props.match.params.slug);
+        this.props.pullAlertItemList(this.props.user, 1);
     }
 
     componentWillUnmount() {
@@ -60,9 +60,9 @@ const mapStateToProps = function(store) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        pullAlertItemList: (user) => {
+        pullAlertItemList: (user, page, filtersMap) => {
             dispatch(
-                pullAlertItemList(user, null, 1)
+                pullAlertItemList(user, page, filtersMap)
             )
         },
     }

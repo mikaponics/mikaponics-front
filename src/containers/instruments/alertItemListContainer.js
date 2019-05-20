@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import AlertItemComponent from "../../components/instruments/alertItemComponent";
+import AlertItemListComponent from "../../components/instruments/alertItemListComponent";
 import { pullAlertItemList } from "../../actions/alertItemListActions";
 import { clearFlashMessage } from "../../actions/flashMessageActions";
 
@@ -19,7 +19,9 @@ class AlertItemContainer extends Component {
     }
 
     componentDidMount() {
-        this.props.pullAlertItemList(this.props.user, this.props.match.params.slug);
+        var filtersMap = new Map()
+        filtersMap.set('instrumentSlug', this.props.match.params.slug)
+        this.props.pullAlertItemList(this.props.user, 1, filtersMap);
         window.scrollTo(0, 0);  // Start the page at the top of the page.
 
         // This function will call the API backend every second to get the
@@ -35,7 +37,9 @@ class AlertItemContainer extends Component {
      *  backend to get the latest device data.
      */
     tick() {
-        this.props.pullAlertItemList(this.props.user, this.props.match.params.slug);
+        var filtersMap = new Map()
+        filtersMap.set('instrumentSlug', this.props.match.params.slug)
+        this.props.pullAlertItemList(this.props.user, 1, filtersMap);
     }
 
     componentWillUnmount() {
@@ -53,7 +57,7 @@ class AlertItemContainer extends Component {
 
     render() {
         return (
-            <AlertItemComponent
+            <AlertItemListComponent
                 instrument={this.props.instrument}
                 flashMessage={this.props.flashMessage}
                 dataList={this.props.alertItemList}
@@ -73,9 +77,9 @@ const mapStateToProps = function(store) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        pullAlertItemList: (user, instrumentSlug) => {
+        pullAlertItemList: (user, page, filtersMap) => {
             dispatch(
-                pullAlertItemList(user, instrumentSlug)
+                pullAlertItemList(user, page, filtersMap)
             )
         },
         clearFlashMessage: () => {
