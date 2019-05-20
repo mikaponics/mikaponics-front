@@ -73,7 +73,7 @@ class AlertItemDetailComponent extends Component {
                                 <tr>
                                     <th scope="row" className="bg-light">Value</th>
                                     <td>
-                                        {alertDetail.datumValue && parseFloat(alertDetail.datumValue).toFixed(2)}&nbsp;
+                                        {alertDetail.value && parseFloat(alertDetail.value).toFixed(2)}&nbsp;
                                         {alertDetail.instrumentUnitOfMeasure}
                                     </td>
                                 </tr>
@@ -81,18 +81,25 @@ class AlertItemDetailComponent extends Component {
                                     <th scope="row" className="bg-light">Timestamp</th>
                                     <td>
                                         <Moment tz={alertDetail.deviceTimezone} format="YYYY/MM/DD hh:mm:ss a">
-                                            {alertDetail.datumTimestamp}
+                                            {alertDetail.timestamp}
                                         </Moment>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th scope="row" className="bg-light">Status</th>
-                                    <td>{alertDetail.state}</td>
+                                    <th scope="row" className="bg-light">Condition</th>
+                                    <td>{alertDetail.prettyCondition}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
+
+                <div className="form-group col-md-12 mb-3 mx-auto text-center">
+                    <Link className="btn btn-primary btn-lg btn-fxw mt-4" type="button" to={`${alertDetail.instrumentAbsoluteUrl}/alerts`}>
+                        <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
+                    </Link>
+                </div>
+
             </div>
         );
     }

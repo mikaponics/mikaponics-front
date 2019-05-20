@@ -21,13 +21,13 @@ class AlertItemTable extends Component {
                     <th scope="row">
                         <i className={`fa fa-${datum.icon}`}></i>
                     </th>
-                    <th scope="row">{datum.state}</th>
+                    <th scope="row">{datum.prettyCondition}</th>
                     <td>
-                        {parseFloat(datum.datumValue).toFixed(2)}&nbsp;{datum.instrumentUnitOfMeasure}
+                        {parseFloat(datum.value).toFixed(2)}&nbsp;{datum.instrumentUnitOfMeasure}
                     </td>
                     <td>
                         <Moment tz={datum.deviceTimezone} format="YYYY/MM/DD hh:mm:ss a">
-                            {datum.datumTimestamp}
+                            {datum.timestamp}
                         </Moment>
                     </td>
                     <td>
@@ -44,7 +44,7 @@ class AlertItemTable extends Component {
                     <thead>
                         <tr>
                             <th scope="col"></th>
-                            <th scope="col">State</th>
+                            <th scope="col">Condition</th>
                             <th scope="col">Measured value</th>
                             <th scope="col">Measured at</th>
                             <th scope="col"></th>
@@ -97,7 +97,7 @@ class AlertItemComponent extends Component {
                         <AlertItemTable dataList={dataList} />
                     );
                 }
-            }            
+            }
         }
 
         return (
@@ -135,15 +135,17 @@ class AlertItemComponent extends Component {
                     </div>
                 </div>
 
-                <div className="buttons-card">
-                    <section className="row text-center placeholders">
-                        <div className="rounded-circle circle-200 bg-pink text-center">
+                <section className="row text-center placeholders">
+                    <div className="col-sm-3 placeholder">
+                        <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-pink">
                             <Link to={`/instrument/${instrument.slug}/alerts/config`} className="d-block link-ndecor" title="Add Client">
                                 <span className="r-circle"><i className="fas fa-cogs fa-3x"></i></span>
                             </Link>
                         </div>
-                    </section>
-                </div>
+                        <h4>Configuration</h4>
+                        <div className="text-muted">Edit your configuration</div>
+                    </div>
+                </section>
 
                 <div className="row">
                     <div className="col-md-12">
