@@ -114,7 +114,7 @@ class InstrumentAlertItemConfigContainer extends Component {
     onSuccessfulSubmissionCallback() {
         this.props.setFlashMessage("success", "Instrument was successfully updated.");
         this.setState({
-            referrer: this.props.instrument.absoluteUrl+"/alerts"
+            referrer: this.props.instrument.absoluteUrl
         });
     }
 

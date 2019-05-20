@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import Moment from 'react-moment';
 import 'moment-timezone';
 
+import { FlashMessageComponent } from "../flashMessageComponent";
+
 
 /**
  *  Utility component used to render the multiple mode values.
@@ -152,7 +154,7 @@ class InstrumentTable extends Component {
 
 class InstrumentComponent extends Component {
     render() {
-        const { instrument } = this.props;
+        const { instrument, flashMessage } = this.props;
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -174,6 +176,12 @@ class InstrumentComponent extends Component {
                     </ol>
                 </nav>
                 <h1><i className={`fas fa-${instrument.icon}`}></i>&nbsp;Instrument</h1>
+
+                <div className="row">
+                    <div className="col-md-12">
+                        <FlashMessageComponent object={flashMessage} />
+                    </div>
+                </div>
 
                 <section className="row text-center placeholders">
                     <div className="col-sm-3 placeholder">

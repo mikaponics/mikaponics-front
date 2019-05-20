@@ -138,18 +138,6 @@ class AlertItemComponent extends Component {
                     </div>
                 </div>
 
-                <section className="row text-center placeholders">
-                    <div className="col-sm-3 placeholder">
-                        <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-pink">
-                            <Link to={`/instrument/${instrument.slug}/alerts/config`} className="d-block link-ndecor" title="Add Client">
-                                <span className="r-circle"><i className="fas fa-cogs fa-3x"></i></span>
-                            </Link>
-                        </div>
-                        <h4>Configuration</h4>
-                        <div className="text-muted">Edit your configuration</div>
-                    </div>
-                </section>
-
                 <div className="row">
                     <div className="col-md-12">
                         {elements}

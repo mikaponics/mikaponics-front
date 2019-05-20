@@ -41,13 +41,10 @@ class AlertItemConfigComponent extends Component {
                                 <Link to={`${instrument.absoluteUrl}`}><i className={`fas fa-${instrument.icon}`}></i>&nbsp;Instrument</Link>
                             </li>
                         }
-                        <li className="breadcrumb-item">
-                            <Link to={`${instrument.absoluteUrl}/alerts`}><i className="fas fa-bell"></i>&nbsp;Alerts</Link>
-                        </li>
                         <li className="breadcrumb-item active" aria-current="page"><i className="fas fa-cogs"></i>&nbsp;Configuration</li>
                     </ol>
                 </nav>
-                <h1><i className="fas fa-cogs"></i>&nbsp;Alerts Configuration</h1>
+                <h1><i className="fas fa-cogs"></i>&nbsp;Configuration</h1>
 
                 <div className="row">
                     <div className="col-md-12">
