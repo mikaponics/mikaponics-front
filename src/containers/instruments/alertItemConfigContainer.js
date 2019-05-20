@@ -8,7 +8,7 @@ import { pullInstrument, putInstrument } from "../../actions/instrumentActions";
 import { setFlashMessage } from "../../actions/flashMessageActions";
 
 
-class AlertItemConfigContainer extends Component {
+class InstrumentAlertItemConfigContainer extends Component {
     constructor(props) {
         super(props);
 
@@ -219,4 +219,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(AlertItemConfigContainer);
+)(InstrumentAlertItemConfigContainer);

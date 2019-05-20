@@ -30,8 +30,8 @@ class AlertItemTable extends Component {
                         </Moment>
                     </td>
                     <td>
-                        <Link to={alertItem.absoluteUrl} target="_blank" rel="noopener noreferrer">
-                            View&nbsp;<i className="fas fa-external-link-alt"></i>
+                        <Link to={`/alert/${alertItem.slug}`}>
+                            View&nbsp;<i className="fas fa-chevron-right"></i>
                         </Link>
                     </td>
                 </tr>
@@ -105,7 +105,8 @@ class AlertListComponent extends Component {
                            <Link to="/dashboard"><i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard</Link>
                         </li>
                         <li className="breadcrumb-item active" aria-current="page">
-                            <i className="fas fa-bell"></i>&nbsp;Alerts</li>
+                            <i className="fas fa-bell"></i>&nbsp;Alerts
+                        </li>
                     </ol>
                 </nav>
                 <h1><i className="fas fa-bell"></i>&nbsp;Alerts</h1>

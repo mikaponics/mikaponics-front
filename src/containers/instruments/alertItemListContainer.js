@@ -6,7 +6,7 @@ import { pullAlertItemList } from "../../actions/alertItemListActions";
 import { clearFlashMessage } from "../../actions/flashMessageActions";
 
 
-class AlertItemContainer extends Component {
+class InstrumentAlertItemContainer extends Component {
     constructor(props) {
         super(props);
 
@@ -92,4 +92,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(AlertItemContainer);
+)(InstrumentAlertItemContainer);

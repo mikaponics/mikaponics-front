@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import AlertItemDetailComponent from "../../components/instruments/alertItemDetailComponent";
+import AlertItemDetailComponent from "../../components/alerts/alertItemDetailComponent";
 import { pullAlertItemDetail, postAlertItemDetailWasViewed } from "../../actions/alertItemDetailActions";
 
 
-class InstrumentAlertItemDetailContainer extends Component {
+class AlertItemDetailContainer extends Component {
     constructor(props) {
         super(props);
 
@@ -58,4 +58,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(InstrumentAlertItemDetailContainer);
+)(AlertItemDetailContainer);

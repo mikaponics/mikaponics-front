@@ -30,15 +30,16 @@ import DeviceListContainer from "./devices/deviceListContainer";
 import DeviceContainer from "./devices/deviceContainer";
 import DeviceProfileContainer from "./devices/deviceProfileContainer";
 import InstrumentContainer from "./instruments/instrumentContainer";
-import AlertItemListContainer from "./instruments/alertItemListContainer";
-import AlertItemDetailContainer from "./instruments/alertItemDetailContainer";
-import AlertItemConfigContainer from "./instruments/alertItemConfigContainer";
+import InstrumentAlertItemListContainer from "./instruments/alertItemListContainer";
+import InstrumentAlertItemDetailContainer from "./instruments/alertItemDetailContainer";
+import InstrumentAlertItemConfigContainer from "./instruments/alertItemConfigContainer";
 import InstrumentDataContainer from "./instruments/instrumentDataContainer";
 import InstrumentDataDownloadContainer from "./instruments/instrumentDataDownloadContainer";
 import InstrumentAnalysisListContainer from "./instruments/instrumentAnalysisListContainer";
 import InstrumentAnalysisCreateContainer from  "./instruments/instrumentAnalysisCreateContainer";
 import InstrumentAnalysisDetailContainer from "./instruments/instrumentAnalysisDetailContainer";
 import AlertListContainer from "./alerts/alertListContainer";
+import AlertItemDetailContainer from "./alerts/alertItemDetailContainer";
 import InvoiceListContainer from "./invoices/invoiceListContainer";
 import InvoiceDetailContainer from "./invoices/invoiceDetailContainer";
 import InvoiceSendContainer from "./invoices/invoiceSendContainer";
@@ -105,15 +106,16 @@ class AppContainer extends React.Component {
                             <Route path="/device/:slug" exact component={requiresAuth(DeviceContainer)} />
                             <Route path="/device/:slug/profile" exact component={requiresAuth(DeviceProfileContainer)} />
                             <Route path="/instrument/:slug" exact component={requiresAuth(InstrumentContainer)} />
-                            <Route path="/instrument/:slug/alerts" exact component={requiresAuth(AlertItemListContainer)} />
-                            <Route path="/instrument-alert/:slug" exact component={requiresAuth(AlertItemDetailContainer)} />
-                            <Route path="/instrument/:slug/alerts/config" exact component={requiresAuth(AlertItemConfigContainer)} />
+                            <Route path="/instrument/:slug/alerts" exact component={requiresAuth(InstrumentAlertItemListContainer)} />
+                            <Route path="/instrument-alert/:slug" exact component={requiresAuth(InstrumentAlertItemDetailContainer)} />
+                            <Route path="/instrument/:slug/alerts/config" exact component={requiresAuth(InstrumentAlertItemConfigContainer)} />
                             <Route path="/instrument/:slug/data" exact component={requiresAuth(InstrumentDataContainer)} />
                             <Route path="/instrument/:slug/data/download" exact component={requiresAuth(InstrumentDataDownloadContainer)} />
                             <Route path="/instrument/:slug/analyses" exact component={requiresAuth(InstrumentAnalysisListContainer)} />
                             <Route path="/instrument/:slug/create-analysis" exact component={requiresAuth(InstrumentAnalysisCreateContainer)} />
                             <Route path="/instrument/analysis/:slug" exact component={requiresAuth(InstrumentAnalysisDetailContainer)} />
                             <Route path="/alerts" exact component={requiresAuth(AlertListContainer)} />
+                            <Route path="/alert/:slug" exact component={requiresAuth(AlertItemDetailContainer)} />
                             <Route path="/invoices" exact component={requiresAuth(InvoiceListContainer)} />
                             <Route path="/invoice/:slug" exact component={requiresAuth(InvoiceDetailContainer)} />
                             <Route path="/invoice-send-email/:slug" exact component={requiresAuth(InvoiceSendContainer)} />
