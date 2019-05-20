@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import InstrumentDataDownloadComponent from "../../components/instruments/instrumentDataDownloadComponent";
-import { MIKAPONICS_GET_TIME_SERIES_DATA_CSV_DOWNLOAD_API_URL } from "../../constants/api";
+import InstrumentDataDownloadComponent from "../../../components/instruments/data/instrumentDataDownloadComponent";
+import { MIKAPONICS_GET_TIME_SERIES_DATA_CSV_DOWNLOAD_API_URL } from "../../../constants/api";
 
 
 class InstrumentDataContainer extends Component {

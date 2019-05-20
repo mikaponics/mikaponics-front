@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import InstrumentDataComponent from "../../components/instruments/instrumentDataComponent";
-import { pullInstrument } from "../../actions/instrumentActions";
-import { pullTimeSeriesData } from "../../actions/dataActions";
+import InstrumentDataComponent from "../../../components/instruments/data/instrumentDataComponent";
+import { pullInstrument } from "../../../actions/instrumentActions";
+import { pullTimeSeriesData } from "../../../actions/dataActions";
 
 
 class InstrumentDataContainer extends Component {
