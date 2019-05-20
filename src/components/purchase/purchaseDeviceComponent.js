@@ -160,7 +160,6 @@ class PurchaseDeviceComponent extends React.Component {
                                 value={billingEmail}
                                 name="billingEmail"
                                 type="text"
-                                disabled={true}
                             />
 
                             <BootstrapInput
@@ -272,7 +271,6 @@ class PurchaseDeviceComponent extends React.Component {
                                     value={shippingEmail}
                                     name="shippingEmail"
                                     type="text"
-                                    disabled={false}
                                 />
 
                                 <BootstrapInput
