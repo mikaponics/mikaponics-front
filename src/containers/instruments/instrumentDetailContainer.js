@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import InstrumentComponent from "../../components/instruments/instrumentComponent";
+import InstrumentDetailComponent from "../../components/instruments/instrumentDetailComponent";
 import { pullInstrument } from "../../actions/instrumentActions";
 
 
-class InstrumentContainer extends Component {
+class InstrumentDetailContainer extends Component {
     constructor(props) {
         super(props);
 
@@ -24,7 +24,7 @@ class InstrumentContainer extends Component {
 
     render() {
         return (
-            <InstrumentComponent
+            <InstrumentDetailComponent
                 instrument={this.props.instrument}
             />
         );
@@ -52,4 +52,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(InstrumentContainer);
+)(InstrumentDetailContainer);

@@ -29,7 +29,7 @@ import OnboardInvoiceSendContainer from "./onboarding/onboardInvoiceSendContaine
 import DeviceListContainer from "./devices/deviceListContainer";
 import DeviceContainer from "./devices/deviceContainer";
 import DeviceProfileContainer from "./devices/deviceProfileContainer";
-import InstrumentContainer from "./instruments/instrumentContainer";
+import InstrumentDetailContainer from "./instruments/instrumentDetailContainer";
 import InstrumentAlertItemListContainer from "./instruments/alertItemListContainer";
 import InstrumentAlertItemDetailContainer from "./instruments/alertItemDetailContainer";
 import InstrumentAlertItemConfigContainer from "./instruments/alertItemConfigContainer";
@@ -105,7 +105,7 @@ class AppContainer extends React.Component {
                             <Route path="/devices" exact component={requiresAuth(DeviceListContainer)} />
                             <Route path="/device/:slug" exact component={requiresAuth(DeviceContainer)} />
                             <Route path="/device/:slug/profile" exact component={requiresAuth(DeviceProfileContainer)} />
-                            <Route path="/instrument/:slug" exact component={requiresAuth(InstrumentContainer)} />
+                            <Route path="/instrument/:slug" exact component={requiresAuth(InstrumentDetailContainer)} />
                             <Route path="/instrument/:slug/alerts" exact component={requiresAuth(InstrumentAlertItemListContainer)} />
                             <Route path="/instrument-alert/:slug" exact component={requiresAuth(InstrumentAlertItemDetailContainer)} />
                             <Route path="/instrument/:slug/alerts/config" exact component={requiresAuth(InstrumentAlertItemConfigContainer)} />
