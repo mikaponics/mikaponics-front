@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import InstrumentAnalysisDetailComponent from "../../components/instruments/instrumentAnalysisDetailComponent";
-import { pullInstrumentAnalysisDetail } from "../../actions/instrumentAnalysisDetailActions";
-import { setClearInstrumentAnalysisCreate } from "../../actions/instrumentAnalysisCreateActions";
-import { clearFlashMessage } from "../../actions/flashMessageActions";
+import InstrumentAnalysisDetailComponent from "../../../components/instruments/analyses/instrumentAnalysisDetailComponent";
+import { pullInstrumentAnalysisDetail } from "../../../actions/instrumentAnalysisDetailActions";
+import { setClearInstrumentAnalysisCreate } from "../../../actions/instrumentAnalysisCreateActions";
+import { clearFlashMessage } from "../../../actions/flashMessageActions";
 
 
 class InstrumentAnalysisDetailContainer extends Component {

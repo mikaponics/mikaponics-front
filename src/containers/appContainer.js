@@ -35,9 +35,9 @@ import InstrumentAlertItemDetailContainer from "./instruments/alert/alertItemDet
 import InstrumentAlertItemConfigContainer from "./instruments/configuration/alertItemConfigContainer";
 import InstrumentDataContainer from "./instruments/data/instrumentDataContainer";
 import InstrumentDataDownloadContainer from "./instruments/data/instrumentDataDownloadContainer";
-import InstrumentAnalysisListContainer from "./instruments/instrumentAnalysisListContainer";
-import InstrumentAnalysisCreateContainer from  "./instruments/instrumentAnalysisCreateContainer";
-import InstrumentAnalysisDetailContainer from "./instruments/instrumentAnalysisDetailContainer";
+import InstrumentAnalysisListContainer from "./instruments/analyses/instrumentAnalysisListContainer";
+import InstrumentAnalysisCreateContainer from  "./instruments/analyses/instrumentAnalysisCreateContainer";
+import InstrumentAnalysisDetailContainer from "./instruments/analyses/instrumentAnalysisDetailContainer";
 import AlertListContainer from "./alerts/alertListContainer";
 import AlertItemDetailContainer from "./alerts/alertItemDetailContainer";
 import InvoiceListContainer from "./invoices/invoiceListContainer";

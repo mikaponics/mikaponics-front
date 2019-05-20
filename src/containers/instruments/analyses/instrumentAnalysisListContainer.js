@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import InstrumentAnalysisListComponent from "../../components/instruments/instrumentAnalysisListComponent";
-import { setClearInstrumentAnalysisCreate } from "../../actions/instrumentAnalysisCreateActions";
-import { pullInstrumentAnalysisList } from "../../actions/instrumentAnalysisListActions";
+import InstrumentAnalysisListComponent from "../../../components/instruments/analyses/instrumentAnalysisListComponent";
+import { setClearInstrumentAnalysisCreate } from "../../../actions/instrumentAnalysisCreateActions";
+import { pullInstrumentAnalysisList } from "../../../actions/instrumentAnalysisListActions";
 
 
 class InstrumentReportContainer extends Component {

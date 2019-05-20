@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker"
 
-import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
+import { BootstrapErrorsProcessingAlert } from "../../bootstrap/bootstrapAlert";
 
 
 class InstrumentAnalysisCreateComponent extends Component {

@@ -3,9 +3,9 @@ import Scroll from 'react-scroll';
 import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
 
-import InstrumentAnalysisCreateComponent from "../../components/instruments/instrumentAnalysisCreateComponent";
-import { postInstrumentAnalysisCreate, setClearInstrumentAnalysisCreate } from "../../actions/instrumentAnalysisCreateActions";
-import { setFlashMessage } from "../../actions/flashMessageActions";
+import InstrumentAnalysisCreateComponent from "../../../components/instruments/analyses/instrumentAnalysisCreateComponent";
+import { postInstrumentAnalysisCreate, setClearInstrumentAnalysisCreate } from "../../../actions/instrumentAnalysisCreateActions";
+import { setFlashMessage } from "../../../actions/flashMessageActions";
 
 
 class InstrumentAnalysisCreateContainer extends Component {
