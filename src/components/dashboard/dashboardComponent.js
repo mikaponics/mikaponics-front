@@ -59,60 +59,44 @@ class DashboardComponent extends Component {
             <div className="Dashboard">
                 <h1><i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard</h1>
 
-                <div className="row">
-                    <div className="col-12">
-
-                        <h2><i className="fas fa-th"></i>&nbsp;Menu</h2>
-                        <div className="card-group row">
-
-                            <div className="col-sm-4">
-                                <div className="card box-shadow text-center mx-auto">
-                                    <div className="card-custom-top-2">
-                                        <i className="fas fa-industry fa-3x"></i>
-                                    </div>
-                                    <div className="card-body">
-                                        <h3 className="card-title">View Production</h3>
-                                        <p className="card-text">List all the growing crops that being monitored.</p>
-                                        <Link to="/productions" className="btn btn-success btn-lg">
-                                            View&nbsp;<i className="fas fa-arrow-circle-right"></i>
-                                        </Link>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-sm-4">
-                                <div className="card box-shadow text-center mx-auto">
-                                    <div className="card-custom-top-2">
-                                        <i className="fas fa-cubes fa-3x"></i>
-                                    </div>
-                                    <div className="card-body">
-                                        <h3 className="card-title">View Devices</h3>
-                                        <p className="card-text">List all the Mikaponics unit devices</p>
-                                        <Link to="/devices" className="btn btn-success btn-lg">
-                                            View&nbsp;<i className="fas fa-arrow-circle-right"></i>
-                                        </Link>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-sm-4">
-                                <div className="card box-shadow text-center mx-auto">
-                                    <div className="card-custom-top-2">
-                                        <i className="fas fa-bell fa-3x"></i>
-                                    </div>
-                                    <div className="card-body">
-                                        <h3 className="card-title">Alerts</h3>
-                                        <p className="card-text">View list of all the alerts in your setup.</p>
-                                        <Link to="/alerts" className="btn btn-success btn-lg">
-                                            View&nbsp;<i className="fas fa-arrow-circle-right"></i>
-                                        </Link>
-                                    </div>
-                                </div>
-                            </div>
+                <section className="row text-center placeholders">
+                    <div className="col-sm-3 placeholder">
+                        <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-pink">
+                            <Link to="/productions" className="d-block link-ndecor" title="Production">
+                                <h1 className="circle-title">1,100</h1>
+                            </Link>
                         </div>
-
+                        <h4>Production</h4>
+                        <div className="text-muted">View your production list</div>
                     </div>
-                </div>
+                    <div className="col-sm-3 placeholder">
+                        <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-dgreen">
+                            <Link to="/devices" className="d-block link-ndecor" title="Devices">
+                                <h1 className="circle-title">10,000</h1>
+                            </Link>
+                        </div>
+                        <h4>Devices</h4>
+                        <span className="text-muted">View your devices</span>
+                    </div>
+                    <div className="col-sm-3 placeholder">
+                        <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-dblue">
+                            <Link to="/alerts" className="d-block link-ndecor" title="Alerts">
+                                <h1 className="circle-title">2,200</h1>
+                            </Link>
+                        </div>
+                        <h4>Alerts</h4>
+                        <span className="text-muted">View your alertss</span>
+                    </div>
+                    <div className="col-sm-3 placeholder">
+                        <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-orange">
+                            <Link to="/tasks" className="d-block link-ndecor" title="Tasks">
+                                <h1 className="circle-title">12</h1>
+                            </Link>
+                        </div>
+                        <h4>Tasks</h4>
+                        <span className="text-muted">View your tasks</span>
+                    </div>
+                </section>
 
                 <div className="row">
                     <div className="col-12">
