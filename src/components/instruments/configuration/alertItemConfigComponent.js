@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import Select from 'react-select';
 
-import { BootstrapInput } from "../bootstrap/bootstrapInput";
-import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
+import { BootstrapInput } from "../../bootstrap/bootstrapInput";
+import { BootstrapErrorsProcessingAlert } from "../../bootstrap/bootstrapAlert";
 
 
 class AlertItemConfigComponent extends Component {

@@ -3,9 +3,9 @@ import Scroll from 'react-scroll';
 import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
 
-import AlertItemConfigComponent from "../../components/instruments/alertItemConfigComponent";
-import { pullInstrument, putInstrument } from "../../actions/instrumentActions";
-import { setFlashMessage } from "../../actions/flashMessageActions";
+import AlertItemConfigComponent from "../../../components/instruments/configuration/alertItemConfigComponent";
+import { pullInstrument, putInstrument } from "../../../actions/instrumentActions";
+import { setFlashMessage } from "../../../actions/flashMessageActions";
 
 
 class InstrumentAlertItemConfigContainer extends Component {

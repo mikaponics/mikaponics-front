@@ -32,7 +32,7 @@ import DeviceProfileContainer from "./devices/deviceProfileContainer";
 import InstrumentDetailContainer from "./instruments/instrumentDetailContainer";
 import InstrumentAlertItemListContainer from "./instruments/alert/alertItemListContainer";
 import InstrumentAlertItemDetailContainer from "./instruments/alert/alertItemDetailContainer";
-import InstrumentAlertItemConfigContainer from "./instruments/alertItemConfigContainer";
+import InstrumentAlertItemConfigContainer from "./instruments/configuration/alertItemConfigContainer";
 import InstrumentDataContainer from "./instruments/data/instrumentDataContainer";
 import InstrumentDataDownloadContainer from "./instruments/data/instrumentDataDownloadContainer";
 import InstrumentAnalysisListContainer from "./instruments/instrumentAnalysisListContainer";
