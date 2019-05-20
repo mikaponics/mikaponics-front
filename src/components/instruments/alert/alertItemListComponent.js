@@ -4,8 +4,8 @@ import Moment from 'react-moment';
 import classnames from 'classnames';
 import 'moment-timezone';
 
-import { FlashMessageComponent } from "../flashMessageComponent";
-import { ALERT_ITEM_UNREAD_STATE } from "../../constants/api";
+import { FlashMessageComponent } from "../../flashMessageComponent";
+import { ALERT_ITEM_UNREAD_STATE } from "../../../constants/api";
 
 
 class AlertItemTable extends Component {

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import AlertItemDetailComponent from "../../components/instruments/alertItemDetailComponent";
-import { pullAlertItemDetail, postAlertItemDetailWasViewed } from "../../actions/alertItemDetailActions";
+import AlertItemDetailComponent from "../../../components/instruments/alert/alertItemDetailComponent";
+import { pullAlertItemDetail, postAlertItemDetailWasViewed } from "../../../actions/alertItemDetailActions";
 
 
 class InstrumentAlertItemDetailContainer extends Component {

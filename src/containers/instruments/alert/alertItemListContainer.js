@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import AlertItemListComponent from "../../components/instruments/alertItemListComponent";
-import { pullAlertItemList } from "../../actions/alertItemListActions";
-import { clearFlashMessage } from "../../actions/flashMessageActions";
+import AlertItemListComponent from "../../../components/instruments/alert/alertItemListComponent";
+import { pullAlertItemList } from "../../../actions/alertItemListActions";
+import { clearFlashMessage } from "../../../actions/flashMessageActions";
 
 
 class InstrumentAlertItemContainer extends Component {
