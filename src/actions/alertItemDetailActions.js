@@ -9,7 +9,8 @@ import {
     CLEAR_ALERT_ITEM_DETAIL
 } from '../constants/actionTypes';
 import {
-    MIKAPONICS_ALERT_ITEM_DETAIL_API_URL
+    MIKAPONICS_ALERT_ITEM_DETAIL_API_URL,
+    MIKAPONICS_ALERT_ITEM_WAS_VIEWED_FUNC_API_URL
 } from '../constants/api';
 
 
@@ -87,6 +88,63 @@ export function pullAlertItemDetail(user, instrumentSlug=null) {
             // alert("Error fetching latest data");
 
             const responseData = errorResult.data;
+            let errors = camelizeKeys(responseData);
+
+            store.dispatch(
+                setAlertItemDetailFailure({
+                    isAPIRequestRunning: false,
+                    errors: errors,
+                })
+            );
+
+        }).then( () => { // FINALLY
+            // Do nothing.
+        });
+
+    }
+}
+
+
+export function postAlertItemDetailWasViewed(user, alertSlug) {
+    return dispatch => {
+        // Change the global state to attempting to fetch latest user details.
+        store.dispatch(
+            setAlertItemDetailRequest()
+        );
+
+        // Create our oAuth 2.0 authenticated API header to use with our
+        // submission.
+        const config = {
+            headers: {'Authorization': "Bearer " + user.token}
+        };
+
+        // Generate the URL.
+        let aURL = MIKAPONICS_ALERT_ITEM_WAS_VIEWED_FUNC_API_URL+alertSlug;
+
+        // Perform our API submission.
+        axios.post(aURL, {}, config).then( (successResult) => {
+            // console.log(successResult); // For debugging purposes.
+
+            const responseData = successResult.data;
+            let data = camelizeKeys(responseData);
+
+            // Extra.
+            data['isAPIRequestRunning'] = false;
+            data['errors'] = {};
+
+            // console.log(data); // For debugging purposes.
+
+            // Update the global state of the application to store our
+            // user data for the application.
+            store.dispatch(
+                setAlertItemDetailSuccess(data)
+            );
+
+        }).catch( (errorResult) => { // ERROR
+            // console.log(errorResult);
+            // alert("Error fetching latest data");
+
+            const responseData = errorResult.response.data;
             let errors = camelizeKeys(responseData);
 
             store.dispatch(

@@ -23,6 +23,7 @@ export const MIKAPONICS_GET_TIME_SERIES_DATA_API_URL = process.env.REACT_APP_API
 export const MIKAPONICS_GET_TIME_SERIES_DATA_CSV_DOWNLOAD_API_URL = process.env.REACT_APP_API_HOST+'/api/data/csv';
 export const MIKAPONICS_ALERT_ITEM_LIST_API_URL = process.env.REACT_APP_API_HOST+'/api/alerts';
 export const MIKAPONICS_ALERT_ITEM_DETAIL_API_URL = process.env.REACT_APP_API_HOST+'/api/alert/';
+export const MIKAPONICS_ALERT_ITEM_WAS_VIEWED_FUNC_API_URL = process.env.REACT_APP_API_HOST+'/api/alert-was-viewed/';
 export const MIKAPONICS_INVOICE_LIST_API_URL = process.env.REACT_APP_API_HOST+'/api/invoices';
 export const MIKAPONICS_INVOICE_DETAIL_API_URL = process.env.REACT_APP_API_HOST+'/api/invoice/';
 export const MIKAPONICS_INSTRUMENT_ANALYSIS_LIST_CREATE_API_URL = process.env.REACT_APP_API_HOST+'/api/instrument/analyses';
@@ -292,3 +293,11 @@ export const PRODUCTION_CROPS_INSPECTION_REVIEW_OPTION_CHOICES = [
         label: "Excellent"
     }
 ];
+
+
+/**
+ *  The `state` variable for the `AlertItem` API endpoint.
+ */
+export const ALERT_ITEM_UNREAD_STATE = 1;
+export const ALERT_ITEM_READ_STATE = 2;
+export const ALERT_ITEM_ARCHIVED_STATE = 3;

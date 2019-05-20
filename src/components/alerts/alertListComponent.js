@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import Moment from 'react-moment';
+import classnames from 'classnames';
 import 'moment-timezone';
+
+import { ALERT_ITEM_UNREAD_STATE } from "../../constants/api";
+
 
 class AlertItemTable extends Component {
     render() {
@@ -12,22 +16,21 @@ class AlertItemTable extends Component {
         }
         const dataLength = results.length;
         for (let i = 0; i < dataLength; i++) {
-            let datum = results[i];
+            let alertItem = results[i];
+            let isUnread = ALERT_ITEM_UNREAD_STATE === alertItem.state;
             elements.push(
-                <tr key={datum.createdAt}>
-                    <th scope="row">{datum.deviceName}</th>
-                    <th>{datum.instrumentType}</th>
-                    <th>{datum.state}</th>
+                <tr key={alertItem.createdAt} className={classnames('', { 'table-danger': isUnread })}>
+                    <th scope="row">{alertItem.prettyState}</th>
                     <td>
-                        {parseFloat(datum.datumValue).toFixed(2)}&nbsp;{datum.instrumentUnitOfMeasure}
+                        {alertItem.prettyTypeOf}
                     </td>
                     <td>
-                        <Moment tz={datum.deviceTimezone} format="YYYY/MM/DD hh:mm:ss a">
-                            {datum.datumTimestamp}
+                        <Moment tz={alertItem.deviceTimezone} format="YYYY/MM/DD hh:mm:ss a">
+                            {alertItem.alertItemTimestamp}
                         </Moment>
                     </td>
                     <td>
-                        <Link to={datum.absoluteUrl} target="_blank" rel="noopener noreferrer">
+                        <Link to={alertItem.absoluteUrl} target="_blank" rel="noopener noreferrer">
                             View&nbsp;<i className="fas fa-external-link-alt"></i>
                         </Link>
                     </td>
@@ -40,11 +43,9 @@ class AlertItemTable extends Component {
                 <table className="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col">Device</th>
-                            <th scope="col">Instrument</th>
                             <th scope="col">State</th>
-                            <th scope="col">Measured value</th>
-                            <th scope="col">Measured at</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Date</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -93,7 +94,7 @@ class AlertListComponent extends Component {
                         <AlertItemTable dataList={alertItemList} />
                     );
                 }
-            }            
+            }
         }
 
         return (

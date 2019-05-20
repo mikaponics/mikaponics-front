@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import AlertItemDetailComponent from "../../components/instruments/alertItemDetailComponent";
-import { pullAlertItemDetail } from "../../actions/alertItemDetailActions";
+import { pullAlertItemDetail, postAlertItemDetailWasViewed } from "../../actions/alertItemDetailActions";
 
 
 class AlertItemDetailContainer extends Component {
@@ -20,6 +20,7 @@ class AlertItemDetailContainer extends Component {
     componentDidMount() {
         window.scrollTo(0, 0);  // Start the page at the top of the page.
         this.props.pullAlertItemDetail(this.props.user, this.props.match.params.slug);
+        this.props.postAlertItemDetailWasViewed(this.props.user, this.props.match.params.slug);
     } // end FUNC.
 
     render() {
@@ -43,6 +44,11 @@ const mapDispatchToProps = dispatch => {
         pullAlertItemDetail: (user, alertSlug) => {
             dispatch(
                 pullAlertItemDetail(user, alertSlug)
+            )
+        },
+        postAlertItemDetailWasViewed: (user, alertSlug) => {
+            dispatch(
+                postAlertItemDetailWasViewed(user, alertSlug)
             )
         },
     }

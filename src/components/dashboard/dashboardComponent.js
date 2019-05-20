@@ -50,10 +50,12 @@ class DashboardProductionComponent extends Component {
 
 class DashboardComponent extends Component {
     render() {
-        const { productions } = this.props.dashboard;
+        const { productions, devices, activeAlertItemsCount, activeTaskItemsCount } = this.props.dashboard;
 
         const isProductionsEmpty = isEmpty(productions) === true;
         const isNotProductionsEmpty = isEmpty(productions) === false;
+        const productionsCount = productions.length;
+        const devicesCount = devices.length;
 
         return (
             <div className="Dashboard">
@@ -63,7 +65,7 @@ class DashboardComponent extends Component {
                     <div className="col-sm-3 placeholder">
                         <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-pink">
                             <Link to="/productions" className="d-block link-ndecor" title="Production">
-                                <h1 className="circle-title">1,100</h1>
+                                <h1 className="circle-title">{productionsCount}</h1>
                             </Link>
                         </div>
                         <h4>Production</h4>
@@ -72,7 +74,7 @@ class DashboardComponent extends Component {
                     <div className="col-sm-3 placeholder">
                         <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-dgreen">
                             <Link to="/devices" className="d-block link-ndecor" title="Devices">
-                                <h1 className="circle-title">10,000</h1>
+                                <h1 className="circle-title">{devicesCount}</h1>
                             </Link>
                         </div>
                         <h4>Devices</h4>
@@ -81,7 +83,7 @@ class DashboardComponent extends Component {
                     <div className="col-sm-3 placeholder">
                         <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-dblue">
                             <Link to="/alerts" className="d-block link-ndecor" title="Alerts">
-                                <h1 className="circle-title">2,200</h1>
+                                <h1 className="circle-title">{activeAlertItemsCount}</h1>
                             </Link>
                         </div>
                         <h4>Alerts</h4>
@@ -90,7 +92,7 @@ class DashboardComponent extends Component {
                     <div className="col-sm-3 placeholder">
                         <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-orange">
                             <Link to="/tasks" className="d-block link-ndecor" title="Tasks">
-                                <h1 className="circle-title">12</h1>
+                                <h1 className="circle-title">{activeTaskItemsCount}</h1>
                             </Link>
                         </div>
                         <h4>Tasks</h4>

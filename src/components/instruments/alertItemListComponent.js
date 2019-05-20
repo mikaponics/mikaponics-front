@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import Moment from 'react-moment';
+import classnames from 'classnames';
 import 'moment-timezone';
 
 import { FlashMessageComponent } from "../flashMessageComponent";
+import { ALERT_ITEM_UNREAD_STATE } from "../../constants/api";
 
 
 class AlertItemTable extends Component {
@@ -15,23 +17,24 @@ class AlertItemTable extends Component {
         }
         const dataLength = results.length;
         for (let i = 0; i < dataLength; i++) {
-            let datum = results[i];
+            let alertItem = results[i];
+            let isUnread = ALERT_ITEM_UNREAD_STATE === alertItem.state;
             elements.push(
-                <tr key={datum.createdAt}>
+                <tr key={alertItem.createdAt} className={classnames('', { 'table-danger': isUnread })}>
                     <th scope="row">
-                        <i className={`fa fa-${datum.icon}`}></i>
+                        <i className={`fa fa-${alertItem.icon}`}></i>
                     </th>
-                    <th scope="row">{datum.prettyCondition}</th>
+                    <th scope="row">{alertItem.prettyCondition}</th>
                     <td>
-                        {parseFloat(datum.value).toFixed(2)}&nbsp;{datum.instrumentUnitOfMeasure}
+                        {parseFloat(alertItem.value).toFixed(2)}&nbsp;{alertItem.instrumentUnitOfMeasure}
                     </td>
                     <td>
-                        <Moment tz={datum.deviceTimezone} format="YYYY/MM/DD hh:mm:ss a">
-                            {datum.timestamp}
+                        <Moment tz={alertItem.deviceTimezone} format="YYYY/MM/DD hh:mm:ss a">
+                            {alertItem.timestamp}
                         </Moment>
                     </td>
                     <td>
-                        <Link to={datum.absoluteUrl}>
+                        <Link to={alertItem.absoluteUrl}>
                             View&nbsp;<i className="fas fa-chevron-right"></i>
                         </Link>
                     </td>
