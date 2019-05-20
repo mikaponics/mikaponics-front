@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import InstrumentAlertDetailComponent from "../../components/instruments/instrumentAlertDetailComponent";
-import { pullInstrumentAlertDetail } from "../../actions/instrumentAlertDetailActions";
+import AlertItemDetailComponent from "../../components/instruments/alertItemDetailComponent";
+import { pullAlertItemDetail } from "../../actions/alertItemDetailActions";
 
 
-class InstrumentAlertDetailContainer extends Component {
+class AlertItemDetailContainer extends Component {
     constructor(props) {
         super(props);
 
@@ -19,12 +19,12 @@ class InstrumentAlertDetailContainer extends Component {
 
     componentDidMount() {
         window.scrollTo(0, 0);  // Start the page at the top of the page.
-        this.props.pullInstrumentAlertDetail(this.props.user, this.props.match.params.slug);
+        this.props.pullAlertItemDetail(this.props.user, this.props.match.params.slug);
     } // end FUNC.
 
     render() {
         return (
-            <InstrumentAlertDetailComponent
+            <AlertItemDetailComponent
                alertDetail={this.props.alertDetail}
             />
         );
@@ -34,15 +34,15 @@ class InstrumentAlertDetailContainer extends Component {
 const mapStateToProps = function(store) {
     return {
         user: store.userState,
-        alertDetail: store.instrumentAlertDetailState,
+        alertDetail: store.alertItemDetailState,
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        pullInstrumentAlertDetail: (user, alertSlug) => {
+        pullAlertItemDetail: (user, alertSlug) => {
             dispatch(
-                pullInstrumentAlertDetail(user, alertSlug)
+                pullAlertItemDetail(user, alertSlug)
             )
         },
     }
@@ -52,4 +52,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(InstrumentAlertDetailContainer);
+)(AlertItemDetailContainer);

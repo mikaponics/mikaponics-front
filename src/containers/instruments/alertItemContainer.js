@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import InstrumentAlertComponent from "../../components/instruments/instrumentAlertComponent";
-import { pullInstrumentAlertList } from "../../actions/instrumentAlertListActions";
+import AlertItemComponent from "../../components/instruments/alertItemComponent";
+import { pullAlertItemList } from "../../actions/alertItemListActions";
 import { clearFlashMessage } from "../../actions/flashMessageActions";
 
 
-class InstrumentAlertContainer extends Component {
+class AlertItemContainer extends Component {
     constructor(props) {
         super(props);
 
@@ -19,7 +19,7 @@ class InstrumentAlertContainer extends Component {
     }
 
     componentDidMount() {
-        this.props.pullInstrumentAlertList(this.props.user, this.props.match.params.slug);
+        this.props.pullAlertItemList(this.props.user, this.props.match.params.slug);
         window.scrollTo(0, 0);  // Start the page at the top of the page.
 
         // This function will call the API backend every second to get the
@@ -35,7 +35,7 @@ class InstrumentAlertContainer extends Component {
      *  backend to get the latest device data.
      */
     tick() {
-        this.props.pullInstrumentAlertList(this.props.user, this.props.match.params.slug);
+        this.props.pullAlertItemList(this.props.user, this.props.match.params.slug);
     }
 
     componentWillUnmount() {
@@ -53,10 +53,10 @@ class InstrumentAlertContainer extends Component {
 
     render() {
         return (
-            <InstrumentAlertComponent
+            <AlertItemComponent
                 instrument={this.props.instrument}
                 flashMessage={this.props.flashMessage}
-                dataList={this.props.instrumentAlertList}
+                dataList={this.props.alertItemList}
             />
         );
     }
@@ -66,16 +66,16 @@ const mapStateToProps = function(store) {
     return {
         user: store.userState,
         instrument: store.instrumentState,
-        instrumentAlertList: store.instrumentAlertListState,
+        alertItemList: store.alertItemListState,
         flashMessage: store.flashMessageState,
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        pullInstrumentAlertList: (user, instrumentSlug) => {
+        pullAlertItemList: (user, instrumentSlug) => {
             dispatch(
-                pullInstrumentAlertList(user, instrumentSlug)
+                pullAlertItemList(user, instrumentSlug)
             )
         },
         clearFlashMessage: () => {
@@ -88,4 +88,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(InstrumentAlertContainer);
+)(AlertItemContainer);

@@ -6,7 +6,7 @@ import { BootstrapInput } from "../bootstrap/bootstrapInput";
 import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
 
 
-class InstrumentAlertConfigComponent extends Component {
+class AlertItemConfigComponent extends Component {
     render() {
         const {
             instrument, options,
@@ -204,4 +204,4 @@ class InstrumentAlertConfigComponent extends Component {
     }
 }
 
-export default InstrumentAlertConfigComponent;
+export default AlertItemConfigComponent;

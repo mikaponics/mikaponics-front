@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Moment from 'react-moment';
 import 'moment-timezone';
 
-class InstrumentAlertTable extends Component {
+class AlertItemTable extends Component {
     render() {
         let elements = [];
         const { results } = this.props.dataList;
@@ -80,17 +80,17 @@ class NoAlertsJumbotron extends Component {
 
 class AlertListComponent extends Component {
     render() {
-        const { instrumentAlertList } = this.props;
+        const { alertItemList } = this.props;
 
         let elements;
-        if (instrumentAlertList !== undefined && instrumentAlertList !== null) {
-            const { results } = instrumentAlertList;
+        if (alertItemList !== undefined && alertItemList !== null) {
+            const { results } = alertItemList;
             if (results !== undefined && results !== null) {
                 if (results.length === 0) {
                     elements = <NoAlertsJumbotron />;
                 } else {
                     elements = (
-                        <InstrumentAlertTable dataList={instrumentAlertList} />
+                        <AlertItemTable dataList={alertItemList} />
                     );
                 }
             }            

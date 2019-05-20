@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import AlertListComponent from "../../components/alerts/alertListComponent";
-import { pullInstrumentAlertList } from "../../actions/instrumentAlertListActions";
+import { pullAlertItemList } from "../../actions/alertItemListActions";
 
 
 class AlertListContainer extends Component {
@@ -12,7 +12,7 @@ class AlertListContainer extends Component {
     }
 
     componentDidMount() {
-        this.props.pullInstrumentAlertList(this.props.user, this.props.match.params.slug);
+        this.props.pullAlertItemList(this.props.user, this.props.match.params.slug);
         window.scrollTo(0, 0);  // Start the page at the top of the page.
 
         // This function will call the API backend every second to get the
@@ -28,7 +28,7 @@ class AlertListContainer extends Component {
      *  backend to get the latest device data.
      */
     tick() {
-        this.props.pullInstrumentAlertList(this.props.user, this.props.match.params.slug);
+        this.props.pullAlertItemList(this.props.user, this.props.match.params.slug);
     }
 
     componentWillUnmount() {
@@ -45,7 +45,7 @@ class AlertListContainer extends Component {
     render() {
         return (
             <AlertListComponent
-                instrumentAlertList={this.props.instrumentAlertList}
+                alertItemList={this.props.alertItemList}
             />
         );
     }
@@ -54,15 +54,15 @@ class AlertListContainer extends Component {
 const mapStateToProps = function(store) {
     return {
         user: store.userState,
-        instrumentAlertList: store.instrumentAlertListState,
+        alertItemList: store.alertItemListState,
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        pullInstrumentAlertList: (user) => {
+        pullAlertItemList: (user) => {
             dispatch(
-                pullInstrumentAlertList(user, null, 1)
+                pullAlertItemList(user, null, 1)
             )
         },
     }

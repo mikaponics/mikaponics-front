@@ -4,7 +4,7 @@ import Moment from 'react-moment';
 import 'moment-timezone';
 
 
-class InstrumentAlertDetailComponent extends Component {
+class AlertItemDetailComponent extends Component {
     render() {
         const { alertDetail } = this.props;
         return (
@@ -98,4 +98,4 @@ class InstrumentAlertDetailComponent extends Component {
     }
 }
 
-export default InstrumentAlertDetailComponent;
+export default AlertItemDetailComponent;

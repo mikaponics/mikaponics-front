@@ -3,12 +3,12 @@ import Scroll from 'react-scroll';
 import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
 
-import InstrumentAlertConfigComponent from "../../components/instruments/instrumentAlertConfigComponent";
+import AlertItemConfigComponent from "../../components/instruments/alertItemConfigComponent";
 import { pullInstrument, putInstrument } from "../../actions/instrumentActions";
 import { setFlashMessage } from "../../actions/flashMessageActions";
 
 
-class InstrumentAlertConfigContainer extends Component {
+class AlertItemConfigContainer extends Component {
     constructor(props) {
         super(props);
 
@@ -161,7 +161,7 @@ class InstrumentAlertConfigContainer extends Component {
         }
 
         return (
-            <InstrumentAlertConfigComponent
+            <AlertItemConfigComponent
                 instrument={this.props.instrument}
                 isLoading={this.state.isLoading}
 
@@ -219,4 +219,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(InstrumentAlertConfigContainer);
+)(AlertItemConfigContainer);

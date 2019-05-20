@@ -30,9 +30,9 @@ import DeviceListContainer from "./devices/deviceListContainer";
 import DeviceContainer from "./devices/deviceContainer";
 import DeviceProfileContainer from "./devices/deviceProfileContainer";
 import InstrumentContainer from "./instruments/instrumentContainer";
-import InstrumentAlertContainer from "./instruments/instrumentAlertContainer";
-import InstrumentAlertDetailContainer from "./instruments/instrumentAlertDetailContainer";
-import InstrumentAlertConfigContainer from "./instruments/instrumentAlertConfigContainer";
+import AlertItemContainer from "./instruments/alertItemContainer";
+import AlertItemDetailContainer from "./instruments/alertItemDetailContainer";
+import AlertItemConfigContainer from "./instruments/alertItemConfigContainer";
 import InstrumentDataContainer from "./instruments/instrumentDataContainer";
 import InstrumentDataDownloadContainer from "./instruments/instrumentDataDownloadContainer";
 import InstrumentAnalysisListContainer from "./instruments/instrumentAnalysisListContainer";
@@ -105,9 +105,9 @@ class AppContainer extends React.Component {
                             <Route path="/device/:slug" exact component={requiresAuth(DeviceContainer)} />
                             <Route path="/device/:slug/profile" exact component={requiresAuth(DeviceProfileContainer)} />
                             <Route path="/instrument/:slug" exact component={requiresAuth(InstrumentContainer)} />
-                            <Route path="/instrument/:slug/alerts" exact component={requiresAuth(InstrumentAlertContainer)} />
-                            <Route path="/instrument-alert/:slug" exact component={requiresAuth(InstrumentAlertDetailContainer)} />
-                            <Route path="/instrument/:slug/alerts/config" exact component={requiresAuth(InstrumentAlertConfigContainer)} />
+                            <Route path="/instrument/:slug/alerts" exact component={requiresAuth(AlertItemContainer)} />
+                            <Route path="/instrument-alert/:slug" exact component={requiresAuth(AlertItemDetailContainer)} />
+                            <Route path="/instrument/:slug/alerts/config" exact component={requiresAuth(AlertItemConfigContainer)} />
                             <Route path="/instrument/:slug/data" exact component={requiresAuth(InstrumentDataContainer)} />
                             <Route path="/instrument/:slug/data/download" exact component={requiresAuth(InstrumentDataDownloadContainer)} />
                             <Route path="/instrument/:slug/analyses" exact component={requiresAuth(InstrumentAnalysisListContainer)} />

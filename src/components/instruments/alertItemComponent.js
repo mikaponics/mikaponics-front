@@ -6,7 +6,7 @@ import 'moment-timezone';
 import { FlashMessageComponent } from "../flashMessageComponent";
 
 
-class InstrumentAlertTable extends Component {
+class AlertItemTable extends Component {
     render() {
         let elements = [];
         const { results } = this.props.dataList;
@@ -82,7 +82,7 @@ class NoAlertsJumbotron extends Component {
 }
 
 
-class InstrumentAlertComponent extends Component {
+class AlertItemComponent extends Component {
     render() {
         const { instrument, flashMessage, dataList } = this.props;
 
@@ -94,7 +94,7 @@ class InstrumentAlertComponent extends Component {
                     elements = <NoAlertsJumbotron instrument={instrument} />;
                 } else {
                     elements = (
-                        <InstrumentAlertTable dataList={dataList} />
+                        <AlertItemTable dataList={dataList} />
                     );
                 }
             }            
@@ -155,4 +155,4 @@ class InstrumentAlertComponent extends Component {
     }
 }
 
-export default InstrumentAlertComponent;
+export default AlertItemComponent;

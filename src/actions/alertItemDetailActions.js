@@ -3,15 +3,18 @@ import store from '../store';
 import { camelizeKeys } from 'humps';
 
 import {
-    INSTRUMENT_ALERT_DETAIL_REQUEST, INSTRUMENT_ALERT_DETAIL_FAILURE, INSTRUMENT_ALERT_DETAIL_SUCCESS, CLEAR_INSTRUMENT_ALERT_DETAIL
+    ALERT_ITEM_DETAIL_REQUEST,
+    ALERT_ITEM_DETAIL_FAILURE,
+    ALERT_ITEM_DETAIL_SUCCESS,
+    CLEAR_ALERT_ITEM_DETAIL
 } from '../constants/actionTypes';
 import {
-    MIKAPONICS_INSTRUMENT_ALERT_DETAIL_API_URL
+    MIKAPONICS_ALERT_ITEM_DETAIL_API_URL
 } from '../constants/api';
 
 
-export const setInstrumentAlertDetailRequest = () => ({
-    type: INSTRUMENT_ALERT_DETAIL_REQUEST,
+export const setAlertItemDetailRequest = () => ({
+    type: ALERT_ITEM_DETAIL_REQUEST,
     payload: {
         isAPIRequestRunning: true,
         errors: {}
@@ -19,20 +22,20 @@ export const setInstrumentAlertDetailRequest = () => ({
 });
 
 
-export const setInstrumentAlertDetailFailure = (info) => ({
-    type: INSTRUMENT_ALERT_DETAIL_FAILURE,
+export const setAlertItemDetailFailure = (info) => ({
+    type: ALERT_ITEM_DETAIL_FAILURE,
     payload: info,
 });
 
 
-export const setInstrumentAlertDetailSuccess = (info) => ({
-    type: INSTRUMENT_ALERT_DETAIL_SUCCESS,
+export const setAlertItemDetailSuccess = (info) => ({
+    type: ALERT_ITEM_DETAIL_SUCCESS,
     payload: info,
 });
 
 
-export const setClearInstrumentAlertDetail = () => ({
-    type: CLEAR_INSTRUMENT_ALERT_DETAIL,
+export const setClearAlertItemDetail = () => ({
+    type: CLEAR_ALERT_ITEM_DETAIL,
     payload: {},
 });
 
@@ -41,11 +44,11 @@ export const setClearInstrumentAlertDetail = () => ({
  *  Function will pull the ``instrument`` API endpoint and override our
  *  global application state for the 'dashboard'.
  */
-export function pullInstrumentAlertDetail(user, instrumentSlug=null) {
+export function pullAlertItemDetail(user, instrumentSlug=null) {
     return dispatch => {
         // Change the global state to attempting to fetch latest user details.
         store.dispatch(
-            setInstrumentAlertDetailRequest()
+            setAlertItemDetailRequest()
         );
 
         // Create our oAuth 2.0 authenticated API header to use with our
@@ -55,7 +58,7 @@ export function pullInstrumentAlertDetail(user, instrumentSlug=null) {
         };
 
         // Generate the URL.
-        const aURL = MIKAPONICS_INSTRUMENT_ALERT_DETAIL_API_URL+instrumentSlug;
+        const aURL = MIKAPONICS_ALERT_ITEM_DETAIL_API_URL+instrumentSlug;
 
         // Make the API call.
         axios.get(
@@ -76,7 +79,7 @@ export function pullInstrumentAlertDetail(user, instrumentSlug=null) {
             // Update the global state of the application to store our
             // user data for the application.
             store.dispatch(
-                setInstrumentAlertDetailSuccess(data)
+                setAlertItemDetailSuccess(data)
             );
 
         }).catch( (errorResult) => { // ERROR
@@ -87,7 +90,7 @@ export function pullInstrumentAlertDetail(user, instrumentSlug=null) {
             let errors = camelizeKeys(responseData);
 
             store.dispatch(
-                setInstrumentAlertDetailFailure({
+                setAlertItemDetailFailure({
                     isAPIRequestRunning: false,
                     errors: errors,
                 })
