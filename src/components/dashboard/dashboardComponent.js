@@ -64,8 +64,8 @@ class DashboardComponent extends Component {
 
         const isProductionsEmpty = isEmpty(productions) === true;
         const isNotProductionsEmpty = isEmpty(productions) === false;
-        const productionsCount = productions.length;
-        const devicesCount = devices.length;
+        const productionsCount = (productions !== undefined && productions !== null) ? productions.length : 0;
+        const devicesCount = (devices !== undefined && devices !== null) ? devices.length : 0;
 
         return (
             <div className="Dashboard">
