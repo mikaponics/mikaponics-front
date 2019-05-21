@@ -104,9 +104,13 @@ class ProductionListComponent extends Component {
     render() {
         const { productionList, flashMessage } = this.props;
 
+        // DEFENSIVE CODE: DO NOT LOAD VIEW UNTIL WE HAVE DATA FROM API ENDPOINT.
+        if (isEmpty(productionList)) { return null; }
+
         let operatingElements = [];
         let terminatedElements = [];
-        const isProductionListNotEmpty = isEmpty(productionList) === false;
+        const isProductionListNotEmpty = isEmpty(productionList.results) === false;
+        const isProductionListEmpty = isEmpty(productionList.results) === true;
 
         if (isProductionListNotEmpty) {
             const { results } = productionList;
@@ -151,6 +155,22 @@ class ProductionListComponent extends Component {
                         </div>
                     </div>
                 }
+                {isProductionListEmpty &&
+                    <div className="jumbotron">
+                        <h1 className="display-4">
+                            <i className="fas fa-bullhorn"></i>&nbsp;Attention
+                        </h1>
+                        <p className="lead">You currently do not have any crop productions running at the moment.</p>
+                        <hr className="my-4" />
+                        <p>If you would like to start running a crop production, please start by clicking below.</p>
+                        <p className="lead">
+                            <Link to="/add-production-step-1" className="btn btn-success btn-lg">
+                                <i className="fas fa-plus"></i>&nbsp;Add
+                            </Link>
+                        </p>
+                    </div>
+                }
+
             </div>
         );
     }
