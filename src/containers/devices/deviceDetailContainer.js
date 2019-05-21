@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import DeviceComponent from "../../components/devices/deviceComponent";
+import DeviceDetailComponent from "../../components/devices/deviceDetailComponent";
 import { pullDevice } from "../../actions/deviceActions";
 import { clearFlashMessage } from "../../actions/flashMessageActions";
 
 
-class DeviceContainer extends Component {
+class DeviceDetailContainer extends Component {
     constructor(props) {
         super(props);
 
@@ -54,7 +54,7 @@ class DeviceContainer extends Component {
     render() {
         const { flashMessage } = this.props;
         return (
-            <DeviceComponent
+            <DeviceDetailComponent
                 device={this.props.device}
                 flashMessage={flashMessage}
             />
@@ -87,4 +87,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(DeviceContainer);
+)(DeviceDetailContainer);
