@@ -8,37 +8,101 @@ import isEmpty from 'lodash/isEmpty';
 import { FlashMessageComponent } from "../flashMessageComponent";
 
 
-class ProductionCropRowComponent extends Component {
+class ProductionCropPassedEvaluationRowsComponent extends Component {
     render() {
-        const { prettyName, prettyScore } = this.props.crop;
+        const { evaluationPass } = this.props;
+        console.log(this.props);
+        if (isEmpty(evaluationPass)) { return null; } // Defensive code.
+        const { prettyInstrumentTypeOf } = evaluationPass;
+        const hStyle = { color: 'green' };
         return (
             <tr>
-                <th scope="row" className="bg-light">{prettyName}</th>
-                <td>{prettyScore}</td>
+                <th scope="row" className="bg-light">{prettyInstrumentTypeOf}</th>
+                <td style={hStyle}>Pass</td>
             </tr>
+        );
+    }
+}
+
+
+class ProductionCropFailedEvaluationRowsComponent extends Component {
+    render() {
+        const { evaluationFailure } = this.props;
+        if (isEmpty(evaluationFailure)) { return null; } // Defensive code.
+        const { prettyInstrumentTypeOf, message } = evaluationFailure;
+        const hStyle = { color: 'red' };
+        return (
+            <tr>
+                <th scope="row" className="bg-light">{prettyInstrumentTypeOf}</th>
+                <td style={hStyle}>Failed - {message}</td>
+            </tr>
+        );
+    }
+}
+
+
+class ProductionCropEvaluationTableComponent extends Component {
+    render() {
+        const {
+            prettyName, evaluationLetter, evaluatedAt, evaluationFailures, evaluationPasses
+        } = this.props.crop;
+        return (
+            <table className="table table-bordered custom-cell-w">
+                <tbody>
+                    <tr className="bg-dark">
+                        <th scope="row" colSpan="2" className="text-light">{prettyName}</th>
+                    </tr>
+                    <tr>
+                        <th scope="row" className="bg-light">Quality Grade</th>
+                        <td>{evaluationLetter}</td>
+                    </tr>
+                    {evaluationPasses.map(
+                        (evaluationPass, i) => <ProductionCropPassedEvaluationRowsComponent evaluationPass={evaluationPass} key={i} />)
+                    }
+                    {evaluationFailures.map(
+                        (evaluationFailure, i) => <ProductionCropFailedEvaluationRowsComponent evaluationFailure={evaluationFailure} key={i} />)
+                    }
+                </tbody>
+            </table>
         );
     }
 }
 
 class ProductionTableComponent extends Component {
     render() {
-        const { name, crops, absoluteUrl } = this.props.production;
+        const { name, crops, absoluteUrl, evaluationLetter, evaluatedAt, timezone } = this.props.production;
+        const { user } = this.props;
         const isCropsNotEmpty = isEmpty(crops) === false;
         return (
             <div className="row">
                 <div className="col-md-12">
-                    <h2><i className="fas fa-th-list"></i>&nbsp;Table</h2>
+                    <h2><i className="fas fa-server"></i>&nbsp;Evaluation</h2>
                     {isCropsNotEmpty &&
-                        <table className="table table-bordered custom-cell-w">
-                            <tbody>
-                            <tr className="bg-dark">
-                                <th scope="row" colSpan="2" className="text-light">Crops Evaluation</th>
-                            </tr>
+                        <div>
+                            <table className="table table-bordered custom-cell-w">
+                                <tbody>
+                                    <tr className="bg-dark">
+                                        <th scope="row" colSpan="2" className="text-light">Overall</th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" className="bg-light">Quality Grade</th>
+                                        <td>{evaluationLetter}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" className="bg-light">Last Updated</th>
+                                        <td>
+                                            <Moment tz={user.timezone} format="YYYY/MM/DD hh:mm:ss a">
+                                                {evaluatedAt}
+                                            </Moment>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
                             {crops.map(
-                                (crop, i) => <ProductionCropRowComponent crop={crop} key={i} />)
+                                (crop, i) => <ProductionCropEvaluationTableComponent crop={crop} key={i} />)
                             }
-                            </tbody>
-                        </table>
+                        </div>
                     }
                 </div>
             </div>
@@ -49,7 +113,7 @@ class ProductionTableComponent extends Component {
 
 class ProductionDetailComponent extends Component {
     render() {
-        const { productionDetail, flashMessage } = this.props;
+        const { user, productionDetail, flashMessage } = this.props;
         const isLocked = productionDetail.state === 4;
         const isNotProductionCropsEmpty = isEmpty(productionDetail.crops) === false;
         return (
@@ -114,7 +178,10 @@ class ProductionDetailComponent extends Component {
                     */}
                 </section>
 
-                <ProductionTableComponent production={productionDetail} />
+                <ProductionTableComponent
+                    production={productionDetail}
+                    user={user}
+                />
 
             </div>
         );

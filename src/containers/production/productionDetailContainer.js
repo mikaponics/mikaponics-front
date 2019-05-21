@@ -56,6 +56,7 @@ class ProductionListContainer extends Component {
     render() {
         return (
             <ProductionDetailComponent
+                user={this.props.user}
                 productionDetail={this.props.productionDetail}
                 flashMessage={this.props.flashMessage}
             />
