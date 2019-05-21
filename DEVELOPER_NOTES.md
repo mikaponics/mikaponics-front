@@ -32,6 +32,7 @@ npm install --save pace-js pace
 npm install --save react-to-print
 npm install --save react-scroll-up-button
 npm install --save react-modal
+npm install --save react-spinners
 ```
 
 Upgrade doing the following:
