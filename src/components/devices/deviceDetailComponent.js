@@ -5,6 +5,7 @@ import Moment from 'react-moment';
 import 'moment-timezone';
 
 import { FlashMessageComponent } from "../flashMessageComponent";
+import { DEVICE_NEW_STATE } from "../../constants/api";
 
 
 class DeviceInstrumentTableRowComponent extends Component {
@@ -83,6 +84,9 @@ class DeviceInstrumentsTableComponent extends Component {
 class DeviceComponent extends Component {
     render() {
         const { device, flashMessage } = this.props;
+        const { state } = device;
+        const isDeviceInNewState = state === DEVICE_NEW_STATE;
+        const isDeviceNotInNewState = state !== DEVICE_NEW_STATE;
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -98,20 +102,32 @@ class DeviceComponent extends Component {
                 </nav>
                 <h1><i className="fas fa-cube"></i>&nbsp;Device</h1>
 
-                <FlashMessageComponent object={flashMessage} />
+                {isDeviceNotInNewState &&
+                    <div>
+                        <FlashMessageComponent object={flashMessage} />
 
-                <section className="row text-center placeholders">
-                    <div className="col-sm-3 placeholder">
-                        <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-pink">
-                            <Link to={`/device/${device.slug}/profile`} className="d-block link-ndecor" title="Add Client">
-                                <span className="r-circle"><i className="fas fa-pencil-alt fa-3x"></i></span>
-                            </Link>
-                        </div>
-                        <h4>Profile</h4>
-                        <div className="text-muted">View your device profile</div>
+                        <section className="row text-center placeholders">
+                            <div className="col-sm-3 placeholder">
+                                <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-pink">
+                                    <Link to={`/device/${device.slug}/profile`} className="d-block link-ndecor" title="Add Client">
+                                        <span className="r-circle"><i className="fas fa-pencil-alt fa-3x"></i></span>
+                                    </Link>
+                                </div>
+                                <h4>Profile</h4>
+                                <div className="text-muted">View your device profile</div>
+                            </div>
+                        </section>
+                        <DeviceInstrumentsTableComponent instruments={device.instruments} />
                     </div>
-                </section>
-                <DeviceInstrumentsTableComponent instruments={device.instruments} />
+                }
+                {isDeviceInNewState &&
+                    <div className="jumbotron">
+                        <h1 className="display-4">
+                            <i className="fas fa-shield-alt"></i>&nbsp;Activation Required
+                        </h1>
+                        <p className="lead">Please connect your device to the power and connect it to the internet. Once your device is connected, it will activate with our system and become available for usage.</p>
+                    </div>
+                }
             </div>
         );
     }

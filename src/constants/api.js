@@ -42,6 +42,16 @@ export const MIKAPONICS_PRODUCTION_INSPECTION_RETRIEVE_UPDATE_API_URL = process.
 export const MIKAPONICS_PRODUCTION_INSPECTION_RETRIEVE_OR_CREATE_DEFAULT_DRAFT_API_URL = process.env.REACT_APP_API_HOST+'/api/production-default-draft-inspection/';
 export const MIKAPONICS_PRODUCTION_CROP_INSPECTION_LIST_CREATE_API_URL = process.env.REACT_APP_API_HOST+'/api/production-crop-inspections';
 export const MIKAPONICS_PRODUCTION_CROP_INSPECTION_RETRIEVE_UPDATE_API_URL = process.env.REACT_APP_API_HOST+'/api/production-crop-inspection/';
+
+/**
+ * The available choices for the `state` field in the `Device` API.
+ */
+export const DEVICE_NEW_STATE = 1;
+export const DEVICE_ONLINE_STATE = 2;
+export const DEVICE_OFFLINE_STATE = 3;
+export const DEVICE_ERROR_STATE = 4;
+export const DEVICE_ARCHIVED_STATE = 5;  // A.k.a. "Deleted".
+
 /**
  *  The available choices for the ``subscription_status`` field in the user API.
  */
