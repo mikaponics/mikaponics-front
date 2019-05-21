@@ -61,7 +61,7 @@ class ProductionStep2CreateComponent extends Component {
                     </div>
                 </div>
 
-                <h3 className="pt-4 pb-2 text-center">Plants Form</h3>
+                <h3 className="pt-4 pb-2 text-center"><i className="fas fa-leaf"></i>&nbsp;Plants Form</h3>
                 <div className="row">
                     <div className="col-md-5 mx-auto mt-2">
                         <form className="needs-validation" noValidate>

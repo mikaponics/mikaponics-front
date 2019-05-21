@@ -85,11 +85,12 @@ class ProductionStep4CreateComponent extends Component {
                             <span className="num">4.</span><span className="">Review</span>
                         </div>
                     </div>
-                </div>
+                </div><h3 className="pt-4 text-center"><i className="fas fa-table"></i>&nbsp;Review</h3>
 
 
                 <div className="row mt-4 pt-3 mb-4 pb-2">
                     <div className="col-md-10 mx-auto p-2">
+
 
                         <BootstrapErrorsProcessingAlert errors={errors} />
 
