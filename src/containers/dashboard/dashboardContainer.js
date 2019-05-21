@@ -40,7 +40,10 @@ class DashboardContainer extends Component {
         }
 
         return (
-            <DashboardComponent dashboard={this.props.dashboard} />
+            <DashboardComponent
+                dashboard={this.props.dashboard}
+                user={this.props.user}
+            />
         );
     }
 }

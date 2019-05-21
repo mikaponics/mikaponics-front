@@ -1,45 +1,54 @@
 import React, { Component } from 'react';
 import isEmpty from 'lodash/isEmpty';
-
+import Moment from 'react-moment';
+import 'moment-timezone';
 import { Link } from "react-router-dom";
-
-
-class DashboardProductionCropComponent extends Component {
-    render() {
-        const { prettyName, prettyScore } = this.props.crop;
-        return (
-            <tr>
-                <th scope="row" className="bg-light">{prettyName}</th>
-                <td>{prettyScore}</td>
-            </tr>
-        );
-    }
-}
 
 
 class DashboardProductionComponent extends Component {
     render() {
-        const { name, crops, absoluteUrl } = this.props.production;
+        const { name, evaluationScore, evaluationHasError, absoluteUrl, lastModifiedPrettyAt } = this.props.production;
+        const { timezone } = this.props.user;
+        let scoreText = null;
+        if (evaluationHasError) {
+            scoreText = "Error - Please investigate";
+        } else {
+            scoreText = evaluationScore
+        }
         return (
-            <div>
-                <div className="row">
-                    <div className="col-12">
+            <div className="col-sm-4" key={name}>
+                <div className="card text-center">
+                    <p className="mt-4 pt-3 mb-2"><i className="fas fa-leaf fa-4x text-muted"></i></p>
+                    <div className="card-body">
+                        <h3 className="card-title">{name}</h3>
+                    </div>
+                    <ul className="list-group list-group-flush">
+                        <li className="list-group-item">
+                            <strong>Score:</strong>&nbsp;{scoreText}
+                        </li>
+                        <li className="list-group-item">
+                            <strong>Last Updated</strong>:&nbsp;
+                            <Moment tz={timezone} format="YYYY/MM/DD hh:mm:ss a">
+                                {lastModifiedPrettyAt}
+                            </Moment>
+                        </li>
+                        { /*
+                        <li className="list-group-item">
+                            <div className="col-sm-12 text-center">
+                                <img className="img-fluid" src="/img/placeholder.png" alt="Logo" width="180px" />
 
-                        <h4><i className="fas fa-leaf"></i>&nbsp;{name}</h4>
+                            </div>
+                        </li>
+                        */ }
+                    </ul>
+                    <div className="card-body">
 
-                        <table className="table table-bordered custom-cell-w">
-                            <tbody>
-                            <tr className="bg-dark">
-                                <th scope="row" colSpan="2" className="text-light">Crops Evaluation</th>
-                            </tr>
-                            {crops.map(
-                                (crop, i) => <DashboardProductionCropComponent crop={crop} key={i} />)
-                            }
-                            </tbody>
-                        </table>
-                        <Link to={absoluteUrl} className="btn btn-success btn-lg float-right">
-                            View&nbsp;<i className="fas fa-arrow-circle-right"></i>
-                        </Link>
+                        <form id="reset-form" autoComplete="off" className="form" method="post">
+
+                            <Link to={absoluteUrl} className="btn btn-lg btn-primary btn-block">
+                                View&nbsp;<i className="fas fa-arrow-circle-right"></i>
+                            </Link>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -51,6 +60,7 @@ class DashboardProductionComponent extends Component {
 class DashboardComponent extends Component {
     render() {
         const { productions, devices, activeAlertItemsCount, activeTaskItemsCount } = this.props.dashboard;
+        const { user } = this.props;
 
         const isProductionsEmpty = isEmpty(productions) === true;
         const isNotProductionsEmpty = isEmpty(productions) === false;
@@ -102,13 +112,14 @@ class DashboardComponent extends Component {
 
                 <div className="row">
                     <div className="col-12">
-                        <h2><i className="fas fa-industry"></i>&nbsp;Production List</h2>
+                        <h2><i className="fas fa-industry"></i>&nbsp;Productions</h2>
+                        <hr />
                     </div>
                 </div>
                 {isNotProductionsEmpty &&
-                    <div>
+                    <div className="card-group row">
                         {productions.map(
-                            (production, i) => <DashboardProductionComponent production={production} key={i} />)
+                            (production, i) => <DashboardProductionComponent production={production} user={user} key={i} />)
                         }
                     </div>
                 }
@@ -127,7 +138,6 @@ class DashboardComponent extends Component {
                         </p>
                     </div>
                 }
-
             </div>
         );
     }
