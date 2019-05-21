@@ -7,13 +7,13 @@ import { Link } from "react-router-dom";
 
 class DashboardProductionComponent extends Component {
     render() {
-        const { name, evaluationScore, evaluationHasError, absoluteUrl, lastModifiedPrettyAt } = this.props.production;
+        const { name, evaluationLetter, evaluationHasError, absoluteUrl, lastModifiedPrettyAt } = this.props.production;
         const { timezone } = this.props.user;
         let scoreText = null;
         if (evaluationHasError) {
             scoreText = "Error - Please investigate";
         } else {
-            scoreText = evaluationScore
+            scoreText = evaluationLetter
         }
         return (
             <div className="col-sm-4" key={name}>
@@ -24,7 +24,7 @@ class DashboardProductionComponent extends Component {
                     </div>
                     <ul className="list-group list-group-flush">
                         <li className="list-group-item">
-                            <strong>Score:</strong>&nbsp;{scoreText}
+                            <strong>Grade:</strong>&nbsp;{scoreText}
                         </li>
                         <li className="list-group-item">
                             <strong>Last Updated</strong>:&nbsp;
