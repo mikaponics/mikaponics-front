@@ -158,14 +158,14 @@ class ProductionListComponent extends Component {
                 {isProductionListEmpty &&
                     <div className="jumbotron">
                         <h1 className="display-4">
-                            <i className="fas fa-bullhorn"></i>&nbsp;Attention
+                            <i className="fas fa-leaf"></i>&nbsp;Create a Crop Production
                         </h1>
-                        <p className="lead">You currently do not have any crop productions running at the moment.</p>
+                        <p className="lead">Crop productions are used to track the life-cycle of plants and fish you will be growing in your setup. Once create you are able to submit your quality inspections and have the system provide real-time evaluations about the growing conditions of your crop. Once you harvest your crop, be sure to log the data here as well.</p>
                         <hr className="my-4" />
-                        <p>If you would like to start running a crop production, please start by clicking below.</p>
+                        <p>To begin, please start by clicking below.</p>
                         <p className="lead">
-                            <Link to="/add-production-step-1" className="btn btn-success btn-lg">
-                                <i className="fas fa-plus"></i>&nbsp;Add
+                            <Link to="/add-production-step-1" className="btn btn-primary btn-lg">
+                                Begin&nbsp;<i className="fas fa-arrow-circle-right"></i>
                             </Link>
                         </p>
                     </div>
