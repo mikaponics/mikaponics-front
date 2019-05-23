@@ -13,8 +13,10 @@ class TaskItemDetailContainer extends Component {
         // fetch the URL argument as follows.
         const { slug } = this.props.match.params;
         this.state = {
-            taskSlug: slug
+            taskSlug: slug,
+            isLoading: false
         }
+        this.onClick = this.onClick.bind(this);
     }
 
     componentDidMount() {
@@ -22,11 +24,17 @@ class TaskItemDetailContainer extends Component {
         this.props.pullTaskItemDetail(this.props.user, this.props.match.params.slug);
     } // end FUNC.
 
+    onClick() {
+        alert("TEST");
+    }
+
     render() {
         return (
             <TaskItemDetailComponent
                taskDetail={this.props.taskDetail}
                user={this.props.user}
+               onClick={this.onClick}
+               isLoading={this.state.isLoading}
             />
         );
     }

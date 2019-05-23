@@ -6,7 +6,7 @@ import 'moment-timezone';
 
 class TaskItemDetailComponent extends Component {
     render() {
-        const { taskDetail, user } = this.props;
+        const { taskDetail, user, onClick, isLoading } = this.props;
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -66,11 +66,15 @@ class TaskItemDetailComponent extends Component {
                     </div>
                 </div>
 
-                <div className="form-group col-md-12 mb-3 mx-auto text-center">
-                    <Link className="btn btn-primary btn-lg btn-fxw mt-4" type="button" to='/tasks'>
-                        <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
-                    </Link>
-                </div>
+
+
+                <br />
+                <Link to="/tasks" className="btn btn-secondary btn-lg float-left">
+                    <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
+                </Link>
+                <button className="btn btn-success btn-lg float-right" onClick={onClick} disabled={isLoading}>
+                    <i className="fas fa-check"></i>&nbsp;Close Task
+                </button>
 
             </div>
         );
