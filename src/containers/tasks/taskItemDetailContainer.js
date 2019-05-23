@@ -26,6 +26,7 @@ class TaskItemDetailContainer extends Component {
         return (
             <TaskItemDetailComponent
                taskDetail={this.props.taskDetail}
+               user={this.props.user}
             />
         );
     }

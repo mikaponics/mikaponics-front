@@ -18,15 +18,16 @@ class TaskItemTable extends Component {
         for (let i = 0; i < dataLength; i++) {
             let taskItem = results[i];
             let isUnread = false;
+            let stateText = taskItem.isClosed ? "Closed" : "Open";
             elements.push(
                 <tr key={taskItem.createdAt} className={classnames('', { 'table-danger': isUnread })}>
-                    <th scope="row">{taskItem.prettyState}</th>
+                    <th scope="row">{stateText}</th>
                     <td>
                         {taskItem.prettyTypeOf}
                     </td>
                     <td>
                         <Moment tz={taskItem.deviceTimezone} format="YYYY/MM/DD hh:mm:ss a">
-                            {taskItem.taskItemTimestamp}
+                            {taskItem.dueDate}
                         </Moment>
                     </td>
                     <td>
@@ -45,7 +46,7 @@ class TaskItemTable extends Component {
                         <tr>
                             <th scope="col">State</th>
                             <th scope="col">Type</th>
-                            <th scope="col">Date</th>
+                            <th scope="col">Due Date</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -81,7 +82,7 @@ class NoTasksJumbotron extends Component {
 
 class TaskListComponent extends Component {
     render() {
-        const { taskItemList } = this.props;
+        const { user, taskItemList } = this.props;
 
         let elements;
         if (taskItemList !== undefined && taskItemList !== null) {
@@ -91,7 +92,7 @@ class TaskListComponent extends Component {
                     elements = <NoTasksJumbotron />;
                 } else {
                     elements = (
-                        <TaskItemTable dataList={taskItemList} />
+                        <TaskItemTable dataList={taskItemList} user={user} />
                     );
                 }
             }
@@ -105,11 +106,11 @@ class TaskListComponent extends Component {
                            <Link to="/dashboard"><i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard</Link>
                         </li>
                         <li className="breadcrumb-item active" aria-current="page">
-                            <i className="fas fa-bell"></i>&nbsp;Tasks
+                            <i className="fas fa-tasks"></i>&nbsp;Tasks
                         </li>
                     </ol>
                 </nav>
-                <h1><i className="fas fa-bell"></i>&nbsp;Tasks</h1>
+                <h1><i className="fas fa-tasks"></i>&nbsp;Tasks</h1>
                 <div className="row">
                     <div className="col-md-12">
                         {elements}

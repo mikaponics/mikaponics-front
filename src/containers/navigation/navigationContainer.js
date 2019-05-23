@@ -42,6 +42,11 @@ const authenticatedFullMenuData = [
         title: "Alerts",
         url: "/alerts"
     },{
+        id: "full-tasks",
+        icon: "tasks",
+        title: "Tasks",
+        url: "/tasks"
+    },{
         id: "full-account",
         title: "Account",
         icon: "id-card",

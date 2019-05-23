@@ -45,6 +45,7 @@ class TaskListContainer extends Component {
     render() {
         return (
             <TaskListComponent
+                user={this.props.user}
                 taskItemList={this.props.taskItemList}
             />
         );
