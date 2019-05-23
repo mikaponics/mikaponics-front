@@ -64,7 +64,8 @@ import ProductionInspectionCreateCropContainer from "./production/inspection/pro
 import ProductionInspectionCreateFinishContainer from "./production/inspection/productionInspectionCreateFinishContainer";
 import ProductionInspectionDetailContainer from "./production/inspection/productionInspectionDetailContainer";
 import ProductionProfileContainer from "./production/profile/productionProfileContainer";
-
+import TaskListContainer from "./tasks/taskListContainer";
+import TaskItemDetailContainer from "./tasks/taskItemDetailContainer";
 
 class AppContainer extends React.Component {
   render() {
@@ -143,6 +144,8 @@ class AppContainer extends React.Component {
                             <Route path="/production/:slug/create-inspection/finish" exact component={ProductionInspectionCreateFinishContainer} />
                             <Route path="/production-inspection/:slug" exact component={ProductionInspectionDetailContainer} />
                             <Route path="/production/:slug/profile" exact component={ProductionProfileContainer} />
+                            <Route path="/tasks" exact component={requiresAuth(TaskListContainer)} />
+                            <Route path="/task/:slug" exact component={requiresAuth(TaskItemDetailContainer)} />
                             <Route component={NotFound404Container} />
                         </Switch>
                     </main>

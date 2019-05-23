@@ -23,6 +23,8 @@ import {
     PRODUCTION_INSPECTION_DETAIL_SUCCESS,
     PRODUCTION_CROP_INSPECTION_LIST_SUCCESS,
     PRODUCTION_CROP_INSPECTION_DETAIL_SUCCESS,
+    TASK_ITEM_LIST_SUCCESS,
+    TASK_ITEM_DETAIL_SUCCESS,
 } from "./constants/actionTypes";
 import userReducer from "./reducers/userReducer";
 import onboardingReducer from "./reducers/onboardingReducer";
@@ -51,6 +53,8 @@ import productionInspectionListReducer from "./reducers/productionInspectionList
 import productionInspectionDetailReducer from "./reducers/productionInspectionDetailReducer";
 import productionCropInspectionListReducer from "./reducers/productionCropInspectionListReducer";
 import productionCropInspectionDetailReducer from "./reducers/productionCropInspectionDetailReducer";
+import taskItemListReducer from "./reducers/taskItemListReducer";
+import taskItemDetailReducer from "./reducers/taskItemDetailReducer";
 
 
 // Combine Reducers
@@ -82,6 +86,8 @@ const appReducer = combineReducers({
     productionInspectionDetailState: productionInspectionDetailReducer,
     productionCropInspectioListState: productionCropInspectionListReducer,
     productionCropInspectionDetailState: productionCropInspectionDetailReducer,
+    taskItemListState: taskItemListReducer,
+    taskItemDetailState: taskItemDetailReducer,
 });
 
 
@@ -109,7 +115,15 @@ const rootReducer = (state, action) => {
 const localStorageMiddleware = ({ getState }) => {
     return next => action => {
         const result = next(action);
-        if ([ LOGIN_SUCCESS, LOGOUT_SUCCESS, ONBOARDING_SUCCESS, DASHBOARD_SUCCESS, PROFILE_SUCCESS, DEVICE_SUCCESS, INSTRUMENT_SUCCESS, PURCHASE_DEVICE_SUCCESS, PRODUCTION_LIST_SUCCESS, PRODUCTION_DETAIL_SUCCESS, CROP_LIFE_CYCLE_STAGE_LIST_SUCCESS, CROP_DATA_SHEET_LIST_SUCCESS, CROP_SUBSTRATE_LIST_SUCCESS, PRODUCTION_CROP_LIST_SUCCESS, PRODUCTION_CROP_DETAIL_SUCCESS, PRODUCTION_INSPECTION_LIST_SUCCESS, PRODUCTION_INSPECTION_DETAIL_SUCCESS ].includes(result.type)) {
+        if ([
+            LOGIN_SUCCESS, LOGOUT_SUCCESS, ONBOARDING_SUCCESS, DASHBOARD_SUCCESS,
+            PROFILE_SUCCESS, DEVICE_SUCCESS, INSTRUMENT_SUCCESS, PURCHASE_DEVICE_SUCCESS,
+            PRODUCTION_LIST_SUCCESS, PRODUCTION_DETAIL_SUCCESS, CROP_LIFE_CYCLE_STAGE_LIST_SUCCESS,
+            CROP_DATA_SHEET_LIST_SUCCESS, CROP_SUBSTRATE_LIST_SUCCESS, PRODUCTION_CROP_LIST_SUCCESS,
+            PRODUCTION_CROP_DETAIL_SUCCESS, PRODUCTION_INSPECTION_LIST_SUCCESS,
+            PRODUCTION_INSPECTION_DETAIL_SUCCESS, TASK_ITEM_LIST_SUCCESS,
+            TASK_ITEM_DETAIL_SUCCESS
+        ].includes(result.type)) {
             // console.log("De-hydrating store...");
             localStorage.setItem(APP_STATE, JSON.stringify(getState()))
         }
