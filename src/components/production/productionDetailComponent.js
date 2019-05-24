@@ -44,30 +44,44 @@ class ProductionCropFailedEvaluationRowsComponent extends Component {
 class ProductionCropEvaluationTableComponent extends Component {
     render() {
         const {
-            prettyName, evaluationLetter, evaluatedAt, evaluationFailures, evaluationPasses
+            prettyName, evaluationLetter, evaluatedAt, evaluationFailures, evaluationPasses, evaluationError
         } = this.props.crop;
+        const hasEvaluationError = evaluationError !== undefined && evaluationError !== null;
+        const hasNotEvaluationError = evaluationError === undefined || evaluationError === null;
         return (
-            <table className="table table-bordered custom-cell-w">
-                <tbody>
-                    <tr className="bg-dark">
-                        <th scope="row" colSpan="2" className="text-light">{prettyName}</th>
-                    </tr>
-                    <tr>
-                        <th scope="row" className="bg-light">Quality Grade</th>
-                        <td>
-                            {evaluationLetter &&
-                                evaluationLetter
+            <div>
+                {hasEvaluationError &&
+                    <div className="jumbotron">
+                        <h1 className="display-4">
+                            <i className="fas fa-bug"></i>&nbsp;Error
+                        </h1>
+                        <p className="lead"><strong>{prettyName}</strong> crop appears to have an <strong>error</strong>. {evaluationError}</p>
+                    </div>
+                }
+                {hasNotEvaluationError &&
+                    <table className="table table-bordered custom-cell-w">
+                        <tbody>
+                            <tr className="bg-dark">
+                                <th scope="row" colSpan="2" className="text-light">{prettyName}</th>
+                            </tr>
+                            <tr>
+                                <th scope="row" className="bg-light">Quality Grade</th>
+                                <td>
+                                    {evaluationLetter &&
+                                        evaluationLetter
+                                    }
+                                </td>
+                            </tr>
+                            {evaluationPasses && evaluationPasses.map(
+                                (evaluationPass, i) => <ProductionCropPassedEvaluationRowsComponent evaluationPass={evaluationPass} key={i} />)
                             }
-                        </td>
-                    </tr>
-                    {evaluationPasses && evaluationPasses.map(
-                        (evaluationPass, i) => <ProductionCropPassedEvaluationRowsComponent evaluationPass={evaluationPass} key={i} />)
-                    }
-                    {evaluationFailures && evaluationFailures.map(
-                        (evaluationFailure, i) => <ProductionCropFailedEvaluationRowsComponent evaluationFailure={evaluationFailure} key={i} />)
-                    }
-                </tbody>
-            </table>
+                            {evaluationFailures && evaluationFailures.map(
+                                (evaluationFailure, i) => <ProductionCropFailedEvaluationRowsComponent evaluationFailure={evaluationFailure} key={i} />)
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
         );
     }
 }
