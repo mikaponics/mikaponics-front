@@ -38,17 +38,17 @@ class ProductionStep4CreateContainer extends Component {
         }
 
         // Has night.
-        const hasNight = localStorage.getItem('temp-hasNight');
+        const hasDayAndNightCycle = localStorage.getItem('temp-hasDayAndNightCycle');
 
         // night start.
-        const nightStartString = localStorage.getItem('temp-nightStart');
-        const nightStartMoment  = (nightStartString !== null && nightStartString !== undefined) ? moment(nightStartString) : null;
-        const nightStart = hasNight ? nightStartMoment.format("HH:mm") : null;
+        const dayStartsAtString = localStorage.getItem('temp-dayStartsAt');
+        const dayStartsAtMoment  = (dayStartsAtString !== null && dayStartsAtString !== undefined) ? moment(dayStartsAtString) : null;
+        const dayStartsAt = hasDayAndNightCycle ? dayStartsAtMoment.format("HH:mm") : null;
 
         // night end.
-        const nightFinishString = localStorage.getItem('temp-nightFinish');
-        const nightFinishMoment = (nightFinishString !== null && nightFinishString !== undefined) ? moment(nightFinishString) : null;
-        const nightEnd = hasNight ? nightFinishMoment.format("HH:mm") : null;
+        const dayFinishesAtString = localStorage.getItem('temp-dayFinishesAt');
+        const dayFinishesAtMoment = (dayFinishesAtString !== null && dayFinishesAtString !== undefined) ? moment(dayFinishesAtString) : null;
+        const nightEnd = hasDayAndNightCycle ? dayFinishesAtMoment.format("HH:mm") : null;
 
         this.state = {
             // DEVELOPERS NOTE: This variable is used as the main way to add
@@ -71,9 +71,9 @@ class ProductionStep4CreateContainer extends Component {
             growSystem: parseInt(localStorage.getItem('temp-growSystem')),
             growSystemOther: localStorage.getItem('temp-growSystemOther'),
             startedAt: localStorage.getItem('temp-startedAt'),
-            hasNight: hasNight ? hasNight : false,
-            nightStart: hasNight ? nightStart : null,
-            nightFinish: hasNight ? nightEnd : null
+            hasDayAndNightCycle: hasDayAndNightCycle ? hasDayAndNightCycle : false,
+            dayStartsAt: hasDayAndNightCycle ? dayStartsAt : null,
+            dayFinishesAt: hasDayAndNightCycle ? nightEnd : null
         }
         this.onBackClick = this.onBackClick.bind(this);
         this.onNextClick = this.onNextClick.bind(this);
@@ -144,9 +144,9 @@ class ProductionStep4CreateContainer extends Component {
         localStorage.removeItem('temp-growSystem');
         localStorage.removeItem('temp-growSystemOther');
         localStorage.removeItem('temp-startedAt');
-        localStorage.removeItem('temp-hasNight');
-        localStorage.removeItem('temp-nightStart');
-        localStorage.removeItem('temp-nightFinish');
+        localStorage.removeItem('temp-hasDayAndNightCycle');
+        localStorage.removeItem('temp-dayStartsAt');
+        localStorage.removeItem('temp-dayFinishesAt');
         localStorage.removeItem("temp-plants");
         localStorage.removeItem("temp-fish");
 

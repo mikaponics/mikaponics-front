@@ -14,7 +14,7 @@ class ProductionStep1CreateComponent extends Component {
     render() {
         const {
             name, description, isCommercial, deviceOptions, device, environmentOptions, environment, typeOfOptions, typeOf, growSystemOptions, growSystem, growSystemOther,
-            hasNight, nightStart, nightFinish, onNightStartTimeChange, onNightFinishTimeChange,
+            hasDayAndNightCycle, dayStartsAt, dayFinishesAt, onNightStartTimeChange, onNightFinishTimeChange,
             onTextChange, onSelectChange, onCheckboxChange, onCancelClick, onNextClick, errors
         } = this.props;
 
@@ -160,27 +160,28 @@ class ProductionStep1CreateComponent extends Component {
                             <BootstrapCheckbox
                                 inputClassName="form-check-input form-check-input-lg"
                                 borderColour="border-success"
-                                error={errors.hasNight}
+                                error={errors.hasDayAndNightCycle}
                                 label="Does your production have dark period, a.k.a. night time?"
                                 onChange={onCheckboxChange}
-                                value={hasNight}
-                                name="hasNight"
+                                value={hasDayAndNightCycle}
+                                name="hasDayAndNightCycle"
                             />
 
-                            {hasNight &&
+                            {hasDayAndNightCycle &&
                                 <div>
+                                    <p>Please specify the hours that makes up a day.</p>
                                     <BootstrapTimePicker
-                                        label="Night Start"
-                                        name="nightStart"
-                                        dateObj={nightStart}
+                                        label="Day start at"
+                                        name="dayStartsAt"
+                                        dateObj={dayStartsAt}
                                         onTimeChange={onNightStartTimeChange}
                                         datePickerClassName="form-control form-control-lg border"
                                         divClassName="form-group p-0 col-md-7 mb-4"
                                     />
                                     <BootstrapTimePicker
-                                        label="Night Finish"
-                                        name="nightFinish"
-                                        dateObj={nightFinish}
+                                        label="Day finishes at"
+                                        name="dayFinishesAt"
+                                        dateObj={dayFinishesAt}
                                         onTimeChange={onNightFinishTimeChange}
                                         datePickerClassName="form-control form-control-lg border"
                                         borderClassname="border-primary"

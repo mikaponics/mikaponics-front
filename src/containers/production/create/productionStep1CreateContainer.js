@@ -22,10 +22,10 @@ class ProductionStep1CreateContainer extends Component {
 
     constructor(props) {
         super(props);
-        const nightStartString = localStorage.getItem('temp-nightStart')
-        const nightFinishString = localStorage.getItem('temp-nightFinish')
-        const nightStartDT = nightStartString !== null && nightStartString !== undefined && nightStartString !== "null" ? new Date(nightStartString) : null;
-        const nightFinishDT = nightFinishString !== null && nightFinishString !== undefined  && nightFinishString !== "null" ? new Date(nightFinishString) : null;
+        const dayStartsAtString = localStorage.getItem('temp-dayStartsAt')
+        const dayFinishesAtString = localStorage.getItem('temp-dayFinishesAt')
+        const dayStartsAtDT = dayStartsAtString !== null && dayStartsAtString !== undefined && dayStartsAtString !== "null" ? new Date(dayStartsAtString) : null;
+        const dayFinishesAtDT = dayFinishesAtString !== null && dayFinishesAtString !== undefined  && dayFinishesAtString !== "null" ? new Date(dayFinishesAtString) : null;
         this.state = {
             // DEVELOPERS NOTE: This variable is used as the main way to add
             // GUI modification to the fields. Simply adding a key and the
@@ -44,9 +44,9 @@ class ProductionStep1CreateContainer extends Component {
             growSystem: parseInt(localStorage.getItem('temp-growSystem')),
             growSystemOther: localStorage.getItem('temp-growSystemOther'),
             startedAt: localStorage.getItem('temp-startedAt'),
-            hasNight: localStorage.getItem('temp-hasNight'),
-            nightStart: nightStartDT,
-            nightFinish: nightFinishDT,
+            hasDayAndNightCycle: localStorage.getItem('temp-hasDayAndNightCycle'),
+            dayStartsAt: dayStartsAtDT,
+            dayFinishesAt: dayFinishesAtDT,
         }
         this.getDeviceOptions = this.getDeviceOptions.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
@@ -127,16 +127,16 @@ class ProductionStep1CreateContainer extends Component {
 
     onNightStartTimeChange(dateObj) {
         this.setState({
-            nightStart: dateObj,
+            dayStartsAt: dateObj,
         })
-        localStorage.setItem('temp-nightStart', dateObj);
+        localStorage.setItem('temp-dayStartsAt', dateObj);
     }
 
     onNightFinishTimeChange(dateObj) {
         this.setState({
-            nightFinish: dateObj,
+            dayFinishesAt: dateObj,
         })
-        localStorage.setItem('temp-nightFinish', dateObj);
+        localStorage.setItem('temp-dayFinishesAt', dateObj);
     }
 
     onCancelClick(e) {
@@ -173,7 +173,7 @@ class ProductionStep1CreateContainer extends Component {
 
     render() {
         const {
-            name, description, isCommercial, device, environment, typeOf, growSystem, growSystemOther, startedAt, hasNight, nightStart, nightFinish,
+            name, description, isCommercial, device, environment, typeOf, growSystem, growSystemOther, startedAt, hasDayAndNightCycle, dayStartsAt, dayFinishesAt,
             errors, referrer
         } = this.state;
         if (referrer) {
@@ -194,9 +194,9 @@ class ProductionStep1CreateContainer extends Component {
                 growSystem={growSystem}
                 growSystemOther={growSystemOther}
                 startedAt={startedAt}
-                hasNight={hasNight}
-                nightStart={nightStart}
-                nightFinish={nightFinish}
+                hasDayAndNightCycle={hasDayAndNightCycle}
+                dayStartsAt={dayStartsAt}
+                dayFinishesAt={dayFinishesAt}
                 onTextChange={this.onTextChange}
                 onSelectChange={this.onSelectChange}
                 onCheckboxChange={this.onCheckboxChange}

@@ -38,12 +38,12 @@ export function validateStep1Input(data) {
         }
     }
 
-    if (data.hasNight) {
-        if (data.nightStart === undefined || data.nightStart === null || data.nightStart == "null") {
-            errors.nightStart = 'This field is required';
+    if (data.hasDayAndNightCycle) {
+        if (data.dayStartsAt === undefined || data.dayStartsAt === null || data.dayStartsAt == "null") {
+            errors.dayStartsAt = 'This field is required';
         }
-        if (data.nightFinish === undefined || data.nightFinish === null || data.nightFinish == "null") {
-            errors.nightFinish = 'This field is required';
+        if (data.dayFinishesAt === undefined || data.dayFinishesAt === null || data.dayFinishesAt == "null") {
+            errors.dayFinishesAt = 'This field is required';
         }
     }
 
