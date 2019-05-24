@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Scroll from 'react-scroll';
+import * as moment from 'moment';
 
 import ProductionStep1CreateComponent from "../../../components/production/create/productionStep4CreateComponent";
 import { postProductionDetail } from "../../../actions/productionActions";
@@ -36,6 +37,19 @@ class ProductionStep4CreateContainer extends Component {
             fishArr = [];
         }
 
+        // Has night.
+        const hasNight = localStorage.getItem('temp-hasNight');
+
+        // night start.
+        const nightStartString = localStorage.getItem('temp-nightStart');
+        const nightStartMoment  = (nightStartString !== null && nightStartString !== undefined) ? moment(nightStartString) : null;
+        const nightStart = hasNight ? nightStartMoment.format("HH:mm") : null;
+
+        // night end.
+        const nightFinishString = localStorage.getItem('temp-nightFinish');
+        const nightFinishMoment = (nightFinishString !== null && nightFinishString !== undefined) ? moment(nightFinishString) : null;
+        const nightEnd = hasNight ? nightFinishMoment.format("HH:mm") : null;
+
         this.state = {
             // DEVELOPERS NOTE: This variable is used as the main way to add
             // GUI modification to the fields. Simply adding a key and the
@@ -57,6 +71,9 @@ class ProductionStep4CreateContainer extends Component {
             growSystem: parseInt(localStorage.getItem('temp-growSystem')),
             growSystemOther: localStorage.getItem('temp-growSystemOther'),
             startedAt: localStorage.getItem('temp-startedAt'),
+            hasNight: hasNight ? hasNight : false,
+            nightStart: hasNight ? nightStart : null,
+            nightFinish: hasNight ? nightEnd : null
         }
         this.onBackClick = this.onBackClick.bind(this);
         this.onNextClick = this.onNextClick.bind(this);
@@ -117,7 +134,26 @@ class ProductionStep4CreateContainer extends Component {
     }
 
     onSuccessfulSubmissionCallback() {
+        // Clear submission form.
+        localStorage.removeItem('temp-name');
+        localStorage.removeItem('temp-description');
+        localStorage.removeItem('temp-isCommercial');
+        localStorage.removeItem('temp-device');
+        localStorage.removeItem('temp-environment');
+        localStorage.removeItem('temp-typeOf');
+        localStorage.removeItem('temp-growSystem');
+        localStorage.removeItem('temp-growSystemOther');
+        localStorage.removeItem('temp-startedAt');
+        localStorage.removeItem('temp-hasNight');
+        localStorage.removeItem('temp-nightStart');
+        localStorage.removeItem('temp-nightFinish');
+        localStorage.removeItem("temp-plants");
+        localStorage.removeItem("temp-fish");
+
+        // Add success message.
         this.props.setFlashMessage("success", "Production has been successfully created.");
+
+        // Redirect to the productions list.
         this.setState({
             referrer: '/productions'
         });

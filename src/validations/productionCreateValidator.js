@@ -16,7 +16,7 @@ export function validateStep1Input(data) {
         errors.description = 'This field is required';
     }
 
-    if (data.device === undefined || data.device === null || validator.isEmpty(data.device)) {
+    if (data.device === undefined || data.device === null || validator.isEmpty(data.device) || data.device === "null") {
         errors.device = 'This field is required';
     }
 
@@ -35,6 +35,15 @@ export function validateStep1Input(data) {
             if (data.growSystemOther === undefined || data.growSystemOther === null || isEmpty(data.growSystemOther)) {
                 errors.growSystemOther = 'This field is required';
             }
+        }
+    }
+
+    if (data.hasNight) {
+        if (data.nightStart === undefined || data.nightStart === null || data.nightStart == "null") {
+            errors.nightStart = 'This field is required';
+        }
+        if (data.nightFinish === undefined || data.nightFinish === null || data.nightFinish == "null") {
+            errors.nightFinish = 'This field is required';
         }
     }
 

@@ -22,6 +22,10 @@ class ProductionStep1CreateContainer extends Component {
 
     constructor(props) {
         super(props);
+        const nightStartString = localStorage.getItem('temp-nightStart')
+        const nightFinishString = localStorage.getItem('temp-nightFinish')
+        const nightStartDT = nightStartString !== null && nightStartString !== undefined && nightStartString !== "null" ? new Date(nightStartString) : null;
+        const nightFinishDT = nightFinishString !== null && nightFinishString !== undefined  && nightFinishString !== "null" ? new Date(nightFinishString) : null;
         this.state = {
             // DEVELOPERS NOTE: This variable is used as the main way to add
             // GUI modification to the fields. Simply adding a key and the
@@ -40,11 +44,16 @@ class ProductionStep1CreateContainer extends Component {
             growSystem: parseInt(localStorage.getItem('temp-growSystem')),
             growSystemOther: localStorage.getItem('temp-growSystemOther'),
             startedAt: localStorage.getItem('temp-startedAt'),
+            hasNight: localStorage.getItem('temp-hasNight'),
+            nightStart: nightStartDT,
+            nightFinish: nightFinishDT,
         }
         this.getDeviceOptions = this.getDeviceOptions.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
         this.onSelectChange = this.onSelectChange.bind(this);
         this.onCheckboxChange = this.onCheckboxChange.bind(this);
+        this.onNightStartTimeChange = this.onNightStartTimeChange.bind(this);
+        this.onNightFinishTimeChange = this.onNightFinishTimeChange.bind(this);
         this.onCancelClick = this.onCancelClick.bind(this);
         this.onNextClick = this.onNextClick.bind(this);
     }
@@ -112,6 +121,22 @@ class ProductionStep1CreateContainer extends Component {
             [e.target.name]: e.target.checked,
         })
         localStorage.setItem('temp-'+[e.target.name], e.target.checked);
+        console.log([e.target.name]);
+        console.log(e.target.checked);
+    }
+
+    onNightStartTimeChange(dateObj) {
+        this.setState({
+            nightStart: dateObj,
+        })
+        localStorage.setItem('temp-nightStart', dateObj);
+    }
+
+    onNightFinishTimeChange(dateObj) {
+        this.setState({
+            nightFinish: dateObj,
+        })
+        localStorage.setItem('temp-nightFinish', dateObj);
     }
 
     onCancelClick(e) {
@@ -148,7 +173,7 @@ class ProductionStep1CreateContainer extends Component {
 
     render() {
         const {
-            name, description, isCommercial, device, environment, typeOf, growSystem, growSystemOther, startedAt,
+            name, description, isCommercial, device, environment, typeOf, growSystem, growSystemOther, startedAt, hasNight, nightStart, nightFinish,
             errors, referrer
         } = this.state;
         if (referrer) {
@@ -169,10 +194,15 @@ class ProductionStep1CreateContainer extends Component {
                 growSystem={growSystem}
                 growSystemOther={growSystemOther}
                 startedAt={startedAt}
+                hasNight={hasNight}
+                nightStart={nightStart}
+                nightFinish={nightFinish}
                 onTextChange={this.onTextChange}
                 onSelectChange={this.onSelectChange}
                 onCheckboxChange={this.onCheckboxChange}
                 errors={errors}
+                onNightStartTimeChange={this.onNightStartTimeChange}
+                onNightFinishTimeChange={this.onNightFinishTimeChange}
                 onCancelClick={this.onCancelClick}
                 onNextClick={this.onNextClick}
             />

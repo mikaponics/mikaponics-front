@@ -6,6 +6,7 @@ import { BootstrapInput } from '../../bootstrap/bootstrapInput';
 import { BootstrapSingleSelect } from '../../bootstrap/bootstrapSingleSelect';
 import { BootstrapTextarea } from '../../bootstrap/bootstrapTextarea';
 import { BootstrapCheckbox } from "../../bootstrap/bootstrapCheckbox";
+import { BootstrapTimePicker } from "../../bootstrap/bootstrapTimePicker";
 import { PRODUCTION_OTHER_SYSTEM } from "../../../constants/api";
 
 
@@ -13,6 +14,7 @@ class ProductionStep1CreateComponent extends Component {
     render() {
         const {
             name, description, isCommercial, deviceOptions, device, environmentOptions, environment, typeOfOptions, typeOf, growSystemOptions, growSystem, growSystemOther,
+            hasNight, nightStart, nightFinish, onNightStartTimeChange, onNightFinishTimeChange,
             onTextChange, onSelectChange, onCheckboxChange, onCancelClick, onNextClick, errors
         } = this.props;
 
@@ -151,6 +153,40 @@ class ProductionStep1CreateComponent extends Component {
                                     type="text"
                                     placeholder="Please write the name of your grow system."
                                 />
+                            }
+
+                            <p className="border-bottom mb-3 pb-1 text-secondary">Night Period</p>
+
+                            <BootstrapCheckbox
+                                inputClassName="form-check-input form-check-input-lg"
+                                borderColour="border-success"
+                                error={errors.hasNight}
+                                label="Does your production have dark period, a.k.a. night time?"
+                                onChange={onCheckboxChange}
+                                value={hasNight}
+                                name="hasNight"
+                            />
+
+                            {hasNight &&
+                                <div>
+                                    <BootstrapTimePicker
+                                        label="Night Start"
+                                        name="nightStart"
+                                        dateObj={nightStart}
+                                        onTimeChange={onNightStartTimeChange}
+                                        datePickerClassName="form-control form-control-lg border"
+                                        divClassName="form-group p-0 col-md-7 mb-4"
+                                    />
+                                    <BootstrapTimePicker
+                                        label="Night Finish"
+                                        name="nightFinish"
+                                        dateObj={nightFinish}
+                                        onTimeChange={onNightFinishTimeChange}
+                                        datePickerClassName="form-control form-control-lg border"
+                                        borderClassname="border-primary"
+                                        divClassName="form-group p-0 col-md-7 mb-4"
+                                    />
+                                </div>
                             }
 
                             <br />

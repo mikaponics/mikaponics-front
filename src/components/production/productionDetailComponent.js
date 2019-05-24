@@ -54,12 +54,16 @@ class ProductionCropEvaluationTableComponent extends Component {
                     </tr>
                     <tr>
                         <th scope="row" className="bg-light">Quality Grade</th>
-                        <td>{evaluationLetter}</td>
+                        <td>
+                            {evaluationLetter &&
+                                evaluationLetter
+                            }
+                        </td>
                     </tr>
-                    {evaluationPasses.map(
+                    {evaluationPasses && evaluationPasses.map(
                         (evaluationPass, i) => <ProductionCropPassedEvaluationRowsComponent evaluationPass={evaluationPass} key={i} />)
                     }
-                    {evaluationFailures.map(
+                    {evaluationFailures && evaluationFailures.map(
                         (evaluationFailure, i) => <ProductionCropFailedEvaluationRowsComponent evaluationFailure={evaluationFailure} key={i} />)
                     }
                 </tbody>
