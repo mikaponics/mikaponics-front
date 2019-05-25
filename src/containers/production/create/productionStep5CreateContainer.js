@@ -151,6 +151,9 @@ class ProductionStep5CreateContainer extends Component {
         localStorage.removeItem('temp-dayFinishesAt');
         localStorage.removeItem("temp-plants");
         localStorage.removeItem("temp-fish");
+        localStorage.removeItem('temp-inspectionFrequency');
+        localStorage.removeItem('temp-redBelowValue');
+        localStorage.removeItem('temp-redAlertDelayInSeconds');
 
         // Add success message.
         this.props.setFlashMessage("success", "Production has been successfully created.");

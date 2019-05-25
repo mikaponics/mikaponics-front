@@ -85,7 +85,7 @@ class ProductionStep4CreateComponent extends Component {
                             <p className="border-bottom mb-3 pb-1 text-secondary"><i className="fas fa-fire"></i>&nbsp;Evaluation Red Alerts</p>
                             <BootstrapInput
                                 inputClassName="form-control form-control-lg"
-                                borderColour="border-success"
+                                borderColour="border-primary"
                                 name="redBelowValue"
                                 type="number"
                                 label="Red alert when below value (*)"
