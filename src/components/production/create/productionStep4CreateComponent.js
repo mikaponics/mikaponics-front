@@ -11,7 +11,8 @@ class ProductionStep4CreateComponent extends Component {
     render() {
         const {
             inspectionFrequency, inspectionFrequencyOptions, onSelectChange,
-            errors, onBackClick, onNextClick,
+            redBelowValue, redAlertDelayInSeconds, redAlertDelayInSecondsOptions,
+            errors, onTextChange, onBackClick, onNextClick,
         } = this.props;
 
 
@@ -67,7 +68,7 @@ class ProductionStep4CreateComponent extends Component {
 
                             <BootstrapErrorsProcessingAlert errors={errors} />
 
-                            <p className="border-bottom mb-3 pb-1 text-secondary">Scheduled Quality Inspections</p>
+                            <p className="border-bottom mb-3 pb-1 text-secondary"><i className="fas fa-eye"></i>&nbsp;Scheduled Quality Inspections</p>
 
                             <BootstrapSingleSelect
                                 label="Inspection Frequency (*)"
@@ -79,7 +80,31 @@ class ProductionStep4CreateComponent extends Component {
                                 onSelectChange={onSelectChange}
                             />
 
-                            <p className="border-bottom mb-3 pb-1 text-secondary">Evaluation Alerts</p>
+                            <br />
+
+                            <p className="border-bottom mb-3 pb-1 text-secondary"><i className="fas fa-fire"></i>&nbsp;Evaluation Red Alerts</p>
+                            <BootstrapInput
+                                inputClassName="form-control form-control-lg"
+                                borderColour="border-success"
+                                name="redBelowValue"
+                                type="number"
+                                label="Red alert when below value (*)"
+                                placeholder="Pick any number from 0% to 100%."
+                                value={redBelowValue}
+                                helpText="Any evaluation score below this value will cause a red alert."
+                                onChange={onTextChange}
+                                error={errors.redBelowValue}
+                            />
+
+                            <BootstrapSingleSelect
+                                label="Red alert delay in seconds (*)"
+                                name="redAlertDelayInSeconds"
+                                defaultOptionLabel="Please select how frequently you will be performing quality inspections."
+                                options={redAlertDelayInSecondsOptions}
+                                value={redAlertDelayInSeconds}
+                                error={errors.redAlertDelayInSeconds}
+                                onSelectChange={onSelectChange}
+                            />
 
                             <br />
                             <div className="form-group">

@@ -137,7 +137,12 @@ export function validateStep4Input(data) {
     if (data.inspectionFrequency === "" || data.inspectionFrequency === null || data.inspectionFrequency === undefined || data.inspectionFrequency === "null" || isNaN(data.inspectionFrequency) ) {
         errors.inspectionFrequency = 'This field is required';
     }
-    console.log(data);
+    if (data.redBelowValue === "" || data.redBelowValue === null || data.redBelowValue === undefined || data.redBelowValue === "null" || isNaN(data.redBelowValue) ) {
+        errors.redBelowValue = 'This field is required';
+    }
+    if (data.redAlertDelayInSeconds === "" || data.redAlertDelayInSeconds === null || data.redAlertDelayInSeconds === undefined || data.redAlertDelayInSeconds === "null" || isNaN(data.redAlertDelayInSeconds) ) {
+        errors.redAlertDelayInSeconds = 'This field is required';
+    }
 
     return {
         errors,

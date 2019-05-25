@@ -75,6 +75,8 @@ class ProductionStep5CreateContainer extends Component {
             dayStartsAt: hasDayAndNightCycle ? dayStartsAt : null,
             dayFinishesAt: hasDayAndNightCycle ? nightEnd : null,
             inspectionFrequency: parseInt(localStorage.getItem('temp-inspectionFrequency')),
+            redBelowValue: parseInt(localStorage.getItem('temp-redBelowValue')),
+            redAlertDelayInSeconds: parseInt(localStorage.getItem('temp-redAlertDelayInSeconds')),
         }
         this.onBackClick = this.onBackClick.bind(this);
         this.onNextClick = this.onNextClick.bind(this);

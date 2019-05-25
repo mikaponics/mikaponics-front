@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import Scroll from 'react-scroll';
 
-import { PRODUCTION_INSPECTION_FREQUENCY_CHOICES } from "../../../constants/api";
+import {
+    PRODUCTION_INSPECTION_FREQUENCY_CHOICES,
+    RED_ALERT_DELAY_IN_SECONDS_CHOICES
+} from "../../../constants/api";
 import { validateStep4Input } from '../../../validations/productionCreateValidator';
 import ProductionStep4CreateComponent from "../../../components/production/create/productionStep4CreateComponent";
 
@@ -27,12 +30,14 @@ class ProductionStep4CreateContainer extends Component {
             errors: {},
 
             inspectionFrequency: parseInt(localStorage.getItem('temp-inspectionFrequency')),
+            redBelowValue: parseInt(localStorage.getItem('temp-redBelowValue')),
+            redAlertDelayInSeconds: parseInt(localStorage.getItem('temp-redAlertDelayInSeconds')),
         }
+        this.onTextChange = this.onTextChange.bind(this);
         this.onSelectChange = this.onSelectChange.bind(this);
         this.onBackClick = this.onBackClick.bind(this);
         this.onNextClick = this.onNextClick.bind(this);
     }
-
 
     componentDidMount() {
         window.scrollTo(0, 0);  // Start the page at the top of the page.
@@ -52,12 +57,19 @@ class ProductionStep4CreateContainer extends Component {
      *------------------------------------------------------------
      */
 
-     onSelectChange(option) {
-         this.setState({
-             [option.selectName]: option.value
-         })
-         localStorage.setItem('temp-'+[option.selectName], option.value);
-     }
+    onTextChange(e) {
+        this.setState({
+            [e.target.name]: e.target.value,
+        })
+        localStorage.setItem('temp-'+[e.target.name], e.target.value);
+    }
+
+    onSelectChange(option) {
+        this.setState({
+            [option.selectName]: option.value
+        })
+        localStorage.setItem('temp-'+[option.selectName], option.value);
+    }
 
     onBackClick(e) {
         e.preventDefault();
@@ -89,13 +101,17 @@ class ProductionStep4CreateContainer extends Component {
      */
 
     render() {
-        const { errors, inspectionFrequency } = this.state;
+        const { errors, inspectionFrequency, redBelowValue, redAlertDelayInSeconds } = this.state;
         return (
             <ProductionStep4CreateComponent
                 inspectionFrequency={inspectionFrequency}
                 inspectionFrequencyOptions={PRODUCTION_INSPECTION_FREQUENCY_CHOICES}
+                redBelowValue={redBelowValue}
+                redAlertDelayInSeconds={redAlertDelayInSeconds}
+                redAlertDelayInSecondsOptions={RED_ALERT_DELAY_IN_SECONDS_CHOICES}
                 errors={errors}
                 onSelectChange={this.onSelectChange}
+                onTextChange={this.onTextChange}
                 onBackClick={this.onBackClick}
                 onNextClick={this.onNextClick}
             />

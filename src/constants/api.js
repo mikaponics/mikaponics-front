@@ -346,3 +346,59 @@ export const PRODUCTION_INSPECTION_FREQUENCY_CHOICES = [
         label: "Monthly"
     }
 ];
+
+
+/**
+ *  The `red_alert_delay_in_seconds` data for alerts API.
+ */
+export const RED_ALERT_DELAY_IN_SECONDS_CHOICES = [
+    {
+        selectName: "redAlertDelayInSeconds",
+        value: 60,
+        label: "Every minute"
+    },{
+        selectName: "redAlertDelayInSeconds",
+        value: 120,
+        label: "Every 2 minutes"
+    },{
+        selectName: "redAlertDelayInSeconds",
+        value: 300,
+        label: "Every 5 minutes"
+    },{
+        selectName: "redAlertDelayInSeconds",
+        value: 600,
+        label: "Every 10 minutes"
+    },{
+        selectName: "redAlertDelayInSeconds",
+        value: 1200,
+        label: "Every 20 minutes"
+    },{
+        selectName: "redAlertDelayInSeconds",
+        value: 1800,
+        label: "Every 30 minutes"
+    },{
+        selectName: "redAlertDelayInSeconds",
+        value: 3600,
+        label: "Every hour"
+    },{
+        selectName: "redAlertDelayInSeconds",
+        value: 7200,
+        label: "Every 2 hours"
+    },{
+        selectName: "redAlertDelayInSeconds",
+        value: 14400,
+        label: "Every 4 hours"
+    },{
+        selectName: "redAlertDelayInSeconds",
+        value: 21680,
+        label: "Every 6 hours"
+    },{
+        selectName: "redAlertDelayInSeconds",
+        value: 43200,
+        label: "Every 12 hours"
+    },{
+        selectName: "redAlertDelayInSeconds",
+        value: 86400,
+        label: "Every 24 hours"
+    }
+];
