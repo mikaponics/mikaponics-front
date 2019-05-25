@@ -31,7 +31,7 @@ class TaskItemTable extends Component {
                         </Moment>
                     </td>
                     <td>
-                        <Link to={`/task/${taskItem.slug}`}>
+                        <Link to={`/task-start/${taskItem.slug}`}>
                             View&nbsp;<i className="fas fa-chevron-right"></i>
                         </Link>
                     </td>

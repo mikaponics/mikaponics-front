@@ -66,6 +66,11 @@ import ProductionInspectionDetailContainer from "./production/inspection/product
 import ProductionProfileContainer from "./production/profile/productionProfileContainer";
 import TaskListContainer from "./tasks/taskListContainer";
 import TaskItemDetailContainer from "./tasks/taskItemDetailContainer";
+import TaskItemStartContainer from "./tasks/taskItemStartContainer";
+import TaskProductionInspectionCreateStartContainer from "./tasks/inspection/taskProductionInspectionCreateStartContainer";
+import TaskProductionInspectionCreateCropContainer from "./tasks/inspection/taskProductionInspectionCreateCropContainer";
+import TaskProductionInspectionCreateFinishContainer from "./tasks/inspection/taskProductionInspectionCreateFinishContainer";
+
 
 class AppContainer extends React.Component {
   render() {
@@ -125,27 +130,31 @@ class AppContainer extends React.Component {
                             <Route path="/referrals" exact component={requiresAuth(ReferralContainer)} />
                             <Route path="/privacy" exact component={PrivacyContainer} />
                             <Route path="/terms" exact component={TermsContainer} />
-                            <Route path="/purchase" exact component={PurchaseDeviceContainer} />
-                            <Route path="/purchase/checkout" exact component={CheckoutDeviceContainer} />
-                            <Route path="/purchase/submission" exact component={PurchaseDeviceSubmissionContainer} />
-                            <Route path="/purchase/success" exact component={PurchaseDeviceSuccessContainer} />
-                            <Route path="/productions" exact component={ProductionListContainer} />
-                            <Route path="/production/:slug" exact component={ProductionDetailContainer} />
-                            <Route path="/add-production-step-1" exact component={ProductionStep1CreateContainer} />
-                            <Route path="/add-production-step-2" exact component={ProductionStep2CreateContainer} />
-                            <Route path="/add-production-step-3" exact component={ProductionStep3CreateContainer} />
-                            <Route path="/add-production-step-4" exact component={ProductionStep4CreateContainer} />
-                            <Route path="/production/:slug/terminate-start" exact component={ProductionTerminateStartContainer} />
-                            <Route path="/production/:slug/terminate-crop/:index" exact component={ProductionTerminateCropContainer} />
-                            <Route path="/production/:slug/terminate-finish" exact component={ProductionTerminateFinishContainer} />
-                            <Route path="/production/:slug/inspection" exact component={ProductionInspectionListContainer} />
-                            <Route path="/production/:slug/create-inspection/start" exact component={ProductionInspectionCreateStartContainer} />
-                            <Route path="/production/:slug/create-inspection/crop/:index" exact component={ProductionInspectionCreateCropContainer} />
-                            <Route path="/production/:slug/create-inspection/finish" exact component={ProductionInspectionCreateFinishContainer} />
-                            <Route path="/production-inspection/:slug" exact component={ProductionInspectionDetailContainer} />
-                            <Route path="/production/:slug/profile" exact component={ProductionProfileContainer} />
+                            <Route path="/purchase" exact component={requiresAuth(PurchaseDeviceContainer)} />
+                            <Route path="/purchase/checkout" exact component={requiresAuth(CheckoutDeviceContainer)} />
+                            <Route path="/purchase/submission" exact component={requiresAuth(PurchaseDeviceSubmissionContainer)} />
+                            <Route path="/purchase/success" exact component={requiresAuth(PurchaseDeviceSuccessContainer)} />
+                            <Route path="/productions" exact component={requiresAuth(ProductionListContainer)} />
+                            <Route path="/production/:slug" exact component={requiresAuth(ProductionDetailContainer)} />
+                            <Route path="/add-production-step-1" exact component={requiresAuth(ProductionStep1CreateContainer)} />
+                            <Route path="/add-production-step-2" exact component={requiresAuth(ProductionStep2CreateContainer)} />
+                            <Route path="/add-production-step-3" exact component={requiresAuth(ProductionStep3CreateContainer)} />
+                            <Route path="/add-production-step-4" exact component={requiresAuth(ProductionStep4CreateContainer)} />
+                            <Route path="/production/:slug/terminate-start" exact component={requiresAuth(ProductionTerminateStartContainer)} />
+                            <Route path="/production/:slug/terminate-crop/:index" exact component={requiresAuth(ProductionTerminateCropContainer)} />
+                            <Route path="/production/:slug/terminate-finish" exact component={requiresAuth(ProductionTerminateFinishContainer)} />
+                            <Route path="/production/:slug/inspection" exact component={requiresAuth(ProductionInspectionListContainer)} />
+                            <Route path="/production/:slug/create-inspection/start" exact component={requiresAuth(ProductionInspectionCreateStartContainer)} />
+                            <Route path="/production/:slug/create-inspection/crop/:index" exact component={requiresAuth(ProductionInspectionCreateCropContainer)} />
+                            <Route path="/production/:slug/create-inspection/finish" exact component={requiresAuth(ProductionInspectionCreateFinishContainer)} />
+                            <Route path="/production-inspection/:slug" exact component={requiresAuth(ProductionInspectionDetailContainer)} />
+                            <Route path="/production/:slug/profile" exact component={requiresAuth(ProductionProfileContainer)} />
                             <Route path="/tasks" exact component={requiresAuth(TaskListContainer)} />
                             <Route path="/task/:slug" exact component={requiresAuth(TaskItemDetailContainer)} />
+                            <Route path="/task-start/:slug" exact component={requiresAuth(TaskItemStartContainer)} />
+                            <Route path="/task/production-inspection/:slug" exact component={requiresAuth(TaskProductionInspectionCreateStartContainer)} />
+                            <Route path="/task/production-inspection/:slug/crop/:index" exact component={requiresAuth(TaskProductionInspectionCreateCropContainer)} />
+                            <Route path="/task/production-inspection/:slug/finish" exact component={requiresAuth(TaskProductionInspectionCreateFinishContainer)} />
                             <Route component={NotFound404Container} />
                         </Switch>
                     </main>
