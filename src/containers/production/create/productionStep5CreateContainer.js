@@ -7,11 +7,11 @@ import * as moment from 'moment';
 import ProductionStep5CreateComponent from "../../../components/production/create/productionStep5CreateComponent";
 import { postProductionDetail } from "../../../actions/productionActions";
 import { pullDevice } from "../../../actions/deviceActions";
-import { validateStep4Input } from '../../../validations/productionCreateValidator';
+import { validateStep5Input } from '../../../validations/productionCreateValidator';
 import { setFlashMessage } from "../../../actions/flashMessageActions";
 
 
-class ProductionStep4CreateContainer extends Component {
+class ProductionStep5CreateContainer extends Component {
 
     /**
      *  Initializer, component life-cycle and utility functions.
@@ -73,7 +73,8 @@ class ProductionStep4CreateContainer extends Component {
             startedAt: localStorage.getItem('temp-startedAt'),
             hasDayAndNightCycle: hasDayAndNightCycle ? hasDayAndNightCycle : false,
             dayStartsAt: hasDayAndNightCycle ? dayStartsAt : null,
-            dayFinishesAt: hasDayAndNightCycle ? nightEnd : null
+            dayFinishesAt: hasDayAndNightCycle ? nightEnd : null,
+            inspectionFrequency: parseInt(localStorage.getItem('temp-inspectionFrequency')),
         }
         this.onBackClick = this.onBackClick.bind(this);
         this.onNextClick = this.onNextClick.bind(this);
@@ -109,7 +110,7 @@ class ProductionStep4CreateContainer extends Component {
     onNextClick(e) {
         e.preventDefault();
 
-        const { errors, isValid } = validateStep4Input(this.state);
+        const { errors, isValid } = validateStep5Input(this.state);
         if (isValid) {
             // Once our state has been validated `client-side` then we will
             // make an API request with the server to create our new production.
@@ -227,4 +228,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(ProductionStep4CreateContainer);
+)(ProductionStep5CreateContainer);

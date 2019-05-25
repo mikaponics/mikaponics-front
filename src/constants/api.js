@@ -313,3 +313,36 @@ export const PRODUCTION_CROPS_INSPECTION_REVIEW_OPTION_CHOICES = [
 export const ALERT_ITEM_UNREAD_STATE = 1;
 export const ALERT_ITEM_READ_STATE = 2;
 export const ALERT_ITEM_ARCHIVED_STATE = 3;
+
+
+/**
+ *  The `inspection_frequency` data for the `Production` API endpoint.
+ */
+export const PRODUCTION_INSPECTION_NEVER_FREQUENCY = 1;
+export const PRODUCTION_INSPECTION_DAILY_FREQUENCY = 2;
+export const PRODUCTION_INSPECTION_WEEKLY_FREQUENCY = 3;
+export const PRODUCTION_INSPECTION_BI_WEEKLY_FREQUENCY = 4;
+export const PRODUCTION_INSPECTION_MONTHLY_FREQUENCY = 5;
+export const PRODUCTION_INSPECTION_FREQUENCY_CHOICES = [
+    {
+        selectName: "inspectionFrequency",
+        value: PRODUCTION_INSPECTION_NEVER_FREQUENCY,
+        label: "Never"
+    },{
+        selectName: "inspectionFrequency",
+        value: PRODUCTION_INSPECTION_DAILY_FREQUENCY,
+        label: "Daily"
+    },{
+        selectName: "inspectionFrequency",
+        value: PRODUCTION_INSPECTION_WEEKLY_FREQUENCY,
+        label: "Weekly"
+    },{
+        selectName: "inspectionFrequency",
+        value: PRODUCTION_INSPECTION_BI_WEEKLY_FREQUENCY,
+        label: "Bi-weekly"
+    },{
+        selectName: "inspectionFrequency",
+        value: PRODUCTION_INSPECTION_MONTHLY_FREQUENCY,
+        label: "Monthly"
+    }
+];

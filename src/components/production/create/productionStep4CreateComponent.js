@@ -10,7 +10,8 @@ import { BootstrapSingleSelect } from '../../bootstrap/bootstrapSingleSelect';
 class ProductionStep4CreateComponent extends Component {
     render() {
         const {
-            onBackClick, onNextClick,
+            inspectionFrequency, inspectionFrequencyOptions, onSelectChange,
+            errors, onBackClick, onNextClick,
         } = this.props;
 
 
@@ -57,14 +58,28 @@ class ProductionStep4CreateComponent extends Component {
                     </div>
                 </div>
 
-                <h3 className="pt-4 pb-2 text-center"><i className="fas fa-bell"></i>&nbsp;Notifications</h3>
+                <h3 className="pt-4 pb-2 text-center"><i className="fas fa-bullhorn"></i>&nbsp;Notifications</h3>
                 <div className="row">
                     <div className="col-md-5 mx-auto mt-2">
                         <form className="needs-validation" noValidate>
 
                             <p>All fields which have the (*) symbol are required to be filled out.</p>
 
+                            <BootstrapErrorsProcessingAlert errors={errors} />
 
+                            <p className="border-bottom mb-3 pb-1 text-secondary">Scheduled Quality Inspections</p>
+
+                            <BootstrapSingleSelect
+                                label="Inspection Frequency (*)"
+                                name="inspectionFrequency"
+                                defaultOptionLabel="Please select how frequently you will be performing quality inspections."
+                                options={inspectionFrequencyOptions}
+                                value={inspectionFrequency}
+                                error={errors.inspectionFrequency}
+                                onSelectChange={onSelectChange}
+                            />
+
+                            <p className="border-bottom mb-3 pb-1 text-secondary">Evaluation Alerts</p>
 
                             <br />
                             <div className="form-group">

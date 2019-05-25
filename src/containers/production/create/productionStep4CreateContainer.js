@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import Scroll from 'react-scroll';
 
-import { CROP_PLANT_TYPE } from '../../../constants/api';
-import { validateStep2Input } from '../../../validations/productionCreateValidator';
+import { PRODUCTION_INSPECTION_FREQUENCY_CHOICES } from "../../../constants/api";
+import { validateStep4Input } from '../../../validations/productionCreateValidator';
 import ProductionStep4CreateComponent from "../../../components/production/create/productionStep4CreateComponent";
 
 
@@ -17,8 +17,7 @@ class ProductionStep4CreateContainer extends Component {
 
     constructor(props) {
         super(props);
-
-
+        // localStorage.removeItem('temp-inspectionFrequency')
         this.state = {
             // DEVELOPERS NOTE: This variable is used as the main way to add
             // GUI modification to the fields. Simply adding a key and the
@@ -26,7 +25,10 @@ class ProductionStep4CreateContainer extends Component {
             // field. Please make sure the `name` in the HTML field equals
             // the `name` dictonary key in this dictionary.
             errors: {},
+
+            inspectionFrequency: parseInt(localStorage.getItem('temp-inspectionFrequency')),
         }
+        this.onSelectChange = this.onSelectChange.bind(this);
         this.onBackClick = this.onBackClick.bind(this);
         this.onNextClick = this.onNextClick.bind(this);
     }
@@ -50,11 +52,12 @@ class ProductionStep4CreateContainer extends Component {
      *------------------------------------------------------------
      */
 
-    onTextChange(e) {
-        this.setState({
-            [e.target.name]: e.target.value,
-        })
-    }
+     onSelectChange(option) {
+         this.setState({
+             [option.selectName]: option.value
+         })
+         localStorage.setItem('temp-'+[option.selectName], option.value);
+     }
 
     onBackClick(e) {
         e.preventDefault();
@@ -63,7 +66,21 @@ class ProductionStep4CreateContainer extends Component {
 
     onNextClick(e) {
         e.preventDefault();
-        this.props.history.push('/add-production-step-5');
+
+        const { errors, isValid } = validateStep4Input(this.state);
+        if (isValid) {
+            this.props.history.push('/add-production-step-5');
+        } else {
+            this.setState({
+                errors: errors
+            })
+
+            // The following code will cause the screen to scroll to the top of
+            // the page. Please see ``react-scroll`` for more information:
+            // https://github.com/fisshy/react-scroll
+            var scroll = Scroll.animateScroll;
+            scroll.scrollToTop();
+        }
     }
 
     /**
@@ -72,8 +89,13 @@ class ProductionStep4CreateContainer extends Component {
      */
 
     render() {
+        const { errors, inspectionFrequency } = this.state;
         return (
             <ProductionStep4CreateComponent
+                inspectionFrequency={inspectionFrequency}
+                inspectionFrequencyOptions={PRODUCTION_INSPECTION_FREQUENCY_CHOICES}
+                errors={errors}
+                onSelectChange={this.onSelectChange}
                 onBackClick={this.onBackClick}
                 onNextClick={this.onNextClick}
             />

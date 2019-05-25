@@ -134,6 +134,21 @@ export function validateStep3Input(data) {
 export function validateStep4Input(data) {
     let errors = {};
 
+    if (data.inspectionFrequency === "" || data.inspectionFrequency === null || data.inspectionFrequency === undefined || data.inspectionFrequency === "null" || isNaN(data.inspectionFrequency) ) {
+        errors.inspectionFrequency = 'This field is required';
+    }
+    console.log(data);
+
+    return {
+        errors,
+        isValid: isEmpty(errors)
+    }
+}
+
+
+export function validateStep5Input(data) {
+    let errors = {};
+
     const hasNoPlants = isEmpty(data.plantsArray);
     const hasNoFish = isEmpty(data.fishArray);
     if (hasNoPlants && hasNoFish) {
