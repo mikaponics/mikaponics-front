@@ -50,6 +50,12 @@ class ProductionStep5CreateContainer extends Component {
         const dayFinishesAtMoment = (dayFinishesAtString !== null && dayFinishesAtString !== undefined) ? moment(dayFinishesAtString) : null;
         const nightEnd = dayFinishesAtMoment && hasDayAndNightCycle ? dayFinishesAtMoment.format("HH:mm") : null;
 
+        // inspections start
+        const inspectionsStartAtString = localStorage.getItem('temp-inspectionsStartAt');
+        const inspectionsStartAtMoment = (inspectionsStartAtString !== null && inspectionsStartAtString !== undefined) ? moment(inspectionsStartAtString) : null;
+        const inspectionsStartAt = inspectionsStartAtMoment ? inspectionsStartAtMoment.format() : null;
+
+        // Save our `state` based from the `localStorage`.
         this.state = {
             // DEVELOPERS NOTE: This variable is used as the main way to add
             // GUI modification to the fields. Simply adding a key and the
@@ -74,6 +80,7 @@ class ProductionStep5CreateContainer extends Component {
             hasDayAndNightCycle: hasDayAndNightCycle ? hasDayAndNightCycle : false,
             dayStartsAt: hasDayAndNightCycle ? dayStartsAt : null,
             dayFinishesAt: hasDayAndNightCycle ? nightEnd : null,
+            inspectionsStartAt: inspectionsStartAt,
             inspectionFrequency: parseInt(localStorage.getItem('temp-inspectionFrequency')),
             redBelowValue: parseInt(localStorage.getItem('temp-redBelowValue')),
             redAlertDelayInSeconds: parseInt(localStorage.getItem('temp-redAlertDelayInSeconds')),
@@ -151,6 +158,7 @@ class ProductionStep5CreateContainer extends Component {
         localStorage.removeItem('temp-dayFinishesAt');
         localStorage.removeItem("temp-plants");
         localStorage.removeItem("temp-fish");
+        localStorage.removeItem('temp-inspectionsStartAt')
         localStorage.removeItem('temp-inspectionFrequency');
         localStorage.removeItem('temp-redBelowValue');
         localStorage.removeItem('temp-redAlertDelayInSeconds');

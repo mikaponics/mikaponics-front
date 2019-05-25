@@ -134,6 +134,9 @@ export function validateStep3Input(data) {
 export function validateStep4Input(data) {
     let errors = {};
 
+    if (data.inspectionsStartAt === "" || data.inspectionsStartAt === null || data.inspectionsStartAt === undefined || data.inspectionsStartAt === "null" || isNaN(data.inspectionsStartAt) ) {
+        errors.inspectionsStartAt = 'This field is required';
+    }
     if (data.inspectionFrequency === "" || data.inspectionFrequency === null || data.inspectionFrequency === undefined || data.inspectionFrequency === "null" || isNaN(data.inspectionFrequency) ) {
         errors.inspectionFrequency = 'This field is required';
     }

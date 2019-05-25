@@ -5,6 +5,7 @@ import ReactModal from 'react-modal';
 import { BootstrapErrorsProcessingAlert } from "../../bootstrap/bootstrapAlert";
 import { BootstrapInput } from '../../bootstrap/bootstrapInput';
 import { BootstrapSingleSelect } from '../../bootstrap/bootstrapSingleSelect';
+import { BootstrapDatePicker } from '../../bootstrap/bootstrapDatePicker';
 
 
 class ProductionStep4CreateComponent extends Component {
@@ -12,6 +13,7 @@ class ProductionStep4CreateComponent extends Component {
         const {
             inspectionFrequency, inspectionFrequencyOptions, onSelectChange,
             redBelowValue, redAlertDelayInSeconds, redAlertDelayInSecondsOptions,
+            inspectionsStartAt, onInspectionsStartAtChange,
             errors, onTextChange, onBackClick, onNextClick,
         } = this.props;
 
@@ -69,6 +71,15 @@ class ProductionStep4CreateComponent extends Component {
                             <BootstrapErrorsProcessingAlert errors={errors} />
 
                             <p className="border-bottom mb-3 pb-1 text-secondary"><i className="fas fa-eye"></i>&nbsp;Scheduled Quality Inspections</p>
+
+                            <BootstrapDatePicker
+                                label="Inspections start at"
+                                name="inspectionsStartAt"
+                                dateObj={inspectionsStartAt}
+                                onTimeChange={onInspectionsStartAtChange}
+                                datePickerClassName="form-control form-control-lg border"
+                                divClassName="form-group p-0 col-md-7 mb-4"
+                            />
 
                             <BootstrapSingleSelect
                                 label="Inspection Frequency (*)"

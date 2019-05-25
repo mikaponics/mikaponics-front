@@ -20,7 +20,8 @@ class ProductionStep4CreateContainer extends Component {
 
     constructor(props) {
         super(props);
-        // localStorage.removeItem('temp-inspectionFrequency')
+        const inspectionsStartAtString = localStorage.getItem('temp-inspectionsStartAt')
+        const inspectionsStartAt = inspectionsStartAtString !== null && inspectionsStartAtString !== undefined && inspectionsStartAtString !== "null" ? new Date(inspectionsStartAtString) : null;
         this.state = {
             // DEVELOPERS NOTE: This variable is used as the main way to add
             // GUI modification to the fields. Simply adding a key and the
@@ -30,11 +31,13 @@ class ProductionStep4CreateContainer extends Component {
             errors: {},
 
             inspectionFrequency: parseInt(localStorage.getItem('temp-inspectionFrequency')),
+            inspectionsStartAt: inspectionsStartAt,
             redBelowValue: parseInt(localStorage.getItem('temp-redBelowValue')),
             redAlertDelayInSeconds: parseInt(localStorage.getItem('temp-redAlertDelayInSeconds')),
         }
         this.onTextChange = this.onTextChange.bind(this);
         this.onSelectChange = this.onSelectChange.bind(this);
+        this.onInspectionsStartAtChange = this.onInspectionsStartAtChange.bind(this);
         this.onBackClick = this.onBackClick.bind(this);
         this.onNextClick = this.onNextClick.bind(this);
     }
@@ -71,6 +74,14 @@ class ProductionStep4CreateContainer extends Component {
         localStorage.setItem('temp-'+[option.selectName], option.value);
     }
 
+    onInspectionsStartAtChange(dateObj) {
+        console.log(dateObj);
+        this.setState({
+            inspectionsStartAt: dateObj,
+        })
+        localStorage.setItem('temp-inspectionsStartAt', dateObj);
+    }
+
     onBackClick(e) {
         e.preventDefault();
         this.props.history.push('/add-production-step-3');
@@ -101,9 +112,10 @@ class ProductionStep4CreateContainer extends Component {
      */
 
     render() {
-        const { errors, inspectionFrequency, redBelowValue, redAlertDelayInSeconds } = this.state;
+        const { errors, inspectionsStartAt, inspectionFrequency, redBelowValue, redAlertDelayInSeconds } = this.state;
         return (
             <ProductionStep4CreateComponent
+                inspectionsStartAt={inspectionsStartAt}
                 inspectionFrequency={inspectionFrequency}
                 inspectionFrequencyOptions={PRODUCTION_INSPECTION_FREQUENCY_CHOICES}
                 redBelowValue={redBelowValue}
@@ -112,6 +124,7 @@ class ProductionStep4CreateContainer extends Component {
                 errors={errors}
                 onSelectChange={this.onSelectChange}
                 onTextChange={this.onTextChange}
+                onInspectionsStartAtChange={this.onInspectionsStartAtChange}
                 onBackClick={this.onBackClick}
                 onNextClick={this.onNextClick}
             />
