@@ -55,6 +55,7 @@ import ProductionStep1CreateContainer from  "./production/create/productionStep1
 import ProductionStep2CreateContainer from  "./production/create/productionStep2CreateContainer";
 import ProductionStep3CreateContainer from  "./production/create/productionStep3CreateContainer";
 import ProductionStep4CreateContainer from  "./production/create/productionStep4CreateContainer";
+import ProductionStep5CreateContainer from  "./production/create/productionStep5CreateContainer";
 import ProductionTerminateStartContainer from "./production/terminate/productionTerminateStartContainer";
 import ProductionTerminateCropContainer from "./production/terminate/productionTerminateCropContainer";
 import ProductionTerminateFinishContainer from "./production/terminate/productionTerminateFinishContainer";
@@ -140,6 +141,7 @@ class AppContainer extends React.Component {
                             <Route path="/add-production-step-2" exact component={requiresAuth(ProductionStep2CreateContainer)} />
                             <Route path="/add-production-step-3" exact component={requiresAuth(ProductionStep3CreateContainer)} />
                             <Route path="/add-production-step-4" exact component={requiresAuth(ProductionStep4CreateContainer)} />
+                            <Route path="/add-production-step-5" exact component={requiresAuth(ProductionStep5CreateContainer)} />
                             <Route path="/production/:slug/terminate-start" exact component={requiresAuth(ProductionTerminateStartContainer)} />
                             <Route path="/production/:slug/terminate-crop/:index" exact component={requiresAuth(ProductionTerminateCropContainer)} />
                             <Route path="/production/:slug/terminate-finish" exact component={requiresAuth(ProductionTerminateFinishContainer)} />

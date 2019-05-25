@@ -56,7 +56,10 @@ class ProductionStep2CreateComponent extends Component {
                             <span className="num">3.</span><span className="">Fish</span>
                         </div>
                         <div id="step-4" className="st-grey">
-                            <span className="num">4.</span><span className="">Review</span>
+                            <span className="num">4.</span><span className="">Notifications</span>
+                        </div>
+                        <div id="step-5" className="st-grey">
+                            <span className="num">5.</span><span className="">Review</span>
                         </div>
                     </div>
                 </div>
