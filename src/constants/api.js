@@ -402,3 +402,9 @@ export const RED_ALERT_DELAY_IN_SECONDS_CHOICES = [
         label: "Every 24 hours"
     }
 ];
+
+
+/**
+ *  The `type_of` options for the `Instrument` API endpoint.
+ */
+export const CAMERA_INSTRUMENT_TYPE = 13;

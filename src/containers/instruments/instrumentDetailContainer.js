@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import CameraInstrumentDetailComponent from "../../components/instruments/cameraInstrumentDetailComponent";
 import InstrumentDetailComponent from "../../components/instruments/instrumentDetailComponent";
 import { pullInstrument } from "../../actions/instrumentActions";
 import { clearFlashMessage } from "../../actions/flashMessageActions";
+import { CAMERA_INSTRUMENT_TYPE } from "../../constants/api";
 
 
 class InstrumentDetailContainer extends Component {
@@ -35,11 +37,29 @@ class InstrumentDetailContainer extends Component {
     }
 
     render() {
+        const { typeOf } = this.props.instrument;
+        const isCamera = typeOf === CAMERA_INSTRUMENT_TYPE;
+        const isNotCamera = typeOf !== CAMERA_INSTRUMENT_TYPE;
+        console.log(typeOf, "|", isCamera, "|", isNotCamera);
         return (
-            <InstrumentDetailComponent
-                instrument={this.props.instrument}
-                flashMessage={this.props.flashMessage}
-            />
+            <div>
+                {isNotCamera &&
+                    <div>
+                        <InstrumentDetailComponent
+                            instrument={this.props.instrument}
+                            flashMessage={this.props.flashMessage}
+                        />
+                    </div>
+                }
+                {isCamera &&
+                    <div>
+                        <CameraInstrumentDetailComponent
+                            instrument={this.props.instrument}
+                            flashMessage={this.props.flashMessage}
+                        />
+                    </div>
+                }
+            </div>
         );
     }
 }
