@@ -20,7 +20,7 @@ const anonymousMenuData = [
     }
 ]
 
-const authenticatedFullMenuData = [
+const authenticatedMenuData = [
     {
         id: "full-dashboard",
         icon: "tachometer-alt",
@@ -69,10 +69,7 @@ const authenticatedFullMenuData = [
                 url: "/referrals"
             }
         ]
-    },
-
-
-    {
+    },{
         id: "full-logout",
         icon: "sign-out-alt",
         title: "Logout",
@@ -80,20 +77,6 @@ const authenticatedFullMenuData = [
     }
 ]
 
-
-const authenticatedLiteMenuData = [
-    {
-        id: "lite-dashboard",
-        icon: "tachometer-alt",
-        title: "Dashboard",
-        url: "/onboard"
-    },{
-        id: "lite-logout",
-        icon: "sign-out-alt",
-        title: "Logout",
-        url: "/logout"
-    }
-]
 
 class ItemNode extends React.Component {
     constructor(props)
@@ -168,14 +151,7 @@ class NavigationContainer extends React.Component {
         if (count > 0) {
             // Generate a friendly message in the menu for authenitcatd users.
             menuTitle = "Hi, "+user.firstName;
-
-            // Generate our menu based on whether the user was "onboarded" or not.
-            const { wasOnboarded } = user;
-            if (wasOnboarded) {
-                menuData = authenticatedFullMenuData;
-            } else {
-                menuData = authenticatedLiteMenuData;
-            }
+            menuData = authenticatedMenuData;
         }
     }
 

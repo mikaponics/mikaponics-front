@@ -7,14 +7,14 @@ class AuthenticatedMessage extends Component {
         const { user } = this.props;
         return (
             <div>
-                <p className="text-center text-secondary lead mb-4">Unfortunately we are having trouble loading the page your are looking for. You can return to your <Link to={user.dashboardPath}>dashboard</Link>. For immediate help, contact  <a href="mailto:support@mikaponics.com">support.</a></p>
+                <p className="text-center text-secondary lead mb-4">Unfortunately we are having trouble loading the page your are looking for. You can return to your <Link to="/dashboard">dashboard</Link>. For immediate help, contact  <a href="mailto:support@mikaponics.com">support.</a></p>
                 <br />
                 <h4>Phone: <a href="tel:2262351368">(226) 235-1368</a></h4>
                 <h4>E-Mail: <a href="mailto:support@mikaponics.com">support@mikaponics.com</a></h4>
                 <br />
                 <br />
                 <p className="text-center">
-                <Link className="btn btn-primary btn-lg" to={user.dashboardPath} role="button">Back to Dashboard</Link>
+                <Link className="btn btn-primary btn-lg" to="/dashboard" role="button">Back to Dashboard</Link>
                 </p>
             </div>
         );
