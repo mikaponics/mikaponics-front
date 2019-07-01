@@ -73,6 +73,8 @@ import TaskProductionInspectionCreateStartContainer from "./tasks/inspection/tas
 import TaskProductionInspectionCreateCropContainer from "./tasks/inspection/taskProductionInspectionCreateCropContainer";
 import TaskProductionInspectionCreateFinishContainer from "./tasks/inspection/taskProductionInspectionCreateFinishContainer";
 import SubscriptionDetailContainer from "./account/subscription/subscriptionDetailContainer";
+import SubscriptionCheckoutContainer from "./account/subscription/subscriptionCheckoutContainer";
+import SubscriptionCheckoutReviewContainer from "./account/subscription/subscriptionCheckoutReviewContainer";
 
 
 class AppContainer extends React.Component {
@@ -161,7 +163,8 @@ class AppContainer extends React.Component {
                             <Route path="/task/production-inspection/:slug/crop/:index" exact component={requiresAuth(TaskProductionInspectionCreateCropContainer)} />
                             <Route path="/task/production-inspection/:slug/finish" exact component={requiresAuth(TaskProductionInspectionCreateFinishContainer)} />
                             <Route path="/subscription" exact component={requiresAuth(SubscriptionDetailContainer)} />
-                            
+                            <Route path="/subscription/checkout" exact component={requiresAuth(SubscriptionCheckoutContainer)} />
+                            <Route path="/subscription/checkout/review" exact component={requiresAuth(SubscriptionCheckoutReviewContainer)} />
                             <Route component={NotFound404Container} />
                         </Switch>
                     </main>
