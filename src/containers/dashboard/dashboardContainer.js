@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 
+import BeginnersDashboardComponent from "../../components/dashboard/beginnersDashboardComponent";
 import DashboardComponent from "../../components/dashboard/dashboardComponent";
 import { pullDashboard } from "../../actions/dashboardActions";
 
@@ -32,6 +33,7 @@ class DashboardContainer extends Component {
     render() {
 
         const { referrer } = this.state;
+        const { dashboard } = this.props;
 
         // If a `referrer` was set then that means we can redirect
         // to a different page in our application.
@@ -39,12 +41,26 @@ class DashboardContainer extends Component {
             return <Redirect to={referrer} />;
         }
 
-        return (
-            <DashboardComponent
-                dashboard={this.props.dashboard}
-                user={this.props.user}
-            />
-        );
+        // CASE 1 OF 3: ERROR.
+        if (dashboard.devices === undefined || dashboard.devices === null) {
+            return null;
+        }
+
+        // CASE 2 OF 3: NO DEVICES.
+        if (dashboard.devices.length === 0) {
+            return (
+                <BeginnersDashboardComponent user={this.props.user} />
+            );
+
+        // CASE 3 OF 3: HAS DEVICES.
+        } else {
+            return (
+                <DashboardComponent
+                    dashboard={dashboard}
+                    user={this.props.user}
+                />
+            );
+        }
     }
 }
 
