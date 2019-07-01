@@ -5,12 +5,21 @@ import 'moment-timezone';
 import { Link } from "react-router-dom";
 
 
-class BeginnersDashboardComponent extends Component {
+class SubscriptionDetailComponent extends Component {
     render() {
         const { user } = this.props;
         return (
             <div className="Dashboard">
-                <h1><i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard</h1>
+                <nav aria-label="breadcrumb">
+                    <ol className="breadcrumb">
+                        <li className="breadcrumb-item">
+                           <Link to="/dashboard"><i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard</Link>
+                        </li>
+                        <li className="breadcrumb-item active" aria-current="page"><i className="fas fa-gem"></i>&nbsp;Subscription</li>
+                    </ol>
+                </nav>
+
+                <h1><i className="fas fa-gem"></i>&nbsp;Subscription</h1>
 
                     <div className="jumbotron">
                         <h1 className="display-4">
@@ -30,4 +39,4 @@ class BeginnersDashboardComponent extends Component {
     }
 }
 
-export default BeginnersDashboardComponent;
+export default SubscriptionDetailComponent;

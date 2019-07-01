@@ -23,7 +23,7 @@ class ServiceNoticeContainer extends Component {
             //------------------------------//
             if (user.subscriptionStatus !== "active") {
                 const text = <Fragment>
-                    <strong><i className="fas fa-server">&nbsp;</i>Service Notice</strong> - Please note a subscription is required. To subscribe to the service, please start by <Link to="/profile">clicking here</Link>.
+                    <strong><i className="fas fa-server">&nbsp;</i>Service Notice</strong> - Please note a subscription is required. To subscribe to the service, please start by <Link to="/subscription">clicking here</Link>.
                 </Fragment>;
                 return (
                     <BootstrapAlert type="info" value={text} />

@@ -97,10 +97,10 @@ class InvoiceListComponent extends Component {
                         <li className="breadcrumb-item">
                            <Link to="/dashboard"><i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard</Link>
                         </li>
-                        <li className="breadcrumb-item active" aria-current="page"><i className="fas fa-book"></i>&nbsp;Invoices</li>
+                        <li className="breadcrumb-item active" aria-current="page"><i className="fas fa-receipt"></i>&nbsp;Invoices</li>
                     </ol>
                 </nav>
-                <h1><i className="fas fa-book"></i>&nbsp;Invoices</h1>
+                <h1><i className="fas fa-receipt"></i>&nbsp;Invoices</h1>
                 <div className="row">
                     <div className="col-md-12">
                         {elements}

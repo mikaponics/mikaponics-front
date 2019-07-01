@@ -59,9 +59,14 @@ const authenticatedMenuData = [
                 url: "/profile"
             },{
                 id: "full-invoices",
-                icon: "book",
+                icon: "receipt",
                 title: "Invoices",
                 url: "/invoices"
+            },{
+                id: "full-subscription",
+                icon: "gem",
+                title: "Subscription",
+                url: "/subscription"
             },{
                 id: "full-referral",
                 icon: "heart",

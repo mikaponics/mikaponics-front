@@ -226,7 +226,7 @@ class InvoiceDetailComponent extends Component {
                            <Link to="/dashboard"><i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard</Link>
                         </li>
                         <li className="breadcrumb-item">
-                           <Link to="/invoices"><i className="fas fa-book"></i>&nbsp;Invoices</Link>
+                           <Link to="/invoices"><i className="fas fa-receipt"></i>&nbsp;Invoices</Link>
                         </li>
                         <li className="breadcrumb-item active" aria-current="page"><i className="fas fa-file"></i>&nbsp;Invoice</li>
                     </ol>
