@@ -1,6 +1,7 @@
 import axios from 'axios';
 import store from '../store';
 import { camelizeKeys } from 'humps';
+import msgpack from 'msgpack-lite';
 
 import { INSTRUMENT_ANALYSIS_LIST_REQUEST, INSTRUMENT_ANALYSIS_LIST_FAILURE, INSTRUMENT_ANALYSIS_LIST_SUCCESS, CLEAR_INSTRUMENT_ANALYSIS_LIST } from '../constants/actionTypes';
 import { MIKAPONICS_INSTRUMENT_ANALYSIS_LIST_CREATE_API_URL } from '../constants/api';
@@ -45,11 +46,16 @@ export function pullInstrumentAnalysisList(user, instrumentSlug=null, page=1) {
             setInstrumentAnalysisListRequest()
         );
 
-        // Create our oAuth 2.0 authenticated API header to use with our
-        // submission.
-        const config = {
-            headers: {'Authorization': "Bearer " + user.token}
-        };
+        // Create a new Axios instance using our oAuth 2.0 bearer token
+        // and various other headers.
+        const customAxios = axios.create({
+            headers: {
+                'Authorization': "Bearer " + user.token,
+                'Content-Type': 'application/msgpack;',
+                'Accept': 'application/msgpack',
+            },
+            responseType: 'arraybuffer'
+        });
 
         // Generate the URL.
         let aURL = "";
@@ -60,13 +66,12 @@ export function pullInstrumentAnalysisList(user, instrumentSlug=null, page=1) {
         }
 
         // Make the API call.
-        axios.get(
-            aURL,
-            config
-        ).then( (successResult) => { // SUCCESS
+        customAxios.get(aURL).then( (successResponse) => { // SUCCESS
+            // Decode our MessagePack (Buffer) into JS Object.
+            const responseData = msgpack.decode(Buffer(successResponse.data));
+
             // console.log(successResult); // For debugging purposes.
 
-            const responseData = successResult.data;
             let data = camelizeKeys(responseData);
 
             // Extra.
@@ -82,20 +87,32 @@ export function pullInstrumentAnalysisList(user, instrumentSlug=null, page=1) {
                 setInstrumentAnalysisListSuccess(data)
             );
 
-        }).catch( (errorResult) => { // ERROR
-            // console.log(">>>",errorResult);
-            // alert("Error fetching latest data");
+        }).catch( (exception) => { // ERROR
+            if (exception.response) {
+                const responseBinaryData = exception.response.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
 
-            const responseData = errorResult.data;
-            let errors = camelizeKeys(responseData);
+                // Decode our MessagePack (Buffer) into JS Object.
+                const responseData = msgpack.decode(Buffer(responseBinaryData));
 
-            store.dispatch(
-                setInstrumentAnalysisListFailure({
-                    isAPIRequestRunning: false,
-                    errors: errors,
-                    page: page,
-                })
-            );
+                let errors = camelizeKeys(responseData);
+
+                console.log("pullInstrumentAnalysisDetail | error:", errors); // For debuggin purposes only.
+
+                // Send our failure to the redux.
+                store.dispatch(
+                    setInstrumentAnalysisListFailure({
+                        isAPIRequestRunning: false,
+                        errors: errors
+                    })
+                );
+
+                // // DEVELOPERS NOTE:
+                // // IF A CALLBACK FUNCTION WAS SET THEN WE WILL RETURN THE JSON
+                // // OBJECT WE GOT FROM THE API.
+                // if (failedCallback) {
+                //     failedCallback(errors);
+                // }
+            }
 
         }).then( () => { // FINALLY
             // Do nothing.

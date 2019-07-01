@@ -1,6 +1,7 @@
 import axios from 'axios';
 import store from '../store';
 import { camelizeKeys } from 'humps';
+import msgpack from 'msgpack-lite';
 
 import {
     TASK_ITEM_DETAIL_REQUEST,
@@ -52,23 +53,27 @@ export function pullTaskItemDetail(user, instrumentSlug=null) {
             setTaskItemDetailRequest()
         );
 
-        // Create our oAuth 2.0 authenticated API header to use with our
-        // submission.
-        const config = {
-            headers: {'Authorization': "Bearer " + user.token}
-        };
+        // Create a new Axios instance using our oAuth 2.0 bearer token
+        // and various other headers.
+        const customAxios = axios.create({
+            headers: {
+                'Authorization': "Bearer " + user.token,
+                'Content-Type': 'application/msgpack;',
+                'Accept': 'application/msgpack',
+            },
+            responseType: 'arraybuffer'
+        });
 
         // Generate the URL.
         const aURL = MIKAPONICS_TASK_ITEM_DETAIL_API_URL+instrumentSlug;
 
         // Make the API call.
-        axios.get(
-            aURL,
-            config
-        ).then( (successResult) => { // SUCCESS
+        customAxios.get(aURL).then( (successResponse) => { // SUCCESS
+            // Decode our MessagePack (Buffer) into JS Object.
+            const responseData = msgpack.decode(Buffer(successResponse.data));
+
             // console.log(successResult); // For debugging purposes.
 
-            const responseData = successResult.data;
             let data = camelizeKeys(responseData);
 
             // Extra.
@@ -83,19 +88,32 @@ export function pullTaskItemDetail(user, instrumentSlug=null) {
                 setTaskItemDetailSuccess(data)
             );
 
-        }).catch( (errorResult) => { // ERROR
-            // console.log(errorResult);
-            // task("Error fetching latest data");
+        }).catch( (exception) => { // ERROR
+            if (exception.response) {
+                const responseBinaryData = exception.response.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
 
-            const responseData = errorResult.data;
-            let errors = camelizeKeys(responseData);
+                // Decode our MessagePack (Buffer) into JS Object.
+                const responseData = msgpack.decode(Buffer(responseBinaryData));
 
-            store.dispatch(
-                setTaskItemDetailFailure({
-                    isAPIRequestRunning: false,
-                    errors: errors,
-                })
-            );
+                let errors = camelizeKeys(responseData);
+
+                console.log("pullTaskItemDetail | error:", errors); // For debuggin purposes only.
+
+                // Send our failure to the redux.
+                store.dispatch(
+                    setTaskItemDetailFailure({
+                        isAPIRequestRunning: false,
+                        errors: errors
+                    })
+                );
+
+                // // DEVELOPERS NOTE:
+                // // IF A CALLBACK FUNCTION WAS SET THEN WE WILL RETURN THE JSON
+                // // OBJECT WE GOT FROM THE API.
+                // if (failedCallback) {
+                //     failedCallback(errors);
+                // }
+            }
 
         }).then( () => { // FINALLY
             // Do nothing.

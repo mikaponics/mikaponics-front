@@ -1,6 +1,7 @@
 import axios from 'axios';
 import store from '../store';
 import { camelizeKeys, decamelizeKeys } from 'humps';
+import msgpack from 'msgpack-lite';
 
 import {
     REGISTER_REST_FORM,
@@ -55,39 +56,62 @@ export function postRegister(userData, successCallback=null, failureCallback=nul
             setRegisterRequest()
         );
 
+        // Create a new Axios instance using our oAuth 2.0 bearer token
+        // and various other headers.
+        const customAxios = axios.create({
+            headers: {
+                'Content-Type': 'application/msgpack;',
+                'Accept': 'application/msgpack',
+            },
+            responseType: 'arraybuffer'
+        });
+
         // The following code will convert the `camelized` data into `snake case`
         // data so our API endpoint will be able to read it.
         let decamelizedData = decamelizeKeys(userData);
 
-        axios.post(
-            MIKAPONICS_REGISTER_API_URL,
-            decamelizedData
-        ).then( (successResult) => {
+        // Encode from JS Object to MessagePack (Buffer)
+        var buffer = msgpack.encode(decamelizedData);
+
+        customAxios.post(MIKAPONICS_REGISTER_API_URL, buffer).then( (successResponse) => {
+
+            // Decode our MessagePack (Buffer) into JS Object.
+            const responseData = msgpack.decode(Buffer(successResponse.data));
 
             store.dispatch(
                 setRegisterSuccess({
-                    detail: successResult.data.detail,
+                    detail: responseData.detail,
                     isAPIRequestRunning: false,
                     errors: {},
                 })
             );
 
-            successCallback(successResult.data);
+            successCallback(responseData);
 
-        }).catch( (errorResult) => {
-            const responseData = errorResult.response.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
-            let errors = camelizeKeys(responseData);
-            // console.log(errors);
+        }).catch( (exception) => {
+            if (exception.response) {
+                const responseBinaryData = exception.response.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
 
-            store.dispatch(
-                setRegisterFailure({
-                    isAPIRequestRunning: false,
-                    errors: errors
-                })
-            );
+                // Decode our MessagePack (Buffer) into JS Object.
+                const responseData = msgpack.decode(Buffer(responseBinaryData));
 
-            // Run our failure callback function.
-            failureCallback(errorResult.response.data);
+                let errors = camelizeKeys(responseData);
+
+                // Send our failure to the redux.
+                store.dispatch(
+                    setRegisterFailure({
+                        isAPIRequestRunning: false,
+                        errors: errors
+                    })
+                );
+
+                // DEVELOPERS NOTE:
+                // IF A CALLBACK FUNCTION WAS SET THEN WE WILL RETURN THE JSON
+                // OBJECT WE GOT FROM THE API.
+                if (failureCallback) {
+                    failureCallback(errors);
+                }
+            }
 
         }).then( () => {
             // Do nothing.

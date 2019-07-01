@@ -1,6 +1,7 @@
 import axios from 'axios';
 import store from '../store';
 import { camelizeKeys } from 'humps';
+import msgpack from 'msgpack-lite';
 
 import { TIME_SERIES_DATA_REQUEST, TIME_SERIES_DATA_FAILURE, TIME_SERIES_DATA_SUCCESS, CLEAR_TIME_SERIES_DATA } from '../constants/actionTypes';
 import { MIKAPONICS_GET_TIME_SERIES_DATA_API_URL } from '../constants/api';
@@ -45,19 +46,31 @@ export function pullTimeSeriesData(user, instrumentSlug, page=1, completionCallb
             setTimeSeriesDataRequest()
         );
 
-        // Create our oAuth 2.0 authenticated API header to use with our
-        // submission.
-        const config = {
-            headers: {'Authorization': "Bearer " + user.token}
-        };
+        // Create a new Axios instance using our oAuth 2.0 bearer token
+        // and various other headers.
+        const customAxios = axios.create({
+            headers: {
+                'Authorization': "Bearer " + user.token,
+                'Content-Type': 'application/msgpack;',
+                'Accept': 'application/msgpack',
+            },
+            responseType: 'arraybuffer'
+        })
+        // DEVELOPER NOTES:
+        // (1) By setting the value to ``application/msgpack`` we are telling
+        //     ``Django REST Framework`` to use our ``MessagePack`` library.
+        // (2) Same as (1)
+        // (3) We are telling ``Axios`` that the data returned from our server
+        //     needs to be in ``arrayBuffer`` format so our ``msgpack-lite``
+        //     library can decode it. Special thanks to the following link:
+        //     https://blog.notabot.in/posts/how-to-use-protocol-buffers-with-rest
 
-        axios.get(
-            MIKAPONICS_GET_TIME_SERIES_DATA_API_URL+"?slug="+instrumentSlug+"&page="+page,
-            config
-        ).then( (successResult) => { // SUCCESS
+        customAxios.get(MIKAPONICS_GET_TIME_SERIES_DATA_API_URL+"?slug="+instrumentSlug+"&page="+page).then( (successResponse) => { // SUCCESS
+            // Decode our MessagePack (Buffer) into JS Object.
+            const responseData = msgpack.decode(Buffer(successResponse.data));
+
             // console.log(successResult); // For debugging purposes.
 
-            const responseData = successResult.data;
             let data = camelizeKeys(responseData);
 
             // Extra.
@@ -73,20 +86,23 @@ export function pullTimeSeriesData(user, instrumentSlug, page=1, completionCallb
                 setTimeSeriesDataSuccess(data)
             );
 
-        }).catch( (errorResult) => { // ERROR
-            // console.log(errorResult);
-            // alert("Error fetching latest data");
+        }).catch( (exception) => { // ERROR
+            if (exception.response) {
+                const responseBinaryData = exception.response.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
 
-            const responseData = errorResult.data;
-            let errors = camelizeKeys(responseData);
+                // Decode our MessagePack (Buffer) into JS Object.
+                const responseData = msgpack.decode(Buffer(responseBinaryData));
 
-            store.dispatch(
-                setTimeSeriesDataFailure({
-                    isAPIRequestRunning: false,
-                    errors: errors,
-                    page: page,
-                })
-            );
+                let errors = camelizeKeys(responseData);
+
+                // Send our failure to the redux.
+                store.dispatch(
+                    setTimeSeriesDataFailure({
+                        isAPIRequestRunning: false,
+                        errors: errors
+                    })
+                );
+            }
 
         }).then( completionCallback );
     }

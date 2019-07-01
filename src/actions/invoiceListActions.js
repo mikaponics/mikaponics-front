@@ -1,6 +1,7 @@
 import axios from 'axios';
 import store from '../store';
 import { camelizeKeys } from 'humps';
+import msgpack from 'msgpack-lite';
 
 import {
     INVOICE_LIST_REQUEST,
@@ -51,19 +52,23 @@ export function pullInvoiceList(user, pageIndex=1) {
             setInvoiceListRequest()
         );
 
-        // Create our oAuth 2.0 authenticated API header to use with our
-        // submission.
-        const config = {
-            headers: {'Authorization': "Bearer " + user.token}
-        };
+        // Create a new Axios instance using our oAuth 2.0 bearer token
+        // and various other headers.
+        const customAxios = axios.create({
+            headers: {
+                'Authorization': "Bearer " + user.token,
+                'Content-Type': 'application/msgpack;',
+                'Accept': 'application/msgpack',
+            },
+            responseType: 'arraybuffer'
+        });
 
-        axios.get(
-            MIKAPONICS_INVOICE_LIST_API_URL+"?page="+pageIndex,
-            config
-        ).then( (successResult) => { // SUCCESS
+        customAxios.get(MIKAPONICS_INVOICE_LIST_API_URL+"?page="+pageIndex).then( (successResponse) => { // SUCCESS
+            // Decode our MessagePack (Buffer) into JS Object.
+            const responseData = msgpack.decode(Buffer(successResponse.data));
+
             // console.log(successResult); // For debugging purposes.
 
-            const responseData = successResult.data;
             let profile = camelizeKeys(responseData);
 
             // Extra.
@@ -78,19 +83,32 @@ export function pullInvoiceList(user, pageIndex=1) {
                 setInvoiceListSuccess(profile)
             );
 
-        }).catch( (errorResult) => { // ERROR
-            // console.log(errorResult);
-            // alert("Error fetching latest invoice.");
+        }).catch( (exception) => { // ERROR
+            if (exception.response) {
+                const responseBinaryData = exception.response.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
 
-            const responseData = errorResult.data;
-            let errors = camelizeKeys(responseData);
+                // Decode our MessagePack (Buffer) into JS Object.
+                const responseData = msgpack.decode(Buffer(responseBinaryData));
 
-            store.dispatch(
-                setInvoiceListFailure({
-                    isAPIRequestRunning: false,
-                    errors: errors
-                })
-            );
+                let errors = camelizeKeys(responseData);
+
+                console.log("pullInstrumentAnalysisDetail | error:", errors); // For debuggin purposes only.
+
+                // Send our failure to the redux.
+                store.dispatch(
+                    setInvoiceListFailure({
+                        isAPIRequestRunning: false,
+                        errors: errors
+                    })
+                );
+
+                // // DEVELOPERS NOTE:
+                // // IF A CALLBACK FUNCTION WAS SET THEN WE WILL RETURN THE JSON
+                // // OBJECT WE GOT FROM THE API.
+                // if (failedCallback) {
+                //     failedCallback(errors);
+                // }
+            }
 
         }).then( () => { // FINALLY
             // Do nothing.

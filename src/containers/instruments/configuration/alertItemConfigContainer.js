@@ -67,6 +67,7 @@ class InstrumentAlertItemConfigContainer extends Component {
                 }
             ],
             referrer: null,
+            errors: {},
         }
 
         // Bind all our component functions.
@@ -118,7 +119,14 @@ class InstrumentAlertItemConfigContainer extends Component {
         });
     }
 
-    onFailedSubmissionCallback() {
+    onFailedSubmissionCallback(errors) {
+        // Update our state.
+        this.setState({
+            errors: errors
+        });
+
+        console.log("onFailedSubmissionCallback | errors:", errors); // For debugging purposes only.
+
         // The following code will cause the screen to scroll to the top of
         // the page. Please see ``react-scroll`` for more information:
         // https://github.com/fisshy/react-scroll
@@ -183,7 +191,7 @@ class InstrumentAlertItemConfigContainer extends Component {
                 onChange={this.onChange}
                 onSelectChange={this.onSelectChange}
                 onClick={this.onClick}
-                errors={this.props.errors}
+                errors={this.state.errors}
                 options={this.state.alertDelayInSecondsOptions}
             />
         );
@@ -204,9 +212,9 @@ const mapDispatchToProps = dispatch => {
                 pullInstrument(user, instrumentSlug)
             )
         },
-        putInstrument: (user, instrumentSlug, data, okCallback) => {
+        putInstrument: (user, instrumentSlug, data, okCallback, badCallback) => {
             dispatch(
-                putInstrument(user, instrumentSlug, data, okCallback)
+                putInstrument(user, instrumentSlug, data, okCallback, badCallback)
             )
         },
         setFlashMessage: (typeOf, text) => {

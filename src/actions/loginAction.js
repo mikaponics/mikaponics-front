@@ -1,6 +1,7 @@
 import axios from 'axios';
 import store from '../store';
 import { camelizeKeys } from 'humps';
+import msgpack from 'msgpack-lite';
 
 import { LOGIN_REST_FORM, LOGIN_REQUEST, LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT_SUCCESS } from "../constants/actionTypes"
 import { MIKAPONICS_LOGIN_API_URL } from "../constants/api"
@@ -50,13 +51,27 @@ export function attemptLogin(email, password) {
             setLoginRequest()
         );
 
-        axios.post(MIKAPONICS_LOGIN_API_URL, {
+        // Create a new Axios instance which will be sending and receiving in
+        // MessagePack (Buffer) format.
+        const customAxios = axios.create({
+            headers: {
+                'Content-Type': 'application/msgpack;',
+                'Accept': 'application/msgpack',
+            },
+            responseType: 'arraybuffer'
+        })
+
+        // Encode from JS Object to MessagePack (Buffer)
+        var buffer = msgpack.encode({
             'email': email,
             'password': password,
-        }).then( (successResult) => {
+        });
+
+        customAxios.post(MIKAPONICS_LOGIN_API_URL, buffer).then( (successResponse) => {
+            // Decode our MessagePack (Buffer) into JS Object.
+            const responseData = msgpack.decode(Buffer(successResponse.data));
             // console.log(successResult); // For debugging purposes.
 
-            const responseData = successResult.data;
             let profile = camelizeKeys(responseData);
 
             // Extra.
@@ -68,17 +83,30 @@ export function attemptLogin(email, password) {
             store.dispatch(
                 setLoginSuccess(profile)
             );
-        }).catch( (errorResult) => {
-            store.dispatch(
-                setLoginFailure({
-                    isAPIRequestRunning: false,
-                    errors: {
-                        email: errorResult.response.data.email,
-                        password: errorResult.response.data.password,
-                        nonFieldErrors: errorResult.response.data.non_field_errors
-                    }
-                })
-            );
+        }).catch( (exception) => {
+            if (exception.response) {
+                const responseBinaryData = exception.response.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
+
+                // Decode our MessagePack (Buffer) into JS Object.
+                const responseData = msgpack.decode(Buffer(responseBinaryData));
+
+                let errors = camelizeKeys(responseData);
+
+                // Send our failure to the redux.
+                store.dispatch(
+                    setLoginFailure({
+                        isAPIRequestRunning: false,
+                        errors: errors
+                    })
+                );
+
+                // // DEVELOPERS NOTE:
+                // // IF A CALLBACK FUNCTION WAS SET THEN WE WILL RETURN THE JSON
+                // // OBJECT WE GOT FROM THE API.
+                // if (failedCallback) {
+                //     failedCallback(errors);
+                // }
+            }
 
         }).then( () => {
             // Do nothing.

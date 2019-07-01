@@ -1,6 +1,7 @@
 import axios from 'axios';
 import store from '../store';
 import { camelizeKeys } from 'humps';
+import msgpack from 'msgpack-lite';
 
 import { LOGOUT_REQUEST, LOGOUT_FAILURE, LOGOUT_SUCCESS } from "../constants/actionTypes"
 import { MIKAPONICS_LOGOUT_API_URL } from "../constants/api"
@@ -53,20 +54,29 @@ export function postLogout(user) {
         // Generate the URL.
         let aURL = MIKAPONICS_LOGOUT_API_URL;
 
-        // Create our oAuth 2.0 authenticated API header to use with our
-        // submission.
-        const config = {
-            headers: {'Authorization': "Bearer " + user.token}
-        };
+        // Create a new Axios instance using our oAuth 2.0 bearer token
+        // and various other headers.
+        const customAxios = axios.create({
+            headers: {
+                'Authorization': "Bearer " + user.token,
+                'Content-Type': 'application/msgpack;',
+                'Accept': 'application/msgpack',
+            },
+            responseType: 'arraybuffer'
+        });
 
         const decamelizedData = {
             token: user.token
         }
 
-        axios.post(aURL, decamelizedData, config).then( (successResult) => {
+        // Encode from JS Object to MessagePack (Buffer)
+        var buffer = msgpack.encode(decamelizedData);
+
+        customAxios.post(aURL, buffer).then( (successResponse) => {
+            // Decode our MessagePack (Buffer) into JS Object.
+            const responseData = msgpack.decode(Buffer(successResponse.data));
             // console.log(successResult); // For debugging purposes.
 
-            const responseData = successResult.data;
             let profile = camelizeKeys(responseData);
 
             // Extra.
@@ -79,17 +89,30 @@ export function postLogout(user) {
                 setLogoutSuccess()
             );
 
-        }).catch( (errorResult) => {
-            store.dispatch(
-                setLogoutFailure({
-                    isAPIRequestRunning: false,
-                    errors: {
-                        email: errorResult.response.data.email,
-                        password: errorResult.response.data.password,
-                        nonFieldErrors: errorResult.response.data.non_field_errors
-                    }
-                })
-            );
+        }).catch( (exception) => {
+            if (exception.response) {
+                const responseBinaryData = exception.response.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
+
+                // Decode our MessagePack (Buffer) into JS Object.
+                const responseData = msgpack.decode(Buffer(responseBinaryData));
+
+                let errors = camelizeKeys(responseData);
+
+                // Send our failure to the redux.
+                store.dispatch(
+                    setLogoutFailure({
+                        isAPIRequestRunning: false,
+                        errors: errors
+                    })
+                );
+
+                // // DEVELOPERS NOTE:
+                // // IF A CALLBACK FUNCTION WAS SET THEN WE WILL RETURN THE JSON
+                // // OBJECT WE GOT FROM THE API.
+                // if (failedCallback) {
+                //     failedCallback(errors);
+                // }
+            }
 
         }).then( () => {
             // Do nothing.

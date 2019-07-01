@@ -21,6 +21,8 @@ class AlertItemConfigComponent extends Component {
             onClick
         } = this.props;
 
+        // console.log("AlertItemConfigComponent | errors:", errors); // For debugging purposes only.
+
         return (
             <div>
                 <nav aria-label="breadcrumb">

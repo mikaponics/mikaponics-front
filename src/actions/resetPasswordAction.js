@@ -1,6 +1,7 @@
 import axios from 'axios';
 import store from '../store';
 import { camelizeKeys } from 'humps';
+import msgpack from 'msgpack-lite';
 
 import {
     RESET_PASSWORD_REQUEST,
@@ -40,14 +41,28 @@ export function postResetPassword(formData, successCallback=null, failureCallbac
             setResetPasswordRequest()
         );
 
-        axios.post(MIKAPONICS_PASSWORD_RESET_API_URL, {
+        // Create a new Axios instance using our oAuth 2.0 bearer token
+        // and various other headers.
+        const customAxios = axios.create({
+            headers: {
+                'Content-Type': 'application/msgpack;',
+                'Accept': 'application/msgpack',
+            },
+            responseType: 'arraybuffer'
+        });
+
+        // Encode from JS Object to MessagePack (Buffer)
+        var buffer = msgpack.encode({
             'password': formData.password,
             'password_repeat': formData.passwordConfirmation,
             'pr_access_code': formData.accessCode,
-        }).then( (successResult) => {
-            // console.log(successResult); // For debugging purposes.
+        });
 
-            const responseData = successResult.data;
+        customAxios.post(MIKAPONICS_PASSWORD_RESET_API_URL, buffer).then( (successResponse) => {
+
+            // Decode our MessagePack (Buffer) into JS Object.
+            const responseData = msgpack.decode(Buffer(successResponse.data));
+            // console.log(successResult); // For debugging purposes.
             let profile = camelizeKeys(responseData);
 
             // Extra.
@@ -63,22 +78,32 @@ export function postResetPassword(formData, successCallback=null, failureCallbac
             );
 
             // User profile is returned in the success callback function.
-            successCallback(successResult.data);
+            successCallback(profile);
 
-        }).catch( (errorResult) => {
-            const responseData = errorResult.response.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
-            let errors = camelizeKeys(responseData);
-            // console.log(errors);
+        }).catch( (exception) => {
+            if (exception.response) {
+                const responseBinaryData = exception.response.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
 
-            store.dispatch(
-                setResetPasswordFailure({
-                    isAPIRequestRunning: false,
-                    errors: errors
-                })
-            );
+                // Decode our MessagePack (Buffer) into JS Object.
+                const responseData = msgpack.decode(Buffer(responseBinaryData));
 
-            // Run our failure callback function.
-            failureCallback(errorResult.response.data);
+                let errors = camelizeKeys(responseData);
+
+                // Send our failure to the redux.
+                store.dispatch(
+                    setResetPasswordFailure({
+                        isAPIRequestRunning: false,
+                        errors: errors
+                    })
+                );
+
+                // DEVELOPERS NOTE:
+                // IF A CALLBACK FUNCTION WAS SET THEN WE WILL RETURN THE JSON
+                // OBJECT WE GOT FROM THE API.
+                if (failureCallback) {
+                    failureCallback(errors);
+                }
+            }
 
         }).then( () => {
             // Do nothing.
