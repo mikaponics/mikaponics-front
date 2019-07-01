@@ -47,10 +47,12 @@ class ProductionListContainer extends Component {
     }
 
     render() {
+        const { user, productionList, flashMessage } = this.props;
         return (
             <ProductionListComponent
-                productionList={this.props.productionList}
-                flashMessage={this.props.flashMessage}
+                user={user}
+                productionList={productionList}
+                flashMessage={flashMessage}
             />
         );
     }

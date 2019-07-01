@@ -102,7 +102,7 @@ class NoProductionJumbotron extends Component {
 
 class ProductionListComponent extends Component {
     render() {
-        const { productionList, flashMessage } = this.props;
+        const { user, productionList, flashMessage } = this.props;
 
         // DEFENSIVE CODE: DO NOT LOAD VIEW UNTIL WE HAVE DATA FROM API ENDPOINT.
         if (isEmpty(productionList)) { return null; }
@@ -125,6 +125,46 @@ class ProductionListComponent extends Component {
             }
         }
 
+        //-------------------------//
+        // CASE 1 OF 2: NO DEVICES //
+        //-------------------------//
+        if (user.devices.length === 0) {
+            return (
+                <div>
+                    <nav aria-label="breadcrumb">
+                        <ol className="breadcrumb">
+                            <li className="breadcrumb-item">
+                               <Link to="/dashboard"><i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard</Link>
+                            </li>
+                            <li className="breadcrumb-item active" aria-current="page">
+                                <i className="fas fa-industry"></i>&nbsp;Crop Production</li>
+                        </ol>
+                    </nav>
+
+                    <h1>
+                        <i className="fas fa-industry"></i>&nbsp;Crop Production
+                    </h1>
+
+                    <div className="jumbotron">
+                        <h1 className="display-4">
+                            <i className="fas fa-bullhorn"></i>&nbsp;Attention
+                        </h1>
+                        <p className="lead">Before you can create crop productions, you will need to <strong>purchase a device</strong>. Once purchased, you will be granted full-access to your crop productions.</p>
+                        <hr className="my-4" />
+                        <p>Click here to begin the device purchase</p>
+                        <p className="lead">
+                            <Link to="/purchase" className="btn btn-success btn-lg">
+                                <i className="fas fa-shopping-cart"></i>&nbsp;Purchase
+                            </Link>
+                        </p>
+                    </div>
+                </div>
+            );
+        }
+
+        //--------------------------//
+        // CASE 2 OF 2: HAS DEVICES //
+        //--------------------------//
         return (
             <div>
                 <nav aria-label="breadcrumb">
