@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from 'react-redux';
+import { Link } from "react-router-dom";
 
 import { BootstrapAlert } from "../../components/bootstrap/bootstrapAlert";
 
@@ -22,7 +23,7 @@ class ServiceNoticeContainer extends Component {
             //------------------------------//
             if (user.subscriptionStatus !== "active") {
                 const text = <Fragment>
-                    <strong><i className="fas fa-server">&nbsp;</i>Service Notice</strong> - Please note a subscription is required. To subscribe to the service, please start by <a href='/account/subscription'>clicking here</a>.
+                    <strong><i className="fas fa-server">&nbsp;</i>Service Notice</strong> - Please note a subscription is required. To subscribe to the service, please start by <Link to="/profile">clicking here</Link>.
                 </Fragment>;
                 return (
                     <BootstrapAlert type="info" value={text} />
