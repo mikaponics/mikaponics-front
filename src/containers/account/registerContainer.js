@@ -64,6 +64,7 @@ class RegisterContainer extends React.Component {
             this.state,
             (data) => {
                 console.log(data); // Do nothing.
+                this.props.history.push("/register-success");
             },
             (data) => {
                 console.log(data);
