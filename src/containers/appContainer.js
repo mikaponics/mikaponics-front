@@ -5,6 +5,7 @@ import ScrollUpButton from "react-scroll-up-button";
 import requiresAuth from '../helpers/requiresAuth';
 import NavigationContainer from './navigation/navigationContainer';
 import NotFound404Container from './navigation/notFound404Container';
+import ServiceNoticeContainer from './navigation/serviceNoticeContainer';
 import PrivacyContainer from './general/privacyContainer';
 import TermsContainer from './general/termsContainer';
 import IndexContainer from './general/indexContainer';
@@ -89,6 +90,7 @@ class AppContainer extends React.Component {
                 <div className="d-flex align-items-stretch">
                     <main id="main" role="main">
                         <ScrollUpButton />
+                        <ServiceNoticeContainer />
                         <Switch>
                             <Route path="/" exact component={IndexContainer} />
                             <Route path="/login" exact component={LoginContainer} />
