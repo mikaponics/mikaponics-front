@@ -134,6 +134,10 @@ class SubscriptionCheckoutReviewComponent extends Component {
                                     <th scope="row" colSpan="2" className="text-light">Financial Summary</th>
                                 </tr>
                                 <tr>
+                                    <th scope="row" className="bg-light">Name:</th>
+                                    <td>{subscription.name}</td>
+                                </tr>
+                                <tr>
                                     <th scope="row" className="bg-light">Monthly Fee:</th>
                                     <td>{subscription.amountInDollars}</td>
                                 </tr>
