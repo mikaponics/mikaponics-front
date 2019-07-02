@@ -41,12 +41,12 @@ class DeviceListComponent extends Component {
                 <div className="col-sm-4">
                     <div className="card box-shadow text-center mx-auto">
                         <div className="card-custom-top-2">
-                            <i className="fas fa-shopping-cart fa-3x"></i>
+                            <i className="fas fa-plus fa-3x"></i>
                         </div>
                         <div className="card-body">
-                            <h3 className="card-title">Purchase Device</h3>
+                            <h3 className="card-title">Add Device</h3>
                             <p className="card-text">Purchase devices.</p>
-                            <Link to="/purchase" className="btn btn-success btn-lg">
+                            <Link to="/devices/create/step-1" className="btn btn-success btn-lg">
                                 View&nbsp;<i className="fas fa-arrow-circle-right"></i>
                             </Link>
                         </div>
