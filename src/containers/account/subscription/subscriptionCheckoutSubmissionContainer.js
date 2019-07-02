@@ -21,7 +21,7 @@ class SubscriptionCheckoutSubmissionContainer extends Component {
 
     onSuccessfulSubmissionCallback() {
         this.setState({
-            referrer: "/subscription/success"
+            referrer: "/subscription/checkout/success"
         });
     }
 
@@ -64,7 +64,7 @@ class SubscriptionCheckoutSubmissionContainer extends Component {
 
     render() {
         if (this.state.referrer !== undefined && this.state.referrer !== null && this.state.referrer !== '') {
-            return <Redirect to="/subscription/success" />
+            return <Redirect to={this.state.referrer} />
         }
         return (
             <SubscriptionCheckoutSubmissionComponent />

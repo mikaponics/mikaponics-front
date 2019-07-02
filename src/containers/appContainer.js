@@ -76,6 +76,7 @@ import SubscriptionDetailContainer from "./account/subscription/subscriptionDeta
 import SubscriptionCheckoutContainer from "./account/subscription/subscriptionCheckoutContainer";
 import SubscriptionCheckoutReviewContainer from "./account/subscription/subscriptionCheckoutReviewContainer";
 import SubscriptionCheckoutSubmissionContainer from "./account/subscription/subscriptionCheckoutSubmissionContainer";
+import SubscriptionCheckoutSuccessContainer from "./account/subscription/subscriptionCheckoutSuccessContainer";
 
 
 class AppContainer extends React.Component {
@@ -166,6 +167,7 @@ class AppContainer extends React.Component {
                             <Route path="/subscription/checkout" exact component={requiresAuth(SubscriptionCheckoutContainer)} />
                             <Route path="/subscription/checkout/review" exact component={requiresAuth(SubscriptionCheckoutReviewContainer)} />
                             <Route path="/subscription/checkout/submission" exact component={requiresAuth(SubscriptionCheckoutSubmissionContainer)} />
+                            <Route path="/subscription/checkout/success" exact component={requiresAuth(SubscriptionCheckoutSuccessContainer)} />
                             <Route component={NotFound404Container} />
                         </Switch>
                     </main>
