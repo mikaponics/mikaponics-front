@@ -51,7 +51,9 @@ class SubscriptionCheckoutComponent extends React.Component {
                 </nav>
 
                 <h1><i className="fas fa-shopping-cart"></i>&nbsp;Purchase Subscription</h1>
-                <h3 className="pt-4 pb-2 text-center">Purchase Form</h3>
+                <h3 className="pt-4 pb-2 text-center">
+                    <i className="fas fa-money-check-alt"></i>&nbsp;Purchase Form
+                </h3>
                 <div className="row">
                     <div className="col-md-5 mx-auto mt-2">
                         <form className="needs-validation" noValidate>
@@ -60,7 +62,9 @@ class SubscriptionCheckoutComponent extends React.Component {
 
                             <BootstrapErrorsProcessingAlert errors={errors} />
 
-                            <p className="border-bottom mb-3 pb-1 text-secondary">Billing Details</p>
+                            <p className="border-bottom mb-3 pb-1 text-secondary">
+                                <i className="fas fa-address-card"></i>&nbsp;Billing Details
+                            </p>
 
                             <BootstrapInput
                                 inputClassName="form-control"
@@ -160,7 +164,9 @@ class SubscriptionCheckoutComponent extends React.Component {
                                 type="text"
                             />
 
-                            <p className="border-bottom mb-3 pb-1 text-secondary">Shipping Details</p>
+                            <p className="border-bottom mb-3 pb-1 text-secondary">
+                                <i className="fas fa-map-marker"></i>&nbsp;Shipping Details
+                            </p>
 
                             <BootstrapCheckbox
                                 inputClassName="form-check-input form-check-input-lg"

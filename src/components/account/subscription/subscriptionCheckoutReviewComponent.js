@@ -45,7 +45,9 @@ class SubscriptionCheckoutReviewComponent extends Component {
                         <table className="table table-bordered custom-cell-w">
                             <tbody>
                             <tr className="bg-dark">
-                                <th scope="row" colSpan="2" className="text-light">Billing Details</th>
+                                <th scope="row" colSpan="2" className="text-light">
+                                    <i className="fas fa-address-card"></i>&nbsp;Billing Details
+                                </th>
                             </tr>
                             <tr>
                                 <th scope="row" className="bg-light">Given Name</th>
@@ -89,7 +91,9 @@ class SubscriptionCheckoutReviewComponent extends Component {
                         <table className="table table-bordered custom-cell-w">
                             <tbody>
                             <tr className="bg-dark">
-                                <th scope="row" colSpan="2" className="text-light">Shipping Details</th>
+                                <th scope="row" colSpan="2" className="text-light">
+                                    <i className="fas fa-map-marker"></i>&nbsp;Shipping Details
+                                </th>
                             </tr>
                             <tr>
                                 <th scope="row" className="bg-light">Given Name</th>
@@ -133,15 +137,17 @@ class SubscriptionCheckoutReviewComponent extends Component {
                         <table className="table table-bordered custom-cell-w">
                             <tbody>
                                 <tr className="bg-dark">
-                                    <th scope="row" colSpan="2" className="text-light">Financial Summary</th>
+                                    <th scope="row" colSpan="2" className="text-light">
+                                        <i className="fas fa-money-bill-alt"></i>&nbsp;Recurring Bill
+                                    </th>
                                 </tr>
                                 <tr>
-                                    <th scope="row" className="bg-light">Subscription:</th>
+                                    <th scope="row" className="bg-light">Name:</th>
                                     <td>{subscription.name}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row" className="bg-light">Monthly Fee:</th>
-                                    <td>{subscription.amountInDollars}</td>
+                                    <th scope="row" className="bg-light">Recurring Amount:</th>
+                                    <td>${subscription.amountInDollars} / month</td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">First Payment:</th>

@@ -55,12 +55,12 @@ class SubscriptionDetailComponent extends Component {
                         <h1 className="display-4">
                             <i className="fas fa-bullhorn"></i>&nbsp;Attention
                         </h1>
-                        <p className="lead">No previous subscriptions exist.</p>
+                        <p className="lead">You currently do not have an active subscription with us. Please subscribe to unluck certain features of the site. </p>
                         <hr className="my-4" />
                         <p>Click here to begin the subscription purchase.</p>
                         <p className="lead">
-                            <Link to="subscription/checkout" className="btn btn-success btn-lg">
-                                <i className="fas fa-shopping-cart"></i>&nbsp;Checkout
+                            <Link to="subscription/checkout" className="btn btn-primary btn-lg">
+                            Begin&nbsp;<i className="fas fa-arrow-circle-right"></i>
                             </Link>
                         </p>
                     </div>
