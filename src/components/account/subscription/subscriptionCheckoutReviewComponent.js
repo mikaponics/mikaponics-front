@@ -7,9 +7,7 @@ import StripeComponent from "../../stripeComponent";
 class SubscriptionCheckoutReviewComponent extends Component {
     render() {
         const {
-            totalBeforeTax, tax, totalAfterTax, shipping, credit, grandTotal,
-            onBackClick,
-            name, description, amountInCents, currency, stripeKey,
+            subscriptionInfo, currency, stripeKey,
 
             billingGivenName, billingLastName, billingCountry,
             billingRegion, billingLocality, billingPostalCode, billingEmail,
@@ -18,8 +16,9 @@ class SubscriptionCheckoutReviewComponent extends Component {
             shippingGivenName, shippingLastName, shippingCountry,
             shippingRegion, shippingLocality, shippingStreetAddress,
             shippingPostalCode, shippingEmail,
-            shippingTelephone
+            shippingTelephone, onBackClick,
         } = this.props;
+        console.log(subscriptionInfo);
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -135,32 +134,8 @@ class SubscriptionCheckoutReviewComponent extends Component {
                                     <th scope="row" colSpan="2" className="text-light">Financial Summary</th>
                                 </tr>
                                 <tr>
-                                    <th scope="row" className="bg-light">Price per device:</th>
-                                    <td>666</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" className="bg-light">Total before tax:</th>
-                                    <td>{totalBeforeTax}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" className="bg-light">Tax:</th>
-                                    <td>{tax}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" className="bg-light">Total after tax:</th>
-                                    <td>{totalAfterTax} </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" className="bg-light">Shipping:</th>
-                                    <td>{shipping} </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" className="bg-light">Credit:</th>
-                                    <td>{credit}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" className="bg-light">Grand total:</th>
-                                    <td>{grandTotal} </td>
+                                    <th scope="row" className="bg-light">Monthly Fee:</th>
+                                    <td>{subscriptionInfo.monthlyFeeInDollars}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -173,15 +148,17 @@ class SubscriptionCheckoutReviewComponent extends Component {
                             <form>
                                  <StripeComponent
                                     buttonClassName="btn btn-lg float-right pl-4 pr-4 btn-success"
-                                    name={name}
-                                    description={description}
+                                    name={subscriptionInfo.name}
+                                    description=""
                                     onToken={(token) => this.props.onToken(token)}
                                     billingEmail={billingEmail}
-                                    amountInCents={amountInCents}
+                                    amountInCents={subscriptionInfo.monthlyFeeInCents}
                                     currency={currency}
                                     stripeKey={stripeKey}
-                                    imageURL={"https://app.mikaponics.com/img/mikaponics-logo.png"}
                                  />
+                                 { /*
+                                     imageURL={"https://app.mikaponics.com/img/mikaponics-logo.png"}
+                                 */}
                             </form>
                         </div>
 

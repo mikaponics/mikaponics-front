@@ -31,31 +31,31 @@ class SubscriptionCheckoutSubmissionContainer extends Component {
     }
 
     componentDidMount() {
+        // Deconstruct the props to get our user and only run the following
+        // code if the user has not been subscribed.
+        const { purchaseDevice } = this.props;
+
+        // Defensive code: If we don't have the details then don't run this
+        // function in our code.
+        if (purchaseDevice === undefined || purchaseDevice === null) {
+            return;
+        }
+
+        const paymentReceiptString = localStorage.getItem('subscriptionPaymentReceipt');
+        if (paymentReceiptString === undefined || paymentReceiptString === null) {
+            return;
+        }
+        const paymentReceiptDictionary = JSON.parse(paymentReceiptString);
+
+        // Add extra fields that our API requires.
+        purchaseDevice['payment_token'] = paymentReceiptDictionary.id;
+        purchaseDevice['payment_created_at'] = paymentReceiptDictionary.created;
+
+        alert("TODO: SUBMITTED");
         this.setState({
             referrer: "/subscription/success"
         });
 
-
-        // // Deconstruct the props to get our user and only run the following
-        // // code if the user has not been subscribed.
-        // const { purchaseDevice } = this.props;
-        //
-        // // Defensive code: If we don't have the details then don't run this
-        // // function in our code.
-        // if (purchaseDevice === undefined || purchaseDevice === null) {
-        //     return;
-        // }
-        //
-        // const paymentReceiptString = localStorage.getItem('paymentReceipt');
-        // if (paymentReceiptString === undefined || paymentReceiptString === null) {
-        //     return;
-        // }
-        // const paymentReceiptDictionary = JSON.parse(paymentReceiptString);
-        //
-        // // Add extra fields that our API requires.
-        // purchaseDevice['payment_token'] = paymentReceiptDictionary.id;
-        // purchaseDevice['payment_created_at'] = paymentReceiptDictionary.created;
-        //
         // // SUBMIT OUR PAYMENT TOKEN RECEIVED FROM OUR PAYMENT MERCHANT.
         // // Asynchronously submit our ``update`` to our API endpoint.
         // this.props.postPurchaseDevice(
@@ -68,7 +68,7 @@ class SubscriptionCheckoutSubmissionContainer extends Component {
 
     render() {
         if (this.state.referrer !== undefined && this.state.referrer !== null && this.state.referrer !== '') {
-            return <Redirect to="/purchase/success" />
+            return <Redirect to="/subscription/success" />
         }
         return (
             <PurchaseDeviceSubmissionComponent />

@@ -25,6 +25,7 @@ import {
     PRODUCTION_CROP_INSPECTION_DETAIL_SUCCESS,
     TASK_ITEM_LIST_SUCCESS,
     TASK_ITEM_DETAIL_SUCCESS,
+    SUBSCRIPTION_INFO_SUCCESS
 } from "./constants/actionTypes";
 import userReducer from "./reducers/userReducer";
 import onboardingReducer from "./reducers/onboardingReducer";
@@ -55,6 +56,7 @@ import productionCropInspectionListReducer from "./reducers/productionCropInspec
 import productionCropInspectionDetailReducer from "./reducers/productionCropInspectionDetailReducer";
 import taskItemListReducer from "./reducers/taskItemListReducer";
 import taskItemDetailReducer from "./reducers/taskItemDetailReducer";
+import subscriptionInfoReducer from "./reducers/subscriptionInfoReducer";
 
 
 // Combine Reducers
@@ -88,6 +90,7 @@ const appReducer = combineReducers({
     productionCropInspectionDetailState: productionCropInspectionDetailReducer,
     taskItemListState: taskItemListReducer,
     taskItemDetailState: taskItemDetailReducer,
+    subscriptionInfoState: subscriptionInfoReducer,
 });
 
 
@@ -122,7 +125,7 @@ const localStorageMiddleware = ({ getState }) => {
             CROP_DATA_SHEET_LIST_SUCCESS, CROP_SUBSTRATE_LIST_SUCCESS, PRODUCTION_CROP_LIST_SUCCESS,
             PRODUCTION_CROP_DETAIL_SUCCESS, PRODUCTION_INSPECTION_LIST_SUCCESS,
             PRODUCTION_INSPECTION_DETAIL_SUCCESS, TASK_ITEM_LIST_SUCCESS,
-            TASK_ITEM_DETAIL_SUCCESS
+            TASK_ITEM_DETAIL_SUCCESS, SUBSCRIPTION_INFO_SUCCESS,
         ].includes(result.type)) {
             // console.log("De-hydrating store...");
             localStorage.setItem(APP_STATE, JSON.stringify(getState()))
