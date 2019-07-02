@@ -75,6 +75,7 @@ import TaskProductionInspectionCreateFinishContainer from "./tasks/inspection/ta
 import SubscriptionDetailContainer from "./account/subscription/subscriptionDetailContainer";
 import SubscriptionCheckoutContainer from "./account/subscription/subscriptionCheckoutContainer";
 import SubscriptionCheckoutReviewContainer from "./account/subscription/subscriptionCheckoutReviewContainer";
+import SubscriptionCheckoutSubmissionContainer from "./account/subscription/subscriptionCheckoutSubmissionContainer";
 
 
 class AppContainer extends React.Component {
@@ -93,7 +94,6 @@ class AppContainer extends React.Component {
                 <div className="d-flex align-items-stretch">
                     <main id="main" role="main">
                         <ScrollUpButton />
-                        <ServiceNoticeContainer />
                         <Switch>
                             <Route path="/" exact component={IndexContainer} />
                             <Route path="/login" exact component={LoginContainer} />
@@ -165,6 +165,7 @@ class AppContainer extends React.Component {
                             <Route path="/subscription" exact component={requiresAuth(SubscriptionDetailContainer)} />
                             <Route path="/subscription/checkout" exact component={requiresAuth(SubscriptionCheckoutContainer)} />
                             <Route path="/subscription/checkout/review" exact component={requiresAuth(SubscriptionCheckoutReviewContainer)} />
+                            <Route path="/subscription/checkout/submission" exact component={requiresAuth(SubscriptionCheckoutSubmissionContainer)} />
                             <Route component={NotFound404Container} />
                         </Switch>
                     </main>
