@@ -20,6 +20,7 @@ class DeviceCreateStep1Component extends Component {
                 <h1>
                     <i className="fas fa-plus"></i>&nbsp;Add Device
                 </h1>
+                <h2><i className="fas fa-sitemap"></i>&nbsp;Select Method</h2>
                 <div className="card-group row">
 
                     <div className="col-sm-6" key="purchase-device">
@@ -30,7 +31,7 @@ class DeviceCreateStep1Component extends Component {
                             <div className="card-body">
                                 <h3 className="card-title">Purchase New Device</h3>
                                 <p className="card-text">Click here if you would like to buy a ready-made device from us. We will take care of the hardware and software.</p>
-                                <Link to={"/"} className="btn btn-success btn-lg">
+                                <Link to="/devices/create/step-2-purchase" className="btn btn-success btn-lg">
                                     Select&nbsp;<i className="fas fa-arrow-circle-right"></i>
                                 </Link>
                             </div>
@@ -45,7 +46,7 @@ class DeviceCreateStep1Component extends Component {
                             <div className="card-body">
                                 <h3 className="card-title">Integrate Custom Device</h3>
                                 <p className="card-text">Click here if you already have the IoT hardware and you would like to integrate it with our software; furthermore, if you build one of our <a href="https://github.com/mikaponics" target="_blank">open-source devices&nbsp;<i className="fas fa-external-link-alt"></i></a>, click here to integrate it with out system.</p>
-                                <Link to={"/"} className="btn btn-success btn-lg">
+                                <Link to="/devices/create/step-2-integrate" className="btn btn-success btn-lg">
                                     Select&nbsp;<i className="fas fa-arrow-circle-right"></i>
                                 </Link>
                             </div>
