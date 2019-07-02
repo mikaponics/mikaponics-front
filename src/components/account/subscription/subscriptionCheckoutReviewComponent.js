@@ -7,7 +7,7 @@ import StripeComponent from "../../stripeComponent";
 class SubscriptionCheckoutReviewComponent extends Component {
     render() {
         const {
-            subscriptionInfo, currency, stripeKey,
+            subscription, currency, stripeKey,
 
             billingGivenName, billingLastName, billingCountry,
             billingRegion, billingLocality, billingPostalCode, billingEmail,
@@ -18,7 +18,7 @@ class SubscriptionCheckoutReviewComponent extends Component {
             shippingPostalCode, shippingEmail,
             shippingTelephone, onBackClick,
         } = this.props;
-        console.log(subscriptionInfo);
+        // console.log("SubscriptionCheckoutReviewComponent | subscription", subscription);
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -135,7 +135,7 @@ class SubscriptionCheckoutReviewComponent extends Component {
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Monthly Fee:</th>
-                                    <td>{subscriptionInfo.monthlyFeeInDollars}</td>
+                                    <td>{subscription.amountInDollars}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -148,11 +148,11 @@ class SubscriptionCheckoutReviewComponent extends Component {
                             <form>
                                  <StripeComponent
                                     buttonClassName="btn btn-lg float-right pl-4 pr-4 btn-success"
-                                    name={subscriptionInfo.name}
+                                    name={subscription.name}
                                     description=""
                                     onToken={(token) => this.props.onToken(token)}
                                     billingEmail={billingEmail}
-                                    amountInCents={subscriptionInfo.monthlyFeeInCents}
+                                    amountInCents={subscription.amountInCents}
                                     currency={currency}
                                     stripeKey={stripeKey}
                                  />

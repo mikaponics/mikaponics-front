@@ -120,7 +120,7 @@ class SubscriptionCheckoutReviewContainer extends Component {
                 errors={errors}
                 onBackClick={this.onBackClick}
 
-                subscriptionInfo={this.props.subscriptionInfo}
+                subscription={this.props.subscription}
                 onToken={(token) => this.onToken(token)}
                 currency={CURRENCY}
                 stripeKey={STRIPE_PUBLISHABLE}
@@ -154,7 +154,7 @@ class SubscriptionCheckoutReviewContainer extends Component {
 const mapStateToProps = function(store) {
     return {
         user: store.userState,
-        subscriptionInfo: store.subscriptionInfoState,
+        subscription: store.subscriptionState,
     };
 }
 

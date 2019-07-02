@@ -7,7 +7,7 @@ import { SUBSCRIPTION_REQUEST, SUBSCRIPTION_SUCCESS, SUBSCRIPTION_FAILURE } from
 import { MIKAPONICS_SUBSCRIPTION_API_URL } from "../constants/api";
 
 
-export const setSubscriptionInfoRequest = () => ({
+export const setSubscriptionRequest = () => ({
     type: SUBSCRIPTION_REQUEST,
     payload: {
         isAPIRequestRunning: true,
@@ -16,15 +16,15 @@ export const setSubscriptionInfoRequest = () => ({
 });
 
 
-export const setSubscriptionInfoSuccess = subscriptionInfo => ({
+export const setSubscriptionSuccess = subscription => ({
     type: SUBSCRIPTION_SUCCESS,
-    payload: subscriptionInfo,
+    payload: subscription,
 });
 
 
-export const setSubscriptionInfoFailure = subscriptionInfo => ({
+export const setSubscriptionFailure = subscription => ({
     type: SUBSCRIPTION_FAILURE,
-    payload: subscriptionInfo,
+    payload: subscription,
 });
 
 
@@ -32,7 +32,7 @@ export function pullSubscription(user) {
     return dispatch => {
         // Change the global state to attempting to fetch latest user details.
         store.dispatch(
-            setSubscriptionInfoRequest()
+            setSubscriptionRequest()
         );
 
         // Create a new Axios instance using our oAuth 2.0 bearer token
@@ -51,18 +51,18 @@ export function pullSubscription(user) {
             const responseData = msgpack.decode(Buffer(successResponse.data));
             // console.log(successResult); // For debugging purposes.
 
-            let subscriptionInfo = camelizeKeys(responseData);
+            let subscription = camelizeKeys(responseData);
 
             // Extra.
-            subscriptionInfo['isAPIRequestRunning'] = false;
-            subscriptionInfo['errors'] = {};
+            subscription['isAPIRequestRunning'] = false;
+            subscription['errors'] = {};
 
-            console.log(subscriptionInfo); // For debugging purposes.
+            // console.log(subscription); // For debugging purposes.
 
             // Update the global state of the application to store our
-            // user subscriptionInfo for the application.
+            // user subscription for the application.
             store.dispatch(
-                setSubscriptionInfoSuccess(subscriptionInfo)
+                setSubscriptionSuccess(subscription)
             );
 
         }).catch( (exception) => { // ERROR
@@ -78,7 +78,7 @@ export function pullSubscription(user) {
 
                 // Send our failure to the redux.
                 store.dispatch(
-                    setSubscriptionInfoFailure({
+                    setSubscriptionFailure({
                         isAPIRequestRunning: false,
                         errors: errors
                     })
