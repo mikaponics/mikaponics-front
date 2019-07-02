@@ -7,7 +7,9 @@ import { Link } from "react-router-dom";
 
 class SubscriptionDetailComponent extends Component {
     render() {
-        const { user } = this.props;
+        const { user, subscription } = this.props;
+        const hasActiveSubscription = user.subscriptionStatus === 'active';
+        const hasNoSubscription = user.subscriptionStatus !== 'active';
         return (
             <div className="Dashboard">
                 <nav aria-label="breadcrumb">
@@ -44,19 +46,50 @@ class SubscriptionDetailComponent extends Component {
 
                 <h1><i className="fas fa-gem"></i>&nbsp;Subscription</h1>
 
-                <div className="jumbotron">
-                    <h1 className="display-4">
-                        <i className="fas fa-bullhorn"></i>&nbsp;Attention
-                    </h1>
-                    <p className="lead">No previous subscriptions exist.</p>
-                    <hr className="my-4" />
-                    <p>Click here to begin the subscription purchase.</p>
-                    <p className="lead">
-                        <Link to="subscription/checkout" className="btn btn-success btn-lg">
-                            <i className="fas fa-shopping-cart"></i>&nbsp;Checkout
-                        </Link>
-                    </p>
-                </div>
+                {hasNoSubscription &&
+                    <div className="jumbotron">
+                        <h1 className="display-4">
+                            <i className="fas fa-bullhorn"></i>&nbsp;Attention
+                        </h1>
+                        <p className="lead">No previous subscriptions exist.</p>
+                        <hr className="my-4" />
+                        <p>Click here to begin the subscription purchase.</p>
+                        <p className="lead">
+                            <Link to="subscription/checkout" className="btn btn-success btn-lg">
+                                <i className="fas fa-shopping-cart"></i>&nbsp;Checkout
+                            </Link>
+                        </p>
+                    </div>
+                }
+                {hasActiveSubscription &&
+                    <div>
+                        <table className="table table-bordered custom-cell-w">
+                            <tbody>
+                                <tr className="bg-dark">
+                                    <th scope="row" colSpan="2" className="text-light">Subscription Details</th>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Monthly Amount</th>
+                                    <td>{subscription.amountInDollars}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Start Date</th>
+                                    <td>
+                                        <Moment tz={user.timezone} format="YYYY/MM/DD hh:mm:ss a">
+                                            {user.subscriptionStartDate}
+                                        </Moment>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div className="form-group">
+                            <Link type="text" className="btn btn-lg float-right pl-4 pr-4 btn-danger" to="/subscription/cancel">
+                                <i className="fas fa-times-circle"></i>&nbsp;Cancel Subscription
+                            </Link>
+                        </div>
+                    </div>
+                }
 
             </div>
         );
