@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 import StripeComponent from "../../stripeComponent";
 
@@ -7,7 +9,7 @@ import StripeComponent from "../../stripeComponent";
 class SubscriptionCheckoutReviewComponent extends Component {
     render() {
         const {
-            subscription, currency, stripeKey,
+            user, subscription, currency, stripeKey,
 
             billingGivenName, billingLastName, billingCountry,
             billingRegion, billingLocality, billingPostalCode, billingEmail,
@@ -18,7 +20,7 @@ class SubscriptionCheckoutReviewComponent extends Component {
             shippingPostalCode, shippingEmail,
             shippingTelephone, onBackClick,
         } = this.props;
-        // console.log("SubscriptionCheckoutReviewComponent | subscription", subscription);
+        console.log("SubscriptionCheckoutReviewComponent | subscription", subscription);
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -134,12 +136,20 @@ class SubscriptionCheckoutReviewComponent extends Component {
                                     <th scope="row" colSpan="2" className="text-light">Financial Summary</th>
                                 </tr>
                                 <tr>
-                                    <th scope="row" className="bg-light">Name:</th>
+                                    <th scope="row" className="bg-light">Subscription:</th>
                                     <td>{subscription.name}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Monthly Fee:</th>
                                     <td>{subscription.amountInDollars}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">First Payment:</th>
+                                    <td>
+                                        <Moment tz={user.timezone} format="YYYY/MM/DD hh:mm:ss a">
+                                            {subscription.firstPaymentDate.asStr}
+                                        </Moment>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

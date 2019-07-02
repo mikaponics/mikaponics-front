@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 
 import SubscriptionCheckoutReviewComponent from "../../../components/account/subscription/subscriptionCheckoutReviewComponent";
 import { pullProfile } from "../../../actions/profileAction";
-import { pullSubscription } from "../../../actions/subscriptionAction";
+import { pullSubscription } from "../../../actions/subscriptionActions";
 const STRIPE_PUBLISHABLE = "pk_test_fw1OJnoeXL2Zp8zMTvxD3s5M";
 // const PAYMENT_SERVER_URL = "http://127.0.0.1:8080";
 const CURRENCY = 'CAD';
@@ -119,7 +119,7 @@ class SubscriptionCheckoutReviewContainer extends Component {
             <SubscriptionCheckoutReviewComponent
                 errors={errors}
                 onBackClick={this.onBackClick}
-
+                user={this.props.user}
                 subscription={this.props.subscription}
                 onToken={(token) => this.onToken(token)}
                 currency={CURRENCY}

@@ -18,7 +18,7 @@ class SubscriptionCheckoutSubmissionComponent extends Component {
                                 </h1>
                                 <h2 className="text-center text-secondary mb-3">Please wait...</h2>
                                 <p className="text-center text-secondary lead mb-4">
-                                We are currently submitting your purchase order to the payment merchant for processing.
+                                We are currently submitting your <strong>subscription purchase</strong> order to the <strong>payment merchant</strong> for processing. Please wait until this process finishes.
                                 If you are having trouble loading the page your are looking for. For immediate help, contact <Link to="mailto:support@mikaponics.com">support.</Link>
                                 </p>
                             </div>

@@ -98,3 +98,64 @@ export function pullSubscription(user) {
 
     }
 }
+
+
+export function postSubscription(user, data, successCallback, failedCallback) {
+    return dispatch => {
+        // Change the global state to attempting to log in.
+        store.dispatch(
+            setSubscriptionRequest()
+        );
+
+        // Create our oAuth 2.0 authenticated API header to use with our
+        // submission.
+        const config = {
+            headers: {'Authorization': "Bearer " + user.token}
+        };
+
+        // The following code will convert the `camelized` data into `snake case`
+        // data so our API endpoint will be able to read it.
+        let decamelizedData = decamelizeKeys(data);
+
+        // Perform our API submission.
+        axios.post(MIKAPONICS_SUBSCRIPTION_API_URL, decamelizedData, config).then( (successResult) => {
+
+            const responseData = successResult.data;
+            let subscriptionReceipt = camelizeKeys(responseData);
+
+            // Extra.
+            subscriptionReceipt['isAPIRequestRunning'] = false;
+            subscriptionReceipt['errors'] = {};
+
+            // Update the global state of the application to store our
+            // user subscription receipt for the application.
+            store.dispatch(
+                setSubscriptionSuccess(subscriptionReceipt)
+            );
+
+            // Run our success callback function.
+            successCallback(subscriptionReceipt);
+
+        }).catch( (errorResult) => {
+            // console.error(errorResult); For debugging purposes only.
+            const responseData = errorResult.response.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
+            let errors = camelizeKeys(responseData);
+
+            console.error(errors); // For debugging purposes only.
+
+            // Run our failure callback function.
+            failedCallback(errors);
+
+            store.dispatch(
+                setSubscriptionFailure({
+                    isAPIRequestRunning: false,
+                    errors: errors
+                })
+            );
+
+        }).then( () => {
+            // Do nothing.
+        });
+
+    }
+}
