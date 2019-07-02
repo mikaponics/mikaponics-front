@@ -27,6 +27,7 @@ import OnboardSubmissionContainer from "./onboarding/onboardSubmissionContainer"
 import OnboardSuccessContainer from "./onboarding/onboardSuccessContainer";
 import OnboardInvoiceContainer from "./onboarding/onboardInvoiceContainer";
 import OnboardInvoiceSendContainer from "./onboarding/onboardInvoiceSendContainer";
+import DeviceCreateStep1Container from "./devices/create/deviceCreateStep1Container";
 import DeviceListContainer from "./devices/deviceListContainer";
 import DeviceDetailContainer from "./devices/deviceDetailContainer";
 import DeviceProfileContainer from "./devices/deviceProfileContainer";
@@ -44,8 +45,8 @@ import AlertItemDetailContainer from "./alerts/alertItemDetailContainer";
 import InvoiceListContainer from "./invoices/invoiceListContainer";
 import InvoiceDetailContainer from "./invoices/invoiceDetailContainer";
 import InvoiceSendContainer from "./invoices/invoiceSendContainer";
-import ProfileContainer from "./profile/profileContainer";
-import ProfileEditContainer from "./profile/profileEditContainer";
+import ProfileContainer from "./account/profile/profileContainer";
+import ProfileEditContainer from "./account/profile/profileEditContainer";
 import PurchaseDeviceContainer from "./purchase/purchaseDeviceContainer";
 import CheckoutDeviceContainer from "./purchase/checkoutDeviceContainer";
 import PurchaseDeviceSubmissionContainer from "./purchase/purchaseDeviceSubmissionContainer";
@@ -119,6 +120,7 @@ class AppContainer extends React.Component {
                             <Route path="/devices" exact component={requiresAuth(DeviceListContainer)} />
                             <Route path="/device/:slug" exact component={requiresAuth(DeviceDetailContainer)} />
                             <Route path="/device/:slug/profile" exact component={requiresAuth(DeviceProfileContainer)} />
+                            <Route path="/devices/create/step-1" exact component={requiresAuth(DeviceCreateStep1Container)} />
                             <Route path="/instrument/:slug" exact component={requiresAuth(InstrumentDetailContainer)} />
                             <Route path="/instrument/:slug/alerts" exact component={requiresAuth(InstrumentAlertItemListContainer)} />
                             <Route path="/instrument-alert/:slug" exact component={requiresAuth(InstrumentAlertItemDetailContainer)} />

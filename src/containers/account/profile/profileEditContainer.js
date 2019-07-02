@@ -3,9 +3,9 @@ import Scroll from 'react-scroll';
 import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
 
-import ProfileEditComponent from "../../components/profile/profileEditComponent";
-import { postProfile } from "../../actions/profileAction";
-import { setFlashMessage } from "../../actions/flashMessageActions";
+import ProfileEditComponent from "../../../components/account/profile/profileEditComponent";
+import { postProfile } from "../../../actions/profileAction";
+import { setFlashMessage } from "../../../actions/flashMessageActions";
 
 
 class ProfileEditContainer extends Component {

@@ -149,12 +149,12 @@ class ProductionListComponent extends Component {
                         <h1 className="display-4">
                             <i className="fas fa-bullhorn"></i>&nbsp;Attention
                         </h1>
-                        <p className="lead">Before you can create crop productions, you will need to <strong>purchase a device</strong>. Once purchased, you will be granted full-access to your crop productions.</p>
+                        <p className="lead">Before you can create crop productions, you will need to <strong>add a device</strong>. Once add, you will be granted full-access to your crop productions.</p>
                         <hr className="my-4" />
                         <p>Click here to begin the device purchase</p>
                         <p className="lead">
                             <Link to="/purchase" className="btn btn-success btn-lg">
-                                <i className="fas fa-shopping-cart"></i>&nbsp;Purchase
+                                <i className="fas fa-plus"></i>&nbsp;Add
                             </Link>
                         </p>
                     </div>
