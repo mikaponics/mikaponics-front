@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import ProfileComponent from "../../components/profile/profileComponent";
-import { pullProfile } from "../../actions/profileAction";
-import { clearFlashMessage } from "../../actions/flashMessageActions";
+import ProfileComponent from "../../../components/account/profile/profileComponent";
+import { pullProfile } from "../../../actions/profileAction";
+import { clearFlashMessage } from "../../../actions/flashMessageActions";
 
 
 class ProfileContainer extends Component {

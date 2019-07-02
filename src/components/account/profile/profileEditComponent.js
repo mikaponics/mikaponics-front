@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
-import { BootstrapInput } from "../bootstrap/bootstrapInput";
-import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
-import { BootstrapCountrySelect } from '../bootstrap/bootstrapCountrySelect'
-import { BootstrapRegionSelect } from '../bootstrap/bootstrapRegionSelect'
+import { BootstrapInput } from "../../bootstrap/bootstrapInput";
+import { BootstrapErrorsProcessingAlert } from "../../bootstrap/bootstrapAlert";
+import { BootstrapCountrySelect } from '../../bootstrap/bootstrapCountrySelect'
+import { BootstrapRegionSelect } from '../../bootstrap/bootstrapRegionSelect'
 
 
 class ProfileTable extends Component {
