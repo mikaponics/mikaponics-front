@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 
 import SubscriptionCheckoutReviewComponent from "../../../components/account/subscription/subscriptionCheckoutReviewComponent";
 import { pullProfile } from "../../../actions/profileAction";
-import { pullSubscriptionInfo } from "../../../actions/subscriptionAction";
+import { pullSubscription } from "../../../actions/subscriptionAction";
 const STRIPE_PUBLISHABLE = "pk_test_fw1OJnoeXL2Zp8zMTvxD3s5M";
 // const PAYMENT_SERVER_URL = "http://127.0.0.1:8080";
 const CURRENCY = 'CAD';
@@ -27,7 +27,7 @@ class SubscriptionCheckoutReviewContainer extends Component {
 
     componentDidMount() {
         this.props.pullProfile(this.props.user)
-        this.props.pullSubscriptionInfo(this.props.user);
+        this.props.pullSubscription(this.props.user);
         window.scrollTo(0, 0);  // Start the page at the top of the page.
 
         // When the `react` page finishes loading up, take our `user` data
@@ -165,9 +165,9 @@ const mapDispatchToProps = dispatch => {
                 pullProfile(user)
             )
         },
-        pullSubscriptionInfo: (user) => {
+        pullSubscription: (user) => {
             dispatch(
-                pullSubscriptionInfo(user)
+                pullSubscription(user)
             )
         }
     }

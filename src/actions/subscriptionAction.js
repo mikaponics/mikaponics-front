@@ -3,12 +3,12 @@ import store from '../store';
 import { camelizeKeys, decamelizeKeys } from 'humps';
 import msgpack from 'msgpack-lite';
 
-import { SUBSCRIPTION_INFO_REQUEST, SUBSCRIPTION_INFO_SUCCESS, SUBSCRIPTION_INFO_FAILURE } from "../constants/actionTypes";
-import { MIKAPONICS_GET_SUBSCRIPTION_INFO_API_URL } from "../constants/api";
+import { SUBSCRIPTION_REQUEST, SUBSCRIPTION_SUCCESS, SUBSCRIPTION_FAILURE } from "../constants/actionTypes";
+import { MIKAPONICS_SUBSCRIPTION_API_URL } from "../constants/api";
 
 
 export const setSubscriptionInfoRequest = () => ({
-    type: SUBSCRIPTION_INFO_REQUEST,
+    type: SUBSCRIPTION_REQUEST,
     payload: {
         isAPIRequestRunning: true,
         errors: {}
@@ -17,18 +17,18 @@ export const setSubscriptionInfoRequest = () => ({
 
 
 export const setSubscriptionInfoSuccess = subscriptionInfo => ({
-    type: SUBSCRIPTION_INFO_SUCCESS,
+    type: SUBSCRIPTION_SUCCESS,
     payload: subscriptionInfo,
 });
 
 
 export const setSubscriptionInfoFailure = subscriptionInfo => ({
-    type: SUBSCRIPTION_INFO_FAILURE,
+    type: SUBSCRIPTION_FAILURE,
     payload: subscriptionInfo,
 });
 
 
-export function pullSubscriptionInfo(user) {
+export function pullSubscription(user) {
     return dispatch => {
         // Change the global state to attempting to fetch latest user details.
         store.dispatch(
@@ -46,7 +46,7 @@ export function pullSubscriptionInfo(user) {
             responseType: 'arraybuffer'
         });
 
-        customAxios.get(MIKAPONICS_GET_SUBSCRIPTION_INFO_API_URL).then( (successResponse) => { // SUCCESS
+        customAxios.get(MIKAPONICS_SUBSCRIPTION_API_URL).then( (successResponse) => { // SUCCESS
             // Decode our MessagePack (Buffer) into JS Object.
             const responseData = msgpack.decode(Buffer(successResponse.data));
             // console.log(successResult); // For debugging purposes.
