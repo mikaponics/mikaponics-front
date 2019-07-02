@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 export default class SubscriptionCancellationComponent extends Component {
     render() {
+        const { onDeleteClick, isLoading } = this.props;
         return (
             <div>
 
@@ -35,7 +36,7 @@ export default class SubscriptionCancellationComponent extends Component {
                                         <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
                                     </Link>
                                     &nbsp;
-                                    <button type="text" className="btn btn-danger btn-lg" onClick={null}>
+                                    <button type="text" className="btn btn-danger btn-lg" disabled={isLoading} onClick={onDeleteClick}>
                                         <i className="fas fa-check-circle"></i>&nbsp;I understand and request cancellation
                                     </button>
                                 </p>

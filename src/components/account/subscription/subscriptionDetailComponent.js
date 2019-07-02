@@ -4,10 +4,12 @@ import Moment from 'react-moment';
 import 'moment-timezone';
 import { Link } from "react-router-dom";
 
+import { FlashMessageComponent } from "../../flashMessageComponent";
+
 
 class SubscriptionDetailComponent extends Component {
     render() {
-        const { user, subscription } = this.props;
+        const { user, subscription, flashMessage } = this.props;
         const hasActiveSubscription = user.subscriptionStatus === 'active';
         const hasNoSubscription = user.subscriptionStatus !== 'active';
         return (
@@ -20,6 +22,8 @@ class SubscriptionDetailComponent extends Component {
                         <li className="breadcrumb-item active" aria-current="page"><i className="fas fa-gem"></i>&nbsp;Subscription</li>
                     </ol>
                 </nav>
+
+                <FlashMessageComponent object={flashMessage} />
 
                 <div className="row">
                     <div className="step-navigation">

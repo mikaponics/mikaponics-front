@@ -159,3 +159,64 @@ export function postSubscription(user, data, successCallback, failedCallback) {
 
     }
 }
+
+
+export function deleteSubscription(user, successCallback, failedCallback) {
+    return dispatch => {
+        // Change the global state to attempting to log in.
+        store.dispatch(
+            setSubscriptionRequest()
+        );
+
+        // Create our oAuth 2.0 authenticated API header to use with our
+        // submission.
+        const config = {
+            headers: {'Authorization': "Bearer " + user.token}
+        };
+
+        // Perform our API submission.
+        axios.delete(MIKAPONICS_SUBSCRIPTION_API_URL, config).then( (successResult) => {
+
+            const responseData = successResult.data;
+            let subscriptionReceipt = camelizeKeys(responseData);
+
+            // Extra.
+            subscriptionReceipt['isAPIRequestRunning'] = false;
+            subscriptionReceipt['errors'] = {};
+
+            // Update the global state of the application to store our
+            // user subscription receipt for the application.
+            store.dispatch(
+                setSubscriptionSuccess(subscriptionReceipt)
+            );
+
+            // Run our success callback function.
+            successCallback(subscriptionReceipt);
+
+        }).catch( (exception) => {
+            if (exception.response) {
+
+                // console.error(errorResult); For debugging purposes only.
+                const responseData = exception.response.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
+                let errors = camelizeKeys(responseData);
+
+                console.error(errors); // For debugging purposes only.
+
+                // Run our failure callback function.
+                failedCallback(errors);
+
+                store.dispatch(
+                    setSubscriptionFailure({
+                        isAPIRequestRunning: false,
+                        errors: errors
+                    })
+                );
+
+            }
+
+        }).then( () => {
+            // Do nothing.
+        });
+
+    }
+}

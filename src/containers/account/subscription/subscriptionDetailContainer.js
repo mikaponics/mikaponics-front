@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import SubscriptionDetailComponent from "../../../components/account/subscription/subscriptionDetailComponent";
 import { pullProfile } from "../../../actions/profileAction";
 import { pullSubscription } from "../../../actions/subscriptionActions";
+import { clearFlashMessage } from "../../../actions/flashMessageActions";
 
 
 class SubscriptionDetailContainer extends Component {
@@ -20,11 +21,23 @@ class SubscriptionDetailContainer extends Component {
         window.scrollTo(0, 0);
     }
 
+    componentWillUnmount() {
+        this.props.clearFlashMessage(); // Clear the messages.
+
+        // This code will fix the "ReactJS & Redux: Can't perform a React state
+        // update on an unmounted component" issue as explained in:
+        // https://stackoverflow.com/a/53829700
+        this.setState = (state,callback)=>{
+            return;
+        };
+    }
+
     render() {
         return(
             <SubscriptionDetailComponent
                 user={this.props.user}
                 subscription={this.props.subscription}
+                flashMessage={this.props.flashMessage}
             />
         );
     }
@@ -34,6 +47,7 @@ const mapStateToProps = function(store) {
     return {
         subscription: store.subscriptionState,
         user: store.userState,
+        flashMessage: store.flashMessageState,
     };
 }
 
@@ -48,6 +62,9 @@ const mapDispatchToProps = dispatch => {
             dispatch(
                 pullSubscription(user)
             )
+        },
+        clearFlashMessage: () => {
+            dispatch(clearFlashMessage())
         }
     }
 }
