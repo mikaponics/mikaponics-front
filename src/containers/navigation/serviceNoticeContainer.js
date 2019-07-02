@@ -17,6 +17,11 @@ import { BootstrapAlert } from "../../components/bootstrap/bootstrapAlert";
 class ServiceNoticeContainer extends Component {
     render() {
         const user = this.props.user;
+
+        // const yourArray = ['/productions',]
+        // let notIgnorePath = yourArray.indexOf(this.props.location.pathname) > -1;
+        // console.log(">>>>>", notIgnorePath);
+
         if (user) {
             //------------------------------//
             // (1) Subscription requirement //

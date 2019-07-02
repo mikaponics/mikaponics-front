@@ -96,6 +96,7 @@ class AppContainer extends React.Component {
 
                 <div className="d-flex align-items-stretch">
                     <main id="main" role="main">
+                        <ServiceNoticeContainer />
                         <ScrollUpButton />
                         <Switch>
                             <Route path="/" exact component={IndexContainer} />
