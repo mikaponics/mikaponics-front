@@ -84,7 +84,7 @@ class SubscriptionDetailComponent extends Component {
                         </table>
 
                         <div className="form-group">
-                            <Link type="text" className="btn btn-lg float-right pl-4 pr-4 btn-danger" to="/subscription/cancel">
+                            <Link type="text" className="btn btn-lg float-right pl-4 pr-4 btn-danger" to="/subscription/cancellation">
                                 <i className="fas fa-times-circle"></i>&nbsp;Cancel Subscription
                             </Link>
                         </div>
