@@ -56,7 +56,7 @@ import productionCropInspectionListReducer from "./reducers/productionCropInspec
 import productionCropInspectionDetailReducer from "./reducers/productionCropInspectionDetailReducer";
 import taskItemListReducer from "./reducers/taskItemListReducer";
 import taskItemDetailReducer from "./reducers/taskItemDetailReducer";
-import subscriptionInfoReducer from "./reducers/subscriptionInfoReducer";
+import subscriptionoReducer from "./reducers/subscriptionReducer";
 
 
 // Combine Reducers
@@ -90,7 +90,7 @@ const appReducer = combineReducers({
     productionCropInspectionDetailState: productionCropInspectionDetailReducer,
     taskItemListState: taskItemListReducer,
     taskItemDetailState: taskItemDetailReducer,
-    subscriptionInfoState: subscriptionInfoReducer,
+    subscriptionInfoState: subscriptionoReducer,
 });
 
 

@@ -5,7 +5,7 @@ import {
 } from '../constants/actionTypes';
 
 
-const subscriptionInfoReducer = function(state = [], action = {}) {
+const subscriptionReducer = function(state = [], action = {}) {
     switch (action.type) {
         case SUBSCRIPTION_INFO_REQUEST:
             return Object.assign({}, state, action.payload);
@@ -21,4 +21,4 @@ const subscriptionInfoReducer = function(state = [], action = {}) {
     }
 }
 
-export default subscriptionInfoReducer;
+export default subscriptionReducer;

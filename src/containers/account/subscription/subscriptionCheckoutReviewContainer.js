@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 
 import SubscriptionCheckoutReviewComponent from "../../../components/account/subscription/subscriptionCheckoutReviewComponent";
 import { pullProfile } from "../../../actions/profileAction";
-import { pullSubscriptionInfo } from "../../../actions/subscriptionInfoAction";
+import { pullSubscriptionInfo } from "../../../actions/subscriptionAction";
 const STRIPE_PUBLISHABLE = "pk_test_fw1OJnoeXL2Zp8zMTvxD3s5M";
 // const PAYMENT_SERVER_URL = "http://127.0.0.1:8080";
 const CURRENCY = 'CAD';
