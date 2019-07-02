@@ -20,6 +20,29 @@ class ReferralComponent extends Component {
                     </ol>
                 </nav>
 
+                <div className="row">
+                    <div className="step-navigation">
+                        <div id="step-1" className="st-grey">
+                            <Link to="/profile">
+                                <span className="num"><i className="fas fa-user-circle"></i></span><span className="">Profile</span>
+                            </Link>
+                        </div>
+                        <div id="step-2" className="st-grey">
+                            <Link to="/invoices">
+                                <span className="num"><i className="fas fa-receipt"></i></span><span className="">Invoices</span>
+                            </Link>
+                        </div>
+                        <div id="step-3" className="st-grey">
+                            <Link to="/subscription">
+                                <span className="num"><i className="fas fa-gem"></i></span><span className="">Subscription</span>
+                            </Link>
+                        </div>
+                        <div id="step-4" className="st-grey active">
+                            <span className="num"><i className="fas fa-heart"></i></span><span className="">Referrals</span>
+                        </div>
+                    </div>
+                </div>
+
                 <div className="jumbotron">
                     <h1 className="display-4">
                         <i className="fas fa-heart"></i>&nbsp;Referrals
