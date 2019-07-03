@@ -74,7 +74,9 @@ class DeviceCreateStep4PurchaseComponent extends React.Component {
                         <table className="table table-bordered custom-cell-w">
                             <tbody>
                             <tr className="bg-dark">
-                                <th scope="row" colSpan="2" className="text-light">Billing Details</th>
+                                <th scope="row" colSpan="2" className="text-light">
+                                    <i className="fas fa-address-card"></i>&nbsp;Billing Details
+                                </th>
                             </tr>
                             <tr>
                                 <th scope="row" className="bg-light">Given Name</th>
@@ -118,7 +120,9 @@ class DeviceCreateStep4PurchaseComponent extends React.Component {
                         <table className="table table-bordered custom-cell-w">
                             <tbody>
                             <tr className="bg-dark">
-                                <th scope="row" colSpan="2" className="text-light">Shipping Details</th>
+                                <th scope="row" colSpan="2" className="text-light">
+                                    <i className="fas fa-map-marker"></i>&nbsp;Shipping Details
+                                </th>
                             </tr>
                             <tr>
                                 <th scope="row" className="bg-light">Given Name</th>
@@ -162,7 +166,9 @@ class DeviceCreateStep4PurchaseComponent extends React.Component {
                         <table className="table table-bordered custom-cell-w">
                             <tbody>
                                 <tr className="bg-dark">
-                                    <th scope="row" colSpan="2" className="text-light">Financial Summary</th>
+                                    <th scope="row" colSpan="2" className="text-light">
+                                        <i className="fas fa-receipt"></i>&nbsp;Bill
+                                    </th>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Number of device(s) purchasing:</th>
