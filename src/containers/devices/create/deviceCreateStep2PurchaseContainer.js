@@ -59,6 +59,7 @@ class DeviceCreateStep2PurchaseContainer extends Component {
                 'price': product.price,
                 'name': product.name,
                 'quantity': 1,
+                'totalPrice': product.price,
             });
 
         // CASE 2 OF 2:
@@ -68,9 +69,10 @@ class DeviceCreateStep2PurchaseContainer extends Component {
             const newQuantity = foundProduct.quantity + 1
             a.push({
                 'slug': foundProduct.slug,
-                'price': product.price * newQuantity,
+                'price': product.price,
                 'name': foundProduct.name,
                 'quantity': newQuantity,
+                'totalPrice': product.price * newQuantity,
             });
         }
 
@@ -88,7 +90,59 @@ class DeviceCreateStep2PurchaseContainer extends Component {
 
     minusFromCart(e, product) {
         e.preventDefault();
-        alert(product);
+        console.log("SELECTED", product); // For debugging purposes only.
+
+        // Shallow copy of the array to create a NEW ARRAY.
+        let a = this.state.cart.slice(); //creates the clone of the state
+
+        // Find the product from the cart if we have previously selected it
+        // and then delete that selected product from the cart. Do not forget
+        // to keep the pointer to that selected product!
+        let foundProduct = null;
+        for (let i = 0; i < a.length; i++) {
+            let cartItem = a[i];
+            if (cartItem.slug === product.slug) {
+                foundProduct = cartItem;
+                //
+                // Special thanks: https://flaviocopes.com/how-to-remove-item-from-array/
+                //
+                const filteredItems = a.slice(
+                    0, i
+                ).concat(
+                    a.slice(
+                        i + 1, a.length
+                    )
+                )
+                a = filteredItems; // UPDATE OUR NEW ARRAY.
+                break;
+            }
+        }
+
+        // We need to decrement the quantity.
+        const newQuantity = foundProduct.quantity - 1;
+
+        // If we have still more products then we add the product back into the
+        // cart.
+        if (newQuantity > 0) {
+            a.push({
+                'slug': foundProduct.slug,
+                'price': product.price,
+                'name': foundProduct.name,
+                'quantity': newQuantity,
+                'totalPrice': product.price * newQuantity,
+            });
+        }
+
+        // Finally update the state to have a new copy of our cart which we
+        // modified here.
+        this.setState(
+            {
+                cart: a,
+            },
+            () => {
+                console.log("UPDATED CART", this.state.cart);
+            }
+        );
     }
 
     render() {

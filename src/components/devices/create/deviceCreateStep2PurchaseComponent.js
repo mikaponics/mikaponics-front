@@ -57,37 +57,9 @@ export default class DeviceCreateStep2PurchaseComponent extends Component {
                     <div className="col-sm-6">
                         <h2><i className="fas fa-shopping-cart"></i>&nbsp;Shopping Cart</h2>
                         <div className="table-responsive">
-                            <table className="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th>Device</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Total Price</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Soil</td>
-                                        <td>$200</td>
-                                        <td>1</td>
-                                        <td>$200</td>
-                                        <td>
-                                            <button className="btn btn-danger btn-sm">
-                                                <i className="fas fa-minus"></i>&nbsp;Remove
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>TOTAL</strong></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td><strong>$200</strong></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            {cart &&
+                                <Table cart={cart} user={user} minusFromCart={minusFromCart} />
+                            }
                         </div>
 
                     </div>
@@ -141,6 +113,58 @@ class DeviceItem extends Component {
                     </div>
                 </div>
             </div>
+        );
+    }
+}
+
+class Table extends Component {
+    render() {
+        const { cart, user, minusFromCart } = this.props;
+        return (
+            <table className="table table-striped">
+                <thead>
+                <tr>
+                    <th>Device</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                    {cart.map(
+                        (product, i) => <TableRow product={product} user={user} key={i} minusFromCart={minusFromCart} />)
+                    }
+                    <tr>
+                        <td><strong>TOTAL</strong></td>
+                        <td></td>
+                        <td></td>
+                        <td><strong>$200</strong></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        );
+    }
+}
+
+
+class TableRow extends Component {
+    render() {
+        const { minusFromCart, product } = this.props;
+        const { name, quantity, price, totalPrice, slug } = this.props.product;
+        return (
+            <tr key={slug}>
+                <td>{name}</td>
+                <td>${price}</td>
+                <td>{quantity}</td>
+                <td>${totalPrice}</td>
+                <td>
+                    <button className="btn btn-danger btn-sm" onClick={ (event)=> minusFromCart(event, product) }>
+                        <i className="fas fa-minus"></i>&nbsp;Remove
+                    </button>
+                </td>
+            </tr>
         );
     }
 }
