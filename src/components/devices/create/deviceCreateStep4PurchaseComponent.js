@@ -7,7 +7,7 @@ import StripeComponent from "../../stripeComponent";
 export default class DeviceCreateStep4PurchaseComponent extends React.Component {
     render() {
         const {
-            totalBeforeTax, tax, totalAfterTax, shipping, credit, grandTotal,
+            totalBeforeTax, tax, totalAfterTax, shipping, credit, grandTotal, grandTotalInCents,
             onBackClick,
             name, description, amountInCents, currency, stripeKey,
 
@@ -199,7 +199,7 @@ export default class DeviceCreateStep4PurchaseComponent extends React.Component 
                                     description={description}
                                     onToken={(token) => this.props.onToken(token)}
                                     billingEmail={billingEmail}
-                                    amountInCents={amountInCents}
+                                    amountInCents={grandTotalInCents}
                                     currency={currency}
                                     stripeKey={stripeKey}
                                     imageURL={"https://app.mikaponics.com/img/mikaponics-logo.png"}

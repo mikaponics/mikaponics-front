@@ -196,13 +196,13 @@ class DeviceCreateStep4PurchaseContainer extends Component {
                     shipping={shipping}
                     credit={credit}
                     grandTotal={grandTotal}
+                    grandTotalInCents={grandTotalInCents}
                     errors={errors}
                     onBackClick={this.onBackClick}
 
                     name="Mikaponics Telemetry Device"
                     description=""
                     onToken={(token) => this.onToken(token)}
-                    amountInCents={grandTotalInCents}
                     currency={CURRENCY}
                     stripeKey={STRIPE_PUBLISHABLE}
 
