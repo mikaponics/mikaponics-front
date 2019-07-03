@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 
-class DeviceCreateStep2PurchaseComponent extends Component {
+export default class DeviceCreateStep2PurchaseComponent extends Component {
     render() {
+        const { productList, user, cart, addToCart, minusFromCart } = this.props;
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -40,69 +41,13 @@ class DeviceCreateStep2PurchaseComponent extends Component {
 
                         <h2><i className="fas fa-hand-pointer"></i>&nbsp;Pick Device(s)</h2>
 
-                        <div className="card-group row">
-
-                            <div className="col-sm-3" key="purchase-device">
-                                <div className="card box-shadow text-center mx-auto">
-                                    <div className="card-custom-top-2">
-                                        <i className="fas fa-seedling fa-3x"></i>
-                                    </div>
-                                    <div className="card-body">
-                                        <h3 className="card-title">Soil</h3>
-                                        <p className="card-text">Device used for monitoring soil based planting solution.</p>
-                                        <button className="btn btn-success btn-lg">
-                                            <i className="fas fa-plus"></i>&nbsp;Add
-                                        </button>
-                                    </div>
-                                </div>
+                        {productList &&
+                            <div className="card-group row">
+                                {productList.results.map(
+                                    (product, i) => <DeviceItem product={product} user={user} key={i} addToCart={addToCart} minusFromCart={minusFromCart} />)
+                                }
                             </div>
-
-                            <div className="col-sm-3" key="purchase-device">
-                                <div className="card box-shadow text-center mx-auto">
-                                    <div className="card-custom-top-2">
-                                        <i className="fas fa-water fa-3x"></i>
-                                    </div>
-                                    <div className="card-body">
-                                        <h3 className="card-title">Hydroponics</h3>
-                                        <p className="card-text">Device used for monitoring pure water based planting solution.</p>
-                                        <button className="btn btn-success btn-lg" disabled="true">
-                                            <i className="fas fa-plus"></i>&nbsp;Coming soon
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-sm-3" key="purchase-device">
-                                <div className="card box-shadow text-center mx-auto">
-                                    <div className="card-custom-top-2">
-                                        <i className="fas fa-fish fa-3x"></i>
-                                    </div>
-                                    <div className="card-body">
-                                        <h3 className="card-title">Aquaponics</h3>
-                                        <p className="card-text">Device used for monitoring a water and aquaculture mixed planting solution.</p>
-                                        <button className="btn btn-success btn-lg" disabled="true">
-                                            <i className="fas fa-plus"></i>&nbsp;Coming soon
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-sm-3" key="purchase-device">
-                                <div className="card box-shadow text-center mx-auto">
-                                    <div className="card-custom-top-2">
-                                        <i className="fas fa-vial fa-3x"></i>
-                                    </div>
-                                    <div className="card-body">
-                                        <h3 className="card-title">Algae</h3>
-                                        <p className="card-text">Device used for monitoring algae (ex. Sparilina) based planting solution.</p>
-                                        <button className="btn btn-success btn-lg" disabled="true">
-                                            <i className="fas fa-plus"></i>&nbsp;Coming soon
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
+                        }
 
                     </div>
 
@@ -168,4 +113,34 @@ class DeviceCreateStep2PurchaseComponent extends Component {
     }
 }
 
-export default DeviceCreateStep2PurchaseComponent;
+
+class DeviceItem extends Component {
+    render() {
+        const { product, addToCart } = this.props;
+        const isComingSoon = product.state === 2;
+        const isPublished = product.state === 3;
+        return (
+            <div className="col-sm-3" key={product.slug}>
+                <div className="card box-shadow text-center mx-auto">
+                    <div className="card-custom-top-2">
+                        <i className={`fas fa-${product.icon} fa-3x`}></i>
+                    </div>
+                    <div className="card-body">
+                        <h3 className="card-title">{product.name}</h3>
+                        <p className="card-text">{product.shortDescription}</p>
+                        {isComingSoon &&
+                            <button className="btn btn-success btn-lg" disabled={true}>
+                                <i className="fas fa-plus"></i>&nbsp;Add
+                            </button>
+                        }
+                        {isPublished &&
+                            <button className="btn btn-success btn-lg" onClick={ (event) => addToCart(event, product) }>
+                                <i className="fas fa-plus"></i>&nbsp;Add
+                            </button>
+                        }
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}

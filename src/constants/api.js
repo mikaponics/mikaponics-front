@@ -14,6 +14,7 @@ export const MIKAPONICS_SEND_PASSWORD_RESET_API_URL = process.env.REACT_APP_API_
 export const MIKAPONICS_PASSWORD_RESET_API_URL = process.env.REACT_APP_API_HOST+'/api/reset-password';
 export const MIKAPONICS_ONBOARDING_API_URL = process.env.REACT_APP_API_HOST+'/api/onboarding';
 export const MIKAPONICS_SUBSCRIPTION_API_URL = process.env.REACT_APP_API_HOST+'/api/subscription';
+export const MIKAPONICS_PRODUCT_LIST_API_URL = process.env.REACT_APP_API_HOST+'/api/products';
 export const MIKAPONICS_PURCHASE_SUBSCRIPTION_API_URL = process.env.REACT_APP_API_HOST+'/api/subscription';
 export const MIKAPONICS_PURCHASE_DEVICE_API_URL = process.env.REACT_APP_API_HOST+'/api/purchase-device';
 export const MIKAPONICS_GET_PROFILE_API_URL = process.env.REACT_APP_API_HOST+'/api/profile';
