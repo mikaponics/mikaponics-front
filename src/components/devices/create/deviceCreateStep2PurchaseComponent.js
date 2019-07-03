@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
+import { BootstrapErrorsProcessingAlert } from "../../bootstrap/bootstrapAlert";
+
 
 export default class DeviceCreateStep2PurchaseComponent extends Component {
     render() {
-        const { productList, user, cart, addToCart, minusFromCart } = this.props;
+        const { productList, user, cart, addToCart, minusFromCart, errors, onNextClick } = this.props;
 
         let totalPrice = 0;
         for (let i = 0; i < cart.length; i++) {
@@ -42,6 +44,8 @@ export default class DeviceCreateStep2PurchaseComponent extends Component {
                     </div>
                 </div>
 
+                <BootstrapErrorsProcessingAlert errors={errors} />
+
                 <div className="row">
                     <div className="col-sm-12">
 
@@ -78,9 +82,9 @@ export default class DeviceCreateStep2PurchaseComponent extends Component {
                             <Link to="/devices/create/step-1" className="btn btn-lg float-left pl-4 pr-4 btn-secondary">
                                 <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
                             </Link>
-                            <Link to="/devices/create/step-3-purchase" className="btn btn-lg float-right pl-4 pr-4 btn-primary">
+                            <button className="btn btn-lg float-right pl-4 pr-4 btn-primary" onClick={onNextClick}>
                                 Proceed to Billing / Shipping&nbsp;<i className="fas fa-arrow-circle-right"></i>
-                            </Link>
+                            </button>
                         </div>
 
                     </div>

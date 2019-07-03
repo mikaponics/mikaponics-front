@@ -1,19 +1,23 @@
+import Scroll from 'react-scroll';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { pullProductList } from "../../../actions/productListActions";
 import DeviceCreateStep2PurchaseComponent from "../../../components/devices/create/deviceCreateStep2PurchaseComponent";
 import { localStorageSetObjectOrArrayItem, localStorageGetArrayItem } from "../../../helpers/localStorageUtility";
+import { validatePurchaseStep2Input } from "../../../validations/addDeviceValidator";
 
 
 class DeviceCreateStep2PurchaseContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            cart: localStorageGetArrayItem("add-device-cart")
+            cart: localStorageGetArrayItem("add-device-cart"),
+            errors: []
         }
         this.addToCart = this.addToCart.bind(this);
         this.minusFromCart = this.minusFromCart.bind(this);
+        this.onNextClick = this.onNextClick.bind(this);
     }
 
     componentDidMount() {
@@ -148,6 +152,29 @@ class DeviceCreateStep2PurchaseContainer extends Component {
         );
     }
 
+    onNextClick(e) {
+
+        // Perform client-side validation.
+        const { errors, isValid } = validatePurchaseStep2Input(this.state);
+
+        // CASE 1 OF 2: Validation passed successfully.
+        if (isValid) {
+            this.props.history.push("/devices/create/step-3-purchase");
+            return;
+        }
+
+        // CASE 2 OF 2: Validation failed.
+        this.setState({
+            errors: errors
+        });
+
+        // The following code will cause the screen to scroll to the top of
+        // the page. Please see ``react-scroll`` for more information:
+        // https://github.com/fisshy/react-scroll
+        var scroll = Scroll.animateScroll;
+        scroll.scrollToTop();
+    }
+
     render() {
         return (
             <DeviceCreateStep2PurchaseComponent
@@ -156,6 +183,8 @@ class DeviceCreateStep2PurchaseContainer extends Component {
                 cart={this.state.cart}
                 addToCart={this.addToCart}
                 minusFromCart={this.minusFromCart}
+                errors={this.state.errors}
+                onNextClick={this.onNextClick}
             />
         );
     }
