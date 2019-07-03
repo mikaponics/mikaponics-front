@@ -6,7 +6,7 @@ import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 
 import DeviceCreateStep4PurchaseComponent from "../../../components/devices/create/deviceCreateStep4PurchaseComponent";
-import { localStorageGetArrayItem } from "../../../helpers/localStorageUtility";
+import { localStorageGetArrayItem, localStorageGetObjectItem, localStorageSetObjectOrArrayItem } from "../../../helpers/localStorageUtility";
 
 const STRIPE_PUBLISHABLE = "pk_test_fw1OJnoeXL2Zp8zMTvxD3s5M";
 // const PAYMENT_SERVER_URL = "http://127.0.0.1:8080";
@@ -19,6 +19,7 @@ class DeviceCreateStep4PurchaseContainer extends Component {
         super(props);
 
         this.state = {
+            paymentReceipt: localStorageGetObjectItem("paymentReceipt"),
             referrer: '',
             cart: localStorageGetArrayItem("add-device-cart"),
 
@@ -138,7 +139,7 @@ class DeviceCreateStep4PurchaseContainer extends Component {
         // Update our global application state to save the results returned
         // by Stripe.com payment gateway & merchant services. This payment
         // details we will submit to our API web-service.
-        localStorage.setItem("paymentReceipt", JSON.stringify(token))
+        localStorageSetObjectOrArrayItem("paymentReceipt", token)
 
         // Save our state to be the success page so our component will
         // redirect to the purchaseDevice success page.
@@ -157,7 +158,7 @@ class DeviceCreateStep4PurchaseContainer extends Component {
     render() {
 
         const {
-            referrer,
+            referrer, cart,
 
             billingGivenName, billingLastName,
             billingCountry, billingRegion, billingLocality,
@@ -190,6 +191,7 @@ class DeviceCreateStep4PurchaseContainer extends Component {
         return (
             <div>
                 <DeviceCreateStep4PurchaseComponent
+                    cart={cart}
                     totalBeforeTax={totalBeforeTax}
                     tax={tax}
                     totalAfterTax={totalAfterTax}

@@ -7,6 +7,7 @@ import StripeComponent from "../../stripeComponent";
 export default class DeviceCreateStep4PurchaseComponent extends React.Component {
     render() {
         const {
+            cart,
             totalBeforeTax, tax, totalAfterTax, shipping, credit, grandTotal, grandTotalInCents,
             onBackClick,
             name, description, amountInCents, currency, stripeKey,
@@ -161,6 +162,12 @@ export default class DeviceCreateStep4PurchaseComponent extends React.Component 
                                     </th>
                                 </tr>
                                 <tr>
+                                    <th scope="row" className="bg-light">Items:</th>
+                                    <td>
+                                        <CartItemsUnorderedList cart={cart} />
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th scope="row" className="bg-light">Total before tax:</th>
                                     <td>{totalBeforeTax}</td>
                                 </tr>
@@ -211,6 +218,33 @@ export default class DeviceCreateStep4PurchaseComponent extends React.Component 
                 </div>
 
             </div>
+        );
+    }
+}
+
+class CartItemsUnorderedList extends React.Component {
+    render() {
+        const { cart } = this.props;
+        return(
+            <div>
+                {cart &&
+                    <ul>
+                        {cart.map(
+                            (product, i) => <CartItemsUnorderedListItem product={product} key={i} />)
+                        }
+                    </ul>
+                }
+            </div>
+        );
+    }
+}
+
+
+class CartItemsUnorderedListItem extends React.Component {
+    render() {
+        const { name, quantity } = this.props.product;
+        return(
+            <li>{name}&nbsp;(x{quantity})</li>
         );
     }
 }
