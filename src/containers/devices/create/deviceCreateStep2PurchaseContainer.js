@@ -153,7 +153,6 @@ class DeviceCreateStep2PurchaseContainer extends Component {
     }
 
     onNextClick(e) {
-
         // Perform client-side validation.
         const { errors, isValid } = validatePurchaseStep2Input(this.state);
 

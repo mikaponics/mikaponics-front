@@ -3,8 +3,9 @@ import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 
-import { pullPurchaseDevice, postPurchaseDevice } from "../../../actions/purchaseDeviceActions";
 import DeviceCreateStep3PurchaseComponent from "../../../components/devices/create/deviceCreateStep3PurchaseComponent";
+import { validatePurchaseStep3Input } from "../../../validations/addDeviceValidator";
+import { localStorageSetObjectOrArrayItem, localStorageGetArrayItem } from "../../../helpers/localStorageUtility";
 
 
 class DeviceCreateStep3PurchaseContainer extends Component {
@@ -12,13 +13,33 @@ class DeviceCreateStep3PurchaseContainer extends Component {
         super(props);
 
         this.state = {
-            referrer: '',
-            errors: {}
+            isLoading: false,
+            errors: {},
+
+            billingGivenName: localStorage.getItem("add-device-billingGivenName"),
+            billingLastName: localStorage.getItem("add-device-billingLastName"),
+            billingCountry: localStorage.getItem("add-device-billingCountry"),
+            billingRegion: localStorage.getItem("add-device-billingRegion"),
+            billingLocality: localStorage.getItem("add-device-billingLocality"),
+            billingPostalCode: localStorage.getItem("add-device-billingPostalCode"),
+            billingTelephone: localStorage.getItem("add-device-billingTelephone"),
+            billingEmail: localStorage.getItem("add-device-billingEmail"),
+            billingStreetAddress: localStorage.getItem("add-device-billingStreetAddress"),
+
+            isShippingDifferentThenBilling: localStorage.getItem("add-device-isShippingDifferentThenBilling"),
+            shippingGivenName: localStorage.getItem("add-device-shippingGivenName"),
+            shippingLastName: localStorage.getItem("add-device-shippingLastName"),
+            shippingCountry: localStorage.getItem("add-device-shippingCountry"),
+            shippingRegion: localStorage.getItem("add-device-shippingRegion"),
+            shippingLocality: localStorage.getItem("add-device-shippingLocality"),
+            shippingPostalCode: localStorage.getItem("add-device-shippingPostalCode"),
+            shippingTelephone: localStorage.getItem("add-device-shippingTelephone"),
+            shippingEmail: localStorage.getItem("add-device-shippingEmail"),
+            shippingStreetAddress: localStorage.getItem("add-device-shippingStreetAddress"),
         }
 
         // Attach the custom functions we will be using.
         this.onNextClick = this.onNextClick.bind(this);
-        this.onCancelClick = this.onCancelClick.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
         this.onSelectChange = this.onSelectChange.bind(this);
         this.onCheckboxChange = this.onCheckboxChange.bind(this);
@@ -26,53 +47,77 @@ class DeviceCreateStep3PurchaseContainer extends Component {
         this.onBillingRegionChange = this.onBillingRegionChange.bind(this);
         this.onShippingCountryChange = this.onShippingCountryChange.bind(this);
         this.onShippingRegionChange = this.onShippingRegionChange.bind(this);
-        this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
-        this.onFailedSubmissionCallback = this.onFailedSubmissionCallback.bind(this);
+        this.processState = this.processState.bind(this);
+    }
+
+    processState() {
+        // Perform client-side validation.
+        const { errors, isValid } = validatePurchaseStep3Input(this.state);
+
+        // CASE 1 OF 2: Validation passed successfully.
+        if (isValid) {
+            this.props.history.push("/devices/create/step-4-purchase");
+            return;
+        }
+
+        // CASE 2 OF 2: Validation failed.
+        this.setState(
+            { errors: errors },
+            () => {
+                // The following code will cause the screen to scroll to the top of
+                // the page. Please see ``react-scroll`` for more information:
+                // https://github.com/fisshy/react-scroll
+                var scroll = Scroll.animateScroll;
+                scroll.scrollToTop();
+            }
+        );
     }
 
     onNextClick(e) {
         e.preventDefault();
 
-        // Asynchronously submit our ``update`` to our API endpoint.
-        this.props.postPurchaseDevice(
-            this.props.user,
-            this.state,
-            this.onSuccessfulSubmissionCallback,
-            this.onFailedSubmissionCallback
-        );
-    }
-
-    onSuccessfulSubmissionCallback() {
-        this.setState({
-            referrer: "/devices/create/step-4-purchase"
-        })
-    }
-
-    onFailedSubmissionCallback() {
-        // The following code will cause the screen to scroll to the top of
-        // the page. Please see ``react-scroll`` for more information:
-        // https://github.com/fisshy/react-scroll
-        var scroll = Scroll.animateScroll;
-        scroll.scrollToTop();
-    }
-
-    onCancelClick(e) {
-        e.preventDefault();
-        this.setState({
-            referrer: '/dashboard'
-        });
+        // IF SHIPPING IS SIMILAR TO BILLING THEN WE NEED TO UPDATE THE STATE,
+        // WAIT FOR THE STATE TO UPDATE AND THE PROCEED TO VALIDATE AND
+        // REDIRECT THE USER TO THE NEXT PAGE.
+        if (this.state.isShippingDifferentThenBilling === false || this.state.isShippingDifferentThenBilling === null) { // Shipping IS SIMILAR to billing.
+            this.setState({
+                shippingGivenName: this.state.billingGivenName,
+                shippingLastName: this.state.billingLastName,
+                shippingCountry: this.state.billingCountry,
+                shippingRegion: this.state.billingRegion,
+                shippingLocality: this.state.billingLocality,
+                shippingPostalCode: this.state.billingPostalCode,
+                shippingTelephone: this.state.billingTelephone,
+                shippingEmail: this.state.billingEmail,
+                shippingStreetAddress: this.state.billingStreetAddress,
+            }, ()=> { this.processState(); }
+            );
+            return;
+        }
+        this.processState();
     }
 
     onTextChange(e) {
+        // Update our state.
         this.setState({
             [e.target.name]: e.target.value,
-        })
+        });
+
+        // Update our persistent storage.
+        const key = "add-device-"+[e.target.name];
+        localStorage.setItem(key, e.target.value)
     }
 
     onSelectChange(option) {
+        const optionKey = [option.selectName]+"Option";
         this.setState({
-            [option.selectName]: option.value
-        })
+            [option.selectName]: option.value,
+            optionKey: option,
+        });
+        localStorage.setItem('add-device-'+[option.selectName], option.value);
+        localStorageSetObjectOrArrayItem('add-device-'+optionKey, option);
+        // console.log([option.selectName], optionKey, "|", this.state); // For debugging purposes only.
+        // console.log(this.state);
     }
 
     /**
@@ -85,18 +130,31 @@ class DeviceCreateStep3PurchaseContainer extends Component {
         // we need to cleare the shipping fields else we pre-populate them
         // with the billing address.
         if (value) { // Shipping IS different.
+            // Update storage.
             this.setState({
                 [e.target.name]: value,
-                shippingGivenName: this.props.user.shippingGivenName,
-                shippingLastName: this.props.user.shippingLastName,
-                shippingCountry: null,
-                shippingRegion: null,
-                shippingLocality: null,
-                shippingPostalCode: null,
-                shippingTelephone: null,
-                shippingEmail: this.props.user.shippingEmail,
+                shippingGivenName: "",
+                shippingLastName: "",
+                shippingCountry: "",
+                shippingRegion: "",
+                shippingLocality: "",
+                shippingPostalCode: "",
+                shippingTelephone: "",
+                shippingEmail: "",
                 shippingStreetAddress: null,
-            })
+            });
+
+            // Update persistent storage.
+            localStorage.setItem('add-device-isShippingDifferentThenBilling', true);
+            localStorage.setItem('add-device-shippingGivenName', "");
+            localStorage.setItem('add-device-shippingLastName', "");
+            localStorage.setItem('add-device-shippingCountry', "");
+            localStorage.setItem('add-device-shippingRegion', "");
+            localStorage.setItem('add-device-shippingLocality', "");
+            localStorage.setItem('add-device-shippingPostalCode', "");
+            localStorage.setItem('add-device-shippingTelephone', "");
+            localStorage.setItem('add-device-shippingEmail', "");
+            localStorage.setItem('add-device-shippingStreetAddress', "");
         } else {  // Shipping is NOT different.
             this.setState({
                 [e.target.name]: value,
@@ -109,66 +167,58 @@ class DeviceCreateStep3PurchaseContainer extends Component {
                 shippingTelephone: this.state.billingTelephone,
                 shippingEmail: this.state.billingEmail,
                 shippingStreetAddress: this.state.billingStreetAddress,
-            })
+            });
+            // Update persistent storage.
+            localStorage.setItem('add-device-isShippingDifferentThenBilling', false);
+            localStorage.setItem('add-device-shippingGivenName', this.state.billingGivenName);
+            localStorage.setItem('add-device-shippingLastName', this.state.billingLastName);
+            localStorage.setItem('add-device-shippingCountry', this.state.billingCountry);
+            localStorage.setItem('add-device-shippingRegion', this.state.billingRegion);
+            localStorage.setItem('add-device-shippingLocality', this.state.billingLocality);
+            localStorage.setItem('add-device-shippingPostalCode', this.state.billingPostalCode);
+            localStorage.setItem('add-device-shippingTelephone', this.state.billingTelephone);
+            localStorage.setItem('add-device-shippingEmail', this.state.billingEmail);
+            localStorage.setItem('add-device-shippingStreetAddress', this.state.billingStreetAddress);
         }
     }
 
     onBillingCountryChange(value) {
+        // Update state.
         if (value === null || value === undefined || value === '') {
             this.setState({ billingCountry: null, billingRegion: null })
         } else {
             this.setState({ billingCountry: value, billingRegion: null })
         }
+
+        // Update persistent storage.
+        localStorage.setItem('add-device-billingCountry', value);
+        localStorage.setItem('add-device-billingRegion', null);
     }
 
     onBillingRegionChange(value) {
-        this.setState({ billingRegion: value })
+        this.setState({ billingRegion: value }); // Update state.
+        localStorage.setItem('add-device-billingRegion', value); // Update persistent storage.
     }
 
     onShippingCountryChange(value) {
+        // Update state.
         if (value === null || value === undefined || value === '') {
             this.setState({ shippingCountry: null, shippingRegion: null })
         } else {
             this.setState({ shippingCountry: value, shippingRegion: null })
         }
+        // Update persistent storage.
+        localStorage.setItem('add-device-shippingCountry', value);
+        localStorage.setItem('add-device-shippingRegion', null);
     }
 
     onShippingRegionChange(value) {
-        this.setState({ shippingRegion: value })
+        this.setState({ shippingRegion: value }); // Update state.
+        localStorage.setItem('add-device-shippingRegion', value); // Update persistent storage.
     }
 
     componentDidMount() {
-        this.props.pullPurchaseDevice(this.props.user)
         window.scrollTo(0, 0);  // Start the page at the top of the page.
-
-        // When the `react` page finishes loading up, take our `purchaseDevice` data
-        // and assign it the state data.
-        this.setState({
-            quantity: 1, //TODO: REMOVE.
-            billingGivenName: this.props.purchaseDevice.billingGivenName,
-            billingLastName: this.props.purchaseDevice.billingLastName,
-            billingCountry: this.props.purchaseDevice.billingCountry,
-            billingRegion: this.props.purchaseDevice.billingRegion,
-            billingLocality: this.props.purchaseDevice.billingLocality,
-            billingPostalCode: this.props.purchaseDevice.billingPostalCode,
-            billingTelephone: this.props.purchaseDevice.billingTelephone,
-            billingEmail: this.props.purchaseDevice.billingEmail,
-            billingStreetAddress: this.props.purchaseDevice.billingStreetAddress,
-
-            isShippingDifferentThenBilling: this.props.purchaseDevice.isShippingDifferentThenBilling,
-            shippingGivenName: this.props.purchaseDevice.shippingGivenName,
-            shippingLastName: this.props.purchaseDevice.shippingLastName,
-            shippingCountry: this.props.purchaseDevice.shippingCountry,
-            shippingRegion: this.props.purchaseDevice.shippingRegion,
-            shippingLocality: this.props.purchaseDevice.shippingLocality,
-            shippingPostalCode: this.props.purchaseDevice.shippingPostalCode,
-            shippingTelephone: this.props.purchaseDevice.shippingTelephone,
-            shippingEmail: this.props.purchaseDevice.shippingEmail,
-            shippingStreetAddress: this.props.purchaseDevice.shippingStreetAddress,
-
-            referrer: '',
-            errors: {}
-        });
     }
 
     componentWillUnmount() {
@@ -182,7 +232,7 @@ class DeviceCreateStep3PurchaseContainer extends Component {
 
     render() {
 
-        const { referrer } = this.state;
+        const { referrer, errors, isLoading } = this.state;
         const {
             billingGivenName, billingLastName,
             billingCountry, billingRegion, billingLocality,
@@ -195,23 +245,6 @@ class DeviceCreateStep3PurchaseContainer extends Component {
             shippingPostalCode,shippingEmail, shippingTelephone,
         } = this.state;
         const { user } = this.props;
-
-        // If a `referrer` was set then that means we can redirect
-        // to a different page in our application.
-        if (referrer) {
-            return <Redirect to={referrer} />;
-        }
-
-        let errors = {};
-        let isLoading = false;
-        if (this.props.purchaseDevice !== undefined && this.props.purchaseDevice !== null) {
-            errors = this.props.purchaseDevice.errors;
-            if (errors === undefined || errors === null) {
-                errors = {};
-            }
-            isLoading = this.props.purchaseDevice.isAPIRequestRunning;
-        }
-
         return (
             <DeviceCreateStep3PurchaseComponent
                 billingGivenName={billingGivenName}
@@ -243,7 +276,6 @@ class DeviceCreateStep3PurchaseContainer extends Component {
                 onShippingCountryChange={this.onShippingCountryChange}
                 onShippingRegionChange={this.onShippingRegionChange}
                 onNextClick={this.onNextClick}
-                onCancelClick={this.onCancelClick}
                 user={user}
                 errors={errors}
                 isLoading={isLoading}
@@ -260,18 +292,7 @@ const mapStateToProps = function(store) {
 }
 
 const mapDispatchToProps = dispatch => {
-    return {
-        postPurchaseDevice: (user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback) => {
-            dispatch(
-                postPurchaseDevice(user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback)
-            )
-        },
-        pullPurchaseDevice: (user) => {
-            dispatch(
-                pullPurchaseDevice(user)
-            )
-        }
-    }
+    return {}
 }
 
 export default connect(

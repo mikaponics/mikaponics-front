@@ -32,7 +32,6 @@ class PurchaseDeviceComponent extends React.Component {
             onShippingCountryChange,
             onShippingRegionChange,
             onNextClick,
-            onCancelClick,
             isLoading
         } = this.props;
 
