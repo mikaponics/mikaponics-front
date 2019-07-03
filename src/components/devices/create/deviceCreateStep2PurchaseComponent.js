@@ -5,6 +5,12 @@ import { Link } from "react-router-dom";
 export default class DeviceCreateStep2PurchaseComponent extends Component {
     render() {
         const { productList, user, cart, addToCart, minusFromCart } = this.props;
+
+        let totalPrice = 0;
+        for (let i = 0; i < cart.length; i++) {
+            let cartItem = cart[i];
+            totalPrice = cartItem.totalPrice;
+        }
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -58,7 +64,7 @@ export default class DeviceCreateStep2PurchaseComponent extends Component {
                         <h2><i className="fas fa-shopping-cart"></i>&nbsp;Shopping Cart</h2>
                         <div className="table-responsive">
                             {cart &&
-                                <Table cart={cart} user={user} minusFromCart={minusFromCart} />
+                                <Table cart={cart} totalPrice={totalPrice} user={user} minusFromCart={minusFromCart} />
                             }
                         </div>
 
@@ -119,7 +125,7 @@ class DeviceItem extends Component {
 
 class Table extends Component {
     render() {
-        const { cart, user, minusFromCart } = this.props;
+        const { cart, user, minusFromCart, totalPrice } = this.props;
         return (
             <table className="table table-striped">
                 <thead>
@@ -139,7 +145,7 @@ class Table extends Component {
                         <td><strong>TOTAL</strong></td>
                         <td></td>
                         <td></td>
-                        <td><strong>$200</strong></td>
+                        <td><strong>${totalPrice}</strong></td>
                         <td></td>
                     </tr>
                 </tbody>
