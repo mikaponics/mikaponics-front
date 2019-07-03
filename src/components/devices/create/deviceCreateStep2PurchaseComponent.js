@@ -36,7 +36,7 @@ class DeviceCreateStep2PurchaseComponent extends Component {
                 </div>
 
                 <div className="row">
-                    <div className="col-sm-8">
+                    <div className="col-sm-12">
 
                         <h2><i className="fas fa-hand-pointer"></i>&nbsp;Pick Device(s)</h2>
 
@@ -105,7 +105,11 @@ class DeviceCreateStep2PurchaseComponent extends Component {
                         </div>
 
                     </div>
-                    <div className="col-sm-4">
+
+                </div>
+
+                <div className="row">
+                    <div className="col-sm-6">
                         <h2><i className="fas fa-shopping-cart"></i>&nbsp;Shopping Cart</h2>
                         <div className="table-responsive">
                             <table className="table table-striped">
@@ -151,9 +155,9 @@ class DeviceCreateStep2PurchaseComponent extends Component {
                             <Link to="/devices/create/step-1" className="btn btn-lg float-left pl-4 pr-4 btn-secondary">
                                 <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
                             </Link>
-                            <button type="text" className="btn btn-lg float-right pl-4 pr-4 btn-primary">
+                            <Link to="/devices/create/step-3-purchase" className="btn btn-lg float-right pl-4 pr-4 btn-primary">
                                 Proceed to Billing / Shipping&nbsp;<i className="fas fa-arrow-circle-right"></i>
-                            </button>
+                            </Link>
                         </div>
 
                     </div>
