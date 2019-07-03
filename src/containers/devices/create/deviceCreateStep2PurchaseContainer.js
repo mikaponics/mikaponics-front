@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 
 import { pullProductList } from "../../../actions/productListActions";
 import DeviceCreateStep2PurchaseComponent from "../../../components/devices/create/deviceCreateStep2PurchaseComponent";
+import { localStorageSetObjectOrArrayItem, localStorageGetArrayItem } from "../../../helpers/localStorageUtility";
 
 
 class DeviceCreateStep2PurchaseContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            cart: []
+            cart: localStorageGetArrayItem("add-device-cart")
         }
         this.addToCart = this.addToCart.bind(this);
         this.minusFromCart = this.minusFromCart.bind(this);
@@ -84,6 +85,7 @@ class DeviceCreateStep2PurchaseContainer extends Component {
             },
             () => {
                 console.log("UPDATED CART", this.state.cart);
+                localStorageSetObjectOrArrayItem("add-device-cart", a); // Save to persistent storage.
             }
         );
     }
@@ -141,6 +143,7 @@ class DeviceCreateStep2PurchaseContainer extends Component {
             },
             () => {
                 console.log("UPDATED CART", this.state.cart);
+                localStorageSetObjectOrArrayItem("add-device-cart", a); // Save to persistent storage.
             }
         );
     }
