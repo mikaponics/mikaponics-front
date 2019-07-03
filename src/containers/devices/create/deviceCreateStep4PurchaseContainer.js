@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 
 import DeviceCreateStep4PurchaseComponent from "../../../components/devices/create/deviceCreateStep4PurchaseComponent";
+import { localStorageGetArrayItem } from "../../../helpers/localStorageUtility";
 
 const STRIPE_PUBLISHABLE = "pk_test_fw1OJnoeXL2Zp8zMTvxD3s5M";
 // const PAYMENT_SERVER_URL = "http://127.0.0.1:8080";
@@ -15,8 +16,29 @@ class DeviceCreateStep4PurchaseContainer extends Component {
         super(props);
 
         this.state = {
-            user: this.props.user,
             referrer: '',
+            cart: localStorageGetArrayItem("add-device-cart"),
+
+            billingGivenName: localStorage.getItem("add-device-billingGivenName"),
+            billingLastName: localStorage.getItem("add-device-billingLastName"),
+            billingCountry: localStorage.getItem("add-device-billingCountry"),
+            billingRegion: localStorage.getItem("add-device-billingRegion"),
+            billingLocality: localStorage.getItem("add-device-billingLocality"),
+            billingPostalCode: localStorage.getItem("add-device-billingPostalCode"),
+            billingTelephone: localStorage.getItem("add-device-billingTelephone"),
+            billingEmail: localStorage.getItem("add-device-billingEmail"),
+            billingStreetAddress: localStorage.getItem("add-device-billingStreetAddress"),
+
+            isShippingDifferentThenBilling: localStorage.getItem("add-device-isShippingDifferentThenBilling"),
+            shippingGivenName: localStorage.getItem("add-device-shippingGivenName"),
+            shippingLastName: localStorage.getItem("add-device-shippingLastName"),
+            shippingCountry: localStorage.getItem("add-device-shippingCountry"),
+            shippingRegion: localStorage.getItem("add-device-shippingRegion"),
+            shippingLocality: localStorage.getItem("add-device-shippingLocality"),
+            shippingPostalCode: localStorage.getItem("add-device-shippingPostalCode"),
+            shippingTelephone: localStorage.getItem("add-device-shippingTelephone"),
+            shippingEmail: localStorage.getItem("add-device-shippingEmail"),
+            shippingStreetAddress: localStorage.getItem("add-device-shippingStreetAddress"),
         }
         this.onBackClick = this.onBackClick.bind(this);
     }
@@ -55,6 +77,16 @@ class DeviceCreateStep4PurchaseContainer extends Component {
 
         const {
             referrer,
+
+            billingGivenName, billingLastName,
+            billingCountry, billingRegion, billingLocality,
+            billingPostalCode, billingStreetAddress,
+            billingEmail, billingTelephone,
+
+            isShippingDifferentThenBilling, shippingGivenName,
+            shippingLastName, shippingCountry, shippingRegion,
+            shippingLocality, shippingStreetAddress,
+            shippingPostalCode,shippingEmail, shippingTelephone,
         } = this.state;
 
         const {
@@ -67,16 +99,6 @@ class DeviceCreateStep4PurchaseContainer extends Component {
             credit,
             grandTotal,
             grandTotalInCents,
-
-            billingGivenName, billingLastName,
-            billingCountry, billingRegion, billingLocality,
-            billingPostalCode, billingStreetAddress,
-            billingEmail, billingTelephone,
-
-            isShippingDifferentThenBilling, shippingGivenName,
-            shippingLastName, shippingCountry, shippingRegion,
-            shippingLocality, shippingStreetAddress,
-            shippingPostalCode,shippingEmail, shippingTelephone,
         } = this.props.purchaseDevice;
 
         // If a `referrer` was set then that means we can redirect
@@ -84,6 +106,8 @@ class DeviceCreateStep4PurchaseContainer extends Component {
         if (referrer) {
             return <Redirect to={referrer} />;
         }
+
+        console.log(this.state);
 
         return (
             <div>

@@ -15,7 +15,7 @@ class DeviceCreateStep3PurchaseContainer extends Component {
         this.state = {
             isLoading: false,
             errors: {},
-
+            cart: localStorageGetArrayItem("add-device-cart"),
             billingGivenName: localStorage.getItem("add-device-billingGivenName"),
             billingLastName: localStorage.getItem("add-device-billingLastName"),
             billingCountry: localStorage.getItem("add-device-billingCountry"),
@@ -80,6 +80,21 @@ class DeviceCreateStep3PurchaseContainer extends Component {
         // WAIT FOR THE STATE TO UPDATE AND THE PROCEED TO VALIDATE AND
         // REDIRECT THE USER TO THE NEXT PAGE.
         if (this.state.isShippingDifferentThenBilling === false || this.state.isShippingDifferentThenBilling === null) { // Shipping IS SIMILAR to billing.
+
+            // Update persistent storage.
+            localStorage.setItem('add-device-isShippingDifferentThenBilling', false);
+            localStorage.setItem('add-device-shippingGivenName', this.state.billingGivenName);
+            localStorage.setItem('add-device-shippingLastName', this.state.billingLastName);
+            localStorage.setItem('add-device-shippingCountry', this.state.billingCountry);
+            localStorage.setItem('add-device-shippingRegion', this.state.billingRegion);
+            localStorage.setItem('add-device-shippingLocality', this.state.billingLocality);
+            localStorage.setItem('add-device-shippingPostalCode', this.state.billingPostalCode);
+            localStorage.setItem('add-device-shippingTelephone', this.state.billingTelephone);
+            localStorage.setItem('add-device-shippingEmail', this.state.billingEmail);
+            localStorage.setItem('add-device-shippingStreetAddress', this.state.billingStreetAddress);
+
+            // Update the state and once updated load the code for processing
+            // the state.
             this.setState({
                 shippingGivenName: this.state.billingGivenName,
                 shippingLastName: this.state.billingLastName,
