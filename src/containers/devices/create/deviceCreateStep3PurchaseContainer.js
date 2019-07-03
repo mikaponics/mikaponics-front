@@ -44,7 +44,7 @@ class DeviceCreateStep3PurchaseContainer extends Component {
 
     onSuccessfulSubmissionCallback() {
         this.setState({
-            referrer: "/purchase/checkout"
+            referrer: "/devices/create/step-4-purchase"
         })
     }
 

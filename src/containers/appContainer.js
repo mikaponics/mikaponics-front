@@ -30,6 +30,7 @@ import OnboardInvoiceSendContainer from "./onboarding/onboardInvoiceSendContaine
 import DeviceCreateStep1Container from "./devices/create/deviceCreateStep1Container";
 import DeviceCreateStep2PurchaseContainer from "./devices/create/deviceCreateStep2PurchaseContainer";
 import DeviceCreateStep3PurchaseContainer from "./devices/create/deviceCreateStep3PurchaseContainer";
+import DeviceCreateStep4PurchaseContainer from "./devices/create/deviceCreateStep4PurchaseContainer";
 import DeviceListContainer from "./devices/deviceListContainer";
 import DeviceDetailContainer from "./devices/deviceDetailContainer";
 import DeviceProfileContainer from "./devices/deviceProfileContainer";
@@ -126,6 +127,7 @@ class AppContainer extends React.Component {
                             <Route path="/devices/create/step-1" exact component={requiresAuth(DeviceCreateStep1Container)} />
                             <Route path="/devices/create/step-2-purchase" exact component={requiresAuth(DeviceCreateStep2PurchaseContainer)} />
                             <Route path="/devices/create/step-3-purchase" exact component={requiresAuth(DeviceCreateStep3PurchaseContainer)} />
+                            <Route path="/devices/create/step-4-purchase" exact component={requiresAuth(DeviceCreateStep4PurchaseContainer)} />
                             <Route path="/instrument/:slug" exact component={requiresAuth(InstrumentDetailContainer)} />
                             <Route path="/instrument/:slug/alerts" exact component={requiresAuth(InstrumentAlertItemListContainer)} />
                             <Route path="/instrument-alert/:slug" exact component={requiresAuth(InstrumentAlertItemDetailContainer)} />
