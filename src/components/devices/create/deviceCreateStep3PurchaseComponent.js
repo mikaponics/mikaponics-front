@@ -300,7 +300,7 @@ class PurchaseDeviceComponent extends React.Component {
                                     <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
                                 </Link>
                                 <button type="text" className="btn btn-lg float-right pl-4 pr-4 btn-primary" disabled={isLoading} onClick={onNextClick}>
-                                    Next&nbsp;<i className="fas fa-arrow-circle-right"></i>
+                                    Proceed to Checkout&nbsp;<i className="fas fa-arrow-circle-right"></i>
                                 </button>
                             </div>
 

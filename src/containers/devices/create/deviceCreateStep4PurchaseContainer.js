@@ -40,14 +40,14 @@ class DeviceCreateStep4PurchaseContainer extends Component {
         // Save our state to be the success page so our component will
         // redirect to the purchaseDevice success page.
         this.setState({
-            'referrer': '/purchase/submission'
+            'referrer': '/devices/create/step-4-purchase-submission'
         });
     }
 
     onBackClick(e) {
         e.preventDefault();
         this.setState({
-            referrer: '/purchase'
+            referrer: '/devices/create/step-3-purchase'
         });
     }
 
