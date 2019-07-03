@@ -1,3 +1,6 @@
+import axios from 'axios';
+import { camelizeKeys, decamelize } from 'humps';
+import msgpack from 'msgpack-lite';
 import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
@@ -39,12 +42,90 @@ class DeviceCreateStep4PurchaseContainer extends Component {
             shippingTelephone: localStorage.getItem("add-device-shippingTelephone"),
             shippingEmail: localStorage.getItem("add-device-shippingEmail"),
             shippingStreetAddress: localStorage.getItem("add-device-shippingStreetAddress"),
+
+            totalBeforeTax: 0,
+            tax: 0,
+            totalAfterTax: 0,
+            shipping: 0,
+            credit: 0,
+            grandTotal: 0,
+            grandTotalInCents: 0,
         }
         this.onBackClick = this.onBackClick.bind(this);
     }
 
     componentDidMount() {
         window.scrollTo(0, 0);  // Start the page at the top of the page.
+
+        // DEVELOPERS NOTE:
+        // INSTEAD OF CREATING AN ACTION USING REDUX, LETS JUST MAKE AN API
+        // CALL HERE.
+        //--------------------------------------------------------------------//
+        // Create a new Axios instance using our oAuth 2.0 bearer token
+        // and various other headers.
+        const customAxios = axios.create({
+            headers: {
+                'Authorization': "Bearer " + this.props.user.token,
+                'Content-Type': 'application/msgpack;',
+                'Accept': 'application/msgpack',
+            },
+            responseType: 'arraybuffer'
+        });
+
+        // Generate the URL.
+        let aURL = process.env.REACT_APP_API_HOST+'/api/calculate-purchase-device-receipt';
+
+        // Encode from JS Object to MessagePack (Buffer)
+        var buffer = msgpack.encode({
+            'cart': this.state.cart, // Make `snake_case` for the API.
+            'shipping_country': this.state.shippingCountry,
+            'shipping_region': this.state.shippingRegion,
+            'shipping_locality': this.state.shippingLocality
+        });
+
+        // Make the API call.
+        customAxios.post(aURL, buffer).then( (successResponse) => { // SUCCESS
+            // Decode our MessagePack (Buffer) into JS Object.
+            const responseData = msgpack.decode(Buffer(successResponse.data));
+            // console.log(successResult); // For debugging purposes.
+
+            let data = camelizeKeys(responseData);
+
+            // Extra.
+            data['isAPIRequestRunning'] = false;
+            data['errors'] = {};
+
+            console.log(data); // For debugging purposes.
+
+            // Update the global state of ONLY THIS PAGE to store our data.
+            this.setState({
+                totalBeforeTax: data.totalBeforeTax,
+                tax: data.tax,
+                totalAfterTax: data.totalAfterTax,
+                shipping: data.shipping,
+                credit: data.credit,
+                grandTotal: data.grandTotal,
+                grandTotalInCents: data.grandTotalInCents,
+            });
+
+        }).catch( (exception) => { // ERROR
+            if (exception.response) {
+                const responseBinaryData = exception.response.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
+
+                // Decode our MessagePack (Buffer) into JS Object.
+                const responseData = msgpack.decode(Buffer(responseBinaryData));
+
+                let errors = camelizeKeys(responseData);
+
+                console.log("pullAlertItemList | error:", errors); // For debuggin purposes only.
+
+                //TODO: DO SOMETHING
+            }
+
+        }).then( () => { // FINALLY
+            // Do nothing.
+        });
+        //--------------------------------------------------------------------//
     }
 
     /**
@@ -87,10 +168,7 @@ class DeviceCreateStep4PurchaseContainer extends Component {
             shippingLastName, shippingCountry, shippingRegion,
             shippingLocality, shippingStreetAddress,
             shippingPostalCode,shippingEmail, shippingTelephone,
-        } = this.state;
 
-        const {
-            invoiceItems,
             errors,
             totalBeforeTax,
             tax,
@@ -99,7 +177,7 @@ class DeviceCreateStep4PurchaseContainer extends Component {
             credit,
             grandTotal,
             grandTotalInCents,
-        } = this.props.purchaseDevice;
+        } = this.state;
 
         // If a `referrer` was set then that means we can redirect
         // to a different page in our application.
@@ -112,7 +190,6 @@ class DeviceCreateStep4PurchaseContainer extends Component {
         return (
             <div>
                 <DeviceCreateStep4PurchaseComponent
-                    invoiceItems={invoiceItems}
                     totalBeforeTax={totalBeforeTax}
                     tax={tax}
                     totalAfterTax={totalAfterTax}

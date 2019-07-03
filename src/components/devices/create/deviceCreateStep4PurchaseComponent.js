@@ -4,10 +4,9 @@ import { Link } from "react-router-dom";
 import StripeComponent from "../../stripeComponent";
 
 
-class DeviceCreateStep4PurchaseComponent extends React.Component {
+export default class DeviceCreateStep4PurchaseComponent extends React.Component {
     render() {
         const {
-            invoiceItems,
             totalBeforeTax, tax, totalAfterTax, shipping, credit, grandTotal,
             onBackClick,
             name, description, amountInCents, currency, stripeKey,
@@ -21,15 +20,6 @@ class DeviceCreateStep4PurchaseComponent extends React.Component {
             shippingPostalCode, shippingEmail,
             shippingTelephone,
         } = this.props;
-
-        // Return our summary.
-        let quantity = 0;
-        let pricePerDevice = 0;
-        const invoiceItem = invoiceItems[0]
-        if (invoiceItem !== undefined && invoiceItem !== null) {
-            quantity = invoiceItem.quantity;
-            pricePerDevice = invoiceItem.unitPrice;
-        }
 
         // Render our component output.
         return (
@@ -171,14 +161,6 @@ class DeviceCreateStep4PurchaseComponent extends React.Component {
                                     </th>
                                 </tr>
                                 <tr>
-                                    <th scope="row" className="bg-light">Number of device(s) purchasing:</th>
-                                    <td>{quantity}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" className="bg-light">Price per device:</th>
-                                    <td>{pricePerDevice}</td>
-                                </tr>
-                                <tr>
                                     <th scope="row" className="bg-light">Total before tax:</th>
                                     <td>{totalBeforeTax}</td>
                                 </tr>
@@ -232,6 +214,3 @@ class DeviceCreateStep4PurchaseComponent extends React.Component {
         );
     }
 }
-
-
-export default DeviceCreateStep4PurchaseComponent
