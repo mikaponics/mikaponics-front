@@ -24,41 +24,31 @@ class DeviceCreateStep2PurchaseContainer extends Component {
         e.preventDefault();
         console.log("SELECTED", product); // For debugging purposes only.
 
+        // Shallow copy of the array to create a NEW ARRAY.
+        let a = this.state.cart.slice(); //creates the clone of the state
+
         // Find the product from the cart if we have previously selected it
         // and then delete that selected product from the cart. Do not forget
         // to keep the pointer to that selected product!
         let foundProduct = null;
-        for (let i = 0; i < this.state.cart.length; i++) {
-            let cartItem = this.state.cart[i];
+        for (let i = 0; i < a.length; i++) {
+            let cartItem = a[i];
             if (cartItem.slug === product.slug) {
                 foundProduct = cartItem;
                 //
                 // Special thanks: https://flaviocopes.com/how-to-remove-item-from-array/
                 //
-                const filteredItems = this.state.cart.slice(
+                const filteredItems = a.slice(
                     0, i
                 ).concat(
-                    this.state.cart.slice(
-                        i + 1, this.state.cart.length
+                    a.slice(
+                        i + 1, a.length
                     )
                 )
-
-                // Update our state with our NEW ARRAY which no longer has
-                // the item we deleted.
-                this.setState(
-                    {
-                        cart: filteredItems,
-                    },
-                    () => {
-                        console.log("REMOVED FROM CART", this.state.cart);
-                    }
-                );
+                a = filteredItems; // UPDATE OUR NEW ARRAY.
                 break;
             }
         }
-
-        // Shallow copy of the array to create a NEW ARRAY.
-        let a = this.state.cart.slice(); //creates the clone of the state
 
         // CASE 1 OF 2:
         // If we never found the selected product in the cart then we get
@@ -78,7 +68,7 @@ class DeviceCreateStep2PurchaseContainer extends Component {
             const newQuantity = foundProduct.quantity + 1
             a.push({
                 'slug': foundProduct.slug,
-                'price': foundProduct.price * newQuantity,
+                'price': product.price * newQuantity,
                 'name': foundProduct.name,
                 'quantity': newQuantity,
             });
