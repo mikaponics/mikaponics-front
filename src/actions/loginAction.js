@@ -3,6 +3,7 @@ import store from '../store';
 import { camelizeKeys } from 'humps';
 import msgpack from 'msgpack-lite';
 
+import { setAccessTokenInLocalStorage, setRefreshTokenInLocalStorage } from '../helpers/tokenUtility';
 import { LOGIN_REST_FORM, LOGIN_REQUEST, LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT_SUCCESS } from "../constants/actionTypes"
 import { MIKAPONICS_LOGIN_API_URL } from "../constants/api"
 
@@ -83,6 +84,12 @@ export function attemptLogin(email, password) {
             store.dispatch(
                 setLoginSuccess(profile)
             );
+
+            // SAVE OUR CREDENTIALS IN PERSISTENT STORAGE. THIS IS AN IMPORTANT
+            // STEP BECAUSE OUR TOKEN UTILITY HELPER NEEDS THIS.
+            setAccessTokenInLocalStorage(profile.accessToken);
+            setRefreshTokenInLocalStorage(profile.refreshToken);
+            
         }).catch( (exception) => {
             if (exception.response) {
                 const responseBinaryData = exception.response.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
