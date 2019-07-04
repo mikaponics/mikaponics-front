@@ -61,7 +61,15 @@ class DeviceCreateStep4PurchaseSubmissionContainer extends Component {
         this.onFailedSubmissionCallback = this.onFailedSubmissionCallback.bind(this);
     }
 
-    onSuccessfulSubmissionCallback() {
+    onSuccessfulSubmissionCallback(data) {
+        // Update our persistent storage.
+        // STEP 1: Save our new invoice slug.
+        localStorage.setItem('add-device-invoice-slug', data.invoiceSlug);
+
+        // STEP 2: clear our form.
+        // storage.removeItem(keyName); TODO
+
+        // Update our state
         this.setState({
             referrer: "/purchase/success"
         })
@@ -112,7 +120,7 @@ class DeviceCreateStep4PurchaseSubmissionContainer extends Component {
             data['errors'] = {};
 
             // Let our page know we had success with the API.
-            this.onSuccessfulSubmissionCallback();
+            this.onSuccessfulSubmissionCallback(data);
 
         }).catch( (exception) => { // ERROR
             if (exception.response) {
