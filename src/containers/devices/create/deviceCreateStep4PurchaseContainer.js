@@ -44,13 +44,13 @@ class DeviceCreateStep4PurchaseContainer extends Component {
             shippingEmail: localStorage.getItem("add-device-shippingEmail"),
             shippingStreetAddress: localStorage.getItem("add-device-shippingStreetAddress"),
 
-            totalBeforeTax: 0,
-            tax: 0,
-            totalAfterTax: 0,
-            shipping: 0,
-            credit: 0,
-            grandTotal: 0,
-            grandTotalInCents: 0,
+            totalBeforeTax: localStorage.getItem("add-device-totalBeforeTax"),
+            tax: localStorage.getItem("add-device-tax"),
+            totalAfterTax: localStorage.getItem("add-device-totalAfterTax"),
+            shipping: localStorage.getItem("add-device-shipping"),
+            credit: localStorage.getItem("add-device-credit"),
+            grandTotal: localStorage.getItem("add-device-grandTotal"),
+            grandTotalInCents: localStorage.getItem("add-device-grandTotalInCents"),
         }
         this.onBackClick = this.onBackClick.bind(this);
     }
@@ -108,6 +108,15 @@ class DeviceCreateStep4PurchaseContainer extends Component {
                 grandTotal: data.grandTotal,
                 grandTotalInCents: data.grandTotalInCents,
             });
+
+            // Update the persistent storage.
+            localStorage.setItem('add-device-totalBeforeTax', data.totalBeforeTax);
+            localStorage.setItem('add-device-tax', data.tax);
+            localStorage.setItem('add-device-totalAfterTax', data.totalAfterTax);
+            localStorage.setItem('add-device-shipping', data.shipping);
+            localStorage.setItem('add-device-credit', data.credit);
+            localStorage.setItem('add-device-grandTotal', data.grandTotal);
+            localStorage.setItem('add-device-grandTotalInCents', data.grandTotalInCents);
 
         }).catch( (exception) => { // ERROR
             if (exception.response) {
