@@ -7,18 +7,19 @@ import { BootstrapSingleSelect } from '../../bootstrap/bootstrapSingleSelect';
 import { BootstrapTextarea } from '../../bootstrap/bootstrapTextarea';
 import { BootstrapCheckbox } from "../../bootstrap/bootstrapCheckbox";
 import { BootstrapTimePicker } from "../../bootstrap/bootstrapTimePicker";
-import { PRODUCTION_OTHER_SYSTEM } from "../../../constants/api";
+import { PRODUCTION_OTHER_SYSTEM, PRODUCTION_OTHER_TYPE } from "../../../constants/api";
 
 
 class ProductionStep1CreateComponent extends Component {
     render() {
         const {
-            name, description, isCommercial, deviceOptions, device, environmentOptions, environment, typeOfOptions, typeOf, growSystemOptions, growSystem, growSystemOther,
+            name, description, isCommercial, deviceOptions, device, environmentOptions, environment, typeOfOptions, typeOf, typeOfOther, growSystemOptions, growSystem, growSystemOther,
             hasDayAndNightCycle, dayStartsAt, dayFinishesAt, onNightStartTimeChange, onNightFinishTimeChange,
             onTextChange, onSelectChange, onCheckboxChange, onCancelClick, onNextClick, errors
         } = this.props;
 
         const showGrowSystemOtherField = growSystem === PRODUCTION_OTHER_SYSTEM;
+        const showTypeOfOtherField = typeOf === PRODUCTION_OTHER_TYPE;
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -134,6 +135,20 @@ class ProductionStep1CreateComponent extends Component {
                                 error={errors.typeOf}
                                 onSelectChange={onSelectChange}
                             />
+
+                            {showTypeOfOtherField &&
+                                <BootstrapInput
+                                    inputClassName="form-control"
+                                    borderColour="border-primary"
+                                    error={errors.typeOfOther}
+                                    label="Type - Other (*)"
+                                    onChange={onTextChange}
+                                    value={typeOfOther}
+                                    name="typeOfOther"
+                                    type="text"
+                                    placeholder="Please write the type of."
+                                />
+                            }
 
                             <BootstrapSingleSelect
                                 label="Grow System (*)"

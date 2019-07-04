@@ -83,12 +83,21 @@ export const CROP_ANIMALSTOCK_TYPE = 3;
 /**
  *  The type of choices we have for the `Production` API endpoint for the
  *  `type_of` field.
+ *
+ *  Link: https://github.com/mikaponics/mikaponics-back/blob/master/mikaponics/foundation/models/production.py
  */
-export const PRODUCTION_AQUAPONICS_TYPE = 1
-export const PRODUCTION_HYDROPONICS_TYPE = 2
-export const PRODUCTION_AQUACULTURE_TYPE = 3
+
+export const PRODUCTION_OTHER_TYPE = 1
+export const PRODUCTION_SOIL_TYPE = 2
+export const PRODUCTION_AQUAPONICS_TYPE = 3
+export const PRODUCTION_HYDROPONICS_TYPE = 4
+export const PRODUCTION_AQUACULTURE_TYPE = 5
 export const PRODUCTION_TYPE_OPTION_CHOICES = [
     {
+        selectName: "typeOf",
+        value: PRODUCTION_SOIL_TYPE,
+        label: "Soil"
+    },{
         selectName: "typeOf",
         value: PRODUCTION_AQUAPONICS_TYPE,
         label: "Aquaponics"
@@ -100,6 +109,10 @@ export const PRODUCTION_TYPE_OPTION_CHOICES = [
         selectName: "typeOf",
         value: PRODUCTION_AQUACULTURE_TYPE,
         label: "Aquaculture"
+    },{
+        selectName: "typeOf",
+        value: PRODUCTION_OTHER_TYPE,
+        label: "Other"
     }
 ];
 

@@ -2,7 +2,7 @@ import validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 import isNaN from 'lodash/isNaN';
 
-import { PRODUCTION_OTHER_SYSTEM } from "../constants/api";
+import { PRODUCTION_OTHER_SYSTEM, PRODUCTION_OTHER_TYPE } from "../constants/api";
 
 
 export function validateStep1Input(data) {
@@ -26,6 +26,12 @@ export function validateStep1Input(data) {
 
     if (data.typeOf === undefined || data.typeOf === null || isNaN(data.typeOf)) {
         errors.typeOf = 'This field is required';
+    } else {
+        if (data.typeOf === PRODUCTION_OTHER_TYPE) {
+            if (data.typeOfOther === undefined || data.typeOfOther === null || isEmpty(data.typeOfOther)) {
+                errors.typeOfOther = 'This field is required';
+            }
+        }
     }
 
     if (data.growSystem === undefined || data.growSystem === null || isNaN(data.growSystem)) {

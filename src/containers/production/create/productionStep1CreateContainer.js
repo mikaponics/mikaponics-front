@@ -41,6 +41,7 @@ class ProductionStep1CreateContainer extends Component {
             device: localStorage.getItem('temp-device'),
             environment: parseInt(localStorage.getItem('temp-environment')),
             typeOf: parseInt(localStorage.getItem('temp-typeOf')),
+            typeOfOther: localStorage.getItem('temp-typeOfOther'),
             growSystem: parseInt(localStorage.getItem('temp-growSystem')),
             growSystemOther: localStorage.getItem('temp-growSystemOther'),
             startedAt: localStorage.getItem('temp-startedAt'),
@@ -173,7 +174,7 @@ class ProductionStep1CreateContainer extends Component {
 
     render() {
         const {
-            name, description, isCommercial, device, environment, typeOf, growSystem, growSystemOther, startedAt, hasDayAndNightCycle, dayStartsAt, dayFinishesAt,
+            name, description, isCommercial, device, environment, typeOf, typeOfOther, growSystem, growSystemOther, startedAt, hasDayAndNightCycle, dayStartsAt, dayFinishesAt,
             errors, referrer
         } = this.state;
         if (referrer) {
@@ -190,6 +191,7 @@ class ProductionStep1CreateContainer extends Component {
                 environment={environment}
                 typeOfOptions={PRODUCTION_TYPE_OPTION_CHOICES}
                 typeOf={typeOf}
+                typeOfOther={typeOfOther}
                 growSystemOptions={PRODUCTION_GROW_SYSTEM_OPTION_CHOICES}
                 growSystem={growSystem}
                 growSystemOther={growSystemOther}
