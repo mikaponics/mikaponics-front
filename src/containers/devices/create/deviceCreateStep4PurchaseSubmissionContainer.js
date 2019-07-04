@@ -71,7 +71,7 @@ class DeviceCreateStep4PurchaseSubmissionContainer extends Component {
 
         // Update our state
         this.setState({
-            referrer: "/purchase/success" //TODO: MAKE IT GO TO OUR OWN SUCCESS PAGE.
+            referrer: "/devices/create/step-5-purchase-success"
         })
 
         //TODO: DELETE THE ONBOARDING PAGES/API
@@ -147,7 +147,7 @@ class DeviceCreateStep4PurchaseSubmissionContainer extends Component {
 
     render() {
         if (this.state.referrer !== undefined && this.state.referrer !== null && this.state.referrer !== '') {
-            return <Redirect to="/devices/create/step-5-purchase-success" />
+            return <Redirect to={this.state.referrer} />
         }
         return (
             <DeviceCreateStep4PurchaseSubmissionComponent errors={this.state.errors} />
