@@ -61,10 +61,11 @@ class DeviceCreateStep2PurchaseContainer extends Component {
         if (foundProduct === null) {
             a.push({
                 'slug': product.slug,
-                'price': product.price,
+                'unitPrice': product.price,
                 'name': product.name,
                 'quantity': 1,
                 'totalPrice': product.price,
+                'description': product.shortDescription,
             });
 
         // CASE 2 OF 2:
@@ -74,10 +75,11 @@ class DeviceCreateStep2PurchaseContainer extends Component {
             const newQuantity = foundProduct.quantity + 1
             a.push({
                 'slug': foundProduct.slug,
-                'price': product.price,
+                'unitPrice': product.price,
                 'name': foundProduct.name,
                 'quantity': newQuantity,
                 'totalPrice': product.price * newQuantity,
+                'description': product.shortDescription,
             });
         }
 
@@ -132,10 +134,11 @@ class DeviceCreateStep2PurchaseContainer extends Component {
         if (newQuantity > 0) {
             a.push({
                 'slug': foundProduct.slug,
-                'price': product.price,
+                'unitPrice': product.unitPrice,
                 'name': foundProduct.name,
                 'quantity': newQuantity,
-                'totalPrice': product.price * newQuantity,
+                'totalPrice': product.unitPrice * newQuantity,
+                'description': product.shortDescription,
             });
         }
 

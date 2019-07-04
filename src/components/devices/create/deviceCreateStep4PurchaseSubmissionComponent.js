@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import { BootstrapErrorsProcessingAlert } from "../../bootstrap/bootstrapAlert";
+
 
 export default class DeviceCreateStep4PurchaseSubmissionComponent extends Component {
     render() {
+        const { errors } = this.props;
         return (
             <div className="container-fluid">
                 <div className="d-flex align-items-stretch">
                     <main id="main" role="main">
+                        <BootstrapErrorsProcessingAlert errors={errors} />
                         <div className="row">
                             <div className="col-sm-6 mx-auto p-4 error-page">
                                 <h3 className="text-center text-secondary mb-3">

@@ -1,3 +1,6 @@
+import axios from 'axios';                           // API
+import { camelizeKeys, decamelizeKeys } from 'humps';    // API
+import msgpack from 'msgpack-lite';                  // API
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -64,21 +67,70 @@ class DeviceCreateStep4PurchaseSubmissionContainer extends Component {
         })
     }
 
-    onFailedSubmissionCallback() {
-        // Do nothing.
+    onFailedSubmissionCallback(errors) {
+        this.setState({
+            errors: errors,
+        })
     }
 
     componentDidMount() {
-        console.log(this.state); //TODO: IMPLEMENT.
+        // DEVELOPERS NOTE:
+        // INSTEAD OF CREATING AN ACTION USING REDUX, LETS JUST MAKE AN API
+        // CALL HERE.
+        //--------------------------------------------------------------------//
+        // Create a new Axios instance using our oAuth 2.0 bearer token
+        // and various other headers.
+        const customAxios = axios.create({
+            headers: {
+                'Authorization': "Bearer " + this.props.user.token,
+                'Content-Type': 'application/msgpack;',
+                'Accept': 'application/msgpack',
+            },
+            responseType: 'arraybuffer'
+        });
 
-        // // SUBMIT OUR PAYMENT TOKEN RECEIVED FROM OUR PAYMENT MERCHANT.
-        // // Asynchronously submit our ``update`` to our API endpoint.
-        // this.props.postPurchaseDevice(
-        //     this.props.user,
-        //     purchaseDevice,
-        //     this.onSuccessfulSubmissionCallback,
-        //     this.onFailedSubmissionCallback
-        // );
+        // Generate the URL.
+        let aURL = process.env.REACT_APP_API_HOST+'/api/purchase';
+
+        // The following code will convert the `camelized` data into `snake case`
+        // data so our API endpoint will be able to read it.
+        let decamelizedData = decamelizeKeys(this.state);
+
+        // Encode from JS Object to MessagePack (Buffer)
+        const buffer = msgpack.encode(decamelizedData);
+
+        // Make the API call.
+        customAxios.post(aURL, buffer).then( (successResponse) => { // SUCCESS
+            // Decode our MessagePack (Buffer) into JS Object.
+            const responseData = msgpack.decode(Buffer(successResponse.data));
+            // console.log(successResult); // For debugging purposes.
+
+            let data = camelizeKeys(responseData);
+
+            // Extra.
+            data['isAPIRequestRunning'] = false;
+            data['errors'] = {};
+
+            // Let our page know we had success with the API.
+            this.onSuccessfulSubmissionCallback();
+
+        }).catch( (exception) => { // ERROR
+            if (exception.response) {
+                const responseBinaryData = exception.response.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
+
+                // Decode our MessagePack (Buffer) into JS Object.
+                const responseData = msgpack.decode(Buffer(responseBinaryData));
+
+                let errors = camelizeKeys(responseData);
+
+                // Add our API errors to our page.
+                this.onFailedSubmissionCallback(errors);
+            }
+
+        }).then( () => { // FINALLY
+            // Do nothing.
+        });
+        //--------------------------------------------------------------------//
 
     } // end FUNC.
 
@@ -87,7 +139,7 @@ class DeviceCreateStep4PurchaseSubmissionContainer extends Component {
             return <Redirect to="/purchase/success" />
         }
         return (
-            <DeviceCreateStep4PurchaseSubmissionComponent />
+            <DeviceCreateStep4PurchaseSubmissionComponent errors={this.state.errors} />
         );
     }
 }

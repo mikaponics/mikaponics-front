@@ -1,6 +1,6 @@
-import axios from 'axios';
-import { camelizeKeys, decamelize } from 'humps';
-import msgpack from 'msgpack-lite';
+import axios from 'axios';                           // API
+import { camelizeKeys, decamelize } from 'humps';    // API
+import msgpack from 'msgpack-lite';                  // API
 import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';

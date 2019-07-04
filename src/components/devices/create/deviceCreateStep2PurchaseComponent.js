@@ -135,7 +135,7 @@ class Table extends Component {
                 <thead>
                 <tr>
                     <th>Device</th>
-                    <th>Price</th>
+                    <th>Unit Price</th>
                     <th>Quantity</th>
                     <th>Total Price</th>
                     <th></th>
@@ -162,11 +162,11 @@ class Table extends Component {
 class TableRow extends Component {
     render() {
         const { minusFromCart, product } = this.props;
-        const { name, quantity, price, totalPrice, slug } = this.props.product;
+        const { name, quantity, unitPrice, totalPrice, slug } = this.props.product;
         return (
             <tr key={slug}>
                 <td>{name}</td>
-                <td>${price}</td>
+                <td>${unitPrice}</td>
                 <td>{quantity}</td>
                 <td>${totalPrice}</td>
                 <td>
