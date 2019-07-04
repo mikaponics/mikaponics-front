@@ -8,6 +8,12 @@ import {
     MIKAPONICS_GET_PROFILE_API_URL,
     MIKAPONICS_ACTIVATE_API_URL
 } from "../constants/api";
+import {
+    getAccessTokenFromLocalStorage,
+    setAccessTokenInLocalStorage,
+    setRefreshTokenInLocalStorage,
+    attachAxiosRefreshTokenHandler
+} from '../helpers/tokenUtility';
 
 
 export const setProfileRequest = () => ({
@@ -38,16 +44,22 @@ export function pullProfile(user) {
             setProfileRequest()
         );
 
+        // IMPORTANT: THIS IS THE ONLY WAY WE CAN GET THE ACCESS TOKEN.
+        const accessToken = getAccessTokenFromLocalStorage();
+
         // Create a new Axios instance using our oAuth 2.0 bearer token
         // and various other headers.
         const customAxios = axios.create({
             headers: {
-                'Authorization': "Bearer " + user.token,
+                'Authorization': "Bearer " + accessToken.token,
                 'Content-Type': 'application/msgpack;',
                 'Accept': 'application/msgpack',
             },
             responseType: 'arraybuffer'
         });
+
+        // Attach our Axios "refesh token" interceptor.
+        attachAxiosRefreshTokenHandler(customAxios);
 
         customAxios.get(MIKAPONICS_GET_PROFILE_API_URL).then( (successResponse) => { // SUCCESS
             // Decode our MessagePack (Buffer) into JS Object.
@@ -61,6 +73,11 @@ export function pullProfile(user) {
             profile['errors'] = {};
 
             // console.log(profile); // For debugging purposes.
+
+            // SAVE OUR CREDENTIALS IN PERSISTENT STORAGE. THIS IS AN IMPORTANT
+            // STEP BECAUSE OUR TOKEN UTILITY HELPER NEEDS THIS.
+            setAccessTokenInLocalStorage(profile.accessToken);
+            setRefreshTokenInLocalStorage(profile.refreshToken);
 
             // Update the global state of the application to store our
             // user profile for the application.

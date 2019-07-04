@@ -5,6 +5,7 @@ import msgpack from 'msgpack-lite';
 
 import { LOGOUT_REQUEST, LOGOUT_FAILURE, LOGOUT_SUCCESS } from "../constants/actionTypes"
 import { MIKAPONICS_LOGOUT_API_URL } from "../constants/api"
+import { getAccessTokenFromLocalStorage, attachAxiosRefreshTokenHandler } from '../helpers/tokenUtility';
 
 
 export const setLogoutRequest = () => ({
@@ -54,16 +55,22 @@ export function postLogout(user) {
         // Generate the URL.
         let aURL = MIKAPONICS_LOGOUT_API_URL;
 
+        // IMPORTANT: THIS IS THE ONLY WAY WE CAN GET THE ACCESS TOKEN.
+        const accessToken = getAccessTokenFromLocalStorage();
+
         // Create a new Axios instance using our oAuth 2.0 bearer token
         // and various other headers.
         const customAxios = axios.create({
             headers: {
-                'Authorization': "Bearer " + user.token,
+                'Authorization': "Bearer " + accessToken.token,
                 'Content-Type': 'application/msgpack;',
                 'Accept': 'application/msgpack',
             },
             responseType: 'arraybuffer'
         });
+
+        // Attach our Axios "refesh token" interceptor.
+        attachAxiosRefreshTokenHandler(customAxios);
 
         const decamelizedData = {
             token: user.token

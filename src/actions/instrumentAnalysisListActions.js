@@ -5,6 +5,7 @@ import msgpack from 'msgpack-lite';
 
 import { INSTRUMENT_ANALYSIS_LIST_REQUEST, INSTRUMENT_ANALYSIS_LIST_FAILURE, INSTRUMENT_ANALYSIS_LIST_SUCCESS, CLEAR_INSTRUMENT_ANALYSIS_LIST } from '../constants/actionTypes';
 import { MIKAPONICS_INSTRUMENT_ANALYSIS_LIST_CREATE_API_URL } from '../constants/api';
+import getCustomAxios from '../helpers/customAxios';
 
 
 export const setInstrumentAnalysisListRequest = () => ({
@@ -46,16 +47,8 @@ export function pullInstrumentAnalysisList(user, instrumentSlug=null, page=1) {
             setInstrumentAnalysisListRequest()
         );
 
-        // Create a new Axios instance using our oAuth 2.0 bearer token
-        // and various other headers.
-        const customAxios = axios.create({
-            headers: {
-                'Authorization': "Bearer " + user.token,
-                'Content-Type': 'application/msgpack;',
-                'Accept': 'application/msgpack',
-            },
-            responseType: 'arraybuffer'
-        });
+        // Generate our app's Axios instance.
+        const customAxios = getCustomAxios();
 
         // Generate the URL.
         let aURL = "";

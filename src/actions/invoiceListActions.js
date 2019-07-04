@@ -9,9 +9,8 @@ import {
     INVOICE_LIST_SUCCESS,
     CLEAR_INVOICE_LIST
 } from '../constants/actionTypes';
-import {
-    MIKAPONICS_INVOICE_LIST_API_URL
-} from '../constants/api';
+import { MIKAPONICS_INVOICE_LIST_API_URL } from '../constants/api';
+import getCustomAxios from '../helpers/customAxios';
 
 
 export const setInvoiceListRequest = () => ({
@@ -52,16 +51,8 @@ export function pullInvoiceList(user, pageIndex=1) {
             setInvoiceListRequest()
         );
 
-        // Create a new Axios instance using our oAuth 2.0 bearer token
-        // and various other headers.
-        const customAxios = axios.create({
-            headers: {
-                'Authorization': "Bearer " + user.token,
-                'Content-Type': 'application/msgpack;',
-                'Accept': 'application/msgpack',
-            },
-            responseType: 'arraybuffer'
-        });
+        // Generate our app's Axios instance.
+        const customAxios = getCustomAxios();
 
         customAxios.get(MIKAPONICS_INVOICE_LIST_API_URL+"?page="+pageIndex).then( (successResponse) => { // SUCCESS
             // Decode our MessagePack (Buffer) into JS Object.

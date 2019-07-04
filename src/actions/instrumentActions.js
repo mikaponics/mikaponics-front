@@ -5,6 +5,7 @@ import msgpack from 'msgpack-lite';
 
 import { INSTRUMENT_REQUEST, INSTRUMENT_FAILURE, INSTRUMENT_SUCCESS, CLEAR_INSTRUMENT } from '../constants/actionTypes';
 import { MIKAPONICS_GET_INSTRUMENT_API_URL } from '../constants/api';
+import getCustomAxios from '../helpers/customAxios';
 
 
 export const setInstrumentRequest = () => ({
@@ -45,16 +46,8 @@ export function pullInstrument(user, instrumentSlug) {
             setInstrumentRequest()
         );
 
-        // Create a new Axios instance using our oAuth 2.0 bearer token
-        // and various other headers.
-        const customAxios = axios.create({
-            headers: {
-                'Authorization': "Bearer " + user.token,
-                'Content-Type': 'application/msgpack;',
-                'Accept': 'application/msgpack',
-            },
-            responseType: 'arraybuffer'
-        });
+        // Generate our app's Axios instance.
+        const customAxios = getCustomAxios();
 
         customAxios.get(MIKAPONICS_GET_INSTRUMENT_API_URL+"/"+instrumentSlug).then( (successResponse) => { // SUCCESS
             // Decode our MessagePack (Buffer) into JS Object.
@@ -108,16 +101,8 @@ export function putInstrument(user, instrumentSlug, data, successCallback, faile
             setInstrumentRequest()
         );
 
-        // Create a new Axios instance using our oAuth 2.0 bearer token
-        // and various other headers.
-        const customAxios = axios.create({
-            headers: {
-                'Authorization': "Bearer " + user.token,
-                'Content-Type': 'application/msgpack;',
-                'Accept': 'application/msgpack',
-            },
-            responseType: 'arraybuffer'
-        });
+        // Generate our app's Axios instance.
+        const customAxios = getCustomAxios();
 
         // Encode from JS Object to MessagePack (Buffer)
         var buffer = msgpack.encode({

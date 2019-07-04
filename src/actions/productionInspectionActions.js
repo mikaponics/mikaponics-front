@@ -12,6 +12,7 @@ import {
     MIKAPONICS_PRODUCTION_INSPECTION_RETRIEVE_UPDATE_API_URL,
     MIKAPONICS_PRODUCTION_INSPECTION_RETRIEVE_OR_CREATE_DEFAULT_DRAFT_API_URL,
 } from "../constants/api";
+import getCustomAxios from '../helpers/customAxios';
 
 
 export const setProductionInspectionListRequest = () => ({
@@ -42,16 +43,8 @@ export function pullProductionInspectionList(user, page=1, productionSlugFilter=
             setProductionInspectionListRequest()
         );
 
-        // Create a new Axios instance using our oAuth 2.0 bearer token
-        // and various other headers.
-        const customAxios = axios.create({
-            headers: {
-                'Authorization': "Bearer " + user.token,
-                'Content-Type': 'application/msgpack;',
-                'Accept': 'application/msgpack',
-            },
-            responseType: 'arraybuffer'
-        });
+        // Generate our app's Axios instance.
+        const customAxios = getCustomAxios();
 
         let aURL = MIKAPONICS_PRODUCTION_INSPECTION_LIST_CREATE_API_URL+"?page="+page;
         if (productionSlugFilter !== undefined && productionSlugFilter !== null) {
@@ -144,16 +137,8 @@ export function pullDefaultDraftProductionInspectionDetail(user, productionSlug)
             setProductionInspectionDetailRequest()
         );
 
-        // Create a new Axios instance using our oAuth 2.0 bearer token
-        // and various other headers.
-        const customAxios = axios.create({
-            headers: {
-                'Authorization': "Bearer " + user.token,
-                'Content-Type': 'application/msgpack;',
-                'Accept': 'application/msgpack',
-            },
-            responseType: 'arraybuffer'
-        });
+        // Generate our app's Axios instance.
+        const customAxios = getCustomAxios();
 
         const aURL = MIKAPONICS_PRODUCTION_INSPECTION_RETRIEVE_OR_CREATE_DEFAULT_DRAFT_API_URL+productionSlug;
 
@@ -216,16 +201,8 @@ export function pullProductionInspectionDetail(user, slug, successCallback=null,
             setProductionInspectionDetailRequest()
         );
 
-        // Create a new Axios instance using our oAuth 2.0 bearer token
-        // and various other headers.
-        const customAxios = axios.create({
-            headers: {
-                'Authorization': "Bearer " + user.token,
-                'Content-Type': 'application/msgpack;',
-                'Accept': 'application/msgpack',
-            },
-            responseType: 'arraybuffer'
-        });
+        // Generate our app's Axios instance.
+        const customAxios = getCustomAxios();
 
         const aURL = MIKAPONICS_PRODUCTION_INSPECTION_RETRIEVE_UPDATE_API_URL+slug;
 
@@ -364,16 +341,8 @@ export function putProductionInspectionDetail(user, data, slug, successCallback,
             return;
         }
 
-        // Create a new Axios instance using our oAuth 2.0 bearer token
-        // and various other headers.
-        const customAxios = axios.create({
-            headers: {
-                'Authorization': "Bearer " + user.token,
-                'Content-Type': 'application/msgpack;',
-                'Accept': 'application/msgpack',
-            },
-            responseType: 'arraybuffer'
-        });
+        // Generate our app's Axios instance.
+        const customAxios = getCustomAxios();
 
 
         // The following code will convert the `camelized` data into `snake case`

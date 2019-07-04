@@ -9,6 +9,7 @@ import {
     PRODUCT_LIST_SUCCESS
 } from '../constants/actionTypes';
 import { MIKAPONICS_PRODUCT_LIST_API_URL } from '../constants/api';
+import getCustomAxios from '../helpers/customAxios';
 
 
 export const setProductListRequest = () => ({
@@ -43,16 +44,8 @@ export function pullProductList(user, pageIndex=1) {
             setProductListRequest()
         );
 
-        // Create a new Axios instance using our oAuth 2.0 bearer token
-        // and various other headers.
-        const customAxios = axios.create({
-            headers: {
-                'Authorization': "Bearer " + user.token,
-                'Content-Type': 'application/msgpack;',
-                'Accept': 'application/msgpack',
-            },
-            responseType: 'arraybuffer'
-        });
+        // Generate our app's Axios instance.
+        const customAxios = getCustomAxios();
 
         customAxios.get(MIKAPONICS_PRODUCT_LIST_API_URL+"?page="+pageIndex).then( (successResponse) => { // SUCCESS
             // Decode our MessagePack (Buffer) into JS Object.

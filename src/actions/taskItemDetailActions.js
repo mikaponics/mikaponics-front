@@ -13,6 +13,7 @@ import {
     MIKAPONICS_TASK_ITEM_DETAIL_API_URL,
     MIKAPONICS_TASK_ITEM_WAS_VIEWED_FUNC_API_URL
 } from '../constants/api';
+import getCustomAxios from '../helpers/customAxios';
 
 
 export const setTaskItemDetailRequest = () => ({
@@ -53,16 +54,8 @@ export function pullTaskItemDetail(user, instrumentSlug=null) {
             setTaskItemDetailRequest()
         );
 
-        // Create a new Axios instance using our oAuth 2.0 bearer token
-        // and various other headers.
-        const customAxios = axios.create({
-            headers: {
-                'Authorization': "Bearer " + user.token,
-                'Content-Type': 'application/msgpack;',
-                'Accept': 'application/msgpack',
-            },
-            responseType: 'arraybuffer'
-        });
+        // Generate our app's Axios instance.
+        const customAxios = getCustomAxios();
 
         // Generate the URL.
         const aURL = MIKAPONICS_TASK_ITEM_DETAIL_API_URL+instrumentSlug;

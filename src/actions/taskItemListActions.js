@@ -11,6 +11,7 @@ import {
     CLEAR_TASK_ITEM_LIST
 } from '../constants/actionTypes';
 import { MIKAPONICS_TASK_ITEM_LIST_API_URL } from '../constants/api';
+import getCustomAxios from '../helpers/customAxios';
 
 
 export const setTaskItemListRequest = () => ({
@@ -52,16 +53,8 @@ export function pullTaskItemList(user, page=1, filtersMap=new Map()) {
             setTaskItemListRequest()
         );
 
-        // Create a new Axios instance using our oAuth 2.0 bearer token
-        // and various other headers.
-        const customAxios = axios.create({
-            headers: {
-                'Authorization': "Bearer " + user.token,
-                'Content-Type': 'application/msgpack;',
-                'Accept': 'application/msgpack',
-            },
-            responseType: 'arraybuffer'
-        });
+        // Generate our app's Axios instance.
+        const customAxios = getCustomAxios();
 
         // Generate the URL from the map.
         // Note: Learn about `Map` iteration via https://hackernoon.com/what-you-should-know-about-es6-maps-dc66af6b9a1e

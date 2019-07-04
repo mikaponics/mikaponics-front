@@ -11,6 +11,7 @@ import {
     MIKAPONICS_PRODUCTION_LIST_CREATE_API_URL,
     MIKAPONICS_PRODUCTION_RETRIEVE_UPDATE_API_URL
 } from "../constants/api";
+import getCustomAxios from '../helpers/customAxios';
 
 
 export const setProductionListRequest = () => ({
@@ -41,16 +42,8 @@ export function pullProductionList(user, page=1) {
             setProductionListRequest()
         );
 
-        // Create a new Axios instance using our oAuth 2.0 bearer token
-        // and various other headers.
-        const customAxios = axios.create({
-            headers: {
-                'Authorization': "Bearer " + user.token,
-                'Content-Type': 'application/msgpack;',
-                'Accept': 'application/msgpack',
-            },
-            responseType: 'arraybuffer'
-        });
+        // Generate our app's Axios instance.
+        const customAxios = getCustomAxios();
 
         customAxios.get(MIKAPONICS_PRODUCTION_LIST_CREATE_API_URL+"?page="+page).then( (successResponse) => { // SUCCESS
             // Decode our MessagePack (Buffer) into JS Object.
@@ -139,16 +132,8 @@ export function pullProductionDetail(user, slug) {
             setProductionDetailRequest()
         );
 
-        // Create a new Axios instance using our oAuth 2.0 bearer token
-        // and various other headers.
-        const customAxios = axios.create({
-            headers: {
-                'Authorization': "Bearer " + user.token,
-                'Content-Type': 'application/msgpack;',
-                'Accept': 'application/msgpack',
-            },
-            responseType: 'arraybuffer'
-        });
+        // Generate our app's Axios instance.
+        const customAxios = getCustomAxios();
 
         const aURL = MIKAPONICS_PRODUCTION_RETRIEVE_UPDATE_API_URL+slug;
 
@@ -213,16 +198,8 @@ export function postProductionDetail(user, data, successCallback, failedCallback
             setProductionDetailRequest()
         );
 
-        // Create a new Axios instance using our oAuth 2.0 bearer token
-        // and various other headers.
-        const customAxios = axios.create({
-            headers: {
-                'Authorization': "Bearer " + user.token,
-                'Content-Type': 'application/msgpack;',
-                'Accept': 'application/msgpack',
-            },
-            responseType: 'arraybuffer'
-        });
+        // Generate our app's Axios instance.
+        const customAxios = getCustomAxios();
 
         // The following code will convert the `camelized` data into `snake case`
         // data so our API endpoint will be able to read it.
@@ -292,16 +269,8 @@ export function putProductionDetail(user, data, successCallback, failedCallback)
             setProductionDetailRequest()
         );
 
-        // Create a new Axios instance using our oAuth 2.0 bearer token
-        // and various other headers.
-        const customAxios = axios.create({
-            headers: {
-                'Authorization': "Bearer " + user.token,
-                'Content-Type': 'application/msgpack;',
-                'Accept': 'application/msgpack',
-            },
-            responseType: 'arraybuffer'
-        });
+        // Generate our app's Axios instance.
+        const customAxios = getCustomAxios();
 
         // The following code will convert the `camelized` data into `snake case`
         // data so our API endpoint will be able to read it.

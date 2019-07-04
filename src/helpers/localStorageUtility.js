@@ -7,6 +7,10 @@
 
 export function localStorageGetObjectItem(key) {
     const stringifiedObject = localStorage.getItem(key);
+    if (stringifiedObject === "undefined") { // Defensive Code: Error.
+        console.error("localStorageGetObjectItem: Detected `undefined` string, could be potential error.");
+        return null;
+    }
     let anObject = JSON.parse(stringifiedObject);
     if (anObject  === undefined || anObject === null) {
         anObject = {};
@@ -16,6 +20,10 @@ export function localStorageGetObjectItem(key) {
 
 export function localStorageGetArrayItem(key) {
     const stringifiedObject = localStorage.getItem(key);
+    if (stringifiedObject === "undefined") { // Defensive Code: Error.
+        console.error("localStorageGetArrayItem: Detected `undefined` string, could be potential error.");
+        return null;
+    }
     console.log("localStorageGetArrayItem | String:", stringifiedObject);
     let anObject = JSON.parse(stringifiedObject);
     console.log("localStorageGetArrayItem | Object:", anObject);

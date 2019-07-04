@@ -5,6 +5,7 @@ import msgpack from 'msgpack-lite';
 
 import { CROP_SUBSTRATE_LIST_REQUEST, CROP_SUBSTRATE_LIST_FAILURE, CROP_SUBSTRATE_LIST_SUCCESS } from '../constants/actionTypes';
 import { MIKAPONICS_CROP_SUBSTRATE_LIST_API_URL } from '../constants/api';
+import getCustomAxios from '../helpers/customAxios';
 
 
 export const setCropSubstrateListRequest = () => ({
@@ -40,16 +41,8 @@ export function pullCropSubstrateList(user, page=1, typeOf=null) {
             setCropSubstrateListRequest()
         );
 
-        // Create a new Axios instance using our oAuth 2.0 bearer token
-        // and various other headers.
-        const customAxios = axios.create({
-            headers: {
-                'Authorization': "Bearer " + user.token,
-                'Content-Type': 'application/msgpack;',
-                'Accept': 'application/msgpack',
-            },
-            responseType: 'arraybuffer'
-        });
+        // Generate our app's Axios instance.
+        const customAxios = getCustomAxios();
 
         // Generate the URL.
         let aURL = MIKAPONICS_CROP_SUBSTRATE_LIST_API_URL+"?page="+page;

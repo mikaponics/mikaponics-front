@@ -5,6 +5,7 @@ import msgpack from 'msgpack-lite';
 
 import { DEVICE_REQUEST, DEVICE_FAILURE, DEVICE_SUCCESS, CLEAR_DEVICE } from '../constants/actionTypes';
 import { MIKAPONICS_GET_DEVICE_API_URL } from '../constants/api';
+import getCustomAxios from '../helpers/customAxios';
 
 
 export const setDeviceRequest = () => ({
@@ -45,16 +46,8 @@ export function pullDevice(user, deviceSlug) {
             setDeviceRequest()
         );
 
-        // Create a new Axios instance using our oAuth 2.0 bearer token
-        // and various other headers.
-        const customAxios = axios.create({
-            headers: {
-                'Authorization': "Bearer " + user.token,
-                'Content-Type': 'application/msgpack;',
-                'Accept': 'application/msgpack',
-            },
-            responseType: 'arraybuffer'
-        });
+        // Generate our app's Axios instance.
+        const customAxios = getCustomAxios();
 
         customAxios.get(MIKAPONICS_GET_DEVICE_API_URL+"/"+deviceSlug).then( (successResponse) => { // SUCCESS
             // Decode our MessagePack (Buffer) into JS Object.
@@ -108,16 +101,8 @@ export function putDevice(user, deviceSlug, data, successCallback, errorCallback
             setDeviceRequest()
         );
 
-        // Create a new Axios instance using our oAuth 2.0 bearer token
-        // and various other headers.
-        const customAxios = axios.create({
-            headers: {
-                'Authorization': "Bearer " + user.token,
-                'Content-Type': 'application/msgpack;',
-                'Accept': 'application/msgpack',
-            },
-            responseType: 'arraybuffer'
-        })
+        // Generate our app's Axios instance.
+        const customAxios = getCustomAxios();
 
         // Encode from JS Object to MessagePack (Buffer)
         var buffer = msgpack.encode({

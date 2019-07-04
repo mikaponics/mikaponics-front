@@ -5,6 +5,7 @@ import msgpack from 'msgpack-lite';
 
 import { SUBSCRIPTION_REQUEST, SUBSCRIPTION_SUCCESS, SUBSCRIPTION_FAILURE } from "../constants/actionTypes";
 import { MIKAPONICS_SUBSCRIPTION_API_URL } from "../constants/api";
+import getCustomAxios from '../helpers/customAxios';
 
 
 export const setSubscriptionRequest = () => ({
@@ -35,16 +36,8 @@ export function pullSubscription(user) {
             setSubscriptionRequest()
         );
 
-        // Create a new Axios instance using our oAuth 2.0 bearer token
-        // and various other headers.
-        const customAxios = axios.create({
-            headers: {
-                'Authorization': "Bearer " + user.token,
-                'Content-Type': 'application/msgpack;',
-                'Accept': 'application/msgpack',
-            },
-            responseType: 'arraybuffer'
-        });
+        // Generate our app's Axios instance.
+        const customAxios = getCustomAxios();
 
         customAxios.get(MIKAPONICS_SUBSCRIPTION_API_URL).then( (successResponse) => { // SUCCESS
             // Decode our MessagePack (Buffer) into JS Object.
@@ -107,77 +100,18 @@ export function postSubscription(user, data, successCallback, failedCallback) {
             setSubscriptionRequest()
         );
 
-        // Create our oAuth 2.0 authenticated API header to use with our
-        // submission.
-        const config = {
-            headers: {'Authorization': "Bearer " + user.token}
-        };
+        // Generate our app's Axios instance.
+        const customAxios = getCustomAxios();
 
         // The following code will convert the `camelized` data into `snake case`
         // data so our API endpoint will be able to read it.
         let decamelizedData = decamelizeKeys(data);
 
         // Perform our API submission.
-        axios.post(MIKAPONICS_SUBSCRIPTION_API_URL, decamelizedData, config).then( (successResult) => {
+        customAxios.post(MIKAPONICS_SUBSCRIPTION_API_URL, decamelizedData).then( (successResponse) => {
+            // Decode our MessagePack (Buffer) into JS Object.
+            const responseData = msgpack.decode(Buffer(successResponse.data));
 
-            const responseData = successResult.data;
-            let subscriptionReceipt = camelizeKeys(responseData);
-
-            // Extra.
-            subscriptionReceipt['isAPIRequestRunning'] = false;
-            subscriptionReceipt['errors'] = {};
-
-            // Update the global state of the application to store our
-            // user subscription receipt for the application.
-            store.dispatch(
-                setSubscriptionSuccess(subscriptionReceipt)
-            );
-
-            // Run our success callback function.
-            successCallback(subscriptionReceipt);
-
-        }).catch( (errorResult) => {
-            // console.error(errorResult); For debugging purposes only.
-            const responseData = errorResult.response.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
-            let errors = camelizeKeys(responseData);
-
-            console.error(errors); // For debugging purposes only.
-
-            // Run our failure callback function.
-            failedCallback(errors);
-
-            store.dispatch(
-                setSubscriptionFailure({
-                    isAPIRequestRunning: false,
-                    errors: errors
-                })
-            );
-
-        }).then( () => {
-            // Do nothing.
-        });
-
-    }
-}
-
-
-export function deleteSubscription(user, successCallback, failedCallback) {
-    return dispatch => {
-        // Change the global state to attempting to log in.
-        store.dispatch(
-            setSubscriptionRequest()
-        );
-
-        // Create our oAuth 2.0 authenticated API header to use with our
-        // submission.
-        const config = {
-            headers: {'Authorization': "Bearer " + user.token}
-        };
-
-        // Perform our API submission.
-        axios.delete(MIKAPONICS_SUBSCRIPTION_API_URL, config).then( (successResult) => {
-
-            const responseData = successResult.data;
             let subscriptionReceipt = camelizeKeys(responseData);
 
             // Extra.
@@ -195,9 +129,11 @@ export function deleteSubscription(user, successCallback, failedCallback) {
 
         }).catch( (exception) => {
             if (exception.response) {
+                const responseBinaryData = exception.response.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
 
-                // console.error(errorResult); For debugging purposes only.
-                const responseData = exception.response.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
+                // Decode our MessagePack (Buffer) into JS Object.
+                const responseData = msgpack.decode(Buffer(responseBinaryData));
+
                 let errors = camelizeKeys(responseData);
 
                 console.error(errors); // For debugging purposes only.
@@ -211,7 +147,64 @@ export function deleteSubscription(user, successCallback, failedCallback) {
                         errors: errors
                     })
                 );
+            }
+        }).then( () => {
+            // Do nothing.
+        });
 
+    }
+}
+
+
+export function deleteSubscription(user, successCallback, failedCallback) {
+    return dispatch => {
+        // Change the global state to attempting to log in.
+        store.dispatch(
+            setSubscriptionRequest()
+        );
+
+        // Generate our app's Axios instance.
+        const customAxios = getCustomAxios();
+
+        // Perform our API submission.
+        customAxios.delete(MIKAPONICS_SUBSCRIPTION_API_URL).then( (successResponse) => {
+            // Decode our MessagePack (Buffer) into JS Object.
+            const responseData = msgpack.decode(Buffer(successResponse.data));
+            let subscriptionReceipt = camelizeKeys(responseData);
+
+            // Extra.
+            subscriptionReceipt['isAPIRequestRunning'] = false;
+            subscriptionReceipt['errors'] = {};
+
+            // Update the global state of the application to store our
+            // user subscription receipt for the application.
+            store.dispatch(
+                setSubscriptionSuccess(subscriptionReceipt)
+            );
+
+            // Run our success callback function.
+            successCallback(subscriptionReceipt);
+
+        }).catch( (exception) => {
+            if (exception.response) {
+                const responseBinaryData = exception.response.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
+
+                // Decode our MessagePack (Buffer) into JS Object.
+                const responseData = msgpack.decode(Buffer(responseBinaryData));
+
+                let errors = camelizeKeys(responseData);
+
+                console.error(errors); // For debugging purposes only.
+
+                // Run our failure callback function.
+                failedCallback(errors);
+
+                store.dispatch(
+                    setSubscriptionFailure({
+                        isAPIRequestRunning: false,
+                        errors: errors
+                    })
+                );
             }
 
         }).then( () => {

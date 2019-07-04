@@ -45,7 +45,7 @@ export const setLoginFailure = payload => ({
 });
 
 
-export function attemptLogin(email, password) {
+export function postLogin(email, password, successCallback=null, failedCallback=null) {
     return dispatch => {
         // Change the global state to attempting to log in.
         store.dispatch(
@@ -60,7 +60,7 @@ export function attemptLogin(email, password) {
                 'Accept': 'application/msgpack',
             },
             responseType: 'arraybuffer'
-        })
+        });
 
         // Encode from JS Object to MessagePack (Buffer)
         var buffer = msgpack.encode({
@@ -71,13 +71,18 @@ export function attemptLogin(email, password) {
         customAxios.post(MIKAPONICS_LOGIN_API_URL, buffer).then( (successResponse) => {
             // Decode our MessagePack (Buffer) into JS Object.
             const responseData = msgpack.decode(Buffer(successResponse.data));
-            // console.log(successResult); // For debugging purposes.
-
             let profile = camelizeKeys(responseData);
+
+            // console.log("postLogin | successResponse:", profile); // For debugging purposes.
 
             // Extra.
             profile['isAPIRequestRunning'] = false;
             profile['errors'] = {};
+
+            // SAVE OUR CREDENTIALS IN PERSISTENT STORAGE. THIS IS AN IMPORTANT
+            // STEP BECAUSE OUR TOKEN UTILITY HELPER NEEDS THIS.
+            setAccessTokenInLocalStorage(profile.accessToken);
+            setRefreshTokenInLocalStorage(profile.refreshToken);
 
             // Update the global state of the application to store our
             // user profile for the application.
@@ -85,11 +90,13 @@ export function attemptLogin(email, password) {
                 setLoginSuccess(profile)
             );
 
-            // SAVE OUR CREDENTIALS IN PERSISTENT STORAGE. THIS IS AN IMPORTANT
-            // STEP BECAUSE OUR TOKEN UTILITY HELPER NEEDS THIS.
-            setAccessTokenInLocalStorage(profile.accessToken);
-            setRefreshTokenInLocalStorage(profile.refreshToken);
-            
+            // DEVELOPERS NOTE:
+            // IF A CALLBACK FUNCTION WAS SET THEN WE WILL RETURN THE JSON
+            // OBJECT WE GOT FROM THE API.
+            if (successCallback) {
+                successCallback(profile);
+            }
+
         }).catch( (exception) => {
             if (exception.response) {
                 const responseBinaryData = exception.response.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
@@ -107,12 +114,12 @@ export function attemptLogin(email, password) {
                     })
                 );
 
-                // // DEVELOPERS NOTE:
-                // // IF A CALLBACK FUNCTION WAS SET THEN WE WILL RETURN THE JSON
-                // // OBJECT WE GOT FROM THE API.
-                // if (failedCallback) {
-                //     failedCallback(errors);
-                // }
+                // DEVELOPERS NOTE:
+                // IF A CALLBACK FUNCTION WAS SET THEN WE WILL RETURN THE JSON
+                // OBJECT WE GOT FROM THE API.
+                if (failedCallback) {
+                    failedCallback(errors);
+                }
             }
 
         }).then( () => {

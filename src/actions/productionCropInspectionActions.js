@@ -11,6 +11,7 @@ import {
     MIKAPONICS_PRODUCTION_CROP_INSPECTION_LIST_CREATE_API_URL,
     MIKAPONICS_PRODUCTION_CROP_INSPECTION_RETRIEVE_UPDATE_API_URL
 } from "../constants/api";
+import getCustomAxios from '../helpers/customAxios';
 
 
 // export const setProductionCropInspectionListRequest = () => ({
@@ -119,16 +120,9 @@ export function pullProductionCropInspectionDetail(user, slug, successCallback=n
             setProductionCropInspectionDetailRequest()
         );
 
-        // Create a new Axios instance using our oAuth 2.0 bearer token
-        // and various other headers.
-        const customAxios = axios.create({
-            headers: {
-                'Authorization': "Bearer " + user.token,
-                'Content-Type': 'application/msgpack;',
-                'Accept': 'application/msgpack',
-            },
-            responseType: 'arraybuffer'
-        });
+        // Generate our app's Axios instance.
+        const customAxios = getCustomAxios();
+        
         const aURL = MIKAPONICS_PRODUCTION_CROP_INSPECTION_RETRIEVE_UPDATE_API_URL+slug;
 
         customAxios.get(aURL).then( (successResponse) => { // SUCCESS

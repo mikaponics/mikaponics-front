@@ -5,6 +5,7 @@ import msgpack from 'msgpack-lite';
 
 import { DEVICE_LIST_REQUEST, DEVICE_LIST_FAILURE, DEVICE_LIST_SUCCESS, CLEAR_DEVICE_LIST } from '../constants/actionTypes';
 import { MIKAPONICS_DEVICE_LIST_API_URL } from '../constants/api';
+import getCustomAxios from '../helpers/customAxios';
 
 
 export const setDeviceListRequest = () => ({
@@ -46,17 +47,9 @@ export function pullDeviceList(user, page=1) {
             setDeviceListRequest()
         );
 
-        // Create a new Axios instance using our oAuth 2.0 bearer token
-        // and various other headers.
-        const customAxios = axios.create({
-            headers: {
-                'Authorization': "Bearer " + user.token,
-                'Content-Type': 'application/msgpack;',
-                'Accept': 'application/msgpack',
-            },
-            responseType: 'arraybuffer'
-        });
-
+        // Generate our app's Axios instance.
+        const customAxios = getCustomAxios();
+        
         // Generate the URL.
         let aURL = MIKAPONICS_DEVICE_LIST_API_URL+"?page="+page;
 
