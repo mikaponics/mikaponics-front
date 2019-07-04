@@ -20,13 +20,6 @@ import ResetPasswordContainer from "./account/resetPasswordContainer";
 import ResetPasswordSuccessContainer from "./account/resetPasswordSuccessContainer";
 import ReferralContainer from "./account/referralContainer";
 import DashboardContainer from "./dashboard/dashboardContainer";
-import OnboardWelcomeContainer from "./onboarding/onboardWelcomeContainer";
-import OnboardPurchaseContainer from "./onboarding/onboardPurchaseContainer";
-import OnboardCheckoutContainer from "./onboarding/onboardCheckoutContainer";
-import OnboardSubmissionContainer from "./onboarding/onboardSubmissionContainer";
-import OnboardSuccessContainer from "./onboarding/onboardSuccessContainer";
-import OnboardInvoiceContainer from "./onboarding/onboardInvoiceContainer";
-import OnboardInvoiceSendContainer from "./onboarding/onboardInvoiceSendContainer";
 import DeviceCreateStep1Container from "./devices/create/deviceCreateStep1Container";
 import DeviceCreateStep2PurchaseContainer from "./devices/create/deviceCreateStep2PurchaseContainer";
 import DeviceCreateStep3PurchaseContainer from "./devices/create/deviceCreateStep3PurchaseContainer";
@@ -52,10 +45,6 @@ import InvoiceDetailContainer from "./invoices/invoiceDetailContainer";
 import InvoiceSendContainer from "./invoices/invoiceSendContainer";
 import ProfileContainer from "./account/profile/profileContainer";
 import ProfileEditContainer from "./account/profile/profileEditContainer";
-import PurchaseDeviceContainer from "./purchase/purchaseDeviceContainer";
-import CheckoutDeviceContainer from "./purchase/checkoutDeviceContainer";
-import PurchaseDeviceSubmissionContainer from "./purchase/purchaseDeviceSubmissionContainer";
-import PurchaseDeviceSuccessContainer from  "./purchase/purchaseDeviceSuccessContainer";
 import ProductionListContainer from  "./production/productionListContainer";
 import ProductionDetailContainer from  "./production/productionDetailContainer";
 import ProductionStep1CreateContainer from  "./production/create/productionStep1CreateContainer";
@@ -116,13 +105,6 @@ class AppContainer extends React.Component {
                             <Route path="/reset-password/:code" exact component={ResetPasswordContainer} />
                             <Route path="/reset-password-success" exact component={ResetPasswordSuccessContainer} />
                             <Route path="/dashboard" exact component={requiresAuth(DashboardContainer)} />
-                            <Route path="/onboard" exact component={requiresAuth(OnboardWelcomeContainer)} />
-                            <Route path="/onboard/purchase" exact component={requiresAuth(OnboardPurchaseContainer)} />
-                            <Route path="/onboard/checkout" exact component={requiresAuth(OnboardCheckoutContainer)} />
-                            <Route path="/onboard/submission" exact component={requiresAuth(OnboardSubmissionContainer)} />
-                            <Route path="/onboard/success" exact component={requiresAuth(OnboardSuccessContainer)} />
-                            <Route path="/onboard/receipt" exact component={requiresAuth(OnboardInvoiceContainer)} />
-                            <Route path="/onboard/receipt/send" exact component={requiresAuth(OnboardInvoiceSendContainer)} />
                             <Route path="/devices" exact component={requiresAuth(DeviceListContainer)} />
                             <Route path="/device/:slug" exact component={requiresAuth(DeviceDetailContainer)} />
                             <Route path="/device/:slug/profile" exact component={requiresAuth(DeviceProfileContainer)} />
@@ -151,10 +133,6 @@ class AppContainer extends React.Component {
                             <Route path="/referrals" exact component={requiresAuth(ReferralContainer)} />
                             <Route path="/privacy" exact component={PrivacyContainer} />
                             <Route path="/terms" exact component={TermsContainer} />
-                            <Route path="/purchase" exact component={requiresAuth(PurchaseDeviceContainer)} />
-                            <Route path="/purchase/checkout" exact component={requiresAuth(CheckoutDeviceContainer)} />
-                            <Route path="/purchase/submission" exact component={requiresAuth(PurchaseDeviceSubmissionContainer)} />
-                            <Route path="/purchase/success" exact component={requiresAuth(PurchaseDeviceSuccessContainer)} />
                             <Route path="/productions" exact component={requiresAuth(ProductionListContainer)} />
                             <Route path="/production/:slug" exact component={requiresAuth(ProductionDetailContainer)} />
                             <Route path="/add-production-step-1" exact component={requiresAuth(ProductionStep1CreateContainer)} />

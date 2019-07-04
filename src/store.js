@@ -6,12 +6,10 @@ import { APP_STATE } from "./constants/redux";
 import {
     LOGIN_SUCCESS,
     LOGOUT_SUCCESS,
-    ONBOARDING_SUCCESS,
     DASHBOARD_SUCCESS,
     PROFILE_SUCCESS,
     DEVICE_SUCCESS,
     INSTRUMENT_SUCCESS,
-    PURCHASE_DEVICE_SUCCESS,
     PRODUCTION_LIST_SUCCESS,
     PRODUCTION_DETAIL_SUCCESS,
     CROP_LIFE_CYCLE_STAGE_LIST_SUCCESS,
@@ -29,8 +27,6 @@ import {
     PRODUCT_LIST_SUCCESS
 } from "./constants/actionTypes";
 import userReducer from "./reducers/userReducer";
-import onboardingReducer from "./reducers/onboardingReducer";
-import purchaseDeviceReducer from "./reducers/purchaseDeviceReducer";
 import dashboardReducer from "./reducers/dashboardReducer";
 import deviceListReducer from "./reducers/deviceListReducer";
 import deviceReducer from "./reducers/deviceReducer";
@@ -63,8 +59,6 @@ import productListReducer from "./reducers/productListReducer";
 
 // Combine Reducers
 const appReducer = combineReducers({
-    onboardingState: onboardingReducer,
-    purchaseDeviceState: purchaseDeviceReducer,
     dashboardState: dashboardReducer,
     userState: userReducer,
     deviceListState: deviceListReducer,
@@ -122,8 +116,8 @@ const localStorageMiddleware = ({ getState }) => {
     return next => action => {
         const result = next(action);
         if ([
-            LOGIN_SUCCESS, LOGOUT_SUCCESS, ONBOARDING_SUCCESS, DASHBOARD_SUCCESS,
-            PROFILE_SUCCESS, DEVICE_SUCCESS, INSTRUMENT_SUCCESS, PURCHASE_DEVICE_SUCCESS,
+            LOGIN_SUCCESS, LOGOUT_SUCCESS, DASHBOARD_SUCCESS,
+            PROFILE_SUCCESS, DEVICE_SUCCESS, INSTRUMENT_SUCCESS, 
             PRODUCTION_LIST_SUCCESS, PRODUCTION_DETAIL_SUCCESS, CROP_LIFE_CYCLE_STAGE_LIST_SUCCESS,
             CROP_DATA_SHEET_LIST_SUCCESS, CROP_SUBSTRATE_LIST_SUCCESS, PRODUCTION_CROP_LIST_SUCCESS,
             PRODUCTION_CROP_DETAIL_SUCCESS, PRODUCTION_INSPECTION_LIST_SUCCESS,

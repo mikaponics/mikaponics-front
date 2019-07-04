@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import { pullProfile } from "../../../actions/profileAction";
-import { postPurchaseDevice } from "../../../actions/purchaseDeviceActions";
 import { localStorageGetArrayItem, localStorageGetObjectItem } from "../../../helpers/localStorageUtility";
 import DeviceCreateStep4PurchaseSubmissionComponent from "../../../components/devices/create/deviceCreateStep4PurchaseSubmissionComponent";
 
@@ -99,10 +98,7 @@ class DeviceCreateStep4PurchaseSubmissionContainer extends Component {
         // Update our state
         this.setState({
             referrer: "/devices/create/step-5-purchase-success"
-        })
-
-        //TODO: DELETE THE ONBOARDING PAGES/API
-        //TODO: DELETE THE PURCHASE DEVICE PAGES / REDUCERS / ACTIONS / ETC.
+        });
     }
 
     onFailedSubmissionCallback(errors) {
@@ -193,12 +189,7 @@ const mapDispatchToProps = dispatch => {
     return {
         pullProfile: (user) => {
             dispatch(pullProfile(user))
-        },
-        postPurchaseDevice: (user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback) => {
-            dispatch(
-                postPurchaseDevice(user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback)
-            )
-        },
+        }
     }
 }
 
