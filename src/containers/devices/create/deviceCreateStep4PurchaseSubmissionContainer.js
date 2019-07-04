@@ -67,7 +67,34 @@ class DeviceCreateStep4PurchaseSubmissionContainer extends Component {
         localStorage.setItem('add-device-invoice-slug', data.invoiceSlug);
 
         // STEP 2: clear our form.
-        // storage.removeItem(keyName); //TODO: REMOVE OUR FORM.
+        localStorage.removeItem("paymentReceipt");
+        localStorage.removeItem("add-device-cart");
+        localStorage.removeItem("add-device-billingGivenName");
+        localStorage.removeItem("add-device-billingLastName");
+        localStorage.removeItem("add-device-billingCountry");
+        localStorage.removeItem("add-device-billingRegion");
+        localStorage.removeItem("add-device-billingLocality");
+        localStorage.removeItem("add-device-billingPostalCode");
+        localStorage.removeItem("add-device-billingTelephone");
+        localStorage.removeItem("add-device-billingEmail");
+        localStorage.removeItem("add-device-billingStreetAddress");
+        localStorage.removeItem("add-device-isShippingDifferentThenBilling");
+        localStorage.removeItem("add-device-shippingGivenName");
+        localStorage.removeItem("add-device-shippingLastName");
+        localStorage.removeItem("add-device-shippingCountry");
+        localStorage.removeItem("add-device-shippingRegion");
+        localStorage.removeItem("add-device-shippingLocality");
+        localStorage.removeItem("add-device-shippingPostalCode");
+        localStorage.removeItem("add-device-shippingTelephone");
+        localStorage.removeItem("add-device-shippingEmail");
+        localStorage.removeItem("add-device-shippingStreetAddress");
+        localStorage.removeItem("add-device-totalBeforeTax");
+        localStorage.removeItem("add-device-tax");
+        localStorage.removeItem("add-device-totalAfterTax");
+        localStorage.removeItem("add-device-shipping");
+        localStorage.removeItem("add-device-credit");
+        localStorage.removeItem("add-device-grandTotal");
+        localStorage.removeItem("add-device-grandTotalInCents");
 
         // Update our state
         this.setState({
