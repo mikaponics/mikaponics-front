@@ -67,12 +67,15 @@ class DeviceCreateStep4PurchaseSubmissionContainer extends Component {
         localStorage.setItem('add-device-invoice-slug', data.invoiceSlug);
 
         // STEP 2: clear our form.
-        // storage.removeItem(keyName); TODO
+        // storage.removeItem(keyName); //TODO: REMOVE OUR FORM.
 
         // Update our state
         this.setState({
-            referrer: "/purchase/success"
+            referrer: "/purchase/success" //TODO: MAKE IT GO TO OUR OWN SUCCESS PAGE.
         })
+
+        //TODO: DELETE THE ONBOARDING PAGES/API
+        //TODO: DELETE THE PURCHASE DEVICE PAGES / REDUCERS / ACTIONS / ETC.
     }
 
     onFailedSubmissionCallback(errors) {
@@ -144,7 +147,7 @@ class DeviceCreateStep4PurchaseSubmissionContainer extends Component {
 
     render() {
         if (this.state.referrer !== undefined && this.state.referrer !== null && this.state.referrer !== '') {
-            return <Redirect to="/purchase/success" />
+            return <Redirect to="/devices/create/step-5-purchase-success" />
         }
         return (
             <DeviceCreateStep4PurchaseSubmissionComponent errors={this.state.errors} />
