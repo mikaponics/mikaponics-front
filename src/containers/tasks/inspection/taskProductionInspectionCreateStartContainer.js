@@ -4,10 +4,7 @@ import { Redirect } from 'react-router-dom';
 import Scroll from 'react-scroll';
 
 import TaskProductionInspectionCreateStartComponent from "../../../components/tasks/inspection/taskProductionInspectionCreateStartComponent";
-import {
-    pullDefaultDraftProductionInspectionDetail,
-    putProductionInspectionDetail
-} from "../../../actions/productionInspectionActions";
+import { putProductionInspectionDetail } from "../../../actions/productionInspectionActions";
 
 
 class TaskProductionInspectionCreateStartContainer extends Component {
@@ -39,9 +36,6 @@ class TaskProductionInspectionCreateStartContainer extends Component {
 
     componentDidMount() {
         window.scrollTo(0, 0);  // Start the page at the top of the page.
-
-         // Get latest data from API.
-        this.props.pullDefaultDraftProductionInspectionDetail(this.props.user, this.props.productionDetail.slug);
 
         // IF THE API ENDPOINT RETURNS NONE, THAT MEANS WE MUST CHOOSE EITHER
         // "FALSE" OR "TRUE" TO ACTIVATE THE TERMINATION PHASE.
@@ -169,9 +163,6 @@ const mapStateToProps = function(store) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        pullDefaultDraftProductionInspectionDetail: (user, slug) => {
-            dispatch(pullDefaultDraftProductionInspectionDetail(user, slug))
-        },
         putProductionInspectionDetail: (user, state, slug, onSuccessfulSubmissionCallback, onFailedSubmissionCallback) => {
             dispatch(
                 putProductionInspectionDetail(user, state, slug, onSuccessfulSubmissionCallback, onFailedSubmissionCallback)

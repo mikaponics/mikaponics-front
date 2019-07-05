@@ -4,7 +4,6 @@ import Scroll from 'react-scroll';
 
 import TaskProductionInspectionCreateFinishComponent from "../../../components/tasks/inspection/taskProductionInspectionCreateFinishComponent";
 import {
-    pullDefaultDraftProductionInspectionDetail,
     putProductionInspectionDetail
 } from "../../../actions/productionInspectionActions";
 import { PRODUCTION_INSPECTION_SUBMITTED_STATE } from '../../../constants/api';
@@ -40,9 +39,6 @@ class TaskProductionInspectionCreateFinishContainer extends Component {
 
     componentDidMount() {
         window.scrollTo(0, 0);  // Start the page at the top of the page.
-
-        // Get latest data from API.
-        this.props.pullDefaultDraftProductionInspectionDetail(this.props.user, this.props.productionDetail.slug);
     }
 
     componentWillUnmount() {
@@ -149,9 +145,6 @@ const mapStateToProps = function(store) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        pullDefaultDraftProductionInspectionDetail: (user, slug) => {
-            dispatch(pullDefaultDraftProductionInspectionDetail(user, slug))
-        },
         setFlashMessage: (typeOf, text) => {
             dispatch(setFlashMessage(typeOf, text))
         },
