@@ -5,7 +5,7 @@ import Scroll from 'react-scroll';
 
 import ProductionInspectionCreateStartComponent from "../../../../components/production/inspection/create/productionInspectionCreateStep1StartComponent";
 import { validateStep1Input } from "../../../../validations/productionInspectionCreateValidator";
-import { localStorageSetObjectOrArrayItem } from "../../../../helpers/localStorageUtility";
+import { localStorageGetArrayItem } from "../../../../helpers/localStorageUtility";
 
 
 class ProductionInspectionCreateStep1StartContainer extends Component {
@@ -22,9 +22,15 @@ class ProductionInspectionCreateStep1StartContainer extends Component {
         // fetch the URL argument as follows.
         const { slug } = this.props.match.params;
 
+        // The array of individual crop inspections which we need to load into
+        // this container to load into the components because our navigation
+        // needs it.
+        const cropInspections = localStorageGetArrayItem("temp-production-inspection-create-cropInspections");
+
         this.state = {
             referrer: '',
             slug: slug,
+            cropInspections: cropInspections,
             didPass: localStorage.getItem("temp-production-inspection-create-didPass"),
             didPassOption: {},
             didPassOptions: [{
@@ -148,8 +154,8 @@ class ProductionInspectionCreateStep1StartContainer extends Component {
      */
 
     render() {
-        const { referrer, errors, didPass, didPassOptions, failureReason, notes, crops } = this.state;
-        const { name, slug, plants, fish } = this.props.productionDetail;
+        const { referrer, errors, didPass, didPassOptions, failureReason, notes, cropInspections } = this.state;
+        const { name, slug, plants, fish, crops } = this.props.productionDetail;
 
         if (slug === undefined || slug === "undefined") { // Defensive Code: Prevent undefined values.
             return <Redirect to="/productions" />
@@ -157,6 +163,7 @@ class ProductionInspectionCreateStep1StartContainer extends Component {
 
         return (
             <ProductionInspectionCreateStartComponent
+                cropInspections={cropInspections}
                 productionDetail={this.props.productionDetail}
                 name={name}
                 slug={slug}

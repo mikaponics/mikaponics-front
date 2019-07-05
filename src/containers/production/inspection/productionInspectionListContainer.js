@@ -51,8 +51,10 @@ class ProductionInspectionContainer extends Component {
     onAddClick(e) {
         e.preventDefault();
 
-        // Save to the persistent storage.
-        localStorageSetObjectOrArrayItem("temp-production-inspection-create-crops", this.props.productionDetail.crops);
+        // Save to the persistent storage a COMPLETE COPY of the crops in the
+        // production detail which we will use in the `create` pages to override
+        // with our own values pertaining to crop inspections.
+        localStorageSetObjectOrArrayItem("temp-production-inspection-create-cropInspections", this.props.productionDetail.crops);
 
         // Clear the `create inspection` form.
         localStorage.setItem("temp-production-inspection-create-crops-index", 0);

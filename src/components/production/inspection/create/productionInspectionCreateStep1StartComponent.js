@@ -12,9 +12,8 @@ class ProductionInspectionCreateStartComponent extends Component {
     render() {
 
         const {
-            productionInspectionDetail,
             productionDetail,
-            pageIndex, name, slug, crops, errors={},
+            pageIndex, name, slug, cropInspections, errors={},
             didPass, didPassOptions, failureReason, notes,
             onBackClick, onSubmit, onSelectChange,
             onTextChange, onRadioChange
@@ -54,14 +53,15 @@ class ProductionInspectionCreateStartComponent extends Component {
                 <h1><i className="fas fa-plus"></i>&nbsp;Add</h1>
 
                 <ProductionInspectionCreateStepNavigationComponent
-                   productionInspectionDetail={productionInspectionDetail}
-                   productionCropInspectionDetail={null}
+                   cropInspections={cropInspections}
+                   cropInspection={null}
                    isFirst={true}
                    isLast={false}
                 />
 
                 <div className="col-md-5 mx-auto mt-2">
                     <form className="needs-validation" noValidate>
+                        <h3>Overall Inspection Form</h3>
                         <p>All fields which have the (*) symbol are required to be filled out.</p>
 
                         <BootstrapErrorsProcessingAlert errors={errors} />

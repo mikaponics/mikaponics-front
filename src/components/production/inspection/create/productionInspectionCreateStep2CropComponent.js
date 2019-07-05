@@ -17,21 +17,16 @@ import ProductionInspectionCreateStepNavigationComponent from './productionInspe
 class ProductionInspectionCreateStep2CropComponent extends Component {
     render() {
         const {
+            cropInspection, cropInspections,
             productionInspectionDetail,
-            stageOptions=[], productionDetail, crops, crop,
+            stageOptions=[], productionDetail,
             review, failureReason, stage, notes, errors,
-            onBackClick, onSubmit, onSelectChange, onTextChange
+            onBackClick, onNextClick, onSelectChange, onTextChange
         } = this.props;
         const { name, slug } = productionDetail;
 
         // IF THE PLANTS DIED OR WERE TERMINATED.
         let shouldDisplayReviewFailure = false;
-
-        // DEFENSIVE CODE: PREVENT NULLS.
-        if (crop === undefined || crop === null) {
-            console.error("ProductionInspectionCreateStep2CropComponent | render | null crop.");
-            return null;
-        }
 
         // IF THE REVIEW FAILED.
         if (review === PRODUCTION_CROPS_INSPECTION_TERRIBLE_REVIEW || review === PRODUCTION_CROPS_INSPECTION_BAD_REVIEW) {
@@ -69,20 +64,18 @@ class ProductionInspectionCreateStep2CropComponent extends Component {
                 </nav>
                 <h1><i className="fas fa-plus"></i>&nbsp;Add</h1>
 
-{ /*
                 <ProductionInspectionCreateStepNavigationComponent
-                    productionInspectionDetail={productionInspectionDetail}
-                    productionCropInspectionDetail={crop}
+                    cropInspections={cropInspections}
+                    cropInspection={cropInspection}
                     isFirst={false}
                     isLast={false}
                 />
-*/}
-                <h2>{crop.prettyName}</h2>
+
                 <div className="col-md-5 mx-auto mt-2">
                     <form className="needs-validation" noValidate>
                         <BootstrapErrorsProcessingAlert errors={errors} />
 
-                        <h3>{crop.productionCropName}</h3>
+                        <h3>{cropInspection.prettyName} Inspection Form</h3>
                         <p className="border-bottom mb-3 pb-1 text-secondary">Growth</p>
 
                         <BootstrapSingleSelect
@@ -139,7 +132,7 @@ class ProductionInspectionCreateStep2CropComponent extends Component {
                             <button type="text" className="btn btn-lg float-left pl-4 pr-4 btn-secondary" onClick={onBackClick}>
                                 <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
                             </button>
-                            <button type="text" className="btn btn-lg float-right pl-4 pr-4 btn-primary" onClick={onSubmit}>
+                            <button type="text" className="btn btn-lg float-right pl-4 pr-4 btn-primary" onClick={onNextClick}>
                                 Next&nbsp;<i className="fas fa-arrow-circle-right"></i>
                             </button>
                         </div>

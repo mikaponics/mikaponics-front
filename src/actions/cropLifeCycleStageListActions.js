@@ -1,6 +1,7 @@
 import axios from 'axios';
 import store from '../store';
 import { camelizeKeys } from 'humps';
+import isEmpty from 'lodash/isEmpty';
 import msgpack from 'msgpack-lite';
 
 import {
@@ -110,4 +111,29 @@ export function pullCropLifeCycleStageList(user, page=1, typeOf=null) {
         });
 
     }
+}
+
+
+/**
+ * Utility function takes the API data and converts it to HTML dropdown
+ * options which will be consumed by the `react-select` library elements.
+ */
+export function getStageOptions(stageList) {
+    const stageOptions = [];
+    const isNotProductionsEmpty = isEmpty(stageList) === false;
+    if (isNotProductionsEmpty) {
+        const results = stageList.results;
+        const isResultsNotEmpty = isEmpty(results) === false;
+        if (isResultsNotEmpty) {
+            for (let i = 0; i < results.length; i++) {
+                let stage = results[i];
+                stageOptions.push({
+                    selectName: "stage",
+                    value: stage.slug,
+                    label: stage.name
+                });
+            }
+        }
+    }
+    return stageOptions;
 }
