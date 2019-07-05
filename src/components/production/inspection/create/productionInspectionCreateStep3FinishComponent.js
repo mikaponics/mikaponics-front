@@ -104,10 +104,10 @@ class ProductionCropInspectionTableComponent extends Component {
     render() {
         const {
             prettyName,
-            prettyReview,
             review,
+            reviewLabel,
             failureReason,
-            stage,
+            stageLabel,
             notes
         } = this.props.crop;
         console.log(this.props.crop);
@@ -122,7 +122,7 @@ class ProductionCropInspectionTableComponent extends Component {
                     </tr>
                     <tr>
                         <th scope="row" className="bg-light">Review</th>
-                        <td>{prettyReview}</td>
+                        <td>{reviewLabel}</td>
                     </tr>
                     {reviewWasFailure &&
                         <tr>
@@ -132,7 +132,7 @@ class ProductionCropInspectionTableComponent extends Component {
                     }
                     <tr>
                         <th scope="row" className="bg-light">Stage</th>
-                        <td>{stage.name}</td>
+                        <td>{stageLabel}</td>
                     </tr>
                     <tr>
                         <th scope="row" className="bg-light">Additional note(s)</th>

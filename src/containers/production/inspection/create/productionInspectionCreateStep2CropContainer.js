@@ -204,10 +204,14 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
             let cropInspectionItem = a[i];
             if (cropInspectionItem.slug === this.state.cropInspection.slug) {
                 // DEVELOPERS NOTE:
-                // Since we have a POINTER to the object, which we retrieved
-                // from the dictionary, we can update the value like this and
-                // it will reflect in the dictionary automatically.
+                // (1) Since we have a POINTER to the object, which we retrieved
+                //     from the dictionary, we can update the value like this and
+                //     it will reflect in the dictionary automatically.
+                // (2) We are saving the `value` which the API uses.
+                // (3) We are saving the `label` which we will use for GUI
+                //     purposes in the last page.
                 cropInspectionItem[key] = value;
+                cropInspectionItem[key+"Label"] = label;
                 foundCropInspection = cropInspectionItem;
                 break;
             }
