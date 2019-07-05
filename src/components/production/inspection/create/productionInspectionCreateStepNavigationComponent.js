@@ -24,9 +24,6 @@ export default class ProductionInspectionCreateStepNavigationComponent extends C
             let num = i + 2;
             let cropInspectionItem = cropInspections[i];
 
-            console.log(cropInspectionItem);
-            console.log(cropInspection,"\n");
-
             // DETECT THAT THE `CROP INSPECTION` WE ARE SEARCHING FOR MATCHES
             // THE `CROP INSPECTION`.
             let isSelectedTab = false;

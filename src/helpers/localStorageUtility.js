@@ -24,9 +24,9 @@ export function localStorageGetArrayItem(key) {
         console.error("localStorageGetArrayItem: Detected `undefined` string, could be potential error.");
         return null;
     }
-    console.log("localStorageGetArrayItem | String:", stringifiedObject);
+    // console.log("localStorageGetArrayItem | String:", stringifiedObject);
     let anObject = JSON.parse(stringifiedObject);
-    console.log("localStorageGetArrayItem | Object:", anObject);
+    // console.log("localStorageGetArrayItem | Object:", anObject);
     if (anObject  === undefined || anObject === null) {
         anObject = [];
     }

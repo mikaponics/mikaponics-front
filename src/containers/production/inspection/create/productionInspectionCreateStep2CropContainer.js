@@ -17,7 +17,7 @@ import {
 class ProductionInspectionCreateStep2CropContainer extends Component {
 
     /**
-     *  Initializer, component life-cycle and utility functions.
+     *  Initializer and component life-cycle functions.
      *------------------------------------------------------------
      */
 
@@ -32,7 +32,7 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
         //     DETAILS FOR THE CROP INSPECTION OBJECT.
         // (3) POPULATE OUR COMPONENT STATE WITH THE DATA RECEIVED FROM API.
         const { index } = this.props.match.params;
-        const cropInspections = localStorageGetArrayItem("temp-production-inspection-create-crops");
+        const cropInspections = localStorageGetArrayItem("temp-production-inspection-create-cropInspections");
         const cropInspection = cropInspections[index];
 
         this.state = {
@@ -46,13 +46,15 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
             cropInspection: cropInspection,
             review: cropInspection.review,
             failureReason: cropInspection.failureReason,
-            stage: "",
+            stage: cropInspection.stage,
             notes: cropInspection.notes,
         }
         this.onNextClick = this.onNextClick.bind(this);
         this.onBackClick = this.onBackClick.bind(this);
         this.onSelectChange = this.onSelectChange.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
+        this.updateCropInspectionWithOnSelectionChange = this.updateCropInspectionWithOnSelectionChange.bind(this);
+        this.updateCropInspectionWithOnTextChange = this.updateCropInspectionWithOnTextChange.bind(this);
     }
 
     componentDidMount() {
@@ -92,12 +94,14 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
         } else {
             this.setState(
                 {
+                    errors: {},
+                    isLoading: false,
                     index: nextPageIndex,
                     cropInspections: this.state.cropInspections,
                     cropInspection: cropInspection,
                     review: cropInspection.review,
                     failureReason: cropInspection.failureReason,
-                    stage: "",
+                    stage: cropInspection.stage,
                     notes: cropInspection.notes,
                 },
                 () => {
@@ -125,12 +129,14 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
             if (nextPageIndex < this.state.cropInspections.length) {
                 this.setState(
                     {
+                        errors: {},
+                        isLoading: false,
                         index: nextPageIndex,
                         cropInspections: this.state.cropInspections,
                         cropInspection: cropInspection,
                         review: cropInspection.review,
                         failureReason: cropInspection.failureReason,
-                        stage: "",
+                        stage: cropInspection.stage,
                         notes: cropInspection.notes,
                     },
                     () => {
@@ -151,17 +157,117 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
         }
     }
 
-    onSelectChange(name, value) {
-        this.setState({
-            [name]: value
-        });
-        console.log("onSelectChang | (name,value):", name,value)
+    onSelectChange(name, value, label) {
+        // STEP 1: Update individual value.
+        this.setState(
+            { [name]: value },
+            ()=>{
+                // Step 2: After state has been updated, we the crop inspection & crop inspections array.
+                this.updateCropInspectionWithOnSelectionChange(name, value, label);
+            }
+        );
     }
 
     onTextChange(e) {
-        this.setState({
-            [e.target.name]: e.target.value
-        });
+        e.preventDefault();
+        const key = [e.target.name].toString();
+        const value = e.target.value;
+
+        // STEP 1: Update individual value.
+        this.setState(
+            { [e.target.name]: value },
+            ()=>{
+                // Step 2: After state has been updated, we the crop inspection & crop inspections array.
+                this.updateCropInspectionWithOnTextChange(key, value);
+            }
+        );
+    }
+
+    /**
+     *  Utility functions
+     *------------------------------------------------------------
+     */
+
+    /**
+     *  Utility function which will take the `selectfield` chosen values
+     *  and update the persistent storage for the `cropInspections` array.
+     */
+    updateCropInspectionWithOnSelectionChange(key, value, label) {
+        // console.log("updateCropInspectionWithOnSelectionChange", key, value, label); // For debugging purposes only.
+
+        // Shallow copy of the array to create a NEW ARRAY.
+        let a = this.state.cropInspections.slice(); //creates the clone of the state
+
+        // Find our current crop inspection and update it.
+        let foundCropInspection = null;
+        for (let i = 0; i < a.length; i++) {
+            let cropInspectionItem = a[i];
+            if (cropInspectionItem.slug === this.state.cropInspection.slug) {
+                // DEVELOPERS NOTE:
+                // Since we have a POINTER to the object, which we retrieved
+                // from the dictionary, we can update the value like this and
+                // it will reflect in the dictionary automatically.
+                cropInspectionItem[key] = value;
+                foundCropInspection = cropInspectionItem;
+                break;
+            }
+        }
+
+        // Finally update the state to have a new copy of our cart which we
+        // modified here. Also update the persistent storage with our data.
+        this.setState(
+            {
+                cropInspection: foundCropInspection,
+                cropInspections: a
+            },
+            () => {
+                // Save to the persistent storage a COMPLETE COPY of the crops in the
+                // production detail which we will use in the `create` pages to override
+                // with our own values pertaining to crop inspections.
+                localStorageSetObjectOrArrayItem("temp-production-inspection-create-cropInspections", a);
+            }
+        );
+    }
+
+    /**
+     *  Utility function which will take the textfield chosen values
+     *  and update the persistent storage for the `cropInspections` array.
+     */
+    updateCropInspectionWithOnTextChange(key, value) {
+        console.log("updateCropInspectionWithOnTextChange", key, value);
+
+        // Shallow copy of the array to create a NEW ARRAY.
+        let a = this.state.cropInspections.slice(); //creates the clone of the state
+
+        // Find our current crop inspection and update it.
+        let foundCropInspection = null;
+        for (let i = 0; i < a.length; i++) {
+            let cropInspectionItem = a[i];
+            if (cropInspectionItem.slug === this.state.cropInspection.slug) {
+                // DEVELOPERS NOTE:
+                // Since we have a POINTER to the object, which we retrieved
+                // from the dictionary, we can update the value like this and
+                // it will reflect in the dictionary automatically.
+                cropInspectionItem[key] = value;
+                foundCropInspection = cropInspectionItem;
+                break;
+            }
+        }
+
+        // Finally update the state to have a new copy of our cart which we
+        // modified here. Also update the persistent storage with our data.
+        this.setState(
+            {
+                cropInspection: foundCropInspection,
+                cropInspections: a
+            },
+            () => {
+                // Save to the persistent storage a COMPLETE COPY of the crops in the
+                // production detail which we will use in the `create` pages to override
+                // with our own values pertaining to crop inspections.
+                localStorageSetObjectOrArrayItem("temp-production-inspection-create-cropInspections", a);
+            }
+        );
     }
 
     /**

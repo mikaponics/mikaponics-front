@@ -85,7 +85,7 @@ class ProductionInspectionCreateStep2CropComponent extends Component {
                             options={stageOptions}
                             value={stage}
                             error={errors.stage}
-                            onSelectChange={ option => onSelectChange(option.selectName, option.value) }
+                            onSelectChange={ option => onSelectChange(option.selectName, option.value, option.label) }
                         />
 
                         <p className="border-bottom mb-3 pb-1 text-secondary">Quality</p>
@@ -97,7 +97,7 @@ class ProductionInspectionCreateStep2CropComponent extends Component {
                             options={PRODUCTION_CROPS_INSPECTION_REVIEW_OPTION_CHOICES}
                             value={review}
                             error={errors.review}
-                            onSelectChange={ option => onSelectChange(option.selectName, option.value) }
+                            onSelectChange={ option => onSelectChange(option.selectName, option.value, option.label) }
                         />
 
                         {shouldDisplayReviewFailure &&
