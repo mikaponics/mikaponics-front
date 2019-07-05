@@ -34,18 +34,7 @@ class ProductionInspectionCreateFinishContainer extends Component {
             slug: slug,
             cropInspections: cropInspections,
             didPass: localStorage.getItem("temp-production-inspection-create-didPass"),
-            didPassOption: {},
-            didPassOptions: [{
-                id: 'didPass-true-choice',
-                name: 'didPass',
-                value: true,
-                label: 'Yes',
-            },{
-                id: 'didPass-false-choice',
-                name: 'didPass',
-                value: false,
-                label: 'No',
-            }],
+            didPassLabel: localStorage.getItem("temp-production-inspection-create-didPass-label"),
             notes: localStorage.getItem("temp-production-inspection-create-notes"),
             failureReason: localStorage.getItem("temp-production-inspection-create-failureReason"),
         }
@@ -131,12 +120,12 @@ class ProductionInspectionCreateFinishContainer extends Component {
      */
 
     render() {
-        const { referrer, errors, didPass, didPassOptions, failureReason, notes, cropInspections } = this.state;
+        const { referrer, errors, didPass, didPassLabel, failureReason, notes, cropInspections } = this.state;
         return (
             <ProductionInspectionCreateStep3FinishComponent
                 productionDetail={this.props.productionDetail}
                 cropInspections={cropInspections}
-                didPassOptions={didPassOptions}
+                didPassLabel={didPassLabel}
                 didPass={didPass}
                 failureReason={failureReason}
                 notes={notes}

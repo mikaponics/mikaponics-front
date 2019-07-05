@@ -32,6 +32,7 @@ class ProductionInspectionCreateStep1StartContainer extends Component {
             slug: slug,
             cropInspections: cropInspections,
             didPass: localStorage.getItem("temp-production-inspection-create-didPass"),
+            didPassLabel: localStorage.getItem("temp-production-inspection-create-didPassLabel"),
             didPassOption: {},
             didPassOptions: [{
                 id: 'didPass-true-choice',
@@ -50,7 +51,6 @@ class ProductionInspectionCreateStep1StartContainer extends Component {
 
         this.onSubmit = this.onSubmit.bind(this);
         this.onBackClick = this.onBackClick.bind(this);
-        this.onCheckboxChange = this.onCheckboxChange.bind(this);
         this.onRadioChange = this.onRadioChange.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
     }
@@ -121,31 +121,18 @@ class ProductionInspectionCreateStep1StartContainer extends Component {
 
     onRadioChange(e) {
         // Get the values.
-        const storageValueKey = "temp-production-inspection-create-"+[e.target.name];
+        const key = [e.target.name].toString();
         const value = e.target.value;
         const label = e.target.dataset.label; // Note: 'dataset' is a react data via https://stackoverflow.com/a/20383295
-        const storeValueKey = [e.target.name].toString();
-        const storeLabelKey = [e.target.name].toString()+"-label";
+
+        // Generate our new keys.
+        const storageValueKey = "temp-production-inspection-create-"+key;
+        const storageLabelKey = "temp-production-inspection-create-"+key+"-label";
 
         // Save the data.
         this.setState({ [e.target.name]: value, }); // Save to store.
         localStorage.setItem(storageValueKey, value) // Save to storage.
-
-        // For the debugging purposes only.
-        console.log({
-            "STORE-VALUE-KEY": storageValueKey,
-            "STORE-VALUE": value,
-            "STORAGE-VALUE-KEY": storeValueKey,
-            "STORAGE-VALUE": value,
-            "STORAGE-LABEL-KEY": storeLabelKey,
-            "STORAGE-LABEL": label,
-        });
-    }
-
-    onCheckboxChange(e) {
-        this.setState({
-            [e.target.name]: e.target.checked,
-        })
+        localStorage.setItem(storageLabelKey, label) // Save to storage.
     }
 
     /**
@@ -180,7 +167,6 @@ class ProductionInspectionCreateStep1StartContainer extends Component {
                 onRadioChange={this.onRadioChange}
                 onSelectChange={this.onSelectChange}
                 onTextChange={this.onTextChange}
-                onCheckboxChange={this.onCheckboxChange}
             />
         );
     }

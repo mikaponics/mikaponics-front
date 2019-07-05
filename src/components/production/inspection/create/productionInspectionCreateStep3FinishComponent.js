@@ -8,11 +8,12 @@ import {
 import ProductionInspectionCreateStepNavigationComponent from './productionInspectionCreateStepNavigationComponent';
 
 
-class ProductionInspectionCreateStep3FinishComponent extends Component {
+export default class ProductionInspectionCreateStep3FinishComponent extends Component {
     render() {
         const {
-            productionDetail, cropInspections
+            productionDetail, cropInspections, didPassLabel, didPass, failureReason, notes
         } = this.props;
+        const didNotPass = didPass === false || didPass === 'false';
         return (
             <div>
 
@@ -50,16 +51,15 @@ class ProductionInspectionCreateStep3FinishComponent extends Component {
                 <div className="row mt-4 pt-3 mb-4 pb-2">
                     <div className="col-md-10 mx-auto p-2">
 
-                        <p><strong>Please confirm these details before checking out your order.</strong></p>
+                        <p><strong>Please confirm these details before submitting your inspection.</strong></p>
                         <table className="table table-bordered custom-cell-w">
                             <tbody>
                                 <tr className="bg-dark">
                                     <th scope="row" colSpan="2" className="text-light">Overall</th>
                                 </tr>
-                                { /*
                                 <tr>
                                     <th scope="row" className="bg-light">Did this inspection pass?</th>
-                                    <td>{didPassText}</td>
+                                    <td>{didPassLabel}</td>
                                 </tr>
                                 {didNotPass &&
                                     <tr>
@@ -71,8 +71,6 @@ class ProductionInspectionCreateStep3FinishComponent extends Component {
                                     <th scope="row" className="bg-light">Additional Note(s)</th>
                                     <td>{notes}</td>
                                 </tr>
-
-                            */}
                             </tbody>
                         </table>
                         { /*
@@ -88,5 +86,3 @@ class ProductionInspectionCreateStep3FinishComponent extends Component {
         );
     }
 }
-
-export default ProductionInspectionCreateStep3FinishComponent;

@@ -61,16 +61,20 @@ class ProductionInspectionCreateStartComponent extends Component {
 
                 <div className="col-md-5 mx-auto mt-2">
                     <form className="needs-validation" noValidate>
-                        <h3>Overall Inspection Form</h3>
-                        <p>All fields which have the (*) symbol are required to be filled out.</p>
+                        <h2><i className="fas fa-user-md"></i>&nbsp;Overall Inspection</h2>
+                        <p>To begin, please inspect your crops and answer the following quesitons. These questions are designed to help you log the progress of your crops.</p>
+                        <p>All fields which have the (*) symbol are <strong>required</strong> to be filled out.</p>
 
                         <BootstrapErrorsProcessingAlert errors={errors} />
 
+                        <p className="border-bottom mb-3 pb-1 text-secondary">
+                            <i className="fas fa-stethoscope"></i>&nbsp;Overall
+                        </p>
                         <BootstrapRadio
                             inputClassName="form-check-input form-check-input-lg"
                             borderColour="border-primary"
                             error={errors.didPass}
-                            label="Did the inspection pass? (*)"
+                            label="Did the inspection pass ? (*)"
                             name="didPass"
                             onChange={onRadioChange}
                             selectedValue={didPass}
@@ -81,7 +85,7 @@ class ProductionInspectionCreateStartComponent extends Component {
                             <BootstrapTextarea
                                 name="failureReason"
                                 borderColour="border-primary"
-                                label="Why is this a failure? (*)"
+                                label="Why was it failure? (*)"
                                 placeholder="Please describe why this inspection was consisdered a failure?"
                                 rows={5}
                                 value={failureReason}
