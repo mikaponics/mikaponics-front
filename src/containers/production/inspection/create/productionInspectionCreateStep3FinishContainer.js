@@ -39,7 +39,7 @@ class ProductionInspectionCreateFinishContainer extends Component {
             failureReason: localStorage.getItem("temp-production-inspection-create-failureReason"),
         }
 
-        this.onSubmit = this.onSubmit.bind(this);
+        this.onSubmitClick = this.onSubmitClick.bind(this);
         this.onBackClick = this.onBackClick.bind(this);
         this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
         this.onFailedSubmissionCallback = this.onFailedSubmissionCallback.bind(this);
@@ -72,7 +72,7 @@ class ProductionInspectionCreateFinishContainer extends Component {
         this.props.history.push(aURL);
     }
 
-    onSubmit(e) {
+    onSubmitClick(e) {
         e.preventDefault();
 
         // const data = {
@@ -132,7 +132,7 @@ class ProductionInspectionCreateFinishContainer extends Component {
                 cropInspections={cropInspections}
                 errors={errors}
                 onBackClick={this.onBackClick}
-                onSubmit={this.onSubmit}
+                onSubmitClick={this.onSubmitClick}
             />
         );
     }

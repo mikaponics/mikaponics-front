@@ -75,7 +75,7 @@ class ProductionInspectionCreateStep2CropComponent extends Component {
                     <form className="needs-validation" noValidate>
                         <BootstrapErrorsProcessingAlert errors={errors} />
 
-                        <h2>{cropInspection.prettyName} Inspection</h2>
+                        <h2><i className="fas fa-eye"></i>&nbsp;{cropInspection.prettyName} Inspection</h2>
                         <p className="border-bottom mb-3 pb-1 text-secondary">Growth</p>
 
                         <BootstrapSingleSelect

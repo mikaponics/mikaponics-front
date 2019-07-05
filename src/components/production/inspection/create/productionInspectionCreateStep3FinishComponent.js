@@ -11,7 +11,8 @@ import ProductionInspectionCreateStepNavigationComponent from './productionInspe
 export default class ProductionInspectionCreateStep3FinishComponent extends Component {
     render() {
         const {
-            productionDetail, cropInspections, didPassLabel, didPass, failureReason, notes
+            productionDetail, cropInspections, didPassLabel, didPass, failureReason, notes,
+            onBackClick, onSubmitClick,
         } = this.props;
         const didNotPass = didPass === false || didPass === 'false';
         return (
@@ -55,7 +56,9 @@ export default class ProductionInspectionCreateStep3FinishComponent extends Comp
                         <table className="table table-bordered custom-cell-w">
                             <tbody>
                                 <tr className="bg-dark">
-                                    <th scope="row" colSpan="2" className="text-light">Overall</th>
+                                    <th scope="row" colSpan="2" className="text-light">
+                                        <i className="fas fa-stethoscope"></i>&nbsp;Overall
+                                    </th>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Did this inspection pass?</th>
@@ -73,16 +76,70 @@ export default class ProductionInspectionCreateStep3FinishComponent extends Comp
                                 </tr>
                             </tbody>
                         </table>
-                        { /*
-                        {crops.map(
+                        {cropInspections.map(
                             (crop, i) => <ProductionCropInspectionTableComponent crop={crop} key={i} />)
                         }
-                        */}
                     </div>
                 </div>
 
+                <div className="col-md-6 mx-auto mt-2">
+                    <form className="needs-validation" noValidate>
+                        <div className="form-group">
+                            <button type="text" className="btn btn-lg float-left pl-4 pr-4 btn-secondary" onClick={onBackClick}>
+                                <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
+                            </button>
+                            <button type="text" className="btn btn-lg float-right pl-4 pr-4 btn-success" onClick={onSubmitClick}>
+                                <i className="fas fa-check-circle"></i>&nbsp;Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
 
             </div>
+        );
+    }
+}
+
+class ProductionCropInspectionTableComponent extends Component {
+    render() {
+        const {
+            prettyName,
+            prettyReview,
+            review,
+            failureReason,
+            stage,
+            notes
+        } = this.props.crop;
+        console.log(this.props.crop);
+        const reviewWasFailure = (review === PRODUCTION_CROPS_INSPECTION_TERRIBLE_REVIEW) || (review === PRODUCTION_CROPS_INSPECTION_BAD_REVIEW);
+        return (
+            <table className="table table-bordered custom-cell-w">
+                <tbody>
+                    <tr className="bg-dark">
+                        <th scope="row" colSpan="2" className="text-light">
+                            <i className="fas fa-eye"></i>&nbsp;{prettyName}
+                        </th>
+                    </tr>
+                    <tr>
+                        <th scope="row" className="bg-light">Review</th>
+                        <td>{prettyReview}</td>
+                    </tr>
+                    {reviewWasFailure &&
+                        <tr>
+                            <th scope="row" className="bg-light">Failure reason</th>
+                            <td>{failureReason}</td>
+                        </tr>
+                    }
+                    <tr>
+                        <th scope="row" className="bg-light">Stage</th>
+                        <td>{stage.name}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" className="bg-light">Additional note(s)</th>
+                        <td>{notes}</td>
+                    </tr>
+                </tbody>
+            </table>
         );
     }
 }
