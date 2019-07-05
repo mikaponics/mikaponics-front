@@ -4,9 +4,7 @@ import isEmpty from 'lodash/isEmpty';
 import Scroll from 'react-scroll';
 
 import ProductionInspectionCreateStep2CropComponent from "../../../../components/production/inspection/create/productionInspectionCreateStep2CropComponent";
-import { pullProductionCropInspectionDetail } from "../../../../actions/productionCropInspectionActions";
 import { pullCropLifeCycleStageList, getStageOptions } from "../../../../actions/cropLifeCycleStageListActions";
-import { pullProductionInspectionDetail } from "../../../../actions/productionInspectionActions";
 import { validateStep2Input } from "../../../../validations/productionInspectionCreateValidator";
 import {
     localStorageGetArrayItem,
@@ -58,7 +56,7 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
     }
 
     componentDidMount() {
-        this.props.pullCropLifeCycleStageList(this.props.user, 1, this.state.cropInspection.productionCropTypeOf); // Get latest data from API.
+        this.props.pullCropLifeCycleStageList(this.props.user, 1, this.state.cropInspection.typeOf); // Get latest data from API.
 
         // AUTOMATICALLY SCROLL TO THE TOP (WITHOUT ANIMATIONS!)
         window.scrollTo(0, 0);  // Start the page at the top of the page.
@@ -318,17 +316,7 @@ const mapDispatchToProps = dispatch => {
             dispatch(
                 pullCropLifeCycleStageList(user, page, slug)
             )
-        },
-        pullProductionCropInspectionDetail: (user, slug, onSuccessfulPutCallback, onFailedPutCallback) => {
-            dispatch(
-                pullProductionCropInspectionDetail(user, slug, onSuccessfulPutCallback, onFailedPutCallback)
-            )
-        },
-        pullProductionInspectionDetail: (user, slug, onSuccessfulSubmissionCallback, onFailedSubmissionCallback) => {
-            dispatch(
-                pullProductionInspectionDetail(user, slug, onSuccessfulSubmissionCallback, onFailedSubmissionCallback)
-            )
-        },
+        }
     }
 }
 

@@ -3,10 +3,7 @@ import { connect } from 'react-redux';
 import Scroll from 'react-scroll';
 
 import ProductionInspectionCreateStep3FinishComponent from "../../../../components/production/inspection/create/productionInspectionCreateStep3FinishComponent";
-import {
-    pullDefaultDraftProductionInspectionDetail,
-    putProductionInspectionDetail
-} from "../../../../actions/productionInspectionActions";
+import { putProductionInspectionDetail } from "../../../../actions/productionInspectionActions";
 import { PRODUCTION_INSPECTION_SUBMITTED_STATE } from '../../../../constants/api';
 import { setFlashMessage } from "../../../../actions/flashMessageActions";
 import { localStorageGetArrayItem } from "../../../../helpers/localStorageUtility";
@@ -74,6 +71,7 @@ class ProductionInspectionCreateFinishContainer extends Component {
 
     onSubmitClick(e) {
         e.preventDefault();
+        console.log(this.state);
 
         // const data = {
         //     state: PRODUCTION_INSPECTION_SUBMITTED_STATE,
@@ -148,9 +146,6 @@ const mapStateToProps = function(store) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        pullDefaultDraftProductionInspectionDetail: (user, slug) => {
-            dispatch(pullDefaultDraftProductionInspectionDetail(user, slug))
-        },
         setFlashMessage: (typeOf, text) => {
             dispatch(setFlashMessage(typeOf, text))
         },
