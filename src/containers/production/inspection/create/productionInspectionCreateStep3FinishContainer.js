@@ -9,6 +9,7 @@ import {
 } from "../../../../actions/productionInspectionActions";
 import { PRODUCTION_INSPECTION_SUBMITTED_STATE } from '../../../../constants/api';
 import { setFlashMessage } from "../../../../actions/flashMessageActions";
+import { localStorageGetArrayItem } from "../../../../helpers/localStorageUtility";
 
 
 class ProductionInspectionCreateFinishContainer extends Component {
@@ -25,24 +26,38 @@ class ProductionInspectionCreateFinishContainer extends Component {
         // fetch the URL argument as follows.
         const { slug } = this.props.match.params;
 
+        // Fetch our progress.
+        const cropInspections = localStorageGetArrayItem("temp-production-inspection-create-cropInspections");
+
         this.state = {
             referrer: '',
             slug: slug,
+            cropInspections: cropInspections,
+            didPass: localStorage.getItem("temp-production-inspection-create-didPass"),
+            didPassOption: {},
+            didPassOptions: [{
+                id: 'didPass-true-choice',
+                name: 'didPass',
+                value: true,
+                label: 'Yes',
+            },{
+                id: 'didPass-false-choice',
+                name: 'didPass',
+                value: false,
+                label: 'No',
+            }],
+            notes: localStorage.getItem("temp-production-inspection-create-notes"),
+            failureReason: localStorage.getItem("temp-production-inspection-create-failureReason"),
         }
 
         this.onSubmit = this.onSubmit.bind(this);
         this.onBackClick = this.onBackClick.bind(this);
-        this.onCheckboxChange = this.onCheckboxChange.bind(this);
-        this.onTextChange = this.onTextChange.bind(this);
         this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
         this.onFailedSubmissionCallback = this.onFailedSubmissionCallback.bind(this);
     }
 
     componentDidMount() {
         window.scrollTo(0, 0);  // Start the page at the top of the page.
-
-        // Get latest data from API.
-        this.props.pullDefaultDraftProductionInspectionDetail(this.props.user, this.props.productionDetail.slug);
     }
 
     componentWillUnmount() {
@@ -62,8 +77,8 @@ class ProductionInspectionCreateFinishContainer extends Component {
     onBackClick(e) {
         e.preventDefault();
 
-        const { slug, crops } = this.props.productionInspectionDetail;
-        const len = crops.length - 1;
+        const { slug, cropInspections } = this.state;
+        const len = cropInspections.length - 1;
         const aURL = '/production/'+ slug + '/create-inspection/crop/'+len.toString();
         this.props.history.push(aURL);
     }
@@ -71,35 +86,23 @@ class ProductionInspectionCreateFinishContainer extends Component {
     onSubmit(e) {
         e.preventDefault();
 
-        const data = {
-            state: PRODUCTION_INSPECTION_SUBMITTED_STATE,
-            didPass: this.props.productionInspectionDetail.didPass,
-            failureReason: this.props.productionInspectionDetail.failureReason,
-            notes: this.props.productionInspectionDetail.notes
-        };
-        console.log("onSubmit | data:", data); // For debugging purposes only.
-
-        // Once our state has been validated `client-side` then we will
-        // make an API request with the server to create our new production.
-        this.props.putProductionInspectionDetail(
-            this.props.user,
-            data,
-            this.props.productionInspectionDetail.slug,
-            this.onSuccessfulSubmissionCallback,
-            this.onFailedSubmissionCallback
-        );
-    }
-
-    onTextChange(e) {
-        this.setState({
-            [e.target.name]: e.target.value
-        });
-    }
-
-    onCheckboxChange(e) {
-        this.setState({
-            [e.target.name]: e.target.checked,
-        })
+        // const data = {
+        //     state: PRODUCTION_INSPECTION_SUBMITTED_STATE,
+        //     didPass: this.props.productionInspectionDetail.didPass,
+        //     failureReason: this.props.productionInspectionDetail.failureReason,
+        //     notes: this.props.productionInspectionDetail.notes
+        // };
+        // console.log("onSubmit | data:", data); // For debugging purposes only.
+        //
+        // // Once our state has been validated `client-side` then we will
+        // // make an API request with the server to create our new production.
+        // this.props.putProductionInspectionDetail(
+        //     this.props.user,
+        //     data,
+        //     this.props.productionInspectionDetail.slug,
+        //     this.onSuccessfulSubmissionCallback,
+        //     this.onFailedSubmissionCallback
+        // );
     }
 
     onSuccessfulSubmissionCallback() {
@@ -128,10 +131,17 @@ class ProductionInspectionCreateFinishContainer extends Component {
      */
 
     render() {
+        const { referrer, errors, didPass, didPassOptions, failureReason, notes, cropInspections } = this.state;
         return (
             <ProductionInspectionCreateStep3FinishComponent
                 productionDetail={this.props.productionDetail}
-                productionInspectionDetail={this.props.productionInspectionDetail}
+                cropInspections={cropInspections}
+                didPassOptions={didPassOptions}
+                didPass={didPass}
+                failureReason={failureReason}
+                notes={notes}
+                cropInspections={cropInspections}
+                errors={errors}
                 onBackClick={this.onBackClick}
                 onSubmit={this.onSubmit}
             />
