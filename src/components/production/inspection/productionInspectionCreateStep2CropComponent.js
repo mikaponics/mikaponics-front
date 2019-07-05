@@ -14,7 +14,7 @@ import ProductionInspectionCreateStepNavigationComponent from './productionInspe
 
 
 
-class ProductionInspectionCreateCropComponent extends Component {
+class ProductionInspectionCreateStep2CropComponent extends Component {
     render() {
         const {
             productionInspectionDetail,
@@ -29,7 +29,7 @@ class ProductionInspectionCreateCropComponent extends Component {
 
         // DEFENSIVE CODE: PREVENT NULLS.
         if (crop === undefined || crop === null) {
-            console.error("ProductionInspectionCreateCropComponent | render | null crop.");
+            console.error("ProductionInspectionCreateStep2CropComponent | render | null crop.");
             return null;
         }
 
@@ -151,4 +151,4 @@ class ProductionInspectionCreateCropComponent extends Component {
     }
 }
 
-export default ProductionInspectionCreateCropComponent;
+export default ProductionInspectionCreateStep2CropComponent;

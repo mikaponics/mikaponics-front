@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import { BootstrapRadio } from "../../bootstrap/bootstrapRadio";
 import { BootstrapCheckbox } from "../../bootstrap/bootstrapCheckbox";
 import { BootstrapTextarea } from "../../bootstrap/bootstrapTextarea";
 import { BootstrapErrorsProcessingAlert } from "../../bootstrap/bootstrapAlert";
@@ -14,14 +15,14 @@ class ProductionInspectionCreateStartComponent extends Component {
             productionInspectionDetail,
             productionDetail,
             pageIndex, name, slug, crops, errors={},
-            didPass, failureReason, notes,
+            didPass, didPassOptions, failureReason, notes,
             onBackClick, onSubmit, onSelectChange,
-            onTextChange, onCheckboxChange
+            onTextChange, onRadioChange
         } = this.props;
 
         // IF THE HARVEST FAILED.
         let shouldDisplaWasFailure = false;
-        if (didPass === false) {
+        if (didPass === false || didPass === "false") {
             shouldDisplaWasFailure = true;
         }
 
@@ -65,14 +66,15 @@ class ProductionInspectionCreateStartComponent extends Component {
 
                         <BootstrapErrorsProcessingAlert errors={errors} />
 
-                        <BootstrapCheckbox
+                        <BootstrapRadio
                             inputClassName="form-check-input form-check-input-lg"
-                            borderColour="border-success"
+                            borderColour="border-primary"
                             error={errors.didPass}
-                            label="This inspection passed."
-                            onChange={onCheckboxChange}
-                            value={didPass}
+                            label="Did the inspection pass? (*)"
                             name="didPass"
+                            onChange={onRadioChange}
+                            selectedValue={didPass}
+                            options={didPassOptions}
                         />
 
                         {shouldDisplaWasFailure &&

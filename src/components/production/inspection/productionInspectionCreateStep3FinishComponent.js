@@ -50,7 +50,7 @@ class ProductionCropInspectionTableComponent extends Component {
 }
 
 
-class ProductionInspectionCreateFinishComponent extends Component {
+class ProductionInspectionCreateStep3FinishComponent extends Component {
     render() {
         const {
             productionDetail,
@@ -149,4 +149,4 @@ class ProductionInspectionCreateFinishComponent extends Component {
     }
 }
 
-export default ProductionInspectionCreateFinishComponent;
+export default ProductionInspectionCreateStep3FinishComponent;

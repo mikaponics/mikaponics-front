@@ -56,9 +56,9 @@ import ProductionTerminateStartContainer from "./production/terminate/production
 import ProductionTerminateCropContainer from "./production/terminate/productionTerminateCropContainer";
 import ProductionTerminateFinishContainer from "./production/terminate/productionTerminateFinishContainer";
 import ProductionInspectionListContainer from "./production/inspection/productionInspectionListContainer";
-import ProductionInspectionCreateStartContainer from "./production/inspection/productionInspectionCreateStartContainer";
-import ProductionInspectionCreateCropContainer from "./production/inspection/productionInspectionCreateCropContainer";
-import ProductionInspectionCreateFinishContainer from "./production/inspection/productionInspectionCreateFinishContainer";
+import ProductionInspectionCreateStep1StartContainer from "./production/inspection/productionInspectionCreateStep1StartContainer";
+import ProductionInspectionCreateStep2CropContainer from "./production/inspection/productionInspectionCreateStep2CropContainer";
+import ProductionInspectionCreateStep3FinishContainer from "./production/inspection/productionInspectionCreateStep3FinishContainer";
 import ProductionInspectionDetailContainer from "./production/inspection/productionInspectionDetailContainer";
 import ProductionProfileContainer from "./production/profile/productionProfileContainer";
 import TaskListContainer from "./tasks/taskListContainer";
@@ -144,9 +144,9 @@ class AppContainer extends React.Component {
                             <Route path="/production/:slug/terminate-crop/:index" exact component={requiresAuth(ProductionTerminateCropContainer)} />
                             <Route path="/production/:slug/terminate-finish" exact component={requiresAuth(ProductionTerminateFinishContainer)} />
                             <Route path="/production/:slug/inspection" exact component={requiresAuth(ProductionInspectionListContainer)} />
-                            <Route path="/production/:slug/create-inspection/start" exact component={requiresAuth(ProductionInspectionCreateStartContainer)} />
-                            <Route path="/production/:slug/create-inspection/crop/:index" exact component={requiresAuth(ProductionInspectionCreateCropContainer)} />
-                            <Route path="/production/:slug/create-inspection/finish" exact component={requiresAuth(ProductionInspectionCreateFinishContainer)} />
+                            <Route path="/production/:slug/create-inspection/start" exact component={requiresAuth(ProductionInspectionCreateStep1StartContainer)} />
+                            <Route path="/production/:slug/create-inspection/crop/:index" exact component={requiresAuth(ProductionInspectionCreateStep2CropContainer)} />
+                            <Route path="/production/:slug/create-inspection/finish" exact component={requiresAuth(ProductionInspectionCreateStep3FinishContainer)} />
                             <Route path="/production-inspection/:slug" exact component={requiresAuth(ProductionInspectionDetailContainer)} />
                             <Route path="/production/:slug/profile" exact component={requiresAuth(ProductionProfileContainer)} />
                             <Route path="/tasks" exact component={requiresAuth(TaskListContainer)} />

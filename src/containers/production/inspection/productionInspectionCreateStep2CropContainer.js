@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import Scroll from 'react-scroll';
 
-import ProductionInspectionCreateCropComponent from "../../../components/production/inspection/productionInspectionCreateCropComponent";
+import ProductionInspectionCreateStep2CropComponent from "../../../components/production/inspection/productionInspectionCreateStep2CropComponent";
 import {
     pullProductionCropInspectionDetail,
     putProductionCropInspectionDetail
@@ -11,7 +11,7 @@ import {
 import { pullCropLifeCycleStageList } from "../../../actions/cropLifeCycleStageListActions";
 import { pullProductionInspectionDetail } from "../../../actions/productionInspectionActions";
 
-class ProductionInspectionCreateCropContainer extends Component {
+class ProductionInspectionCreateStep2CropContainer extends Component {
 
     /**
      *  Initializer, component life-cycle and utility functions.
@@ -284,7 +284,7 @@ class ProductionInspectionCreateCropContainer extends Component {
         const { index } = this.props.match.params;
         const { crops, crop, review, failureReason, stage, notes, errors } = this.state;
         return (
-            <ProductionInspectionCreateCropComponent
+            <ProductionInspectionCreateStep2CropComponent
                 productionInspectionDetail={this.props.productionInspectionDetail}
                 stageOptions={this.getStageOptions()}
                 stage={stage}
@@ -344,4 +344,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(ProductionInspectionCreateCropContainer);
+)(ProductionInspectionCreateStep2CropContainer);

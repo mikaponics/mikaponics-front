@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import Scroll from 'react-scroll';
 
-import ProductionInspectionCreateFinishComponent from "../../../components/production/inspection/productionInspectionCreateFinishComponent";
+import ProductionInspectionCreateStartComponent from "../../../components/production/inspection/productionInspectionCreateStep1StartComponent";
 import {
     pullDefaultDraftProductionInspectionDetail,
     putProductionInspectionDetail
 } from "../../../actions/productionInspectionActions";
-import { PRODUCTION_INSPECTION_SUBMITTED_STATE } from '../../../constants/api';
-import { setFlashMessage } from "../../../actions/flashMessageActions";
 
 
-class ProductionInspectionCreateFinishContainer extends Component {
+class ProductionInspectionCreateStep1StartContainer extends Component {
 
     /**
      *  Initializer, component life-cycle and utility functions.
@@ -28,11 +27,25 @@ class ProductionInspectionCreateFinishContainer extends Component {
         this.state = {
             referrer: '',
             slug: slug,
+            didPass: localStorage.getItem("temp-production-inspection-create-didPass"),
+            didPassOption: {},
+            didPassOptions: [{
+                id: 'didPass-true-choice',
+                name: 'didPass',
+                value: true,
+                label: 'Yes',
+            },{
+                id: 'didPass-false-choice',
+                name: 'didPass',
+                value: false,
+                label: 'No',
+            }],
         }
 
         this.onSubmit = this.onSubmit.bind(this);
         this.onBackClick = this.onBackClick.bind(this);
         this.onCheckboxChange = this.onCheckboxChange.bind(this);
+        this.onRadioChange = this.onRadioChange.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
         this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
         this.onFailedSubmissionCallback = this.onFailedSubmissionCallback.bind(this);
@@ -41,8 +54,25 @@ class ProductionInspectionCreateFinishContainer extends Component {
     componentDidMount() {
         window.scrollTo(0, 0);  // Start the page at the top of the page.
 
-        // Get latest data from API.
+         // Get latest data from API.
         this.props.pullDefaultDraftProductionInspectionDetail(this.props.user, this.props.productionDetail.slug);
+
+        // IF THE API ENDPOINT RETURNS NONE, THAT MEANS WE MUST CHOOSE EITHER
+        // "FALSE" OR "TRUE" TO ACTIVATE THE TERMINATION PHASE.
+        let { didPass } = this.props.productionDetail;
+        if (didPass === null || didPass === undefined) {
+            didPass = false;
+        }
+
+        this.setState({
+            // NEW VALUES FROM THIS SCREEN.
+            // plants: this.props.productionDetail.plants,
+            // fish: this.props.productionDetail.fish,
+            crops: this.props.productionInspectionDetail.crops,
+            didPass: didPass,
+            failureReason: this.props.productionInspectionDetail.failureReason,
+            notes: this.props.productionInspectionDetail.notes,
+        });
     }
 
     componentWillUnmount() {
@@ -61,29 +91,26 @@ class ProductionInspectionCreateFinishContainer extends Component {
 
     onBackClick(e) {
         e.preventDefault();
-
-        const { slug, crops } = this.props.productionInspectionDetail;
-        const len = crops.length - 1;
-        const aURL = '/production/'+ slug + '/create-inspection/crop/'+len.toString();
-        this.props.history.push(aURL);
+        this.props.history.push(this.props.productionDetail.absoluteUrl+"/inspection");
     }
 
     onSubmit(e) {
         e.preventDefault();
 
-        const data = {
-            state: PRODUCTION_INSPECTION_SUBMITTED_STATE,
-            didPass: this.props.productionInspectionDetail.didPass,
-            failureReason: this.props.productionInspectionDetail.failureReason,
-            notes: this.props.productionInspectionDetail.notes
-        };
-        console.log("onSubmit | data:", data); // For debugging purposes only.
+        // didPass
+        for (let i = 0; i < this.state.didPassOptions.length; i++) {
+            let option = this.state.didPassOptions[i];
+            let isSelected = this.state.didPass.toString() === option.value.toString();
+            if (isSelected) {
+                localStorage.setItem('temp-production-inspection-create-didPassLabel', option.label);
+            }
+        }
 
         // Once our state has been validated `client-side` then we will
         // make an API request with the server to create our new production.
         this.props.putProductionInspectionDetail(
             this.props.user,
-            data,
+            this.state,
             this.props.productionInspectionDetail.slug,
             this.onSuccessfulSubmissionCallback,
             this.onFailedSubmissionCallback
@@ -93,6 +120,29 @@ class ProductionInspectionCreateFinishContainer extends Component {
     onTextChange(e) {
         this.setState({
             [e.target.name]: e.target.value
+        });
+    }
+
+    onRadioChange(e) {
+        // Get the values.
+        const storageValueKey = "temp-production-inspection-create-"+[e.target.name];
+        const value = e.target.value;
+        const label = e.target.dataset.label; // Note: 'dataset' is a react data via https://stackoverflow.com/a/20383295
+        const storeValueKey = [e.target.name].toString();
+        const storeLabelKey = [e.target.name].toString()+"-label";
+
+        // Save the data.
+        this.setState({ [e.target.name]: value, }); // Save to store.
+        localStorage.setItem(storageValueKey, value) // Save to storage.
+
+        // For the debugging purposes only.
+        console.log({
+            "STORE-VALUE-KEY": storageValueKey,
+            "STORE-VALUE": value,
+            "STORAGE-VALUE-KEY": storeValueKey,
+            "STORAGE-VALUE": value,
+            "STORAGE-LABEL-KEY": storeLabelKey,
+            "STORAGE-LABEL": label,
         });
     }
 
@@ -106,8 +156,8 @@ class ProductionInspectionCreateFinishContainer extends Component {
         this.setState({
             errors: {},
         });
-        this.props.setFlashMessage("success", "Inspection has been successfully created.");
-        this.props.history.push(this.props.productionDetail.absoluteUrl+"/inspection");
+        const aURL = '/production/'+ this.state.slug + '/create-inspection/crop/0';
+        this.props.history.push(aURL);
     }
 
     onFailedSubmissionCallback() {
@@ -128,12 +178,28 @@ class ProductionInspectionCreateFinishContainer extends Component {
      */
 
     render() {
+        const { referrer, errors, didPass, didPassOptions, failureReason, notes, crops } = this.state;
+        const { name, slug, plants, fish } = this.props.productionDetail;
         return (
-            <ProductionInspectionCreateFinishComponent
-                productionDetail={this.props.productionDetail}
+            <ProductionInspectionCreateStartComponent
                 productionInspectionDetail={this.props.productionInspectionDetail}
-                onBackClick={this.onBackClick}
+                productionDetail={this.props.productionDetail}
+                name={name}
+                slug={slug}
+                errors={errors}
+                didPassOptions={didPassOptions}
+                didPass={didPass}
+                failureReason={failureReason}
+                notes={notes}
+                plants={plants}
+                fish={fish}
+                crops={crops}
                 onSubmit={this.onSubmit}
+                onBackClick={this.onBackClick}
+                onRadioChange={this.onRadioChange}
+                onSelectChange={this.onSelectChange}
+                onTextChange={this.onTextChange}
+                onCheckboxChange={this.onCheckboxChange}
             />
         );
     }
@@ -152,9 +218,6 @@ const mapDispatchToProps = dispatch => {
         pullDefaultDraftProductionInspectionDetail: (user, slug) => {
             dispatch(pullDefaultDraftProductionInspectionDetail(user, slug))
         },
-        setFlashMessage: (typeOf, text) => {
-            dispatch(setFlashMessage(typeOf, text))
-        },
         putProductionInspectionDetail: (user, state, slug, onSuccessfulSubmissionCallback, onFailedSubmissionCallback) => {
             dispatch(
                 putProductionInspectionDetail(user, state, slug, onSuccessfulSubmissionCallback, onFailedSubmissionCallback)
@@ -166,4 +229,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(ProductionInspectionCreateFinishContainer);
+)(ProductionInspectionCreateStep1StartContainer);
