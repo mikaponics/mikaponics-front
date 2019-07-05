@@ -4,10 +4,8 @@ import { Redirect } from 'react-router-dom';
 import Scroll from 'react-scroll';
 
 import ProductionInspectionCreateStartComponent from "../../../components/production/inspection/productionInspectionCreateStep1StartComponent";
-import {
-    pullDefaultDraftProductionInspectionDetail,
-    putProductionInspectionDetail
-} from "../../../actions/productionInspectionActions";
+import { putProductionInspectionDetail } from "../../../actions/productionInspectionActions";
+import { validateStep1Input } from "../../../validations/productionInspectionCreateValidator";
 
 
 class ProductionInspectionCreateStep1StartContainer extends Component {
@@ -40,6 +38,8 @@ class ProductionInspectionCreateStep1StartContainer extends Component {
                 value: false,
                 label: 'No',
             }],
+            notes: localStorage.getItem("temp-production-inspection-create-notes"),
+            failureReason: localStorage.getItem("temp-production-inspection-create-failureReason"),
         }
 
         this.onSubmit = this.onSubmit.bind(this);
@@ -47,32 +47,10 @@ class ProductionInspectionCreateStep1StartContainer extends Component {
         this.onCheckboxChange = this.onCheckboxChange.bind(this);
         this.onRadioChange = this.onRadioChange.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
-        this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
-        this.onFailedSubmissionCallback = this.onFailedSubmissionCallback.bind(this);
     }
 
     componentDidMount() {
         window.scrollTo(0, 0);  // Start the page at the top of the page.
-
-         // Get latest data from API.
-        this.props.pullDefaultDraftProductionInspectionDetail(this.props.user, this.props.productionDetail.slug);
-
-        // IF THE API ENDPOINT RETURNS NONE, THAT MEANS WE MUST CHOOSE EITHER
-        // "FALSE" OR "TRUE" TO ACTIVATE THE TERMINATION PHASE.
-        let { didPass } = this.props.productionDetail;
-        if (didPass === null || didPass === undefined) {
-            didPass = false;
-        }
-
-        this.setState({
-            // NEW VALUES FROM THIS SCREEN.
-            // plants: this.props.productionDetail.plants,
-            // fish: this.props.productionDetail.fish,
-            crops: this.props.productionInspectionDetail.crops,
-            didPass: didPass,
-            failureReason: this.props.productionInspectionDetail.failureReason,
-            notes: this.props.productionInspectionDetail.notes,
-        });
     }
 
     componentWillUnmount() {
@@ -106,21 +84,33 @@ class ProductionInspectionCreateStep1StartContainer extends Component {
             }
         }
 
-        // Once our state has been validated `client-side` then we will
-        // make an API request with the server to create our new production.
-        this.props.putProductionInspectionDetail(
-            this.props.user,
-            this.state,
-            this.props.productionInspectionDetail.slug,
-            this.onSuccessfulSubmissionCallback,
-            this.onFailedSubmissionCallback
-        );
+        // console.log(this.state); // For debugging purposes only.
+
+        const { errors, isValid } = validateStep1Input(this.state);
+        if (isValid) {
+            this.setState({ errors: {}, });
+            const aURL = '/production/'+ this.state.slug + '/create-inspection/crop/0';
+            this.props.history.push(aURL);
+        } else {
+            this.setState({ errors: errors });
+
+            // The following code will cause the screen to scroll to the top of
+            // the page. Please see ``react-scroll`` for more information:
+            // https://github.com/fisshy/react-scroll
+            var scroll = Scroll.animateScroll;
+            scroll.scrollToTop();
+        }
     }
 
     onTextChange(e) {
+        // Save to state.
         this.setState({
             [e.target.name]: e.target.value
         });
+
+        // Save to storage.
+        const storageValueKey = "temp-production-inspection-create-"+[e.target.name];
+        localStorage.setItem(storageValueKey, e.target.value)
     }
 
     onRadioChange(e) {
@@ -152,26 +142,6 @@ class ProductionInspectionCreateStep1StartContainer extends Component {
         })
     }
 
-    onSuccessfulSubmissionCallback() {
-        this.setState({
-            errors: {},
-        });
-        const aURL = '/production/'+ this.state.slug + '/create-inspection/crop/0';
-        this.props.history.push(aURL);
-    }
-
-    onFailedSubmissionCallback() {
-        this.setState({
-            errors: this.props.productionInspectionDetail.errors
-        })
-
-        // The following code will cause the screen to scroll to the top of
-        // the page. Please see ``react-scroll`` for more information:
-        // https://github.com/fisshy/react-scroll
-        var scroll = Scroll.animateScroll;
-        scroll.scrollToTop();
-    }
-
     /**
      *  Main render function - entry
      *------------------------------------------------------------
@@ -180,6 +150,9 @@ class ProductionInspectionCreateStep1StartContainer extends Component {
     render() {
         const { referrer, errors, didPass, didPassOptions, failureReason, notes, crops } = this.state;
         const { name, slug, plants, fish } = this.props.productionDetail;
+        if (slug === undefined || slug === "undefined") { // Defensive Code: Prevent undefined values.
+            return <Redirect to="/productions" />
+        }
         return (
             <ProductionInspectionCreateStartComponent
                 productionInspectionDetail={this.props.productionInspectionDetail}
@@ -215,9 +188,6 @@ const mapStateToProps = function(store) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        pullDefaultDraftProductionInspectionDetail: (user, slug) => {
-            dispatch(pullDefaultDraftProductionInspectionDetail(user, slug))
-        },
         putProductionInspectionDetail: (user, state, slug, onSuccessfulSubmissionCallback, onFailedSubmissionCallback) => {
             dispatch(
                 putProductionInspectionDetail(user, state, slug, onSuccessfulSubmissionCallback, onFailedSubmissionCallback)

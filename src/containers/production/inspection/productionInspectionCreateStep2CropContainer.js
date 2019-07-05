@@ -4,12 +4,11 @@ import isEmpty from 'lodash/isEmpty';
 import Scroll from 'react-scroll';
 
 import ProductionInspectionCreateStep2CropComponent from "../../../components/production/inspection/productionInspectionCreateStep2CropComponent";
-import {
-    pullProductionCropInspectionDetail,
-    putProductionCropInspectionDetail
-} from "../../../actions/productionCropInspectionActions";
+import { pullProductionCropInspectionDetail } from "../../../actions/productionCropInspectionActions";
 import { pullCropLifeCycleStageList } from "../../../actions/cropLifeCycleStageListActions";
 import { pullProductionInspectionDetail } from "../../../actions/productionInspectionActions";
+import { validateStep2Input } from "../../../validations/productionInspectionCreateValidator";
+
 
 class ProductionInspectionCreateStep2CropContainer extends Component {
 
@@ -43,8 +42,6 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
         this.onBackClick = this.onBackClick.bind(this);
         this.onSelectChange = this.onSelectChange.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
-        this.onSuccessfulPutCallback = this.onSuccessfulPutCallback.bind(this);
-        this.onFailedPutCallback = this.onFailedPutCallback.bind(this);
         this.onSuccessfulGetCallback = this.onSuccessfulGetCallback.bind(this);
         this.onFailedGetCallback = this.onFailedGetCallback.bind(this);
     }
@@ -167,16 +164,24 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
             notes: this.state.notes
         };
         console.log("onSubmit | data:", data);
-        this.props.putProductionCropInspectionDetail(
-            this.props.user,
-            data,
-            this.state.crop.slug,
-            this.onSuccessfulPutCallback,
-            this.onFailedPutCallback
-        );
+        // console.log(this.state); // For debugging purposes only.
+
+        const { errors, isValid } = validateStep2Input(this.state);
+        if (isValid) {
+            // this.onSuccessfulGetCallback();
+            console.log("GOOD!");
+        } else {
+            this.setState({ errors: errors });
+
+            // The following code will cause the screen to scroll to the top of
+            // the page. Please see ``react-scroll`` for more information:
+            // https://github.com/fisshy/react-scroll
+            var scroll = Scroll.animateScroll;
+            scroll.scrollToTop();
+        }
     }
 
-    onSuccessfulGetCallback(obj) {
+    onSuccessfulGetCallback() {
         const { slug, index } = this.props.match.params;
         const nextPageIndex = parseInt(index) + 1;
         const cropInspection = this.props.productionInspectionDetail.crops[nextPageIndex];
@@ -325,11 +330,6 @@ const mapDispatchToProps = dispatch => {
         pullProductionCropInspectionDetail: (user, slug, onSuccessfulPutCallback, onFailedPutCallback) => {
             dispatch(
                 pullProductionCropInspectionDetail(user, slug, onSuccessfulPutCallback, onFailedPutCallback)
-            )
-        },
-        putProductionCropInspectionDetail: (user, state, slug, onSuccessfulPutCallback, onFailedPutCallback) => {
-            dispatch(
-                putProductionCropInspectionDetail(user, state, slug, onSuccessfulPutCallback, onFailedPutCallback)
             )
         },
         pullProductionInspectionDetail: (user, slug, onSuccessfulSubmissionCallback, onFailedSubmissionCallback) => {
