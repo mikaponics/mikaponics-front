@@ -138,7 +138,7 @@ class ProductionInspectionCreateStep3FinishComponent extends Component {
                                 <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
                             </button>
                             <button type="text" className="btn btn-lg float-right pl-4 pr-4 btn-success" onClick={onSubmit}>
-                                <i className="fas fa-check"></i>&nbsp;Submit
+                                <i className="fas fa-check-circle"></i>&nbsp;Submit
                             </button>
                         </div>
                     </form>

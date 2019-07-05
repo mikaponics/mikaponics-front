@@ -69,13 +69,15 @@ class ProductionInspectionCreateStep2CropComponent extends Component {
                 </nav>
                 <h1><i className="fas fa-plus"></i>&nbsp;Add</h1>
 
+{ /*
                 <ProductionInspectionCreateStepNavigationComponent
                     productionInspectionDetail={productionInspectionDetail}
                     productionCropInspectionDetail={crop}
                     isFirst={false}
                     isLast={false}
                 />
-
+*/}
+                <h2>{crop.prettyName}</h2>
                 <div className="col-md-5 mx-auto mt-2">
                     <form className="needs-validation" noValidate>
                         <BootstrapErrorsProcessingAlert errors={errors} />

@@ -5,11 +5,11 @@ import isEmpty from 'lodash/isEmpty';
 export function validateStep1Input(data) {
     let errors = {};
 
-    if ( data.didPass === undefined || data.didPass === null || data.didPass === "" ) {
+    if ( data.didPass === undefined || data.didPass === null || data.didPass === "" || data.didPass === "null" ) {
         errors.didPass = 'This field is required.';
     }
     if (data.didPass === false || data.didPass === "false") {
-        if ( data.failureReason === undefined || data.failureReason === null || data.failureReason === "" ) {
+        if ( data.failureReason === undefined || data.failureReason === null || data.failureReason === "" || data.failureReason === "null" ) {
             errors.failureReason = 'This field is required.';
         }
     }

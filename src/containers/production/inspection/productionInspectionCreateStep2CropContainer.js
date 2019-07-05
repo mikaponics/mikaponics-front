@@ -8,6 +8,10 @@ import { pullProductionCropInspectionDetail } from "../../../actions/productionC
 import { pullCropLifeCycleStageList } from "../../../actions/cropLifeCycleStageListActions";
 import { pullProductionInspectionDetail } from "../../../actions/productionInspectionActions";
 import { validateStep2Input } from "../../../validations/productionInspectionCreateValidator";
+import {
+    localStorageGetArrayItem,
+    localStorageSetObjectOrArrayItem
+} from "../../../helpers/localStorageUtility";
 
 
 class ProductionInspectionCreateStep2CropContainer extends Component {
@@ -19,34 +23,7 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            // DEVELOPERS NOTE:
-            // THE ERRORS DICTIONARY CONTAINS KEY-VALUES OF THE THE FIELDS AND
-            // THEIR RESPECTED ERRORS TO DISPLAY TO THE USER.
-            errors: Object(),
 
-            crops: [],
-            crop: {},
-            review: null,
-            failureReason: null,
-            notes: null,
-
-            // DEVELOPERS NOTE:
-            // THE STAGE VARIABLE WILL HOLD THE `SLUG` AND NOT THE PRIMARY KEY.
-            // WE WILL ALSO STORE THE STAGE OPTION.
-            stage: null,
-            stageOption: null,
-        }
-        this.getStageOptions = this.getStageOptions.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-        this.onBackClick = this.onBackClick.bind(this);
-        this.onSelectChange = this.onSelectChange.bind(this);
-        this.onTextChange = this.onTextChange.bind(this);
-        this.onSuccessfulGetCallback = this.onSuccessfulGetCallback.bind(this);
-        this.onFailedGetCallback = this.onFailedGetCallback.bind(this);
-    }
-
-    componentDidMount() {
         // DEVELOPERS NOTE:
         // (1) FETCH THE INDEX NUMBER FROM THE URL AND LOOK THAT NUMBER UP IN
         //     CROPS ARRAY. THIS WILL RETRIEVE THE CROP WE WILL BE PROCESSING
@@ -55,25 +32,44 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
         //     DETAILS FOR THE CROP INSPECTION OBJECT.
         // (3) POPULATE OUR COMPONENT STATE WITH THE DATA RECEIVED FROM API.
         const { index } = this.props.match.params;
-        const cropInspection = this.props.productionInspectionDetail.crops[index];
+        const crops = localStorageGetArrayItem("temp-production-inspection-create-crops");
+        const cropInspection = crops[index];
 
         // DEVELOPERS NOTE: WE NEED TO GET THE SLUG VALUE FOR THE SELECTED `STAGE`.
         let stageSlug = null;
-        if (isEmpty(cropInspection)===false) {
+        if (isEmpty(cropInspection) === false) {
             stageSlug = isEmpty(cropInspection.stage) === false ? cropInspection.stage.slug : null;
             console.log("componentDidMount | stageSlug:",stageSlug)
         }
 
-        this.props.pullCropLifeCycleStageList(this.props.user, 1, cropInspection.productionCropTypeOf); // Get latest data from API.
-        this.props.pullProductionCropInspectionDetail(this.props.user, cropInspection.slug);
-        this.setState({
-            crops: this.props.productionDetail.crops,
+        this.state = {
+            // DEVELOPERS NOTE:
+            // THE ERRORS DICTIONARY CONTAINS KEY-VALUES OF THE THE FIELDS AND
+            // THEIR RESPECTED ERRORS TO DISPLAY TO THE USER.
+            errors: Object(),
+
+            crops: crops,
             crop: cropInspection,
             review: cropInspection.review,
             failureReason: cropInspection.failureReason,
             stage: stageSlug,
             notes: cropInspection.notes,
-        });
+
+            // DEVELOPERS NOTE:
+            // THE STAGE VARIABLE WILL HOLD THE `SLUG` AND NOT THE PRIMARY KEY.
+            // WE WILL ALSO STORE THE STAGE OPTION.
+            stageOption: null,
+        }
+        this.getStageOptions = this.getStageOptions.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        this.onBackClick = this.onBackClick.bind(this);
+        this.onSelectChange = this.onSelectChange.bind(this);
+        this.onTextChange = this.onTextChange.bind(this);
+        this.onSuccessfulGetCallback = this.onSuccessfulGetCallback.bind(this);
+    }
+
+    componentDidMount() {
+        this.props.pullCropLifeCycleStageList(this.props.user, 1, this.state.crop.productionCropTypeOf); // Get latest data from API.
 
         // AUTOMATICALLY SCROLL TO THE TOP (WITHOUT ANIMATIONS!)
         window.scrollTo(0, 0);  // Start the page at the top of the page.
@@ -123,31 +119,31 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
         window.scrollTo(0, 0);  // Start the page at the top of the page.
         const { slug, index } = this.props.match.params;
         const nextPageIndex = parseInt(index) - 1;
-        if (nextPageIndex < 0) {
-            this.props.history.push( '/production/'+ slug + '/create-inspection/start');
-        } else {
-            const cropInspection = this.props.productionInspectionDetail.crops[nextPageIndex];
-
-            // DEVELOPERS NOTE: WE NEED TO GET THE SLUG VALUE FOR THE SELECTED `STAGE`.
-            let stageSlug = null;
-            if (isEmpty(cropInspection)===false) {
-                stageSlug = isEmpty(cropInspection.stage) === false ? cropInspection.stage.slug : null;
-                console.log("onBackClick | stageSlug:",stageSlug)
-            }
-
-            this.props.pullCropLifeCycleStageList(this.props.user, 1, cropInspection.productionCropTypeOf); // Get latest data from API.
-            this.setState({
-                errors: Object(),
-                crop: cropInspection,
-                review: cropInspection.review,
-                failureReason: cropInspection.failureReason,
-                stage: stageSlug,
-                notes: cropInspection.notes,
-            }, () => {
-                const aURL = '/production/'+ slug + '/create-inspection/crop/'+nextPageIndex.toString();
-                this.props.history.push(aURL);
-            });
-        }
+        // if (nextPageIndex < 0) {
+        //     this.props.history.push( '/production/'+ slug + '/create-inspection/start');
+        // } else {
+        //     const cropInspection = this.props.productionInspectionDetail.crops[nextPageIndex];
+        //
+        //     // DEVELOPERS NOTE: WE NEED TO GET THE SLUG VALUE FOR THE SELECTED `STAGE`.
+        //     let stageSlug = null;
+        //     if (isEmpty(cropInspection)===false) {
+        //         stageSlug = isEmpty(cropInspection.stage) === false ? cropInspection.stage.slug : null;
+        //         console.log("onBackClick | stageSlug:",stageSlug)
+        //     }
+        //
+        //     this.props.pullCropLifeCycleStageList(this.props.user, 1, cropInspection.productionCropTypeOf); // Get latest data from API.
+        //     this.setState({
+        //         errors: Object(),
+        //         crop: cropInspection,
+        //         review: cropInspection.review,
+        //         failureReason: cropInspection.failureReason,
+        //         stage: stageSlug,
+        //         notes: cropInspection.notes,
+        //     }, () => {
+        //         const aURL = '/production/'+ slug + '/create-inspection/crop/'+nextPageIndex.toString();
+        //         this.props.history.push(aURL);
+        //     });
+        // }
     }
 
     onSubmit(e) {
@@ -155,21 +151,9 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
 
         // Once our state has been validated `client-side` then we will
         // make an API request with the server to create our new production.
-        // TODO: CLIENT SIDE VALIDATION.
-
-        const data = {
-            review: this.state.review,
-            failureReason: this.state.failureReason,
-            stage: this.state.stage,
-            notes: this.state.notes
-        };
-        console.log("onSubmit | data:", data);
-        // console.log(this.state); // For debugging purposes only.
-
         const { errors, isValid } = validateStep2Input(this.state);
         if (isValid) {
-            // this.onSuccessfulGetCallback();
-            console.log("GOOD!");
+            this.onSuccessfulGetCallback();
         } else {
             this.setState({ errors: errors });
 
@@ -184,47 +168,38 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
     onSuccessfulGetCallback() {
         const { slug, index } = this.props.match.params;
         const nextPageIndex = parseInt(index) + 1;
-        const cropInspection = this.props.productionInspectionDetail.crops[nextPageIndex];
+        const cropInspection = this.state.crops[nextPageIndex];
 
-        // DEVELOPERS NOTE: WE NEED TO GET THE SLUG VALUE FOR THE SELECTED `STAGE`.
-        let stageSlug = null;
-        if (isEmpty(cropInspection)===false) {
-            stageSlug = isEmpty(cropInspection.stage) === false ? cropInspection.stage.slug : null;
-            console.log("onSuccessfulGetCallback | stageSlug:",stageSlug)
-        }
+        if (cropInspection === undefined || cropInspection === null) {
 
-        console.log("onSuccessfulGetCallback | notes:",cropInspection.notes)
-
-        // DEVELOPERS NOTE: CALL OUR API TO GET LIST FILTERED BY CROP TYPE (I.E. PLANT OR FISH).
-        this.props.pullCropLifeCycleStageList(this.props.user, 1, cropInspection.productionCropTypeOf); // Get latest data from API.
-
-        // UPDATE OUR STATE AND LOAD UP THE NEXT PAGE.
-        this.setState({
-            errors: Object(),
-            crop: cropInspection,
-            review: cropInspection.review,
-            failureReason: cropInspection.failureReason,
-            stage: stageSlug,
-            notes: cropInspection.notes,
-        }, () => {
-            const aURL = '/production/'+ slug + '/create-inspection/crop/'+nextPageIndex.toString();
+            const aURL = '/production/'+ slug + '/create-inspection/finish';
             this.props.history.push(aURL);
-        });
-    }
 
-    onFailedGetCallback(errors) {
-        const { index } = this.props.match.params;
-        const cropInspection = this.props.productionInspectionDetail.crops[index];
+        } else {
+            
+            // DEVELOPERS NOTE: WE NEED TO GET THE SLUG VALUE FOR THE SELECTED `STAGE`.
+            let stageSlug = null;
+            if (isEmpty(cropInspection)===false) {
+                stageSlug = isEmpty(cropInspection.stage) === false ? cropInspection.stage.slug : null;
+            }
 
-        this.setState({
-            errors: this.props.productionInspectionDetail.errors
-        })
+            // DEVELOPERS NOTE: CALL OUR API TO GET LIST FILTERED BY CROP TYPE (I.E. PLANT OR FISH).
+            this.props.pullCropLifeCycleStageList(this.props.user, 1, cropInspection.productionCropTypeOf); // Get latest data from API.
 
-        // The following code will cause the screen to scroll to the top of
-        // the page. Please see ``react-scroll`` for more information:
-        // https://github.com/fisshy/react-scroll
-        var scroll = Scroll.animateScroll;
-        scroll.scrollToTop();
+            // UPDATE OUR STATE AND LOAD UP THE NEXT PAGE.
+            this.setState({
+                errors: Object(),
+                crop: cropInspection,
+                review: cropInspection.review,
+                failureReason: cropInspection.failureReason,
+                stage: stageSlug,
+                notes: cropInspection.notes,
+            }, () => {
+                const aURL = '/production/'+ slug + '/create-inspection/crop/'+nextPageIndex.toString();
+                this.props.history.push(aURL);
+            });
+
+        }
     }
 
     onSuccessfulPutCallback() {
@@ -238,12 +213,8 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
         const { slug, index } = this.props.match.params;
         const nextPageIndex = parseInt(index) + 1;
         if (nextPageIndex < this.state.crops.length) {
-            this.props.pullProductionInspectionDetail(
-                this.props.user,
-                this.props.productionInspectionDetail.slug,
-                this.onSuccessfulGetCallback,
-                this.onFailedGetCallback,
-            );
+            const aURL = '/production/'+ slug + '/create-inspection/crop/'+nextPageIndex.toString();
+            this.props.history.push(aURL);
         } else {
             this.props.history.push( '/production/'+ slug + '/create-inspection/finish');
         }

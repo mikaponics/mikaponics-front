@@ -4,8 +4,8 @@ import { Redirect } from 'react-router-dom';
 import Scroll from 'react-scroll';
 
 import ProductionInspectionCreateStartComponent from "../../../components/production/inspection/productionInspectionCreateStep1StartComponent";
-import { putProductionInspectionDetail } from "../../../actions/productionInspectionActions";
 import { validateStep1Input } from "../../../validations/productionInspectionCreateValidator";
+import { localStorageSetObjectOrArrayItem } from "../../../helpers/localStorageUtility";
 
 
 class ProductionInspectionCreateStep1StartContainer extends Component {
@@ -75,7 +75,7 @@ class ProductionInspectionCreateStep1StartContainer extends Component {
     onSubmit(e) {
         e.preventDefault();
 
-        // didPass
+        // --- didPass ---
         for (let i = 0; i < this.state.didPassOptions.length; i++) {
             let option = this.state.didPassOptions[i];
             let isSelected = this.state.didPass.toString() === option.value.toString();
@@ -88,11 +88,11 @@ class ProductionInspectionCreateStep1StartContainer extends Component {
 
         const { errors, isValid } = validateStep1Input(this.state);
         if (isValid) {
-            this.setState({ errors: {}, });
+            this.setState({ errors: {}, isLoading: false });
             const aURL = '/production/'+ this.state.slug + '/create-inspection/crop/0';
             this.props.history.push(aURL);
         } else {
-            this.setState({ errors: errors });
+            this.setState({ errors: errors, isLoading: false });
 
             // The following code will cause the screen to scroll to the top of
             // the page. Please see ``react-scroll`` for more information:
@@ -150,12 +150,13 @@ class ProductionInspectionCreateStep1StartContainer extends Component {
     render() {
         const { referrer, errors, didPass, didPassOptions, failureReason, notes, crops } = this.state;
         const { name, slug, plants, fish } = this.props.productionDetail;
+
         if (slug === undefined || slug === "undefined") { // Defensive Code: Prevent undefined values.
             return <Redirect to="/productions" />
         }
+
         return (
             <ProductionInspectionCreateStartComponent
-                productionInspectionDetail={this.props.productionInspectionDetail}
                 productionDetail={this.props.productionDetail}
                 name={name}
                 slug={slug}
@@ -182,18 +183,11 @@ const mapStateToProps = function(store) {
     return {
         user: store.userState,
         productionDetail: store.productionDetailState,
-        productionInspectionDetail: store.productionInspectionDetailState,
     };
 }
 
 const mapDispatchToProps = dispatch => {
-    return {
-        putProductionInspectionDetail: (user, state, slug, onSuccessfulSubmissionCallback, onFailedSubmissionCallback) => {
-            dispatch(
-                putProductionInspectionDetail(user, state, slug, onSuccessfulSubmissionCallback, onFailedSubmissionCallback)
-            )
-        },
-    }
+    return {}
 }
 
 export default connect(

@@ -141,7 +141,7 @@ class InstrumentDataTablePagination extends Component {
 
 class ProductionInspectionComponent extends Component {
     render() {
-        const { user, productionDetail, productionInspectionList, flashMessage } = this.props;
+        const { user, productionDetail, productionInspectionList, flashMessage, onAddClick } = this.props;
         const objectList = productionInspectionList.results;
         const isObjectListNotEmpty = isEmpty(objectList) === false;
         const isObjectListEmpty = isEmpty(objectList) === true;
@@ -213,9 +213,9 @@ class ProductionInspectionComponent extends Component {
                         <hr className="my-4" />
                         <p>If you would like to create an inspection, please start by clicking below.</p>
                         <p className="lead">
-                            <Link to={`/production/${productionDetail.slug}/create-inspection/start`} className="btn btn-success btn-lg">
+                            <button onClick={onAddClick} className="btn btn-success btn-lg">
                                 <i className="fas fa-plus"></i>&nbsp;Add
-                            </Link>
+                            </button>
                         </p>
                     </div>
                 }

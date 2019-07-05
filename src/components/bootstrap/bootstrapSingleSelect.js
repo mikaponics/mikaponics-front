@@ -52,7 +52,7 @@ export const BootstrapSingleSelect = ({
             }
         })
     }
-    console.log("error: ", error);
+    // console.log("error: ", error);
 
     // Render our output for this component.
     return (
@@ -72,4 +72,3 @@ export const BootstrapSingleSelect = ({
         </div>
     )
 }
-

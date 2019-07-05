@@ -7,6 +7,7 @@ import {
     pullProductionInspectionList
 } from "../../../actions/productionInspectionActions";
 import { PRODUCTION_INSPECTION_SUBMITTED_STATE } from '../../../constants/api';
+import { localStorageSetObjectOrArrayItem } from "../../../helpers/localStorageUtility";
 
 
 class ProductionInspectionContainer extends Component {
@@ -20,6 +21,8 @@ class ProductionInspectionContainer extends Component {
             page: 1,
             slug: slug
         }
+
+        this.onAddClick = this.onAddClick.bind(this);
     }
 
     componentDidMount() {
@@ -45,6 +48,21 @@ class ProductionInspectionContainer extends Component {
         };
     }
 
+    onAddClick(e) {
+        e.preventDefault();
+
+        // Save to the persistent storage.
+        localStorageSetObjectOrArrayItem("temp-production-inspection-create-crops", this.props.productionDetail.crops);
+        localStorage.setItem("temp-production-inspection-create-crops-index", 0);
+        localStorage.setItem("temp-production-inspection-create-didPass", null);
+        localStorage.setItem("temp-production-inspection-create-failureReason", "");
+        localStorage.setItem("temp-production-inspection-create-notes", "");
+
+        // Start our create page.
+        const aURL = "/production/" + this.props.productionDetail.slug + "/create-inspection/start";
+        this.props.history.push(aURL);
+    }
+
     render() {
         return (
             <ProductionInspectionListComponent
@@ -53,6 +71,7 @@ class ProductionInspectionContainer extends Component {
                 productionInspectionList={this.props.productionInspectionList}
                 page={this.state.page}
                 flashMessage={this.props.flashMessage}
+                onAddClick={this.onAddClick}
             />
         );
     }
