@@ -53,6 +53,8 @@ class ProductionInspectionContainer extends Component {
 
         // Save to the persistent storage.
         localStorageSetObjectOrArrayItem("temp-production-inspection-create-crops", this.props.productionDetail.crops);
+
+        // Clear the `create inspection` form.
         localStorage.setItem("temp-production-inspection-create-crops-index", 0);
         localStorage.setItem("temp-production-inspection-create-didPass", null);
         localStorage.setItem("temp-production-inspection-create-failureReason", "");

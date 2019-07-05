@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Scroll from 'react-scroll';
 
-import ProductionInspectionCreateStep3FinishComponent from "../../../components/production/inspection/productionInspectionCreateStep3FinishComponent";
+import ProductionInspectionCreateStep3FinishComponent from "../../../../components/production/inspection/create/productionInspectionCreateStep3FinishComponent";
 import {
     pullDefaultDraftProductionInspectionDetail,
     putProductionInspectionDetail
-} from "../../../actions/productionInspectionActions";
-import { PRODUCTION_INSPECTION_SUBMITTED_STATE } from '../../../constants/api';
-import { setFlashMessage } from "../../../actions/flashMessageActions";
+} from "../../../../actions/productionInspectionActions";
+import { PRODUCTION_INSPECTION_SUBMITTED_STATE } from '../../../../constants/api';
+import { setFlashMessage } from "../../../../actions/flashMessageActions";
 
 
 class ProductionInspectionCreateFinishContainer extends Component {

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import { BootstrapRadio } from "../../bootstrap/bootstrapRadio";
-import { BootstrapCheckbox } from "../../bootstrap/bootstrapCheckbox";
-import { BootstrapTextarea } from "../../bootstrap/bootstrapTextarea";
-import { BootstrapErrorsProcessingAlert } from "../../bootstrap/bootstrapAlert";
+import { BootstrapRadio } from "../../../bootstrap/bootstrapRadio";
+import { BootstrapCheckbox } from "../../../bootstrap/bootstrapCheckbox";
+import { BootstrapTextarea } from "../../../bootstrap/bootstrapTextarea";
+import { BootstrapErrorsProcessingAlert } from "../../../bootstrap/bootstrapAlert";
 import ProductionInspectionCreateStepNavigationComponent from './productionInspectionCreateStepNavigationComponent';
 
 

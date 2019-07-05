@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import {
     PRODUCTION_CROPS_INSPECTION_TERRIBLE_REVIEW,
     PRODUCTION_CROPS_INSPECTION_BAD_REVIEW,
-} from '../../../constants/api';
+} from '../../../../constants/api';
 import ProductionInspectionCreateStepNavigationComponent from './productionInspectionCreateStepNavigationComponent';
 
 

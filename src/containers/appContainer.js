@@ -56,9 +56,9 @@ import ProductionTerminateStartContainer from "./production/terminate/production
 import ProductionTerminateCropContainer from "./production/terminate/productionTerminateCropContainer";
 import ProductionTerminateFinishContainer from "./production/terminate/productionTerminateFinishContainer";
 import ProductionInspectionListContainer from "./production/inspection/productionInspectionListContainer";
-import ProductionInspectionCreateStep1StartContainer from "./production/inspection/productionInspectionCreateStep1StartContainer";
-import ProductionInspectionCreateStep2CropContainer from "./production/inspection/productionInspectionCreateStep2CropContainer";
-import ProductionInspectionCreateStep3FinishContainer from "./production/inspection/productionInspectionCreateStep3FinishContainer";
+import ProductionInspectionCreateStep1StartContainer from "./production/inspection/create/productionInspectionCreateStep1StartContainer";
+import ProductionInspectionCreateStep2CropContainer from "./production/inspection/create/productionInspectionCreateStep2CropContainer";
+import ProductionInspectionCreateStep3FinishContainer from "./production/inspection/create/productionInspectionCreateStep3FinishContainer";
 import ProductionInspectionDetailContainer from "./production/inspection/productionInspectionDetailContainer";
 import ProductionProfileContainer from "./production/profile/productionProfileContainer";
 import TaskListContainer from "./tasks/taskListContainer";

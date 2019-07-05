@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Scroll from 'react-scroll';
 
-import ProductionInspectionCreateStartComponent from "../../../components/production/inspection/productionInspectionCreateStep1StartComponent";
-import { validateStep1Input } from "../../../validations/productionInspectionCreateValidator";
-import { localStorageSetObjectOrArrayItem } from "../../../helpers/localStorageUtility";
+import ProductionInspectionCreateStartComponent from "../../../../components/production/inspection/create/productionInspectionCreateStep1StartComponent";
+import { validateStep1Input } from "../../../../validations/productionInspectionCreateValidator";
+import { localStorageSetObjectOrArrayItem } from "../../../../helpers/localStorageUtility";
 
 
 class ProductionInspectionCreateStep1StartContainer extends Component {

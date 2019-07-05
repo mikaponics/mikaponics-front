@@ -3,15 +3,15 @@ import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import Scroll from 'react-scroll';
 
-import ProductionInspectionCreateStep2CropComponent from "../../../components/production/inspection/productionInspectionCreateStep2CropComponent";
-import { pullProductionCropInspectionDetail } from "../../../actions/productionCropInspectionActions";
-import { pullCropLifeCycleStageList } from "../../../actions/cropLifeCycleStageListActions";
-import { pullProductionInspectionDetail } from "../../../actions/productionInspectionActions";
-import { validateStep2Input } from "../../../validations/productionInspectionCreateValidator";
+import ProductionInspectionCreateStep2CropComponent from "../../../../components/production/inspection/create/productionInspectionCreateStep2CropComponent";
+import { pullProductionCropInspectionDetail } from "../../../../actions/productionCropInspectionActions";
+import { pullCropLifeCycleStageList } from "../../../../actions/cropLifeCycleStageListActions";
+import { pullProductionInspectionDetail } from "../../../../actions/productionInspectionActions";
+import { validateStep2Input } from "../../../../validations/productionInspectionCreateValidator";
 import {
     localStorageGetArrayItem,
     localStorageSetObjectOrArrayItem
-} from "../../../helpers/localStorageUtility";
+} from "../../../../helpers/localStorageUtility";
 
 
 class ProductionInspectionCreateStep2CropContainer extends Component {
@@ -176,7 +176,7 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
             this.props.history.push(aURL);
 
         } else {
-            
+
             // DEVELOPERS NOTE: WE NEED TO GET THE SLUG VALUE FOR THE SELECTED `STAGE`.
             let stageSlug = null;
             if (isEmpty(cropInspection)===false) {

@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
-import { BootstrapInput } from "../../bootstrap/bootstrapInput";
-import { BootstrapTextarea } from "../../bootstrap/bootstrapTextarea";
-import { BootstrapErrorsProcessingAlert } from "../../bootstrap/bootstrapAlert";
-import { BootstrapSingleSelect } from '../../bootstrap/bootstrapSingleSelect';
+import { BootstrapInput } from "../../../bootstrap/bootstrapInput";
+import { BootstrapTextarea } from "../../../bootstrap/bootstrapTextarea";
+import { BootstrapErrorsProcessingAlert } from "../../../bootstrap/bootstrapAlert";
+import { BootstrapSingleSelect } from '../../../bootstrap/bootstrapSingleSelect';
 import {
     PRODUCTION_CROPS_INSPECTION_TERRIBLE_REVIEW,
     PRODUCTION_CROPS_INSPECTION_BAD_REVIEW,
     PRODUCTION_CROPS_INSPECTION_REVIEW_OPTION_CHOICES
-} from '../../../constants/api';
+} from '../../../../constants/api';
 import ProductionInspectionCreateStepNavigationComponent from './productionInspectionCreateStepNavigationComponent';
 
 
