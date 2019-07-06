@@ -64,6 +64,11 @@ class ProductionListContainer extends Component {
         for (let i = 0; i < a.length; i++) {
             let item = a[i];
             item.productionCrop = item.slug;
+
+            // BUGFIX: Make sure you set the values to be blank strings or else React will cause problems in our GUI.
+            item.stateFailureReasonAtFinish = "";
+            item.harvestNotesAtFinish = "";
+            item.notesAtFinish = "";
         }
 
         // Save to the persistent storage a COMPLETE COPY of the crops in the

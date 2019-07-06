@@ -114,6 +114,7 @@ class ProductionTerminateStep2CropContainer extends Component {
 
     onNextClick(e) {
         e.preventDefault();
+        console.log(this.state); // For debugging purposes only.
 
         // Once our state has been validated `client-side` then we will
         // make an API request with the server to create our new production.
@@ -147,7 +148,7 @@ class ProductionTerminateStep2CropContainer extends Component {
                     }
                 );
             } else {
-                this.props.history.push('/production/'+ this.state.productionSlug + '/terminate-crop/finish');
+                this.props.history.push('/production/'+ this.state.productionSlug + '/terminate-finish');
             }
         } else {
             this.setState({ errors: errors });
@@ -283,13 +284,23 @@ class ProductionTerminateStep2CropContainer extends Component {
      */
 
     render() {
-        const { productionName, productionSlug, crops, crop, errors } = this.state;
+        const {
+            productionName, productionSlug, crops, crop,
+            stateAtFinish, stateFailureReasonAtFinish, harvestAtFinish, harvestFailureReasonAtFinish, harvestNotesAtFinish, notesAtFinish,
+            errors
+        } = this.state;
         return (
             <ProductionTerminateStep2CropComponent
                 productionName={productionName}
                 productionSlug={productionSlug}
                 crops={crops}
                 crop={crop}
+                stateAtFinish={stateAtFinish}
+                stateFailureReasonAtFinish={stateFailureReasonAtFinish}
+                harvestAtFinish={harvestAtFinish}
+                harvestFailureReasonAtFinish={harvestFailureReasonAtFinish}
+                harvestNotesAtFinish={harvestNotesAtFinish}
+                notesAtFinish={notesAtFinish}
                 errors={errors}
                 onNextClick={this.onNextClick}
                 onBackClick={this.onBackClick}

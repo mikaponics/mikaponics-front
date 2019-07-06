@@ -19,7 +19,8 @@ import ProductionTerminateWizardComponent from './productionTerminateWizardCompo
 export default class ProductionTerminateStep2CropComponent extends Component {
     render() {
         const {
-            productionSlug, productionName, crop, crops, stateAtFinish,
+            productionSlug, productionName, crop, crops,
+            stateAtFinish, stateFailureReasonAtFinish, harvestAtFinish, harvestFailureReasonAtFinish, harvestNotesAtFinish, notesAtFinish,
             errors,
             onBackClick, onNextClick, onTextChange, onSelectChange
         } = this.props;
@@ -35,12 +36,12 @@ export default class ProductionTerminateStep2CropComponent extends Component {
         }
 
         // IF THE CROP FAILED.
-        if (crop.stateAtFinish === PRODUCTION_CROPS_DIED || crop.stateAtFinish === PRODUCTION_CROPS_WERE_TERMINATED) {
+        if (stateAtFinish === PRODUCTION_CROPS_DIED || stateAtFinish === PRODUCTION_CROPS_WERE_TERMINATED) {
             shouldDisplayStateFailure = true;
         }
 
         // IF THE HARVEST FAILED.
-        if (crop.harvestAtFinish === PRODUCTION_CROPS_TERRIBLE_HARVEST_REVIEW || crop.harvestAtFinish === PRODUCTION_CROPS_BAD_HARVEST_REVIEW) {
+        if (harvestAtFinish === PRODUCTION_CROPS_TERRIBLE_HARVEST_REVIEW || harvestAtFinish === PRODUCTION_CROPS_BAD_HARVEST_REVIEW) {
             shouldDisplayHarvestFailure = true;
         }
 
@@ -84,7 +85,7 @@ export default class ProductionTerminateStep2CropComponent extends Component {
                             name="stateAtFinish"
                             defaultOptionLabel="Please select the monitoring hardware for your production."
                             options={PRODUCTION_CROP_STATE_AT_FINISH_OPTION_CHOICES}
-                            value={crop.stateAtFinish}
+                            value={stateAtFinish}
                             error={errors.stateAtFinish}
                             onSelectChange={ option => onSelectChange(option.selectName, option.value, option.label) }
                         />
@@ -96,7 +97,7 @@ export default class ProductionTerminateStep2CropComponent extends Component {
                                 label="Why? (*)"
                                 placeholder="Please describe why this happend to the crop(s)."
                                 rows={5}
-                                value={crop.stateFailureReasonAtFinish}
+                                value={stateFailureReasonAtFinish}
                                 helpText={null}
                                 onChange={ onTextChange }
                                 error={errors.stateFailureReasonAtFinish}
@@ -110,9 +111,9 @@ export default class ProductionTerminateStep2CropComponent extends Component {
                             name="harvestAtFinish"
                             defaultOptionLabel="Please select the monitoring hardware for your production."
                             options={PRODUCTION_CROPS_HARVEST_REVIEW_AT_FINISH_OPTION_CHOICES}
-                            value={crop.harvestAtFinish}
+                            value={harvestAtFinish}
                             error={errors.harvestAtFinish}
-                            onSelectChange={ option => onSelectChange(option.selectName, option.value) }
+                            onSelectChange={ option => onSelectChange(option.selectName, option.value, option.label) }
                         />
 
                         {shouldDisplayHarvestFailure &&
@@ -122,7 +123,7 @@ export default class ProductionTerminateStep2CropComponent extends Component {
                                 label="Why? (*)"
                                 placeholder="Please describe why this happend to the crop"
                                 rows={5}
-                                value={crop.harvestFailureReasonAtFinish}
+                                value={harvestFailureReasonAtFinish}
                                 helpText={null}
                                 onChange={ onTextChange }
                                 error={errors.harvestFailureReasonAtFinish}
@@ -135,7 +136,7 @@ export default class ProductionTerminateStep2CropComponent extends Component {
                             label="Any notes about the harvest?"
                             placeholder="Add any additional notes you have out the harves."
                             rows={5}
-                            value={crop.harvestNotesAtFinish}
+                            value={harvestNotesAtFinish}
                             helpText={null}
                             onChange={ onTextChange }
                             error={errors.harvestNotesAtFinish}
@@ -149,7 +150,7 @@ export default class ProductionTerminateStep2CropComponent extends Component {
                             label="Any final comments?"
                             placeholder="Add any final comments about this crop?"
                             rows={5}
-                            value={crop.notesAtFinish}
+                            value={notesAtFinish}
                             helpText={null}
                             onChange={ onTextChange }
                             error={errors.notesAtFinish}
@@ -163,11 +164,6 @@ export default class ProductionTerminateStep2CropComponent extends Component {
                                 Next&nbsp;<i className="fas fa-arrow-circle-right"></i>
                             </button>
                         </div>
-
-
-
-
-
 
                     </form>
                 </div>
