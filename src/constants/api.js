@@ -421,3 +421,41 @@ export const RED_ALERT_DELAY_IN_SECONDS_CHOICES = [
  *  The `type_of` options for the `Instrument` API endpoint.
  */
 export const CAMERA_INSTRUMENT_TYPE = 13;
+
+
+/**
+ *  The harvest failure reasons for the production completion.
+ */
+export const PRODUCITON_OTHER_HARVEST_FAILURE_REASON = 1;
+export const PRODUCTION_PEST_HARVEST_FAILURE_REASON = 2;
+export const PRODUCTION_DISEASE_HARVEST_FAILURE_REASON = 3;
+export const PRODUCTION_ABIOTIC_HARVEST_FAILURE_REASON = 4;
+export const PRODUCTION_TECHNICAL_FAILURE_HARVEST_FAILURE_REASON = 5;
+export const PRODUCTION_HUMAN_ERROR_HARVEST_FAILURE_REASON = 6;
+export const PRODUCTION_HARVEST_FAILURE_REASON_OPTION_CHOICES = [
+    {
+        selectName: "harvestFailureReason",
+        value: PRODUCTION_PEST_HARVEST_FAILURE_REASON,
+        label: "Pest Problem"
+    },{
+        selectName: "harvestFailureReason",
+        value: PRODUCTION_DISEASE_HARVEST_FAILURE_REASON,
+        label: "Disease Problem"
+    },{
+        selectName: "harvestFailureReason",
+        value: PRODUCTION_ABIOTIC_HARVEST_FAILURE_REASON,
+        label: "Abiotic Problem"
+    },{
+        selectName: "harvestFailureReason",
+        value: PRODUCTION_TECHNICAL_FAILURE_HARVEST_FAILURE_REASON,
+        label: "Technical Problem"
+    },{
+        selectName: "harvestFailureReason",
+        value: PRODUCTION_HUMAN_ERROR_HARVEST_FAILURE_REASON,
+        label: "Human Error"
+    },{
+        selectName: "harvestFailureReason",
+        value: PRODUCITON_OTHER_HARVEST_FAILURE_REASON,
+        label: "Other (Please specify)"
+    }
+];

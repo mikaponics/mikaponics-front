@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
+import { BootstrapRadio } from "../../bootstrap/bootstrapRadio";
 import { BootstrapInput } from "../../bootstrap/bootstrapInput";
 import { BootstrapTextarea } from "../../bootstrap/bootstrapTextarea";
 import { BootstrapErrorsProcessingAlert } from "../../bootstrap/bootstrapAlert";
@@ -19,14 +20,14 @@ import ProductionTerminateWizardComponent from './productionTerminateWizardCompo
 export default class ProductionTerminateStep2CropComponent extends Component {
     render() {
         const {
-            productionSlug, productionName, crop, crops,
-            errors,
-            onBackClick, onNextClick, onTextChange, onSelectChange
+            productionSlug, productionName, crop, crops, errors, isLoading,
+            onBackClick, onNextClick, onTextChange, onSelectChange, onRadioChange,
+
+            // DEVELOPER NOTE: BELOW IS WHERE YOU ADD MORE FIELDS TO COLLECT
+            wasHarvested, wasHarvestedOptions, harvestFailureReason, harvestFailureReasonOptions,
         } = this.props;
 
-        // IF THE PLANTS DIED OR WERE TERMINATED.
-        let shouldDisplayStateFailure = false;
-        let shouldDisplayHarvestFailure = false;
+        let shouldDisplayHarvestFailureReasons = wasHarvested === false || wasHarvested === 'false';
 
         // DEFENSIVE CODE: PREVENT NULLS.
         if (crop === undefined || crop === null) {
@@ -69,9 +70,30 @@ export default class ProductionTerminateStep2CropComponent extends Component {
                         <BootstrapErrorsProcessingAlert errors={errors} />
 
                         <h2><i className="fas fa-shopping-basket"></i>&nbsp;{crop.prettyName}</h2>
-                        <p className="border-bottom mb-3 pb-1 text-secondary"><i className="fas fa-heartbeat"></i>&nbsp;Lifespan</p>
+                        <p className="border-bottom mb-3 pb-1 text-secondary"><i className="fas fa-shopping-basket"></i>&nbsp;Harvest</p>
 
-                        
+                        <BootstrapRadio
+                            inputClassName="form-check-input form-check-input-lg"
+                            borderColour="border-primary"
+                            error={errors.wasHarvested}
+                            label="Was this crop harvested? (*)"
+                            name="wasHarvested"
+                            onChange={onRadioChange}
+                            selectedValue={wasHarvested}
+                            options={wasHarvestedOptions}
+                        />
+
+                        {shouldDisplayHarvestFailureReasons &&
+                            <BootstrapSingleSelect
+                                label="Reason for harvest failure (*)"
+                                name="harvestFailureReason"
+                                defaultOptionLabel="Please select the monitoring hardware for your production."
+                                options={harvestFailureReasonOptions}
+                                value={harvestFailureReason}
+                                error={errors.harvestFailureReason}
+                                onSelectChange={onSelectChange}
+                            />
+                        }
 
                         <div className="form-group">
                             <button type="text" className="btn btn-lg float-left pl-4 pr-4 btn-secondary" onClick={onBackClick}>

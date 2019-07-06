@@ -33,23 +33,12 @@ export function validateStep1Input(data) {
 export function validateStep2Input(data) {
     let errors = {};
 
-    if ( data.stateAtFinish === undefined || data.stateAtFinish === null || data.stateAtFinish === "" ) {
-        errors.stateAtFinish = 'This field is required.';
-    } else {
-        if ( data.stateAtFinish === PRODUCTION_CROPS_DIED || data.stateAtFinish === PRODUCTION_CROPS_WERE_TERMINATED ) {
-            if ( data.stateFailureReasonAtFinish === undefined || data.stateFailureReasonAtFinish === null || data.stateFailureReasonAtFinish === "" ) {
-                errors.stateFailureReasonAtFinish = 'This field is required.';
-            }
-        }
+    if ( data.wasHarvested === undefined || data.wasHarvested === null || data.wasHarvested === "" || data.wasHarvested === "null") {
+        errors.wasHarvested = 'This field is required.';
     }
-
-    if ( data.harvestAtFinish === undefined || data.harvestAtFinish === null || data.harvestAtFinish === "" ) {
-        errors.harvestAtFinish = 'This field is required.';
-    } else {
-        if ( data.harvestAtFinish === PRODUCTION_CROPS_TERRIBLE_HARVEST_REVIEW || data.harvestAtFinish === PRODUCTION_CROPS_BAD_HARVEST_REVIEW ) {
-            if ( data.harvestFailureReasonAtFinish === undefined || data.harvestFailureReasonAtFinish === null || data.harvestFailureReasonAtFinish === "" ) {
-                errors.harvestFailureReasonAtFinish = 'This field is required.';
-            }
+    if (data.wasHarvested === false || data.wasHarvested === "false") {
+        if ( data.failureReason === undefined || data.failureReason === null || data.failureReason === "" || data.failureReason === "null" ) {
+            errors.failureReason = 'This field is required.';
         }
     }
 

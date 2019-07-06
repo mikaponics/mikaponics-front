@@ -8,6 +8,9 @@ import {
     localStorageGetArrayItem,
     localStorageSetObjectOrArrayItem
 } from "../../../helpers/localStorageUtility";
+import {
+    PRODUCTION_HARVEST_FAILURE_REASON_OPTION_CHOICES
+} from "../../../constants/api";
 import ProductionTerminateStep2CropComponent from "../../../components/production/terminate/productionTerminateStep2CropComponent";
 
 
@@ -44,13 +47,28 @@ class ProductionTerminateStep2CropContainer extends Component {
             crops: crops,
             crop: crop,
 
+            // DEVELOPER NOTE: BELOW IS WHERE YOU ADD MORE FIELDS TO COLLECT
+            wasHarvested: crop.wasHarvested,
+            wasHarvestedOptions: [{
+                id: 'wasSuccess-true-choice',
+                name: 'wasHarvested',
+                value: true,
+                label: 'Yes',
+            },{
+                id: 'wasSuccess-false-choice',
+                name: 'wasHarvested',
+                value: false,
+                label: 'No',
+            }],
+            harvestFailureReasonOptions: PRODUCTION_HARVEST_FAILURE_REASON_OPTION_CHOICES,
+            harvestFailureReason: crop.harvestFailureReason,
         }
         this.onNextClick = this.onNextClick.bind(this);
         this.onBackClick = this.onBackClick.bind(this);
         this.onSelectChange = this.onSelectChange.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
-        this.updateCropWithOnSelectionChange = this.updateCropWithOnSelectionChange.bind(this);
-        this.updateCropWithOnTextChange = this.updateCropWithOnTextChange.bind(this);
+        this.onRadioChange = this.onRadioChange.bind(this);
+        this.updateCropWithOnKeyValueLabelChange = this.updateCropWithOnKeyValueLabelChange.bind(this);
     }
 
     componentDidMount() {
@@ -94,6 +112,11 @@ class ProductionTerminateStep2CropContainer extends Component {
                     crops: this.state.crops,
                     crop: crop,
 
+                    // DEVELOPER NOTE: BELOW IS WHERE YOU ADD MORE FIELDS TO COLLECT
+                    wasHarvested: crop.wasHarvested,
+                    harvestFailureReason: crop.harvestFailureReason,
+
+
                 },
                 () => {
                     this.props.history.push('/production/'+ this.state.productionSlug + '/terminate-crop/'+this.state.index);
@@ -127,6 +150,9 @@ class ProductionTerminateStep2CropContainer extends Component {
                         crops: this.state.crops,
                         crop: crop,
 
+                        // DEVELOPER NOTE: BELOW IS WHERE YOU ADD MORE FIELDS TO COLLECT
+                        wasHarvested: crop.wasHarvested,
+                        harvestFailureReason: crop.harvestFailureReason,
                     },
                     () => {
                         this.props.history.push('/production/'+ this.state.productionSlug + '/terminate-crop/'+this.state.index);
@@ -152,7 +178,7 @@ class ProductionTerminateStep2CropContainer extends Component {
             { [name]: value },
             ()=>{
                 // Step 2: After state has been updated, we the crop inspection & crop inspections array.
-                this.updateCropWithOnSelectionChange(name, value, label);
+                this.updateCropWithOnKeyValueLabelChange(name, value, label);
             }
         );
     }
@@ -167,7 +193,27 @@ class ProductionTerminateStep2CropContainer extends Component {
             { [e.target.name]: value },
             ()=>{
                 // Step 2: After state has been updated, we the crop inspection & crop inspections array.
-                this.updateCropWithOnTextChange(key, value);
+                this.updateCropWithOnKeyValueLabelChange(key, value, null);
+            }
+        );
+    }
+
+    onRadioChange(e) {
+        // Get the values.
+        const key = [e.target.name].toString();
+        const value = e.target.value;
+        const label = e.target.dataset.label; // Note: 'dataset' is a react data via https://stackoverflow.com/a/20383295
+
+        // Generate our new keys.
+        const storageValueKey = "temp-production-terminate-"+key;
+        const storageLabelKey = "temp-production-terminate-"+key+"-label";
+
+        // Save the data.
+        this.setState(
+            { [e.target.name]: value, },
+            () => {
+                // Step 2: After state has been updated, we the crop inspection & crop inspections array.
+                this.updateCropWithOnKeyValueLabelChange(key, value, label);
             }
         );
     }
@@ -176,6 +222,51 @@ class ProductionTerminateStep2CropContainer extends Component {
      *  Utility functions
      *------------------------------------------------------------
      */
+
+    /**
+     *  Utility function which will take the `selectfield` chosen values
+     *  and update the persistent storage for the `crops` array.
+     */
+    updateCropWithOnKeyValueLabelChange(key, value, label) {
+        console.log("updateCropWithOnSelectionChange", key, value, label); // For debugging purposes only.
+
+        // Shallow copy of the array to create a NEW ARRAY.
+        let a = this.state.crops.slice(); //creates the clone of the state
+
+        // Find our current crop inspection and update it.
+        let foundCrop = null;
+        for (let i = 0; i < a.length; i++) {
+            let cropItem = a[i];
+            if (cropItem.slug === this.state.crop.slug) {
+                // DEVELOPERS NOTE:
+                // (1) Since we have a POINTER to the object, which we retrieved
+                //     from the dictionary, we can update the value like this and
+                //     it will reflect in the dictionary automatically.
+                // (2) We are saving the `value` which the API uses.
+                // (3) We are saving the `label` which we will use for GUI
+                //     purposes in the last page.
+                cropItem[key] = value;
+                cropItem[key+"Label"] = label;
+                foundCrop = cropItem;
+                break;
+            }
+        }
+
+        // Finally update the state to have a new copy of our cart which we
+        // modified here. Also update the persistent storage with our data.
+        this.setState(
+            {
+                crop: foundCrop,
+                crops: a
+            },
+            () => {
+                // Save to the persistent storage a COMPLETE COPY of the crops in the
+                // production detail which we will use in the `create` pages to override
+                // with our own values pertaining to crop inspections.
+                localStorageSetObjectOrArrayItem("temp-production-terminate-crops", a);
+            }
+        );
+    }
 
     /**
      *  Utility function which will take the `selectfield` chosen values
@@ -270,9 +361,10 @@ class ProductionTerminateStep2CropContainer extends Component {
 
     render() {
         const {
-            productionName, productionSlug, crops, crop,
+            productionName, productionSlug, crops, crop, errors, isLoading,
 
-            errors
+            // DEVELOPER NOTE: BELOW IS WHERE YOU ADD MORE FIELDS TO COLLECT
+            wasHarvested, wasHarvestedOptions, harvestFailureReason, harvestFailureReasonOptions,
         } = this.state;
         return (
             <ProductionTerminateStep2CropComponent
@@ -280,14 +372,21 @@ class ProductionTerminateStep2CropContainer extends Component {
                 productionSlug={productionSlug}
                 crops={crops}
                 crop={crop}
-                
+                isLoading={isLoading}
                 errors={errors}
                 onNextClick={this.onNextClick}
                 onBackClick={this.onBackClick}
                 onSelectChange={this.onSelectChange}
                 onTextChange={this.onTextChange}
+                onRadioChange={this.onRadioChange}
                 onBackClick={this.onBackClick}
                 onNextClick={this.onNextClick}
+
+                // DEVELOPER NOTE: BELOW IS WHERE YOU ADD MORE FIELDS TO COLLECT
+                wasHarvested={wasHarvested}
+                wasHarvestedOptions={wasHarvestedOptions}
+                harvestFailureReason={harvestFailureReason}
+                harvestFailureReasonOptions={harvestFailureReasonOptions}
             />
         );
     }
