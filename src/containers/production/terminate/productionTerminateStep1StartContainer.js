@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import Scroll from 'react-scroll';
 
 import ProductionTerminateStep1StartComponent from "../../../components/production/terminate/productionTerminateStep1StartComponent";
-import { pullProductionDetail, putProductionDetail } from "../../../actions/productionActions";
+import { localStorageGetDateItem, localStorageGetObjectItem } from "../../../helpers/localStorageUtility";
 
 
 class ProductionTerminateStartContainer extends Component {
@@ -22,57 +22,37 @@ class ProductionTerminateStartContainer extends Component {
         const { slug } = this.props.match.params;
         this.state = {
             referrer: null,
-            slug: slug,
-            errors: Object(),
-            plants: [],
-            fish: [],
-            crops: [],
-            finishedAt: null,
-            wasSuccessAtFinish: false,
-            failureReason: "",
-            notesAtFinish: ""
+            errors: {},
+            productionSlug: slug,
+            productionName: this.props.productionDetail.name,
+            wasSuccessAtFinish: localStorageGetObjectItem("temp-production-terminate-wasSuccessAtFinish"),
+            wasSuccessAtFinishOptions: [{
+                id: 'wasSuccessAtFinish-true-choice',
+                name: 'wasSuccessAtFinish',
+                value: true,
+                label: 'Yes',
+            },{
+                id: 'wasSuccessAtFinish-false-choice',
+                name: 'wasSuccessAtFinish',
+                value: false,
+                label: 'No',
+            }],
+            failureReason: localStorage.getItem("temp-production-terminate-failureReason"),
+            // wasSuccessAtFinish: localStorageGetDateItem("temp-production-terminate-wasSuccessAtFinish")
         }
-        this.onSubmit = this.onSubmit.bind(this);
-        this.onBackClick = this.onBackClick.bind(this);
-        this.onFinishedAtChange = this.onFinishedAtChange.bind(this);
-        this.onCheckboxChange = this.onCheckboxChange.bind(this);
+        this.onRadioChange = this.onRadioChange.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
-        this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
-        this.onFailedSubmissionCallback = this.onFailedSubmissionCallback.bind(this);
+        // this.onSubmit = this.onSubmit.bind(this);
+        // this.onBackClick = this.onBackClick.bind(this);
+        // this.onFinishedAtChange = this.onFinishedAtChange.bind(this);
+        // this.onCheckboxChange = this.onCheckboxChange.bind(this);
+
+        // this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
+        // this.onFailedSubmissionCallback = this.onFailedSubmissionCallback.bind(this);
     }
 
     componentDidMount() {
         window.scrollTo(0, 0);  // Start the page at the top of the page.
-
-        // IF THE API ENDPOINT RETURNS NONE, THAT MEANS WE MUST CHOOSE EITHER
-        // "FALSE" OR "TRUE" TO ACTIVATE THE TERMINATION PHASE.
-        let { wasSuccessAtFinish } = this.props.productionDetail;
-        if (wasSuccessAtFinish === null || wasSuccessAtFinish === undefined) {
-            wasSuccessAtFinish = false;
-        }
-
-        this.setState({
-            // NEW VALUES FROM THIS SCREEN.
-            finishedAt: this.props.productionDetail.finishedAt,
-            plants: this.props.productionDetail.plants,
-            fish: this.props.productionDetail.fish,
-            crops: this.props.productionDetail.crops,
-            wasSuccessAtFinish: wasSuccessAtFinish,
-            failureReason: this.props.productionDetail.failureReason,
-            notesAtFinish: this.props.productionDetail.notesAtFinish,
-
-            // DEFAULT VALUES
-            slug: this.props.productionDetail.slug,
-            name: this.props.productionDetail.name,
-            description: this.props.productionDetail.description,
-            isCommercial: this.props.productionDetail.isCommercial,
-            device: this.props.productionDetail.device,
-            environment: parseInt(this.props.productionDetail.environment),
-            typeOf: parseInt(this.props.productionDetail.typeOf),
-            growSystem: parseInt(this.props.productionDetail.growSystem),
-            growSystemOther: this.props.productionDetail.growSystemOther,
-            startedAt: this.props.productionDetail.startedAt,
-        });
     }
 
     componentWillUnmount() {
@@ -89,6 +69,33 @@ class ProductionTerminateStartContainer extends Component {
      *------------------------------------------------------------
      */
 
+    onRadioChange(e) {
+        // Get the values.
+        const key = [e.target.name].toString();
+        const value = e.target.value;
+        const label = e.target.dataset.label; // Note: 'dataset' is a react data via https://stackoverflow.com/a/20383295
+
+        // Generate our new keys.
+        const storageValueKey = "temp-production-inspection-create-"+key;
+        const storageLabelKey = "temp-production-inspection-create-"+key+"-label";
+
+        // Save the data.
+        this.setState({ [e.target.name]: value, }); // Save to store.
+        localStorage.setItem(storageValueKey, value) // Save to storage.
+        localStorage.setItem(storageLabelKey, label) // Save to storage.
+    }
+
+    onTextChange(e) {
+        // Save to state.
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+
+        // Save to storage.
+        const storageValueKey = "temp-production-inspection-create-"+[e.target.name].toString();
+        localStorage.setItem(storageValueKey, e.target.value)
+    }
+
     onBackClick(e) {
         e.preventDefault();
         this.setState({
@@ -98,15 +105,6 @@ class ProductionTerminateStartContainer extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-
-        // Once our state has been validated `client-side` then we will
-        // make an API request with the server to create our new production.
-        this.props.putProductionDetail(
-            this.props.user,
-            this.state,
-            this.onSuccessfulSubmissionCallback,
-            this.onFailedSubmissionCallback
-        );
     }
 
     onFinishedAtChange(finishedAt) {
@@ -151,29 +149,17 @@ class ProductionTerminateStartContainer extends Component {
      */
 
     render() {
-        const { referrer, errors, finishedAt, wasSuccessAtFinish, failureReason, notesAtFinish, crops } = this.state;
-        const { name, slug, plants, fish } = this.props.productionDetail;
-        if (referrer) {
-            return <Redirect to={referrer} />
-        }
+        const { productionSlug, productionName, wasSuccessAtFinish, wasSuccessAtFinishOptions, errors } = this.state;
         return (
             <ProductionTerminateStep1StartComponent
-                name={name}
-                slug={slug}
-                errors={errors}
-                finishedAt={finishedAt}
+                productionSlug={productionSlug}
+                productionName={productionName}
                 wasSuccessAtFinish={wasSuccessAtFinish}
-                failureReason={failureReason}
-                notesAtFinish={notesAtFinish}
-                plants={plants}
-                fish={fish}
-                crops={crops}
-                onSubmit={this.onSubmit}
-                onBackClick={this.onBackClick}
-                onSelectChange={this.onSelectChange}
+                wasSuccessAtFinishOptions={wasSuccessAtFinishOptions}
+                onRadioChange={this.onRadioChange}
                 onTextChange={this.onTextChange}
-                onCheckboxChange={this.onCheckboxChange}
-                onFinishedAtChange={this.onFinishedAtChange}
+                failureReason={this.failureReason}
+                errors={errors}
             />
         );
     }
@@ -188,18 +174,7 @@ const mapStateToProps = function(store) {
 }
 
 const mapDispatchToProps = dispatch => {
-    return {
-        pullProductionDetail: (user, slug) => {
-            dispatch(
-                pullProductionDetail(user, slug)
-            )
-        },
-        putProductionDetail: (user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback) => {
-            dispatch(
-                putProductionDetail(user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback)
-            )
-        },
-    }
+    return {}
 }
 
 

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import ProductionDetailComponent from "../../components/production/productionDetailComponent";
 import { pullProductionDetail } from "../../actions/productionActions";
 import { clearFlashMessage } from "../../actions/flashMessageActions";
+import { localStorageSetObjectOrArrayItem } from "../../helpers/localStorageUtility";
 
 
 class ProductionListContainer extends Component {
@@ -19,6 +20,7 @@ class ProductionListContainer extends Component {
 
         // Attach our functions.
         this.tick = this.tick.bind(this);
+        this.onHarvestClick = this.onHarvestClick.bind(this);
     }
 
     componentDidMount() {
@@ -53,12 +55,40 @@ class ProductionListContainer extends Component {
         };
     }
 
+    onHarvestClick(e) {
+        e.preventDefault();
+
+        // Shallow copy of the array to create a NEW ARRAY with a few modifications
+        // which is required by the API web-service.
+        let a = this.props.productionDetail.crops.slice(); //creates the clone of the state
+        for (let i = 0; i < a.length; i++) {
+            let item = a[i];
+            item.productionCrop = item.slug;
+        }
+
+        // Save to the persistent storage a COMPLETE COPY of the crops in the
+        // production detail which we will use in the `create` pages to override
+        // with our own values pertaining to crop inspections.
+        localStorageSetObjectOrArrayItem("temp-production-terminate-crops", a);
+
+        // // Clear the `create inspection` form.
+        // localStorage.setItem("temp-production-inspection-create-didPass", null);
+        // localStorage.setItem("temp-production-inspection-create-failureReason", "");
+        // localStorage.setItem("temp-production-inspection-create-notes", "");
+
+        // Start our create page.
+        const aURL = "/production/" + this.props.productionDetail.slug + "/terminate-start";
+        this.props.history.push(aURL);
+    }
+
+
     render() {
         return (
             <ProductionDetailComponent
                 user={this.props.user}
                 productionDetail={this.props.productionDetail}
                 flashMessage={this.props.flashMessage}
+                onHarvestClick={this.onHarvestClick}
             />
         );
     }

@@ -131,7 +131,7 @@ class ProductionTableComponent extends Component {
 
 class ProductionDetailComponent extends Component {
     render() {
-        const { user, productionDetail, flashMessage } = this.props;
+        const { user, productionDetail, flashMessage, onHarvestClick } = this.props;
         const isLocked = productionDetail.state === 4;
         const isNotProductionCropsEmpty = isEmpty(productionDetail.crops) === false;
         return (
@@ -176,9 +176,9 @@ class ProductionDetailComponent extends Component {
                     </div>
                     <div className="col-sm-3 placeholder">
                         <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-dblue">
-                            <Link to={`/production/${productionDetail.slug}/terminate-start`} className={classnames('d-block link-ndecor', { 'disabled': isLocked })} title="Harvest">
+                            <a className={classnames('d-block link-ndecor', { 'disabled': isLocked })} title="Harvest" onClick={onHarvestClick}>
                                 <span className="r-circle"><i className="fas fa-shopping-basket fa-3x"></i></span>
-                            </Link>
+                            </a>
                         </div>
                         <h4>Harvest</h4>
                         <span className="text-muted">Terminate your production</span>
