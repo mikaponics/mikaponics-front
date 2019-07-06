@@ -78,7 +78,7 @@ class ProductionListContainer extends Component {
 
         // Clear the `create inspection` form.
         localStorage.removeItem("temp-production-terminate-finishedAt");
-        localStorage.removeItem("temp-production-terminate-wasSuccessAtFinish");
+        localStorage.removeItem("temp-production-terminate-wasSuccess");
         localStorage.removeItem("temp-production-terminate-failureReason");
         localStorage.removeItem("temp-production-terminate-notes");
 

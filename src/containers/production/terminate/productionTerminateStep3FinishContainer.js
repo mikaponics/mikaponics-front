@@ -38,8 +38,8 @@ class ProductionTerminateStep3FinishContainer extends Component {
             productionSlug: slug,
             productionName: this.props.productionDetail.name,
             finishedAt: finishedAt,
-            wasSuccessAtFinish: localStorageGetBooleanItem("temp-production-terminate-wasSuccessAtFinish"),
-            wasSuccessAtFinishLabel: localStorage.getItem("temp-production-terminate-wasSuccessAtFinish-label"),
+            wasSuccess: localStorageGetBooleanItem("temp-production-terminate-wasSuccess"),
+            wasSuccessLabel: localStorage.getItem("temp-production-terminate-wasSuccess-label"),
             failureReason: localStorage.getItem("temp-production-terminate-failureReason"),
             notes: localStorage.getItem("temp-production-terminate-notes"),
         }
@@ -111,8 +111,8 @@ class ProductionTerminateStep3FinishContainer extends Component {
 
     render() {
         const {
-            crops, productionSlug, productionName, finishedAt, wasSuccessAtFinish, wasSuccessAtFinishOptions,
-            wasSuccessAtFinishLabel, failureReason, notes, errors, isLoading
+            crops, productionSlug, productionName, finishedAt, wasSuccess, wasSuccessOptions,
+            wasSuccessLabel, failureReason, notes, errors, isLoading
         } = this.state;
         return (
             <ProductionTerminateStep3FinishComponent
@@ -121,9 +121,9 @@ class ProductionTerminateStep3FinishContainer extends Component {
                 productionSlug={productionSlug}
                 productionName={productionName}
                 finishedAt={finishedAt}
-                wasSuccessAtFinish={wasSuccessAtFinish}
-                wasSuccessAtFinishOptions={wasSuccessAtFinishOptions}
-                wasSuccessAtFinishLabel={wasSuccessAtFinishLabel}
+                wasSuccess={wasSuccess}
+                wasSuccessOptions={wasSuccessOptions}
+                wasSuccessLabel={wasSuccessLabel}
                 failureReason={failureReason}
                 notes={notes}
                 errors={errors}

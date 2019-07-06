@@ -35,15 +35,15 @@ class ProductionTerminateStartContainer extends Component {
             productionSlug: slug,
             productionName: this.props.productionDetail.name,
             finishedAt: localStorageGetDateItem("temp-production-terminate-finishedAt"),
-            wasSuccessAtFinish: localStorageGetBooleanItem("temp-production-terminate-wasSuccessAtFinish"),
-            wasSuccessAtFinishOptions: [{
-                id: 'wasSuccessAtFinish-true-choice',
-                name: 'wasSuccessAtFinish',
+            wasSuccess: localStorageGetBooleanItem("temp-production-terminate-wasSuccess"),
+            wasSuccessOptions: [{
+                id: 'wasSuccess-true-choice',
+                name: 'wasSuccess',
                 value: true,
                 label: 'Yes',
             },{
-                id: 'wasSuccessAtFinish-false-choice',
-                name: 'wasSuccessAtFinish',
+                id: 'wasSuccess-false-choice',
+                name: 'wasSuccess',
                 value: false,
                 label: 'No',
             }],
@@ -144,7 +144,7 @@ class ProductionTerminateStartContainer extends Component {
 
     render() {
         const {
-            crops, productionSlug, productionName, finishedAt, wasSuccessAtFinish, wasSuccessAtFinishOptions,
+            crops, productionSlug, productionName, finishedAt, wasSuccess, wasSuccessOptions,
             failureReason, notes, errors, isLoading
         } = this.state;
         return (
@@ -153,8 +153,8 @@ class ProductionTerminateStartContainer extends Component {
                 productionSlug={productionSlug}
                 productionName={productionName}
                 finishedAt={finishedAt}
-                wasSuccessAtFinish={wasSuccessAtFinish}
-                wasSuccessAtFinishOptions={wasSuccessAtFinishOptions}
+                wasSuccess={wasSuccess}
+                wasSuccessOptions={wasSuccessOptions}
                 failureReason={failureReason}
                 notes={notes}
                 onRadioChange={this.onRadioChange}

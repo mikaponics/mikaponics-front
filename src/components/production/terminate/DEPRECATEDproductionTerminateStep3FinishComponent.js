@@ -65,10 +65,10 @@ class CropTable extends Component {
 export default class ProductionTerminateStep3FinishComponent extends Component {
     render() {
         const { productionDetail, onBackClick, onSubmit } = this.props;
-        const { crops=[], name, slug, errors, wasSuccessAtFinish, failureReason, finishedAt, notesAtFinish } = productionDetail;
+        const { crops=[], name, slug, errors, wasSuccess, failureReason, finishedAt, notesAtFinish } = productionDetail;
 
-        const wasSuccessAtFinishText = wasSuccessAtFinish === true ? "Yes" : "No";
-        const wasNotSuccessful = wasSuccessAtFinish === false;
+        const wasSuccessText = wasSuccess === true ? "Yes" : "No";
+        const wasNotSuccessful = wasSuccess === false;
 
         return (
             <div>
@@ -108,7 +108,7 @@ export default class ProductionTerminateStep3FinishComponent extends Component {
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Was Successful</th>
-                                    <td>{wasSuccessAtFinishText}</td>
+                                    <td>{wasSuccessText}</td>
                                 </tr>
                                 {wasNotSuccessful &&
                                     <tr>

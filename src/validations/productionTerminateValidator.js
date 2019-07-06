@@ -15,10 +15,10 @@ export function validateStep1Input(data) {
     if ( data.finishedAt === undefined || data.finishedAt === null || data.finishedAt === "" || data.finishedAt === "null" ) {
         errors.finishedAt = 'This field is required.';
     }
-    if ( data.wasSuccessAtFinish === undefined || data.wasSuccessAtFinish === null || data.wasSuccessAtFinish === "" || data.wasSuccessAtFinish === "null") {
-        errors.wasSuccessAtFinish = 'This field is required.';
+    if ( data.wasSuccess === undefined || data.wasSuccess === null || data.wasSuccess === "" || data.wasSuccess === "null") {
+        errors.wasSuccess = 'This field is required.';
     }
-    if (data.wasSuccessAtFinish === false || data.wasSuccessAtFinish === "false") {
+    if (data.wasSuccess === false || data.wasSuccess === "false") {
         if ( data.failureReason === undefined || data.failureReason === null || data.failureReason === "" || data.failureReason === "null" ) {
             errors.failureReason = 'This field is required.';
         }

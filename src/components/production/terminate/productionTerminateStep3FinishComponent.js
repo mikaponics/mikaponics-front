@@ -22,11 +22,11 @@ import ProductionTerminateWizardComponent from './productionTerminateWizardCompo
 export default class ProductionTerminateStep3FinishComponent extends Component {
     render() {
         const {
-            user, productionSlug, productionName, crops, finishedAt, wasSuccessAtFinish,
-            wasSuccessAtFinishLabel, failureReason, notes, errors, isLoading,
+            user, productionSlug, productionName, crops, finishedAt, wasSuccess,
+            wasSuccessLabel, failureReason, notes, errors, isLoading,
             onBackClick, onSubmitClick
         } = this.props;
-        const wasNotSuccessful = wasSuccessAtFinish === false || wasSuccessAtFinish === 'false';
+        const wasNotSuccessful = wasSuccess === false || wasSuccess === 'false';
 
         return (
             <div>
@@ -77,7 +77,7 @@ export default class ProductionTerminateStep3FinishComponent extends Component {
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Was successful</th>
-                                    <td>{wasSuccessAtFinishLabel}</td>
+                                    <td>{wasSuccessLabel}</td>
                                 </tr>
                                 {wasNotSuccessful &&
                                     <tr>

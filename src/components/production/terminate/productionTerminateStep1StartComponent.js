@@ -24,7 +24,7 @@ import ProductionTerminateWizardComponent from './productionTerminateWizardCompo
 export default class ProductionTerminateStep1StartComponent extends Component {
     render() {
         const {
-            crops, productionSlug, productionName, errors, wasSuccessAtFinish, wasSuccessAtFinishOptions, failureReason,
+            crops, productionSlug, productionName, errors, wasSuccess, wasSuccessOptions, failureReason,
             finishedAt, notes,
 
             onRadioChange, onTextChange, onFinishedAtChange, onBackClick, onNextClick, isLoading
@@ -32,7 +32,7 @@ export default class ProductionTerminateStep1StartComponent extends Component {
 
         // IF THE HARVEST FAILED.
         let shouldDisplaWasFailure = false;
-        if (wasSuccessAtFinish === false || wasSuccessAtFinish === "false") {
+        if (wasSuccess === false || wasSuccess === "false") {
             shouldDisplaWasFailure = true;
         }
 
@@ -77,7 +77,7 @@ export default class ProductionTerminateStep1StartComponent extends Component {
                         </p>
 
                         <BootstrapDatePicker
-                            label="When did this production complete? (*)"
+                            label="When did this production finish? (*)"
                             name="finishedAt"
                             dateObj={finishedAt}
                             onTimeChange={onFinishedAtChange}
@@ -89,12 +89,12 @@ export default class ProductionTerminateStep1StartComponent extends Component {
                         <BootstrapRadio
                             inputClassName="form-check-input form-check-input-lg"
                             borderColour="border-primary"
-                            error={errors.wasSuccessAtFinish}
+                            error={errors.wasSuccess}
                             label="Overall was this production a success? (*)"
-                            name="wasSuccessAtFinish"
+                            name="wasSuccess"
                             onChange={onRadioChange}
-                            selectedValue={wasSuccessAtFinish}
-                            options={wasSuccessAtFinishOptions}
+                            selectedValue={wasSuccess}
+                            options={wasSuccessOptions}
                         />
 
                         {shouldDisplaWasFailure &&
