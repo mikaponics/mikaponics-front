@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import Scroll from 'react-scroll';
 
 import ProductionTerminateStep1StartComponent from "../../../components/production/terminate/productionTerminateStep1StartComponent";
-import { localStorageGetDateItem, localStorageGetObjectItem } from "../../../helpers/localStorageUtility";
+import { localStorageGetDateItem, localStorageGetObjectItem, localStorageSetObjectOrArrayItem } from "../../../helpers/localStorageUtility";
 
 
 class ProductionTerminateStartContainer extends Component {
@@ -25,6 +25,7 @@ class ProductionTerminateStartContainer extends Component {
             errors: {},
             productionSlug: slug,
             productionName: this.props.productionDetail.name,
+            finishedAt: localStorageGetDateItem("temp-production-terminate-finishedAt"),
             wasSuccessAtFinish: localStorageGetObjectItem("temp-production-terminate-wasSuccessAtFinish"),
             wasSuccessAtFinishOptions: [{
                 id: 'wasSuccessAtFinish-true-choice',
@@ -38,10 +39,11 @@ class ProductionTerminateStartContainer extends Component {
                 label: 'No',
             }],
             failureReason: localStorage.getItem("temp-production-terminate-failureReason"),
-            // wasSuccessAtFinish: localStorageGetDateItem("temp-production-terminate-wasSuccessAtFinish")
+            notes: localStorage.getItem("temp-production-terminate-notes"),
         }
         this.onRadioChange = this.onRadioChange.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
+        this.onFinishedAtChange = this.onFinishedAtChange.bind(this);
         // this.onSubmit = this.onSubmit.bind(this);
         // this.onBackClick = this.onBackClick.bind(this);
         // this.onFinishedAtChange = this.onFinishedAtChange.bind(this);
@@ -76,8 +78,8 @@ class ProductionTerminateStartContainer extends Component {
         const label = e.target.dataset.label; // Note: 'dataset' is a react data via https://stackoverflow.com/a/20383295
 
         // Generate our new keys.
-        const storageValueKey = "temp-production-inspection-create-"+key;
-        const storageLabelKey = "temp-production-inspection-create-"+key+"-label";
+        const storageValueKey = "temp-production-terminate-"+key;
+        const storageLabelKey = "temp-production-terminate-"+key+"-label";
 
         // Save the data.
         this.setState({ [e.target.name]: value, }); // Save to store.
@@ -92,55 +94,15 @@ class ProductionTerminateStartContainer extends Component {
         });
 
         // Save to storage.
-        const storageValueKey = "temp-production-inspection-create-"+[e.target.name].toString();
+        const storageValueKey = "temp-production-terminate-"+[e.target.name];
         localStorage.setItem(storageValueKey, e.target.value)
     }
 
-    onBackClick(e) {
-        e.preventDefault();
+    onFinishedAtChange(dateObj) {
         this.setState({
-            referrer: this.props.productionDetail.absoluteUrl
-        });
-    }
-
-    onSubmit(e) {
-        e.preventDefault();
-    }
-
-    onFinishedAtChange(finishedAt) {
-        this.setState({
-            finishedAt: finishedAt,
+            finishedAt: dateObj,
         })
-    }
-
-    onTextChange(e) {
-        this.setState({
-            [e.target.name]: e.target.value
-        });
-    }
-
-    onCheckboxChange(e) {
-        this.setState({
-            [e.target.name]: e.target.checked,
-        })
-    }
-
-    onSuccessfulSubmissionCallback() {
-        this.setState({
-            referrer: '/production/'+ this.state.slug + '/terminate-crop/0'
-        });
-    }
-
-    onFailedSubmissionCallback() {
-        this.setState({
-            errors: this.props.productionDetail.errors
-        })
-
-        // The following code will cause the screen to scroll to the top of
-        // the page. Please see ``react-scroll`` for more information:
-        // https://github.com/fisshy/react-scroll
-        var scroll = Scroll.animateScroll;
-        scroll.scrollToTop();
+        localStorageSetObjectOrArrayItem('temp-production-terminate-finishedAt', dateObj);
     }
 
     /**
@@ -149,16 +111,22 @@ class ProductionTerminateStartContainer extends Component {
      */
 
     render() {
-        const { productionSlug, productionName, wasSuccessAtFinish, wasSuccessAtFinishOptions, errors } = this.state;
+        const {
+            productionSlug, productionName, finishedAt, wasSuccessAtFinish, wasSuccessAtFinishOptions,
+            failureReason, notes, errors
+        } = this.state;
         return (
             <ProductionTerminateStep1StartComponent
                 productionSlug={productionSlug}
                 productionName={productionName}
+                finishedAt={finishedAt}
                 wasSuccessAtFinish={wasSuccessAtFinish}
                 wasSuccessAtFinishOptions={wasSuccessAtFinishOptions}
+                failureReason={failureReason}
+                notes={notes}
                 onRadioChange={this.onRadioChange}
                 onTextChange={this.onTextChange}
-                failureReason={this.failureReason}
+                onFinishedAtChange={this.onFinishedAtChange}
                 errors={errors}
             />
         );

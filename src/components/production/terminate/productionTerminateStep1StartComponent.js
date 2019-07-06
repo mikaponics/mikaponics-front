@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css";
 
+import { BootstrapDatePicker } from "../../bootstrap/bootstrapDatePicker";
 import { BootstrapRadio } from "../../bootstrap/bootstrapRadio";
 import { BootstrapCheckbox } from "../../bootstrap/bootstrapCheckbox";
 import { BootstrapInput } from "../../bootstrap/bootstrapInput";
@@ -24,9 +25,9 @@ export default class ProductionTerminateStep1StartComponent extends Component {
     render() {
         const {
             productionSlug, productionName, errors, wasSuccessAtFinish, wasSuccessAtFinishOptions, failureReason,
+            finishedAt, notes,
 
-            onBackClick, onSubmit, onSelectChange, onFinishedAtChange,
-            onTextChange, onRadioChange
+            onRadioChange, onTextChange, onFinishedAtChange, onBackClick, onNextClick,
         } = this.props;
 
         // IF THE HARVEST FAILED.
@@ -59,9 +60,24 @@ export default class ProductionTerminateStep1StartComponent extends Component {
 
                 <div className="col-md-5 mx-auto mt-2">
                     <form className="needs-validation" noValidate>
+                        <h2><i className="fas fa-user-md"></i>&nbsp;General Review</h2>
                         <p>All fields which have the (*) symbol are required to be filled out.</p>
 
                         <BootstrapErrorsProcessingAlert errors={errors} />
+
+                        <p className="border-bottom mb-3 pb-1 text-secondary">
+                            <i className="fas fa-stethoscope"></i>&nbsp;Overall
+                        </p>
+
+                        <BootstrapDatePicker
+                            label="When did this production complete? (*)"
+                            name="finishedAt"
+                            dateObj={finishedAt}
+                            onTimeChange={onFinishedAtChange}
+                            datePickerClassName="form-control form-control-lg border"
+                            divClassName="form-group p-0 col-md-7 mb-4"
+                            error={errors.finishedAt}
+                        />
 
                         <BootstrapRadio
                             inputClassName="form-check-input form-check-input-lg"
@@ -88,11 +104,23 @@ export default class ProductionTerminateStep1StartComponent extends Component {
                             />
                         }
 
+                        <BootstrapTextarea
+                            name="notes"
+                            borderColour="border-success"
+                            label="Any additional notes / comments?"
+                            placeholder="Feel free to add any additional notes or comments."
+                            rows={5}
+                            value={notes}
+                            helpText={null}
+                            onChange={onTextChange}
+                            error={errors.notes}
+                        />
+
                         <div className="form-group">
                             <button type="text" className="btn btn-lg float-left pl-4 pr-4 btn-secondary" onClick={onBackClick}>
                                 <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
                             </button>
-                            <button type="text" className="btn btn-lg float-right pl-4 pr-4 btn-primary" onClick={onSubmit}>
+                            <button type="text" className="btn btn-lg float-right pl-4 pr-4 btn-primary" onClick={onNextClick}>
                                 Next&nbsp;<i className="fas fa-arrow-circle-right"></i>
                             </button>
                         </div>
