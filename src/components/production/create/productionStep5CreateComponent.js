@@ -42,7 +42,7 @@ class CropUnorderedList extends Component {
 class ProductionStep4CreateComponent extends Component {
     render() {
         const {
-            name, description, isCommercial, device, plantsArray, fishArray, errors, onBackClick, onNextClick
+            name, description, isCommercial, device, plantsArray, fishArray, errors, isLoading=false, onBackClick, onNextClick
         } = this.props;
 
         const isCommericalText = isCommercial ? "Yes" : "No";
@@ -95,8 +95,7 @@ class ProductionStep4CreateComponent extends Component {
 
                 <div className="row mt-4 pt-3 mb-4 pb-2">
                     <div className="col-md-10 mx-auto p-2">
-
-
+                    
                         <BootstrapErrorsProcessingAlert errors={errors} />
 
                         <p><strong>Please confirm these details before submitting the crop production:</strong></p>
@@ -170,7 +169,7 @@ class ProductionStep4CreateComponent extends Component {
                             <button type="text" className="btn btn-lg float-left pl-4 pr-4 btn-secondary" onClick={onBackClick}>
                                 <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
                             </button>
-                            <button type="text" className="btn btn-lg float-right pl-4 pr-4 btn-success" onClick={onNextClick}>
+                            <button type="text" className="btn btn-lg float-right pl-4 pr-4 btn-success" onClick={onNextClick} disabled={isLoading}>
                                 <i className="fas fa-check"></i>&nbsp;Submit
                             </button>
                         </div>

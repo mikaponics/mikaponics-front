@@ -5,6 +5,7 @@ import {
     PRODUCTION_CROPS_INSPECTION_TERRIBLE_REVIEW,
     PRODUCTION_CROPS_INSPECTION_BAD_REVIEW,
 } from '../../../../constants/api';
+import { BootstrapErrorsProcessingAlert } from "../../../bootstrap/bootstrapAlert";
 import ProductionInspectionCreateStepNavigationComponent from './productionInspectionCreateStepNavigationComponent';
 
 
@@ -12,7 +13,7 @@ export default class ProductionInspectionCreateStep3FinishComponent extends Comp
     render() {
         const {
             productionDetail, cropInspections, didPassLabel, didPass, failureReason, notes,
-            onBackClick, onSubmitClick,
+            onBackClick, onSubmitClick, errors, isLoading
         } = this.props;
         const didNotPass = didPass === false || didPass === 'false';
         return (
@@ -52,6 +53,8 @@ export default class ProductionInspectionCreateStep3FinishComponent extends Comp
                 <div className="row mt-4 pt-3 mb-4 pb-2">
                     <div className="col-md-10 mx-auto p-2">
 
+                        <BootstrapErrorsProcessingAlert errors={errors} />
+
                         <p><strong>Please confirm these details before submitting your inspection.</strong></p>
                         <table className="table table-bordered custom-cell-w">
                             <tbody>
@@ -88,7 +91,7 @@ export default class ProductionInspectionCreateStep3FinishComponent extends Comp
                             <button type="text" className="btn btn-lg float-left pl-4 pr-4 btn-secondary" onClick={onBackClick}>
                                 <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
                             </button>
-                            <button type="text" className="btn btn-lg float-right pl-4 pr-4 btn-success" onClick={onSubmitClick}>
+                            <button type="text" className="btn btn-lg float-right pl-4 pr-4 btn-success" onClick={onSubmitClick} disabled={isLoading}>
                                 <i className="fas fa-check-circle"></i>&nbsp;Submit
                             </button>
                         </div>
@@ -110,7 +113,6 @@ class ProductionCropInspectionTableComponent extends Component {
             stageLabel,
             notes
         } = this.props.crop;
-        console.log(this.props.crop);
         const reviewWasFailure = (review === PRODUCTION_CROPS_INSPECTION_TERRIBLE_REVIEW) || (review === PRODUCTION_CROPS_INSPECTION_BAD_REVIEW);
         return (
             <table className="table table-bordered custom-cell-w">

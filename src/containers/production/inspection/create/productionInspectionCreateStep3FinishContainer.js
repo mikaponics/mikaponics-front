@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Scroll from 'react-scroll';
+import { Redirect } from 'react-router-dom';
 
 import ProductionInspectionCreateStep3FinishComponent from "../../../../components/production/inspection/create/productionInspectionCreateStep3FinishComponent";
-import { putProductionInspectionDetail } from "../../../../actions/productionInspectionActions";
+import { postProductionInspectionDetail } from "../../../../actions/productionInspectionActions";
 import { PRODUCTION_INSPECTION_SUBMITTED_STATE } from '../../../../constants/api';
 import { setFlashMessage } from "../../../../actions/flashMessageActions";
 import { localStorageGetArrayItem } from "../../../../helpers/localStorageUtility";
@@ -26,11 +27,22 @@ class ProductionInspectionCreateFinishContainer extends Component {
         // Fetch our progress.
         const cropInspections = localStorageGetArrayItem("temp-production-inspection-create-cropInspections");
 
+        // Convert our string value into a boolean value.
+        let didPass = localStorage.getItem("temp-production-inspection-create-didPass");
+        if (didPass === "false") {
+            didPass = false;
+        }
+        else if(didPass === "true") {
+            didPass = true
+        }
+
         this.state = {
-            referrer: '',
+            isLoading: false,
+            errors: {},
             slug: slug,
+            production: slug,
             cropInspections: cropInspections,
-            didPass: localStorage.getItem("temp-production-inspection-create-didPass"),
+            didPass: didPass,
             didPassLabel: localStorage.getItem("temp-production-inspection-create-didPass-label"),
             notes: localStorage.getItem("temp-production-inspection-create-notes"),
             failureReason: localStorage.getItem("temp-production-inspection-create-failureReason"),
@@ -71,39 +83,26 @@ class ProductionInspectionCreateFinishContainer extends Component {
 
     onSubmitClick(e) {
         e.preventDefault();
-        console.log(this.state);
+        console.log(this.state); // For debugging purposes only.
+        this.setState({ errors: {}, isLoading: true, })
 
-        // const data = {
-        //     state: PRODUCTION_INSPECTION_SUBMITTED_STATE,
-        //     didPass: this.props.productionInspectionDetail.didPass,
-        //     failureReason: this.props.productionInspectionDetail.failureReason,
-        //     notes: this.props.productionInspectionDetail.notes
-        // };
-        // console.log("onSubmit | data:", data); // For debugging purposes only.
-        //
         // // Once our state has been validated `client-side` then we will
         // // make an API request with the server to create our new production.
-        // this.props.putProductionInspectionDetail(
-        //     this.props.user,
-        //     data,
-        //     this.props.productionInspectionDetail.slug,
-        //     this.onSuccessfulSubmissionCallback,
-        //     this.onFailedSubmissionCallback
-        // );
+        this.props.postProductionInspectionDetail(
+            this.state,
+            this.onSuccessfulSubmissionCallback,
+            this.onFailedSubmissionCallback
+        );
     }
 
     onSuccessfulSubmissionCallback() {
-        this.setState({
-            errors: {},
-        });
+        this.setState({ errors: {}, });
         this.props.setFlashMessage("success", "Inspection has been successfully created.");
         this.props.history.push(this.props.productionDetail.absoluteUrl+"/inspection");
     }
 
-    onFailedSubmissionCallback() {
-        this.setState({
-            errors: this.props.productionInspectionDetail.errors
-        })
+    onFailedSubmissionCallback(errors) {
+        this.setState({ errors: errors, isLoading: false, });
 
         // The following code will cause the screen to scroll to the top of
         // the page. Please see ``react-scroll`` for more information:
@@ -118,7 +117,13 @@ class ProductionInspectionCreateFinishContainer extends Component {
      */
 
     render() {
-        const { referrer, errors, didPass, didPassLabel, failureReason, notes, cropInspections } = this.state;
+        const {
+            slug, isLoading, errors, didPass, didPassLabel, failureReason, notes, cropInspections
+        } = this.state;
+        if (slug === undefined || slug === "undefined") { // Defensive Code: Prevent undefined values.
+            alert("Error - Cannot have `undefined` in URL slug, redirecting back to `/productions`.")
+            return <Redirect to="/productions" />
+        }
         return (
             <ProductionInspectionCreateStep3FinishComponent
                 productionDetail={this.props.productionDetail}
@@ -149,9 +154,9 @@ const mapDispatchToProps = dispatch => {
         setFlashMessage: (typeOf, text) => {
             dispatch(setFlashMessage(typeOf, text))
         },
-        putProductionInspectionDetail: (user, state, slug, onSuccessfulSubmissionCallback, onFailedSubmissionCallback) => {
+        postProductionInspectionDetail: (state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback) => {
             dispatch(
-                putProductionInspectionDetail(user, state, slug, onSuccessfulSubmissionCallback, onFailedSubmissionCallback)
+                postProductionInspectionDetail(state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback)
             )
         },
     }

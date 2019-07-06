@@ -51,13 +51,20 @@ class ProductionInspectionContainer extends Component {
     onAddClick(e) {
         e.preventDefault();
 
+        // Shallow copy of the array to create a NEW ARRAY with a few modifications
+        // which is required by the API web-service.
+        let a = this.props.productionDetail.crops.slice(); //creates the clone of the state
+        for (let i = 0; i < a.length; i++) {
+            let item = a[i];
+            item.productionCrop = item.slug;
+        }
+
         // Save to the persistent storage a COMPLETE COPY of the crops in the
         // production detail which we will use in the `create` pages to override
         // with our own values pertaining to crop inspections.
-        localStorageSetObjectOrArrayItem("temp-production-inspection-create-cropInspections", this.props.productionDetail.crops);
+        localStorageSetObjectOrArrayItem("temp-production-inspection-create-cropInspections", a);
 
         // Clear the `create inspection` form.
-        localStorage.setItem("temp-production-inspection-create-crops-index", 0);
         localStorage.setItem("temp-production-inspection-create-didPass", null);
         localStorage.setItem("temp-production-inspection-create-failureReason", "");
         localStorage.setItem("temp-production-inspection-create-notes", "");

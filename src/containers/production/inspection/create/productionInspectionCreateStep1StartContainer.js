@@ -145,6 +145,7 @@ class ProductionInspectionCreateStep1StartContainer extends Component {
         const { name, slug, plants, fish, crops } = this.props.productionDetail;
 
         if (slug === undefined || slug === "undefined") { // Defensive Code: Prevent undefined values.
+            alert("Error - Cannot have `undefined` in URL slug, redirecting back to `/productions`.")
             return <Redirect to="/productions" />
         }
 

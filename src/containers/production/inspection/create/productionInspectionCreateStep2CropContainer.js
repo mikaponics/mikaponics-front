@@ -29,7 +29,7 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
         // (2) EXTRACT THE CROP INSPECTION `SLUG` AND CALL THE API TO GET THE
         //     DETAILS FOR THE CROP INSPECTION OBJECT.
         // (3) POPULATE OUR COMPONENT STATE WITH THE DATA RECEIVED FROM API.
-        const { index } = this.props.match.params;
+        const { slug, index } = this.props.match.params;
         const cropInspections = localStorageGetArrayItem("temp-production-inspection-create-cropInspections");
         const cropInspection = cropInspections[index];
 
@@ -39,6 +39,7 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
             // THEIR RESPECTED ERRORS TO DISPLAY TO THE USER.
             errors: {},
 
+            slug: slug,
             index: index,
             cropInspections: cropInspections,
             cropInspection: cropInspection,
@@ -305,7 +306,6 @@ const mapStateToProps = function(store) {
     return {
         user: store.userState,
         productionDetail: store.productionDetailState,
-        productionCropInspectionDetail: store.productionCropInspectionDetailState,
         cropLifeCycleStageList: store.cropLifeCycleStageListState,
     };
 }
