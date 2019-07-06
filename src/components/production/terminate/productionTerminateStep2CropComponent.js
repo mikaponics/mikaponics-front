@@ -16,7 +16,7 @@ import {
 import ProductionTerminateWizardComponent from './productionTerminateWizardComponent';
 
 
-class ProductionTerminateCropComponent extends Component {
+export default class ProductionTerminateStep2CropComponent extends Component {
     render() {
         const { crops, crop, name, slug, plants, fish, errors, finishedAt, onBackClick, onSubmit, onSelectChange, onTextChange } = this.props;
 
@@ -26,7 +26,7 @@ class ProductionTerminateCropComponent extends Component {
 
         // DEFENSIVE CODE: PREVENT NULLS.
         if (crop === undefined || crop === null) {
-            console.error("ProductionTerminateCropComponent | render | null crop.");
+            console.error("ProductionTerminateStep2CropComponent | render | null crop.");
             return null;
         }
 
@@ -167,6 +167,3 @@ class ProductionTerminateCropComponent extends Component {
         );
     }
 }
-
-
-export default ProductionTerminateCropComponent;

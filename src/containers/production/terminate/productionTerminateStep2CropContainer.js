@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Scroll from 'react-scroll';
 
-import ProductionTerminateCropComponent from "../../../components/production/terminate/productionTerminateCropComponent";
+import ProductionTerminateStep2CropComponent from "../../../components/production/terminate/productionTerminateStep2CropComponent";
 import { pullProductionCropDetail } from "../../../actions/productionCropActions";
 import { putProductionCropDetail } from "../../../actions/productionCropActions";
 import { setFlashMessage } from "../../../actions/flashMessageActions";
 
 
-class ProductionTerminateCropContainer extends Component {
+class ProductionTerminateStep2CropContainer extends Component {
 
     /**
      *  Initializer, component life-cycle and utility functions.
@@ -149,7 +149,7 @@ class ProductionTerminateCropContainer extends Component {
         const { crops, crop, errors, finishedAt } = this.state;
         const { name, slug, plants, fish } = this.props.productionDetail;
         return (
-            <ProductionTerminateCropComponent
+            <ProductionTerminateStep2CropComponent
                 crops={crops}
                 crop={crop}
                 name={name}
@@ -198,4 +198,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(ProductionTerminateCropContainer);
+)(ProductionTerminateStep2CropContainer);

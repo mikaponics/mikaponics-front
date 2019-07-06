@@ -19,7 +19,7 @@ import {
 import ProductionTerminateWizardComponent from './productionTerminateWizardComponent';
 
 
-class ProductionTerminateStartComponent extends Component {
+export default class ProductionTerminateStep1StartComponent extends Component {
     render() {
         const {
             pageIndex, name, slug, crops, errors, finishedAt,
@@ -128,6 +128,3 @@ class ProductionTerminateStartComponent extends Component {
         );
     }
 }
-
-
-export default ProductionTerminateStartComponent;

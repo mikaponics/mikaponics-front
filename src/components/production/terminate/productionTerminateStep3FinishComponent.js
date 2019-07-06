@@ -61,7 +61,8 @@ class CropTable extends Component {
     }
 }
 
-class ProductionTerminateStartComponent extends Component {
+
+export default class ProductionTerminateStep3FinishComponent extends Component {
     render() {
         const { productionDetail, onBackClick, onSubmit } = this.props;
         const { crops=[], name, slug, errors, wasSuccessAtFinish, failureReason, finishedAt, notesAtFinish } = productionDetail;
@@ -149,6 +150,3 @@ class ProductionTerminateStartComponent extends Component {
         );
     }
 }
-
-
-export default ProductionTerminateStartComponent;

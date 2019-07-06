@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import Scroll from 'react-scroll';
 
-import ProductionTerminateFinishComponent from "../../../components/production/terminate/productionTerminateFinishComponent";
-import { pullProductionDetail } from "../../../actions/productionActions";
-import { putProductionDetail } from "../../../actions/productionActions";
-import { setFlashMessage } from "../../../actions/flashMessageActions";
-import { PRODUCTION_TERMINATED_STATE } from "../../../constants/api";
+import ProductionTerminateStep1StartComponent from "../../../components/production/terminate/productionTerminateStep1StartComponent";
+import { pullProductionDetail, putProductionDetail } from "../../../actions/productionActions";
 
 
-class ProductionTerminateFinishContainer extends Component {
+class ProductionTerminateStartContainer extends Component {
 
     /**
      *  Initializer, component life-cycle and utility functions.
@@ -23,21 +21,47 @@ class ProductionTerminateFinishContainer extends Component {
         // fetch the URL argument as follows.
         const { slug } = this.props.match.params;
         this.state = {
-            pageSlug: slug,
+            referrer: null,
+            slug: slug,
+            errors: Object(),
+            plants: [],
+            fish: [],
             crops: [],
+            finishedAt: null,
+            wasSuccessAtFinish: false,
+            failureReason: "",
+            notesAtFinish: ""
         }
         this.onSubmit = this.onSubmit.bind(this);
         this.onBackClick = this.onBackClick.bind(this);
+        this.onFinishedAtChange = this.onFinishedAtChange.bind(this);
+        this.onCheckboxChange = this.onCheckboxChange.bind(this);
+        this.onTextChange = this.onTextChange.bind(this);
         this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
         this.onFailedSubmissionCallback = this.onFailedSubmissionCallback.bind(this);
     }
 
     componentDidMount() {
         window.scrollTo(0, 0);  // Start the page at the top of the page.
-        this.setState({
-            crops: this.props.productionDetail.crops,
 
-            // Set the production object.
+        // IF THE API ENDPOINT RETURNS NONE, THAT MEANS WE MUST CHOOSE EITHER
+        // "FALSE" OR "TRUE" TO ACTIVATE THE TERMINATION PHASE.
+        let { wasSuccessAtFinish } = this.props.productionDetail;
+        if (wasSuccessAtFinish === null || wasSuccessAtFinish === undefined) {
+            wasSuccessAtFinish = false;
+        }
+
+        this.setState({
+            // NEW VALUES FROM THIS SCREEN.
+            finishedAt: this.props.productionDetail.finishedAt,
+            plants: this.props.productionDetail.plants,
+            fish: this.props.productionDetail.fish,
+            crops: this.props.productionDetail.crops,
+            wasSuccessAtFinish: wasSuccessAtFinish,
+            failureReason: this.props.productionDetail.failureReason,
+            notesAtFinish: this.props.productionDetail.notesAtFinish,
+
+            // DEFAULT VALUES
             slug: this.props.productionDetail.slug,
             name: this.props.productionDetail.name,
             description: this.props.productionDetail.description,
@@ -67,36 +91,53 @@ class ProductionTerminateFinishContainer extends Component {
 
     onBackClick(e) {
         e.preventDefault();
-        let len = this.state.crops.length;
-        len -= 1;
-        const aURL = '/production/'+ this.state.pageSlug + '/terminate-crop/'+len.toString()
-        this.props.history.push(aURL);
+        this.setState({
+            referrer: this.props.productionDetail.absoluteUrl
+        });
     }
 
     onSubmit(e) {
         e.preventDefault();
 
-        // Change the state of the object and then submit to API endpoint.
+        // Once our state has been validated `client-side` then we will
+        // make an API request with the server to create our new production.
+        this.props.putProductionDetail(
+            this.props.user,
+            this.state,
+            this.onSuccessfulSubmissionCallback,
+            this.onFailedSubmissionCallback
+        );
+    }
+
+    onFinishedAtChange(finishedAt) {
         this.setState({
-            state: PRODUCTION_TERMINATED_STATE
-        },() => {
-            // Once our state has been validated `client-side` then we will
-            // make an API request with the server to create our new production.
-            this.props.putProductionDetail(
-                this.props.user,
-                this.state,
-                this.onSuccessfulSubmissionCallback,
-                this.onFailedSubmissionCallback
-            );
+            finishedAt: finishedAt,
+        })
+    }
+
+    onTextChange(e) {
+        this.setState({
+            [e.target.name]: e.target.value
         });
     }
 
+    onCheckboxChange(e) {
+        this.setState({
+            [e.target.name]: e.target.checked,
+        })
+    }
+
     onSuccessfulSubmissionCallback() {
-        this.props.setFlashMessage("success", "This production has been successfully terminated.");
-        this.props.history.push('/productions');
+        this.setState({
+            referrer: '/production/'+ this.state.slug + '/terminate-crop/0'
+        });
     }
 
     onFailedSubmissionCallback() {
+        this.setState({
+            errors: this.props.productionDetail.errors
+        })
+
         // The following code will cause the screen to scroll to the top of
         // the page. Please see ``react-scroll`` for more information:
         // https://github.com/fisshy/react-scroll
@@ -110,11 +151,29 @@ class ProductionTerminateFinishContainer extends Component {
      */
 
     render() {
+        const { referrer, errors, finishedAt, wasSuccessAtFinish, failureReason, notesAtFinish, crops } = this.state;
+        const { name, slug, plants, fish } = this.props.productionDetail;
+        if (referrer) {
+            return <Redirect to={referrer} />
+        }
         return (
-            <ProductionTerminateFinishComponent
-                productionDetail={this.props.productionDetail}
+            <ProductionTerminateStep1StartComponent
+                name={name}
+                slug={slug}
+                errors={errors}
+                finishedAt={finishedAt}
+                wasSuccessAtFinish={wasSuccessAtFinish}
+                failureReason={failureReason}
+                notesAtFinish={notesAtFinish}
+                plants={plants}
+                fish={fish}
+                crops={crops}
                 onSubmit={this.onSubmit}
                 onBackClick={this.onBackClick}
+                onSelectChange={this.onSelectChange}
+                onTextChange={this.onTextChange}
+                onCheckboxChange={this.onCheckboxChange}
+                onFinishedAtChange={this.onFinishedAtChange}
             />
         );
     }
@@ -135,9 +194,6 @@ const mapDispatchToProps = dispatch => {
                 pullProductionDetail(user, slug)
             )
         },
-        setFlashMessage: (typeOf, text) => {
-            dispatch(setFlashMessage(typeOf, text))
-        },
         putProductionDetail: (user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback) => {
             dispatch(
                 putProductionDetail(user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback)
@@ -150,4 +206,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(ProductionTerminateFinishContainer);
+)(ProductionTerminateStartContainer);
