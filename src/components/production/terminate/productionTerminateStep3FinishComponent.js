@@ -23,7 +23,8 @@ export default class ProductionTerminateStep3FinishComponent extends Component {
     render() {
         const {
             user, productionSlug, productionName, crops, finishedAt, wasSuccessAtFinish,
-            wasSuccessAtFinishLabel, failureReason, notes
+            wasSuccessAtFinishLabel, failureReason, notes, errors, isLoading,
+            onBackClick, onSubmitClick
         } = this.props;
         const wasNotSuccessful = wasSuccessAtFinish === false || wasSuccessAtFinish === 'false';
 
@@ -55,6 +56,8 @@ export default class ProductionTerminateStep3FinishComponent extends Component {
 
                 <div className="row mt-4 pt-3 mb-4 pb-2">
                     <div className="col-md-10 mx-auto p-2">
+
+                        <BootstrapErrorsProcessingAlert errors={errors} />
 
                         <p><strong>Please confirm these details before checking out your order.</strong></p>
                         <table className="table table-bordered custom-cell-w">
@@ -88,14 +91,72 @@ export default class ProductionTerminateStep3FinishComponent extends Component {
                                 </tr>
                             </tbody>
                         </table>
+                        {crops.map(
+                            (crop, i) => <CropTable crop={crop} key={i} />)
+                        }
                     </div>
                 </div>
 
-
-
-
+                <div className="col-md-6 mx-auto mt-2">
+                    <form className="needs-validation" noValidate>
+                        <div className="form-group">
+                            <button type="text" className="btn btn-lg float-left pl-4 pr-4 btn-secondary" onClick={onBackClick}>
+                                <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
+                            </button>
+                            <button type="text" className="btn btn-lg float-right pl-4 pr-4 btn-success" onClick={onSubmitClick} disabled={isLoading}>
+                                <i className="fas fa-check"></i>&nbsp;Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
 
             </div>
+        );
+    }
+}
+
+
+class CropTable extends Component {
+    render() {
+        const { prettyName, stateAtFinish, stateFailureReasonAtFinish, harvestAtFinish, harvestFailureReasonAtFinish, harvestNotesAtFinish, notesAtFinish } = this.props.crop;
+        const displayCropFailureError = (stateAtFinish===PRODUCTION_CROPS_DIED)||(stateAtFinish===PRODUCTION_CROPS_WERE_TERMINATED)
+        const displayHarvestFailureError = (harvestAtFinish===PRODUCTION_CROPS_TERRIBLE_HARVEST_REVIEW)||(harvestAtFinish===PRODUCTION_CROPS_BAD_HARVEST_REVIEW)
+        return (
+            <table className="table table-bordered custom-cell-w">
+                <tbody>
+                    <tr className="bg-dark">
+                        <th scope="row" colSpan="2" className="text-light">{prettyName}</th>
+                    </tr>
+                    <tr>
+                        <th scope="row" className="bg-light">State at finish</th>
+                        <td>{stateAtFinish}</td>
+                    </tr>
+                    {displayCropFailureError &&
+                        <tr>
+                            <th scope="row" className="bg-light">Crop failure reason</th>
+                            <td>{stateFailureReasonAtFinish}</td>
+                        </tr>
+                    }
+                    <tr>
+                        <th scope="row" className="bg-light">Harvest</th>
+                        <td>{harvestAtFinish}</td>
+                    </tr>
+                    {displayHarvestFailureError &&
+                        <tr>
+                            <th scope="row" className="bg-light">Crop failure reason</th>
+                            <td>{harvestFailureReasonAtFinish}</td>
+                        </tr>
+                    }
+                    <tr>
+                        <th scope="row" className="bg-light">Harvest Note(s)</th>
+                        <td>{harvestNotesAtFinish}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" className="bg-light">Additional Note(s)</th>
+                        <td>{notesAtFinish}</td>
+                    </tr>
+                </tbody>
+            </table>
         );
     }
 }
