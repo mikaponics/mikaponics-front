@@ -47,6 +47,21 @@ export function localStorageGetDateItem(key) {
     }
 }
 
+export function localStorageGetBooleanItem(key) {
+    const str = localStorage.getItem(key);
+    if (str === "undefined" || str === "null") { // Defensive Code: Error.
+        console.error("localStorageGetBooleanItem: Detected `undefined` string, could be potential error.");
+        return null;
+    }
+    if (str === "false" || str === "False" || str === "0" || str === "no" || str === "No") {
+        return false
+    } else if (str === "true" || str === "true" || str === "1" || str === "yes" || str === "Yes") {
+        return true
+    } else {
+        return null;
+    }
+}
+
 export function localStorageSetObjectOrArrayItem(key, value) {
     localStorage.setItem(key, JSON.stringify(value));
 }

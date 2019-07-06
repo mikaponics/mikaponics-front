@@ -9,7 +9,8 @@ import {
     localStorageGetArrayItem,
     localStorageGetDateItem,
     localStorageGetObjectItem,
-    localStorageSetObjectOrArrayItem
+    localStorageSetObjectOrArrayItem,
+    localStorageGetBooleanItem
 } from "../../../helpers/localStorageUtility";
 
 
@@ -34,7 +35,7 @@ class ProductionTerminateStartContainer extends Component {
             productionSlug: slug,
             productionName: this.props.productionDetail.name,
             finishedAt: localStorageGetDateItem("temp-production-terminate-finishedAt"),
-            wasSuccessAtFinish: localStorage.getItem("temp-production-terminate-wasSuccessAtFinish"),
+            wasSuccessAtFinish: localStorageGetBooleanItem("temp-production-terminate-wasSuccessAtFinish"),
             wasSuccessAtFinishOptions: [{
                 id: 'wasSuccessAtFinish-true-choice',
                 name: 'wasSuccessAtFinish',

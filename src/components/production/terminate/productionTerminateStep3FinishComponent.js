@@ -70,7 +70,7 @@ export default class ProductionTerminateStep3FinishComponent extends Component {
                                 <tr>
                                     <th scope="row" className="bg-light">Finished at</th>
                                     <td>
-                                        <Moment tz={user.timezone} format="YYYY/MM/DD hh:mm:ss a">
+                                        <Moment tz={user.timezone} format="YYYY/MM/DD">
                                             {finishedAt}
                                         </Moment>
                                     </td>
@@ -118,7 +118,7 @@ export default class ProductionTerminateStep3FinishComponent extends Component {
 
 class CropTable extends Component {
     render() {
-        const { prettyName, stateAtFinish, stateFailureReasonAtFinish, harvestAtFinish, harvestFailureReasonAtFinish, harvestNotesAtFinish, notesAtFinish } = this.props.crop;
+        const { prettyName, stateAtFinish, stateAtFinishLabel, stateFailureReasonAtFinish, harvestAtFinish, harvestAtFinishLabel, harvestFailureReasonAtFinish, harvestNotesAtFinish, notesAtFinish } = this.props.crop;
         const displayCropFailureError = (stateAtFinish===PRODUCTION_CROPS_DIED)||(stateAtFinish===PRODUCTION_CROPS_WERE_TERMINATED)
         const displayHarvestFailureError = (harvestAtFinish===PRODUCTION_CROPS_TERRIBLE_HARVEST_REVIEW)||(harvestAtFinish===PRODUCTION_CROPS_BAD_HARVEST_REVIEW)
         return (
@@ -129,7 +129,7 @@ class CropTable extends Component {
                     </tr>
                     <tr>
                         <th scope="row" className="bg-light">State at finish</th>
-                        <td>{stateAtFinish}</td>
+                        <td>{stateAtFinishLabel}</td>
                     </tr>
                     {displayCropFailureError &&
                         <tr>
@@ -139,7 +139,7 @@ class CropTable extends Component {
                     }
                     <tr>
                         <th scope="row" className="bg-light">Harvest</th>
-                        <td>{harvestAtFinish}</td>
+                        <td>{harvestAtFinishLabel}</td>
                     </tr>
                     {displayHarvestFailureError &&
                         <tr>

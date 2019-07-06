@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Scroll from 'react-scroll';
+import * as moment from 'moment';
 
 import ProductionTerminateStep3FinishComponent from "../../../components/production/terminate/productionTerminateStep3FinishComponent";
-// import { putProductionDetail } from "../../../actions/productionActions";
+import { putProductionTerminationDetail } from "../../../actions/productionActions";
 import { setFlashMessage } from "../../../actions/flashMessageActions";
-import { PRODUCTION_TERMINATED_STATE } from "../../../constants/api";
 import {
     localStorageGetArrayItem,
     localStorageGetDateItem,
-    localStorageGetObjectItem
+    localStorageGetObjectItem,
+    localStorageGetBooleanItem
 } from "../../../helpers/localStorageUtility";
 
 
@@ -23,15 +24,21 @@ class ProductionTerminateStep3FinishContainer extends Component {
     constructor(props) {
         super(props);
 
+        // inspections start
+        const finishedAtDate = localStorageGetDateItem("temp-production-terminate-finishedAt");
+        const finishedAtMoment = moment(finishedAtDate);
+        const finishedAt = finishedAtMoment.format("YYYY-MM-DD")
+
         // Since we are using the ``react-routes-dom`` library then we
         // fetch the URL argument as follows.
         const { slug } = this.props.match.params;
         this.state = {
+            slug: slug, // Place this because of API requirement.
             crops: localStorageGetArrayItem("temp-production-terminate-crops"),
             productionSlug: slug,
             productionName: this.props.productionDetail.name,
-            finishedAt: localStorageGetDateItem("temp-production-terminate-finishedAt"),
-            wasSuccessAtFinish: localStorage.getItem("temp-production-terminate-wasSuccessAtFinish"),
+            finishedAt: finishedAt,
+            wasSuccessAtFinish: localStorageGetBooleanItem("temp-production-terminate-wasSuccessAtFinish"),
             wasSuccessAtFinishLabel: localStorage.getItem("temp-production-terminate-wasSuccessAtFinish-label"),
             failureReason: localStorage.getItem("temp-production-terminate-failureReason"),
             notes: localStorage.getItem("temp-production-terminate-notes"),
@@ -70,13 +77,16 @@ class ProductionTerminateStep3FinishContainer extends Component {
 
     onSubmitClick(e) {
         e.preventDefault();
+        console.log(this.state); // For debugging purposes only.
+        this.setState({ errors: {}, isLoading: true });
 
-        // Change the state of the object and then submit to API endpoint.
-        this.setState({
-            state: PRODUCTION_TERMINATED_STATE
-        },() => {
-            //TODO: IMPL.
-        });
+        // // Once our state has been validated `client-side` then we will
+        // // make an API request with the server to create our new production.
+        this.props.putProductionTerminationDetail(
+            this.state,
+            this.onSuccessfulSubmissionCallback,
+            this.onFailedSubmissionCallback
+        );
     }
 
     onSuccessfulSubmissionCallback() {
@@ -84,7 +94,9 @@ class ProductionTerminateStep3FinishContainer extends Component {
         this.props.history.push('/productions');
     }
 
-    onFailedSubmissionCallback() {
+    onFailedSubmissionCallback(errors) {
+        this.setState({ errors: errors, isLoading: false });
+
         // The following code will cause the screen to scroll to the top of
         // the page. Please see ``react-scroll`` for more information:
         // https://github.com/fisshy/react-scroll
@@ -136,6 +148,11 @@ const mapDispatchToProps = dispatch => {
     return {
         setFlashMessage: (typeOf, text) => {
             dispatch(setFlashMessage(typeOf, text))
+        },
+        putProductionTerminationDetail: (state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback) => {
+            dispatch(
+                putProductionTerminationDetail(state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback)
+            )
         },
     }
 }
