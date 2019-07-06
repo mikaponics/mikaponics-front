@@ -1,6 +1,13 @@
 import validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
+import {
+    PRODUCTION_CROPS_DIED,
+    PRODUCTION_CROPS_WERE_TERMINATED,
+    PRODUCTION_CROPS_TERRIBLE_HARVEST_REVIEW,
+    PRODUCTION_CROPS_BAD_HARVEST_REVIEW
+} from "../constants/api";
+
 
 export function validateStep1Input(data) {
     let errors = {};
@@ -29,7 +36,7 @@ export function validateStep2Input(data) {
     if ( data.stateAtFinish === undefined || data.stateAtFinish === null || data.stateAtFinish === "" ) {
         errors.stateAtFinish = 'This field is required.';
     } else {
-        if ( data.stateAtFinish === 1 || data.stateAtFinish === 2 ) {
+        if ( data.stateAtFinish === PRODUCTION_CROPS_DIED || data.stateAtFinish === PRODUCTION_CROPS_WERE_TERMINATED ) {
             if ( data.stateFailureReasonAtFinish === undefined || data.stateFailureReasonAtFinish === null || data.stateFailureReasonAtFinish === "" ) {
                 errors.stateFailureReasonAtFinish = 'This field is required.';
             }
@@ -39,7 +46,7 @@ export function validateStep2Input(data) {
     if ( data.harvestAtFinish === undefined || data.harvestAtFinish === null || data.harvestAtFinish === "" ) {
         errors.harvestAtFinish = 'This field is required.';
     } else {
-        if ( data.harvestAtFinish === 1 || data.harvestAtFinish === 2 ) {
+        if ( data.harvestAtFinish === PRODUCTION_CROPS_TERRIBLE_HARVEST_REVIEW || data.harvestAtFinish === PRODUCTION_CROPS_BAD_HARVEST_REVIEW ) {
             if ( data.harvestFailureReasonAtFinish === undefined || data.harvestFailureReasonAtFinish === null || data.harvestFailureReasonAtFinish === "" ) {
                 errors.harvestFailureReasonAtFinish = 'This field is required.';
             }
