@@ -196,7 +196,7 @@ class ProductionTerminateStep2CropContainer extends Component {
      *  and update the persistent storage for the `crops` array.
      */
     updateCropWithOnSelectionChange(key, value, label) {
-        // console.log("updateCropWithOnSelectionChange", key, value, label); // For debugging purposes only.
+        console.log("updateCropWithOnSelectionChange", key, value, label); // For debugging purposes only.
 
         // Shallow copy of the array to create a NEW ARRAY.
         let a = this.state.crops.slice(); //creates the clone of the state
@@ -205,7 +205,7 @@ class ProductionTerminateStep2CropContainer extends Component {
         let foundCrop = null;
         for (let i = 0; i < a.length; i++) {
             let cropItem = a[i];
-            if (cropItem.slug === this.state.crop.productionSlug) {
+            if (cropItem.slug === this.state.crop.slug) {
                 // DEVELOPERS NOTE:
                 // (1) Since we have a POINTER to the object, which we retrieved
                 //     from the dictionary, we can update the value like this and
@@ -250,7 +250,7 @@ class ProductionTerminateStep2CropContainer extends Component {
         let foundCrop = null;
         for (let i = 0; i < a.length; i++) {
             let cropItem = a[i];
-            if (cropItem.slug === this.state.crop.productionSlug) {
+            if (cropItem.slug === this.state.crop.slug) {
                 // DEVELOPERS NOTE:
                 // Since we have a POINTER to the object, which we retrieved
                 // from the dictionary, we can update the value like this and
