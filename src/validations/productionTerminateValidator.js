@@ -15,7 +15,7 @@ export function validateStep1Input(data) {
     if ( data.finishedAt === undefined || data.finishedAt === null || data.finishedAt === "" || data.finishedAt === "null" ) {
         errors.finishedAt = 'This field is required.';
     }
-    if ( data.wasSuccessAtFinish === undefined || data.wasSuccessAtFinish === null || data.wasSuccessAtFinish === "" || data.wasSuccessAtFinish === "null" || isEmpty(data.wasSuccessAtFinish)) {
+    if ( data.wasSuccessAtFinish === undefined || data.wasSuccessAtFinish === null || data.wasSuccessAtFinish === "" || data.wasSuccessAtFinish === "null") {
         errors.wasSuccessAtFinish = 'This field is required.';
     }
     if (data.wasSuccessAtFinish === false || data.wasSuccessAtFinish === "false") {
