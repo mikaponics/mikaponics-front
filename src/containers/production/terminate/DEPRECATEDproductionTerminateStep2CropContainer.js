@@ -43,7 +43,12 @@ class ProductionTerminateStep2CropContainer extends Component {
             index: index,
             crops: crops,
             crop: crop,
-
+            stateAtFinish: crop.stateAtFinish,
+            stateFailureReasonAtFinish: crop.stateFailureReasonAtFinish,
+            harvestAtFinish: crop.harvestAtFinish,
+            harvestFailureReasonAtFinish: crop.harvestFailureReasonAtFinish,
+            harvestNotesAtFinish: crop.harvestNotesAtFinish,
+            notesAtFinish: crop.notesAtFinish,
         }
         this.onNextClick = this.onNextClick.bind(this);
         this.onBackClick = this.onBackClick.bind(this);
@@ -93,7 +98,12 @@ class ProductionTerminateStep2CropContainer extends Component {
                     index: nextPageIndex,
                     crops: this.state.crops,
                     crop: crop,
-
+                    stateAtFinish: crop.stateAtFinish,
+                    stateFailureReasonAtFinish: crop.stateFailureReasonAtFinish,
+                    harvestAtFinish: crop.harvestAtFinish,
+                    harvestFailureReasonAtFinish: crop.harvestFailureReasonAtFinish,
+                    harvestNotesAtFinish: crop.harvestNotesAtFinish,
+                    notesAtFinish: crop.notesAtFinish,
                 },
                 () => {
                     this.props.history.push('/production/'+ this.state.productionSlug + '/terminate-crop/'+this.state.index);
@@ -126,7 +136,12 @@ class ProductionTerminateStep2CropContainer extends Component {
                         index: nextPageIndex,
                         crops: this.state.crops,
                         crop: crop,
-
+                        stateAtFinish: crop.stateAtFinish,
+                        stateFailureReasonAtFinish: crop.stateFailureReasonAtFinish,
+                        harvestAtFinish: crop.harvestAtFinish,
+                        harvestFailureReasonAtFinish: crop.harvestFailureReasonAtFinish,
+                        harvestNotesAtFinish: crop.harvestNotesAtFinish,
+                        notesAtFinish: crop.notesAtFinish,
                     },
                     () => {
                         this.props.history.push('/production/'+ this.state.productionSlug + '/terminate-crop/'+this.state.index);
@@ -271,7 +286,7 @@ class ProductionTerminateStep2CropContainer extends Component {
     render() {
         const {
             productionName, productionSlug, crops, crop,
-
+            stateAtFinish, stateFailureReasonAtFinish, harvestAtFinish, harvestFailureReasonAtFinish, harvestNotesAtFinish, notesAtFinish,
             errors
         } = this.state;
         return (
@@ -280,7 +295,12 @@ class ProductionTerminateStep2CropContainer extends Component {
                 productionSlug={productionSlug}
                 crops={crops}
                 crop={crop}
-                
+                stateAtFinish={stateAtFinish}
+                stateFailureReasonAtFinish={stateFailureReasonAtFinish}
+                harvestAtFinish={harvestAtFinish}
+                harvestFailureReasonAtFinish={harvestFailureReasonAtFinish}
+                harvestNotesAtFinish={harvestNotesAtFinish}
+                notesAtFinish={notesAtFinish}
                 errors={errors}
                 onNextClick={this.onNextClick}
                 onBackClick={this.onBackClick}

@@ -20,7 +20,6 @@ export default class ProductionTerminateStep2CropComponent extends Component {
     render() {
         const {
             productionSlug, productionName, crop, crops,
-            stateAtFinish, stateFailureReasonAtFinish, harvestAtFinish, harvestFailureReasonAtFinish, harvestNotesAtFinish, notesAtFinish,
             errors,
             onBackClick, onNextClick, onTextChange, onSelectChange
         } = this.props;
@@ -35,15 +34,7 @@ export default class ProductionTerminateStep2CropComponent extends Component {
             return null;
         }
 
-        // IF THE CROP FAILED.
-        if (stateAtFinish === PRODUCTION_CROPS_DIED || stateAtFinish === PRODUCTION_CROPS_WERE_TERMINATED) {
-            shouldDisplayStateFailure = true;
-        }
 
-        // IF THE HARVEST FAILED.
-        if (harvestAtFinish === PRODUCTION_CROPS_TERRIBLE_HARVEST_REVIEW || harvestAtFinish === PRODUCTION_CROPS_BAD_HARVEST_REVIEW) {
-            shouldDisplayHarvestFailure = true;
-        }
 
         return (
             <div>
@@ -80,81 +71,7 @@ export default class ProductionTerminateStep2CropComponent extends Component {
                         <h2><i className="fas fa-shopping-basket"></i>&nbsp;{crop.prettyName}</h2>
                         <p className="border-bottom mb-3 pb-1 text-secondary"><i className="fas fa-heartbeat"></i>&nbsp;Lifespan</p>
 
-                        <BootstrapSingleSelect
-                            label="What happened to the crops? (*)"
-                            name="stateAtFinish"
-                            defaultOptionLabel="Please select the monitoring hardware for your production."
-                            options={PRODUCTION_CROP_STATE_AT_FINISH_OPTION_CHOICES}
-                            value={stateAtFinish}
-                            error={errors.stateAtFinish}
-                            onSelectChange={ option => onSelectChange(option.selectName, option.value, option.label) }
-                        />
-
-                        {shouldDisplayStateFailure &&
-                            <BootstrapTextarea
-                                name="stateFailureReasonAtFinish"
-                                borderColour="border-primary"
-                                label="Why? (*)"
-                                placeholder="Please describe why this happend to the crop(s)."
-                                rows={5}
-                                value={stateFailureReasonAtFinish}
-                                helpText={null}
-                                onChange={ onTextChange }
-                                error={errors.stateFailureReasonAtFinish}
-                            />
-                        }
-
-                        <p className="border-bottom mb-3 pb-1 text-secondary"><i className="fas fa-shopping-basket"></i>&nbsp;Harvest</p>
-
-                        <BootstrapSingleSelect
-                            label="How would you describe the plant harvest? (*)"
-                            name="harvestAtFinish"
-                            defaultOptionLabel="Please select the monitoring hardware for your production."
-                            options={PRODUCTION_CROPS_HARVEST_REVIEW_AT_FINISH_OPTION_CHOICES}
-                            value={harvestAtFinish}
-                            error={errors.harvestAtFinish}
-                            onSelectChange={ option => onSelectChange(option.selectName, option.value, option.label) }
-                        />
-
-                        {shouldDisplayHarvestFailure &&
-                            <BootstrapTextarea
-                                name="harvestFailureReasonAtFinish"
-                                borderColour="border-primary"
-                                label="Why? (*)"
-                                placeholder="Please describe why this happend to the crop"
-                                rows={5}
-                                value={harvestFailureReasonAtFinish}
-                                helpText={null}
-                                onChange={ onTextChange }
-                                error={errors.harvestFailureReasonAtFinish}
-                            />
-                        }
-
-                        <BootstrapTextarea
-                            name="harvestNotesAtFinish"
-                            borderColour="border-success"
-                            label="Any notes about the harvest?"
-                            placeholder="Add any additional notes you have out the harves."
-                            rows={5}
-                            value={harvestNotesAtFinish}
-                            helpText={null}
-                            onChange={ onTextChange }
-                            error={errors.harvestNotesAtFinish}
-                        />
-
-                        <p className="border-bottom mb-3 pb-1 text-secondary"><i className="fas fa-star-of-life"></i>&nbsp;Additional</p>
-
-                        <BootstrapTextarea
-                            name="notesAtFinish"
-                            borderColour="border-success"
-                            label="Any final comments?"
-                            placeholder="Add any final comments about this crop?"
-                            rows={5}
-                            value={notesAtFinish}
-                            helpText={null}
-                            onChange={ onTextChange }
-                            error={errors.notesAtFinish}
-                        />
+                        
 
                         <div className="form-group">
                             <button type="text" className="btn btn-lg float-left pl-4 pr-4 btn-secondary" onClick={onBackClick}>
