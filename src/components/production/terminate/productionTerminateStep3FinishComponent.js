@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 import { BootstrapInput } from "../../bootstrap/bootstrapInput";
 import { BootstrapTextarea } from "../../bootstrap/bootstrapTextarea";
@@ -16,63 +18,17 @@ import {
 import ProductionTerminateWizardComponent from './productionTerminateWizardComponent';
 
 
-class CropTable extends Component {
-    render() {
-        const { prettyName, stateAtFinish, stateFailureReasonAtFinish, harvestAtFinish, harvestFailureReasonAtFinish, harvestNotesAtFinish, notesAtFinish } = this.props.crop;
-        const displayCropFailureError = (stateAtFinish===PRODUCTION_CROPS_DIED)||(stateAtFinish===PRODUCTION_CROPS_WERE_TERMINATED)
-        const displayHarvestFailureError = (harvestAtFinish===PRODUCTION_CROPS_TERRIBLE_HARVEST_REVIEW)||(harvestAtFinish===PRODUCTION_CROPS_BAD_HARVEST_REVIEW)
-        return (
-            <table className="table table-bordered custom-cell-w">
-                <tbody>
-                    <tr className="bg-dark">
-                        <th scope="row" colSpan="2" className="text-light">{prettyName}</th>
-                    </tr>
-                    <tr>
-                        <th scope="row" className="bg-light">Crop</th>
-                        <td>{stateAtFinish}</td>
-                    </tr>
-                    {displayCropFailureError &&
-                        <tr>
-                            <th scope="row" className="bg-light">Crop failure reason</th>
-                            <td>{stateFailureReasonAtFinish}</td>
-                        </tr>
-                    }
-                    <tr>
-                        <th scope="row" className="bg-light">Harvest</th>
-                        <td>{harvestAtFinish}</td>
-                    </tr>
-                    {displayHarvestFailureError &&
-                        <tr>
-                            <th scope="row" className="bg-light">Crop failure reason</th>
-                            <td>{harvestFailureReasonAtFinish}</td>
-                        </tr>
-                    }
-                    <tr>
-                        <th scope="row" className="bg-light">Harvest Note(s)</th>
-                        <td>{harvestNotesAtFinish}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" className="bg-light">Additional Note(s)</th>
-                        <td>{notesAtFinish}</td>
-                    </tr>
-                </tbody>
-            </table>
-        );
-    }
-}
-
 
 export default class ProductionTerminateStep3FinishComponent extends Component {
     render() {
-        const { productionDetail, onBackClick, onSubmit } = this.props;
-        const { crops=[], name, slug, errors, wasSuccessAtFinish, failureReason, finishedAt, notesAtFinish } = productionDetail;
-
-        const wasSuccessAtFinishText = wasSuccessAtFinish === true ? "Yes" : "No";
-        const wasNotSuccessful = wasSuccessAtFinish === false;
+        const {
+            user, productionSlug, productionName, crops, finishedAt, wasSuccessAtFinish,
+            wasSuccessAtFinishLabel, failureReason, notes
+        } = this.props;
+        const wasNotSuccessful = wasSuccessAtFinish === false || wasSuccessAtFinish === 'false';
 
         return (
             <div>
-
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item">
@@ -82,7 +38,7 @@ export default class ProductionTerminateStep3FinishComponent extends Component {
                             <Link to="/productions"><i className="fas fa-industry"></i>&nbsp;Crop Production</Link>
                         </li>
                         <li className="breadcrumb-item">
-                            <Link to={`/production/${slug}`}><i className="fas fa-leaf"></i>&nbsp;{name}</Link>
+                            <Link to={`/production/${productionSlug}`}><i className="fas fa-leaf"></i>&nbsp;{productionName}</Link>
                         </li>
                         <li className="breadcrumb-item active" aria-current="page">
                             <i className="fas fa-shopping-basket"></i>&nbsp;Harvest
@@ -104,46 +60,39 @@ export default class ProductionTerminateStep3FinishComponent extends Component {
                         <table className="table table-bordered custom-cell-w">
                             <tbody>
                                 <tr className="bg-dark">
-                                    <th scope="row" colSpan="2" className="text-light">Overall</th>
+                                    <th scope="row" colSpan="2" className="text-light">
+                                        <i className="fas fa-glasses"></i>&nbsp;Executive Summary
+                                    </th>
                                 </tr>
                                 <tr>
-                                    <th scope="row" className="bg-light">Was Successful</th>
-                                    <td>{wasSuccessAtFinishText}</td>
+                                    <th scope="row" className="bg-light">Finished at</th>
+                                    <td>
+                                        <Moment tz={user.timezone} format="YYYY/MM/DD hh:mm:ss a">
+                                            {finishedAt}
+                                        </Moment>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Was successful</th>
+                                    <td>{wasSuccessAtFinishLabel}</td>
                                 </tr>
                                 {wasNotSuccessful &&
                                     <tr>
-                                        <th scope="row" className="bg-light">Failure Reason</th>
+                                        <th scope="row" className="bg-light">Failure reason</th>
                                         <td>{failureReason}</td>
                                     </tr>
                                 }
                                 <tr>
-                                    <th scope="row" className="bg-light">Finished at</th>
-                                    <td>{finishedAt}</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" className="bg-light">Notes</th>
-                                    <td>{notesAtFinish}</td>
+                                    <th scope="row" className="bg-light">Additional notes / comments</th>
+                                    <td>{notes}</td>
                                 </tr>
                             </tbody>
                         </table>
-                        {crops.map(
-                            (crop, i) => <CropTable crop={crop} key={i} />)
-                        }
                     </div>
                 </div>
 
-                <div className="col-md-6 mx-auto mt-2">
-                    <form className="needs-validation" noValidate>
-                        <div className="form-group">
-                            <button type="text" className="btn btn-lg float-left pl-4 pr-4 btn-secondary" onClick={onBackClick}>
-                                <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
-                            </button>
-                            <button type="text" className="btn btn-lg float-right pl-4 pr-4 btn-success" onClick={onSubmit}>
-                                <i className="fas fa-check"></i>&nbsp;Submit
-                            </button>
-                        </div>
-                    </form>
-                </div>
+
+
 
 
             </div>

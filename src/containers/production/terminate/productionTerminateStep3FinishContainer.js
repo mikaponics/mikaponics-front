@@ -3,10 +3,14 @@ import { connect } from 'react-redux';
 import Scroll from 'react-scroll';
 
 import ProductionTerminateStep3FinishComponent from "../../../components/production/terminate/productionTerminateStep3FinishComponent";
-import { pullProductionDetail } from "../../../actions/productionActions";
-import { putProductionDetail } from "../../../actions/productionActions";
+// import { putProductionDetail } from "../../../actions/productionActions";
 import { setFlashMessage } from "../../../actions/flashMessageActions";
 import { PRODUCTION_TERMINATED_STATE } from "../../../constants/api";
+import {
+    localStorageGetArrayItem,
+    localStorageGetDateItem,
+    localStorageGetObjectItem
+} from "../../../helpers/localStorageUtility";
 
 
 class ProductionTerminateStep3FinishContainer extends Component {
@@ -23,10 +27,16 @@ class ProductionTerminateStep3FinishContainer extends Component {
         // fetch the URL argument as follows.
         const { slug } = this.props.match.params;
         this.state = {
-            pageSlug: slug,
-            crops: [],
+            crops: localStorageGetArrayItem("temp-production-terminate-crops"),
+            productionSlug: slug,
+            productionName: this.props.productionDetail.name,
+            finishedAt: localStorageGetDateItem("temp-production-terminate-finishedAt"),
+            wasSuccessAtFinish: localStorage.getItem("temp-production-terminate-wasSuccessAtFinish"),
+            wasSuccessAtFinishLabel: localStorage.getItem("temp-production-terminate-wasSuccessAtFinish-label"),
+            failureReason: localStorage.getItem("temp-production-terminate-failureReason"),
+            notes: localStorage.getItem("temp-production-terminate-notes"),
         }
-        this.onSubmit = this.onSubmit.bind(this);
+        this.onSubmitClick = this.onSubmitClick.bind(this);
         this.onBackClick = this.onBackClick.bind(this);
         this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
         this.onFailedSubmissionCallback = this.onFailedSubmissionCallback.bind(this);
@@ -34,21 +44,6 @@ class ProductionTerminateStep3FinishContainer extends Component {
 
     componentDidMount() {
         window.scrollTo(0, 0);  // Start the page at the top of the page.
-        this.setState({
-            crops: this.props.productionDetail.crops,
-
-            // Set the production object.
-            slug: this.props.productionDetail.slug,
-            name: this.props.productionDetail.name,
-            description: this.props.productionDetail.description,
-            isCommercial: this.props.productionDetail.isCommercial,
-            device: this.props.productionDetail.device,
-            environment: parseInt(this.props.productionDetail.environment),
-            typeOf: parseInt(this.props.productionDetail.typeOf),
-            growSystem: parseInt(this.props.productionDetail.growSystem),
-            growSystemOther: this.props.productionDetail.growSystemOther,
-            startedAt: this.props.productionDetail.startedAt,
-        });
     }
 
     componentWillUnmount() {
@@ -73,21 +68,14 @@ class ProductionTerminateStep3FinishContainer extends Component {
         this.props.history.push(aURL);
     }
 
-    onSubmit(e) {
+    onSubmitClick(e) {
         e.preventDefault();
 
         // Change the state of the object and then submit to API endpoint.
         this.setState({
             state: PRODUCTION_TERMINATED_STATE
         },() => {
-            // Once our state has been validated `client-side` then we will
-            // make an API request with the server to create our new production.
-            this.props.putProductionDetail(
-                this.props.user,
-                this.state,
-                this.onSuccessfulSubmissionCallback,
-                this.onFailedSubmissionCallback
-            );
+            //TODO: IMPL.
         });
     }
 
@@ -110,10 +98,26 @@ class ProductionTerminateStep3FinishContainer extends Component {
      */
 
     render() {
+        const {
+            crops, productionSlug, productionName, finishedAt, wasSuccessAtFinish, wasSuccessAtFinishOptions,
+            wasSuccessAtFinishLabel, failureReason, notes, errors, isLoading
+        } = this.state;
         return (
             <ProductionTerminateStep3FinishComponent
+                user={this.props.user}
+                crops={crops}
+                productionSlug={productionSlug}
+                productionName={productionName}
+                finishedAt={finishedAt}
+                wasSuccessAtFinish={wasSuccessAtFinish}
+                wasSuccessAtFinishOptions={wasSuccessAtFinishOptions}
+                wasSuccessAtFinishLabel={wasSuccessAtFinishLabel}
+                failureReason={failureReason}
+                notes={notes}
+                errors={errors}
+                isLoading={isLoading}
                 productionDetail={this.props.productionDetail}
-                onSubmit={this.onSubmit}
+                onSubmitClick={this.onSubmitClick}
                 onBackClick={this.onBackClick}
             />
         );
@@ -130,18 +134,8 @@ const mapStateToProps = function(store) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        pullProductionDetail: (user, slug) => {
-            dispatch(
-                pullProductionDetail(user, slug)
-            )
-        },
         setFlashMessage: (typeOf, text) => {
             dispatch(setFlashMessage(typeOf, text))
-        },
-        putProductionDetail: (user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback) => {
-            dispatch(
-                putProductionDetail(user, state, onSuccessfulSubmissionCallback, onFailedSubmissionCallback)
-            )
         },
     }
 }
