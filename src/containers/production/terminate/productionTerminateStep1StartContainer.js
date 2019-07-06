@@ -5,7 +5,12 @@ import Scroll from 'react-scroll';
 
 import ProductionTerminateStep1StartComponent from "../../../components/production/terminate/productionTerminateStep1StartComponent";
 import { validateStep1Input } from "../../../validations/productionTerminateValidator";
-import { localStorageGetDateItem, localStorageGetObjectItem, localStorageSetObjectOrArrayItem } from "../../../helpers/localStorageUtility";
+import {
+    localStorageGetArrayItem,
+    localStorageGetDateItem,
+    localStorageGetObjectItem,
+    localStorageSetObjectOrArrayItem
+} from "../../../helpers/localStorageUtility";
 
 
 class ProductionTerminateStartContainer extends Component {
@@ -25,6 +30,7 @@ class ProductionTerminateStartContainer extends Component {
             referrer: null,
             errors: {},
             isLoading: false,
+            crops: localStorageGetArrayItem("temp-production-terminate-crops"),
             productionSlug: slug,
             productionName: this.props.productionDetail.name,
             finishedAt: localStorageGetDateItem("temp-production-terminate-finishedAt"),
@@ -137,11 +143,12 @@ class ProductionTerminateStartContainer extends Component {
 
     render() {
         const {
-            productionSlug, productionName, finishedAt, wasSuccessAtFinish, wasSuccessAtFinishOptions,
+            crops, productionSlug, productionName, finishedAt, wasSuccessAtFinish, wasSuccessAtFinishOptions,
             failureReason, notes, errors, isLoading
         } = this.state;
         return (
             <ProductionTerminateStep1StartComponent
+                crops={crops}
                 productionSlug={productionSlug}
                 productionName={productionName}
                 finishedAt={finishedAt}

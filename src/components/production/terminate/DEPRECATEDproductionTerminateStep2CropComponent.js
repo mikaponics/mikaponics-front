@@ -18,11 +18,7 @@ import ProductionTerminateWizardComponent from './productionTerminateWizardCompo
 
 export default class ProductionTerminateStep2CropComponent extends Component {
     render() {
-        const {
-            productionSlug, productionName, crop, crops, stateAtFinish,
-            errors,
-            onBackClick, onNextClick, onTextChange, onSelectChange
-        } = this.props;
+        const { crops, crop, name, slug, plants, fish, errors, finishedAt, onBackClick, onSubmit, onSelectChange, onTextChange } = this.props;
 
         // IF THE PLANTS DIED OR WERE TERMINATED.
         let shouldDisplayStateFailure = false;
@@ -56,7 +52,7 @@ export default class ProductionTerminateStep2CropComponent extends Component {
                             <Link to="/productions"><i className="fas fa-industry"></i>&nbsp;Crop Production</Link>
                         </li>
                         <li className="breadcrumb-item">
-                            <Link to={`/production/${productionSlug}`}><i className="fas fa-leaf"></i>&nbsp;{productionName}</Link>
+                            <Link to={`/production/${slug}`}><i className="fas fa-leaf"></i>&nbsp;{name}</Link>
                         </li>
                         <li className="breadcrumb-item active" aria-current="page">
                             <i className="fas fa-shopping-basket"></i>&nbsp;Harvest
@@ -76,8 +72,8 @@ export default class ProductionTerminateStep2CropComponent extends Component {
                     <form className="needs-validation" noValidate>
                         <BootstrapErrorsProcessingAlert errors={errors} />
 
-                        <h2><i className="fas fa-shopping-basket"></i>&nbsp;{crop.prettyName}</h2>
-                        <p className="border-bottom mb-3 pb-1 text-secondary"><i className="fas fa-heartbeat"></i>&nbsp;Lifespan</p>
+                        <h3>{crop.prettyName}</h3>
+                        <p className="border-bottom mb-3 pb-1 text-secondary">Lifespan</p>
 
                         <BootstrapSingleSelect
                             label="What happened to the crops? (*)"
@@ -86,7 +82,7 @@ export default class ProductionTerminateStep2CropComponent extends Component {
                             options={PRODUCTION_CROP_STATE_AT_FINISH_OPTION_CHOICES}
                             value={crop.stateAtFinish}
                             error={errors.stateAtFinish}
-                            onSelectChange={ option => onSelectChange(option.selectName, option.value, option.label) }
+                            onSelectChange={ option => onSelectChange(option.selectName, option.value) }
                         />
 
                         {shouldDisplayStateFailure &&
@@ -103,7 +99,7 @@ export default class ProductionTerminateStep2CropComponent extends Component {
                             />
                         }
 
-                        <p className="border-bottom mb-3 pb-1 text-secondary"><i className="fas fa-shopping-basket"></i>&nbsp;Harvest</p>
+                        <p className="border-bottom mb-3 pb-1 text-secondary">Harvest</p>
 
                         <BootstrapSingleSelect
                             label="How would you describe the plant harvest? (*)"
@@ -141,7 +137,7 @@ export default class ProductionTerminateStep2CropComponent extends Component {
                             error={errors.harvestNotesAtFinish}
                         />
 
-                        <p className="border-bottom mb-3 pb-1 text-secondary"><i className="fas fa-star-of-life"></i>&nbsp;Additional</p>
+                        <p className="border-bottom mb-3 pb-1 text-secondary">Additional</p>
 
                         <BootstrapTextarea
                             name="notesAtFinish"
@@ -159,18 +155,14 @@ export default class ProductionTerminateStep2CropComponent extends Component {
                             <button type="text" className="btn btn-lg float-left pl-4 pr-4 btn-secondary" onClick={onBackClick}>
                                 <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
                             </button>
-                            <button type="text" className="btn btn-lg float-right pl-4 pr-4 btn-primary" onClick={onNextClick}>
+                            <button type="text" className="btn btn-lg float-right pl-4 pr-4 btn-primary" onClick={onSubmit}>
                                 Next&nbsp;<i className="fas fa-arrow-circle-right"></i>
                             </button>
                         </div>
 
-
-
-
-
-
                     </form>
                 </div>
+
             </div>
         );
     }

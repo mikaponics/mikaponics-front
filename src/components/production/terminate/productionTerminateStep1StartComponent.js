@@ -24,7 +24,7 @@ import ProductionTerminateWizardComponent from './productionTerminateWizardCompo
 export default class ProductionTerminateStep1StartComponent extends Component {
     render() {
         const {
-            productionSlug, productionName, errors, wasSuccessAtFinish, wasSuccessAtFinishOptions, failureReason,
+            crops, productionSlug, productionName, errors, wasSuccessAtFinish, wasSuccessAtFinishOptions, failureReason,
             finishedAt, notes,
 
             onRadioChange, onTextChange, onFinishedAtChange, onBackClick, onNextClick, isLoading
@@ -58,9 +58,16 @@ export default class ProductionTerminateStep1StartComponent extends Component {
 
                 <h1><i className="fas fa-shopping-basket"></i>&nbsp;Harvest</h1>
 
+                <ProductionTerminateWizardComponent
+                   crops={crops}
+                   crop={null}
+                   isFirst={true}
+                   isLast={false}
+                />
+
                 <div className="col-md-5 mx-auto mt-2">
                     <form className="needs-validation" noValidate>
-                        <h2><i className="fas fa-user-tie"></i>&nbsp;General Review</h2>
+                        <h2><i className="fas fa-user-tie"></i>&nbsp;Overall Review</h2>
                         <p>All fields which have the (*) symbol are required to be filled out.</p>
 
                         <BootstrapErrorsProcessingAlert errors={errors} />
