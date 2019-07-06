@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Route, withRouter, Switch } from "react-router
 import ScrollUpButton from "react-scroll-up-button";
 
 import requiresAuth from '../helpers/requiresAuth';
+import requiresSubscription from '../helpers/requiresSubscription';
 import NavigationContainer from './navigation/navigationContainer';
 import NotFound404Container from './navigation/notFound404Container';
-import ServiceNoticeContainer from './navigation/serviceNoticeContainer';
 import PrivacyContainer from './general/privacyContainer';
 import TermsContainer from './general/termsContainer';
 import IndexContainer from './general/indexContainer';
@@ -90,7 +90,6 @@ class AppContainer extends React.Component {
 
                 <div className="d-flex align-items-stretch">
                     <main id="main" role="main">
-                        <ServiceNoticeContainer />
                         <ScrollUpButton />
                         <Switch>
                             <Route path="/" exact component={IndexContainer} />
@@ -118,11 +117,11 @@ class AppContainer extends React.Component {
                             <Route path="/instrument/:slug/alerts" exact component={requiresAuth(InstrumentAlertItemListContainer)} />
                             <Route path="/instrument-alert/:slug" exact component={requiresAuth(InstrumentAlertItemDetailContainer)} />
                             <Route path="/instrument/:slug/alerts/config" exact component={requiresAuth(InstrumentAlertItemConfigContainer)} />
-                            <Route path="/instrument/:slug/data" exact component={requiresAuth(InstrumentDataContainer)} />
-                            <Route path="/instrument/:slug/data/download" exact component={requiresAuth(InstrumentDataDownloadContainer)} />
-                            <Route path="/instrument/:slug/analyses" exact component={requiresAuth(InstrumentAnalysisListContainer)} />
-                            <Route path="/instrument/:slug/create-analysis" exact component={requiresAuth(InstrumentAnalysisCreateContainer)} />
-                            <Route path="/instrument/analysis/:slug" exact component={requiresAuth(InstrumentAnalysisDetailContainer)} />
+                            <Route path="/instrument/:slug/data" exact component={requiresAuth(requiresSubscription(InstrumentDataContainer))} />
+                            <Route path="/instrument/:slug/data/download" exact component={requiresAuth(requiresSubscription(InstrumentDataDownloadContainer))} />
+                            <Route path="/instrument/:slug/analyses" exact component={requiresAuth(requiresSubscription(InstrumentAnalysisListContainer))} />
+                            <Route path="/instrument/:slug/create-analysis" exact component={requiresAuth(requiresSubscription(InstrumentAnalysisCreateContainer))} />
+                            <Route path="/instrument/analysis/:slug" exact component={requiresAuth(requiresSubscription(InstrumentAnalysisDetailContainer))} />
                             <Route path="/alerts" exact component={requiresAuth(AlertListContainer)} />
                             <Route path="/alert/:slug" exact component={requiresAuth(AlertItemDetailContainer)} />
                             <Route path="/invoices" exact component={requiresAuth(InvoiceListContainer)} />

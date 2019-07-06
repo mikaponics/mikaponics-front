@@ -46,6 +46,7 @@ class InstrumentDetailContainer extends Component {
                 {isNotCamera &&
                     <div>
                         <InstrumentDetailComponent
+                            user={this.props.user}
                             instrument={this.props.instrument}
                             flashMessage={this.props.flashMessage}
                         />
@@ -54,6 +55,7 @@ class InstrumentDetailContainer extends Component {
                 {isCamera &&
                     <div>
                         <CameraInstrumentDetailComponent
+                            user={this.props.user}
                             instrument={this.props.instrument}
                             flashMessage={this.props.flashMessage}
                         />

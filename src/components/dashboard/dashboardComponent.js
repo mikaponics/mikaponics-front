@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 import DashboardProductionComponent from "./dashboardProductionComponent";
 import DashboardDeviceComponent from "./dashboardDeviceComponent";
+import SubscriptionNoticeContainer from '../../containers/navigation/subscriptionNoticeContainer';
 
 
 class DashboardComponent extends Component {
@@ -21,6 +22,7 @@ class DashboardComponent extends Component {
 
         return (
             <div className="Dashboard">
+                <SubscriptionNoticeContainer />
                 <h1><i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard</h1>
 
                 <section className="row text-center placeholders">

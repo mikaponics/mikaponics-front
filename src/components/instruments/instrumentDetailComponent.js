@@ -4,6 +4,7 @@ import Moment from 'react-moment';
 import 'moment-timezone';
 
 import { FlashMessageComponent } from "../flashMessageComponent";
+import SubscriptionNoticeContainer from '../../containers/navigation/subscriptionNoticeContainer';
 
 
 /**
@@ -154,9 +155,12 @@ class InstrumentTable extends Component {
 
 class InstrumentComponent extends Component {
     render() {
-        const { instrument, flashMessage } = this.props;
+        const { user, instrument, flashMessage } = this.props;
+        let isNotSubscribed = user.subscriptionStatus !== "active";
+        let isSubscribed = user.subscriptionStatus === "active";
         return (
             <div>
+                <SubscriptionNoticeContainer />
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item">
@@ -184,6 +188,7 @@ class InstrumentComponent extends Component {
                 </div>
 
                 <section className="row text-center placeholders">
+
                     <div className="col-sm-3 placeholder">
                         <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-pink">
                             <Link to={`/instrument/${instrument.slug}/alerts/config`} className="d-block link-ndecor" title="Configuration">
@@ -193,24 +198,52 @@ class InstrumentComponent extends Component {
                         <h4>Configuration</h4>
                         <div className="text-muted">View your configuration</div>
                     </div>
-                    <div className="col-sm-3 placeholder">
-                        <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-dgreen">
-                            <Link to={`/instrument/${instrument.slug}/data`} className="d-block link-ndecor" title="Data">
-                                <span className="r-circle"><i className="fas fa-cloud fa-3x"></i></span>
-                            </Link>
+
+                    {isNotSubscribed &&
+                        <div className="col-sm-3 placeholder">
+                            <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-dgreen">
+                                <a className="d-block link-ndecor" title="Data">
+                                    <span className="r-circle"><i className="fas fa-cloud fa-3x"></i></span>
+                                </a>
+                            </div>
+                            <h4>Data</h4>
+                            <span className="text-muted"><i className="fas fa-lock"></i>&nbsp;Locked</span>
                         </div>
-                        <h4>Data</h4>
-                        <span className="text-muted">View your time-series data</span>
-                    </div>
-                    <div className="col-sm-3 placeholder">
-                        <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-dblue">
-                            <Link to={`/instrument/${instrument.slug}/analyses`} className="d-block link-ndecor" title="Analyses">
-                                <span className="r-circle"><i className="fas fa-flask fa-3x"></i></span>
-                            </Link>
+                    }
+                    {isSubscribed &&
+                        <div className="col-sm-3 placeholder">
+                            <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-dgreen">
+                                <Link to={`/instrument/${instrument.slug}/data`} className="d-block link-ndecor" title="Data">
+                                    <span className="r-circle"><i className="fas fa-cloud fa-3x"></i></span>
+                                </Link>
+                            </div>
+                            <h4>Data</h4>
+                            <span className="text-muted">View your time-series data</span>
                         </div>
-                        <h4>Analyses</h4>
-                        <span className="text-muted">View your analysis reports</span>
-                    </div>
+                    }
+
+                    {isNotSubscribed &&
+                        <div className="col-sm-3 placeholder">
+                            <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-dblue">
+                                <a className="d-block link-ndecor" title="Analyses">
+                                    <span className="r-circle"><i className="fas fa-flask fa-3x"></i></span>
+                                </a>
+                            </div>
+                            <h4>Analyses</h4>
+                            <span className="text-muted"><i className="fas fa-lock"></i>&nbsp;Locked</span>
+                        </div>
+                    }
+                    {isSubscribed &&
+                        <div className="col-sm-3 placeholder">
+                            <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-dblue">
+                                <Link to={`/instrument/${instrument.slug}/analyses`} className="d-block link-ndecor" title="Analyses">
+                                    <span className="r-circle"><i className="fas fa-flask fa-3x"></i></span>
+                                </Link>
+                            </div>
+                            <h4>Analyses</h4>
+                            <span className="text-muted">View your analysis reports<br />(<i className="fas fa-lock"></i>&nbsp;Locked)</span>
+                        </div>
+                    }
                     <div className="col-sm-3 placeholder">
                         <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-orange">
                             <Link to={`/instrument/${instrument.slug}/alerts`} className="d-block link-ndecor" title="Alerts">

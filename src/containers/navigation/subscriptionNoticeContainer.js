@@ -14,21 +14,16 @@ import { BootstrapAlert } from "../../components/bootstrap/bootstrapAlert";
  *                                 our system then display a friendly message
  *                                 reminding them to subscribe.
  */
-class ServiceNoticeContainer extends Component {
+class SubscriptionNoticeContainer extends Component {
     render() {
         const user = this.props.user;
-
-        // const yourArray = ['/productions',]
-        // let notIgnorePath = yourArray.indexOf(this.props.location.pathname) > -1;
-        // console.log(">>>>>", notIgnorePath);
-
         if (user) {
             //------------------------------//
             // (1) Subscription requirement //
             //------------------------------//
             if (user.subscriptionStatus !== "active") {
                 const text = <Fragment>
-                    <strong><i className="fas fa-server"></i>&nbsp;Service Notice</strong> - Please note a subscription is required. To subscribe to the service, please <Link to="/subscription" target="_blank">clicking here&nbsp;<i className="fas fa-external-link-alt"></i></Link>.
+                    <strong><i className="fas fa-server"></i>&nbsp;Service Notice</strong> - You require a subscription to unlock certain features on this page. To unlock these features, please <Link to="/subscription" target="_blank">subscribe to our service</Link>&nbsp;<i className="fas fa-external-link-alt"></i>.
                 </Fragment>;
                 return (
                     <BootstrapAlert type="info" value={text} />
@@ -52,4 +47,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(ServiceNoticeContainer);
+)(SubscriptionNoticeContainer);
