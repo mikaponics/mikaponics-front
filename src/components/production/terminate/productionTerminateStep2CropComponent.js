@@ -91,7 +91,7 @@ export default class ProductionTerminateStep2CropComponent extends Component {
                                 options={harvestFailureReasonOptions}
                                 value={harvestFailureReason}
                                 error={errors.harvestFailureReason}
-                                onSelectChange={onSelectChange}
+                                onSelectChange={ option => onSelectChange(option.selectName, option.value, option.label) }
                             />
                         }
 
