@@ -102,15 +102,17 @@ class NoProductionJumbotron extends Component {
 
 class ProductionListComponent extends Component {
     render() {
-        const { user, productionList, flashMessage } = this.props;
+        const { user, productionList, deviceList, flashMessage } = this.props;
 
         // DEFENSIVE CODE: DO NOT LOAD VIEW UNTIL WE HAVE DATA FROM API ENDPOINT.
         if (isEmpty(productionList)) { return null; }
+        if (isEmpty(deviceList)) { return null; }
 
         let operatingElements = [];
         let terminatedElements = [];
         const isProductionListNotEmpty = isEmpty(productionList.results) === false;
         const isProductionListEmpty = isEmpty(productionList.results) === true;
+        const isDeviceListEmpty = isEmpty(deviceList.results) === true;
 
         if (isProductionListNotEmpty) {
             const { results } = productionList;
@@ -128,7 +130,7 @@ class ProductionListComponent extends Component {
         //-------------------------//
         // CASE 1 OF 2: NO DEVICES //
         //-------------------------//
-        if (user.devices.length === 0) {
+        if (isDeviceListEmpty) {
             return (
                 <div>
                     <nav aria-label="breadcrumb">
@@ -153,7 +155,7 @@ class ProductionListComponent extends Component {
                         <hr className="my-4" />
                         <p>Click here to begin the device purchase</p>
                         <p className="lead">
-                            <Link to="/purchase" className="btn btn-success btn-lg">
+                            <Link to="/devices/create/step-1" className="btn btn-success btn-lg">
                                 <i className="fas fa-plus"></i>&nbsp;Add
                             </Link>
                         </p>
