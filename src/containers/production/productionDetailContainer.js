@@ -71,10 +71,11 @@ class ProductionListContainer extends Component {
         // with our own values pertaining to crop inspections.
         localStorageSetObjectOrArrayItem("temp-production-terminate-crops", a);
 
-        // // Clear the `create inspection` form.
-        // localStorage.setItem("temp-production-inspection-create-didPass", null);
-        // localStorage.setItem("temp-production-inspection-create-failureReason", "");
-        // localStorage.setItem("temp-production-inspection-create-notes", "");
+        // Clear the `create inspection` form.
+        localStorage.removeItem("temp-production-terminate-finishedAt");
+        localStorage.removeItem("temp-production-terminate-wasSuccessAtFinish");
+        localStorage.removeItem("temp-production-terminate-failureReason");
+        localStorage.removeItem("temp-production-terminate-notes");
 
         // Start our create page.
         const aURL = "/production/" + this.props.productionDetail.slug + "/terminate-start";

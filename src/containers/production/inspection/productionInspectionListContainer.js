@@ -65,9 +65,9 @@ class ProductionInspectionContainer extends Component {
         localStorageSetObjectOrArrayItem("temp-production-inspection-create-cropInspections", a);
 
         // Clear the `create inspection` form.
-        localStorage.setItem("temp-production-inspection-create-didPass", null);
-        localStorage.setItem("temp-production-inspection-create-failureReason", "");
-        localStorage.setItem("temp-production-inspection-create-notes", "");
+        localStorage.removeItem("temp-production-inspection-create-didPass");
+        localStorage.removeItem("temp-production-inspection-create-failureReason");
+        localStorage.removeItem("temp-production-inspection-create-notes");
 
         // Start our create page.
         const aURL = "/production/" + this.props.productionDetail.slug + "/create-inspection/start";

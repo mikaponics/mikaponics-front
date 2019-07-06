@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import Scroll from 'react-scroll';
 
 import ProductionTerminateStep1StartComponent from "../../../components/production/terminate/productionTerminateStep1StartComponent";
+import { validateStep1Input } from "../../../validations/productionTerminateValidator";
 import { localStorageGetDateItem, localStorageGetObjectItem, localStorageSetObjectOrArrayItem } from "../../../helpers/localStorageUtility";
 
 
@@ -23,10 +24,11 @@ class ProductionTerminateStartContainer extends Component {
         this.state = {
             referrer: null,
             errors: {},
+            isLoading: false,
             productionSlug: slug,
             productionName: this.props.productionDetail.name,
             finishedAt: localStorageGetDateItem("temp-production-terminate-finishedAt"),
-            wasSuccessAtFinish: localStorageGetObjectItem("temp-production-terminate-wasSuccessAtFinish"),
+            wasSuccessAtFinish: localStorage.getItem("temp-production-terminate-wasSuccessAtFinish"),
             wasSuccessAtFinishOptions: [{
                 id: 'wasSuccessAtFinish-true-choice',
                 name: 'wasSuccessAtFinish',
@@ -44,10 +46,8 @@ class ProductionTerminateStartContainer extends Component {
         this.onRadioChange = this.onRadioChange.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
         this.onFinishedAtChange = this.onFinishedAtChange.bind(this);
-        // this.onSubmit = this.onSubmit.bind(this);
-        // this.onBackClick = this.onBackClick.bind(this);
-        // this.onFinishedAtChange = this.onFinishedAtChange.bind(this);
-        // this.onCheckboxChange = this.onCheckboxChange.bind(this);
+        this.onNextClick = this.onNextClick.bind(this);
+        this.onBackClick = this.onBackClick.bind(this);
 
         // this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
         // this.onFailedSubmissionCallback = this.onFailedSubmissionCallback.bind(this);
@@ -105,6 +105,31 @@ class ProductionTerminateStartContainer extends Component {
         localStorageSetObjectOrArrayItem('temp-production-terminate-finishedAt', dateObj);
     }
 
+    onNextClick(e) {
+        e.preventDefault();
+        this.setState({ errors: {}, isLoading: true });
+        // console.log(this.state); // For debugging purposes only.
+
+        const { errors, isValid } = validateStep1Input(this.state);
+        if (isValid) {
+            this.setState({ errors: {}, isLoading: false });
+            this.props.history.push('/production/'+ this.state.productionSlug + '/terminate-crop/0');
+        } else {
+            this.setState({ errors: errors, isLoading: false });
+
+            // The following code will cause the screen to scroll to the top of
+            // the page. Please see ``react-scroll`` for more information:
+            // https://github.com/fisshy/react-scroll
+            var scroll = Scroll.animateScroll;
+            scroll.scrollToTop();
+        }
+    }
+
+    onBackClick(e) {
+        e.preventDefault();
+        this.props.history.push('/production/'+ this.state.productionSlug);
+    }
+
     /**
      *  Main render function - entry
      *------------------------------------------------------------
@@ -113,7 +138,7 @@ class ProductionTerminateStartContainer extends Component {
     render() {
         const {
             productionSlug, productionName, finishedAt, wasSuccessAtFinish, wasSuccessAtFinishOptions,
-            failureReason, notes, errors
+            failureReason, notes, errors, isLoading
         } = this.state;
         return (
             <ProductionTerminateStep1StartComponent
@@ -127,7 +152,10 @@ class ProductionTerminateStartContainer extends Component {
                 onRadioChange={this.onRadioChange}
                 onTextChange={this.onTextChange}
                 onFinishedAtChange={this.onFinishedAtChange}
+                onBackClick={this.onBackClick}
+                onNextClick={this.onNextClick}
                 errors={errors}
+                isLoading={isLoading}
             />
         );
     }

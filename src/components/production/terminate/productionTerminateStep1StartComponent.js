@@ -27,7 +27,7 @@ export default class ProductionTerminateStep1StartComponent extends Component {
             productionSlug, productionName, errors, wasSuccessAtFinish, wasSuccessAtFinishOptions, failureReason,
             finishedAt, notes,
 
-            onRadioChange, onTextChange, onFinishedAtChange, onBackClick, onNextClick,
+            onRadioChange, onTextChange, onFinishedAtChange, onBackClick, onNextClick, isLoading
         } = this.props;
 
         // IF THE HARVEST FAILED.
@@ -60,13 +60,13 @@ export default class ProductionTerminateStep1StartComponent extends Component {
 
                 <div className="col-md-5 mx-auto mt-2">
                     <form className="needs-validation" noValidate>
-                        <h2><i className="fas fa-user-md"></i>&nbsp;General Review</h2>
+                        <h2><i className="fas fa-user-tie"></i>&nbsp;General Review</h2>
                         <p>All fields which have the (*) symbol are required to be filled out.</p>
 
                         <BootstrapErrorsProcessingAlert errors={errors} />
 
                         <p className="border-bottom mb-3 pb-1 text-secondary">
-                            <i className="fas fa-stethoscope"></i>&nbsp;Overall
+                            <i className="fas fa-glasses"></i>&nbsp;Executive Summary
                         </p>
 
                         <BootstrapDatePicker
@@ -120,7 +120,7 @@ export default class ProductionTerminateStep1StartComponent extends Component {
                             <button type="text" className="btn btn-lg float-left pl-4 pr-4 btn-secondary" onClick={onBackClick}>
                                 <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
                             </button>
-                            <button type="text" className="btn btn-lg float-right pl-4 pr-4 btn-primary" onClick={onNextClick}>
+                            <button type="text" className="btn btn-lg float-right pl-4 pr-4 btn-primary" onClick={onNextClick} disabled={isLoading}>
                                 Next&nbsp;<i className="fas fa-arrow-circle-right"></i>
                             </button>
                         </div>
