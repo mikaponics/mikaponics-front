@@ -34,7 +34,7 @@ class DashboardComponent extends Component {
                                 <h1 className="circle-title">{productionsCount}</h1>
                             </Link>
                         </div>
-                        <h4>Production</h4>
+                        <h4><i className="fas fa-industry"></i>&nbsp;Production</h4>
                         <div className="text-muted">View your production list</div>
                     </div>
                     <div className="col-sm-3 placeholder">
@@ -43,7 +43,7 @@ class DashboardComponent extends Component {
                                 <h1 className="circle-title">{devicesCount}</h1>
                             </Link>
                         </div>
-                        <h4>Devices</h4>
+                        <h4><i className="fas fa-cubes"></i>&nbsp;Devices</h4>
                         <span className="text-muted">View your devices</span>
                     </div>
 
@@ -54,8 +54,10 @@ class DashboardComponent extends Component {
                                     <span className="r-circle"><i className="fas fa-lock fa-3x"></i></span>
                                 </a>
                             </div>
-                            <h4>Alerts</h4>
-                            <span className="text-muted"><i className="fas fa-lock"></i>&nbsp;Locked</span>
+                            <h4><i className="fas fa-bell"></i>&nbsp;Alerts</h4>
+                            <span className="text-muted">
+                                <strong><i className="fas fa-lock"></i>&nbsp;Locked</strong>
+                            </span>
                         </div>
                     }
                     {isSubscribed &&
@@ -65,7 +67,7 @@ class DashboardComponent extends Component {
                                     <h1 className="circle-title">{activeAlertItemsCount}</h1>
                                 </Link>
                             </div>
-                            <h4>Alerts</h4>
+                            <h4><i className="fas fa-bell"></i>&nbsp;Alerts</h4>
                             <span className="text-muted">View your alertss</span>
                         </div>
                     }
@@ -76,7 +78,7 @@ class DashboardComponent extends Component {
                                 <h1 className="circle-title">{activeTaskItemsCount}</h1>
                             </Link>
                         </div>
-                        <h4>Tasks</h4>
+                        <h4><i className="fas fa-tasks"></i>&nbsp;Tasks</h4>
                         <span className="text-muted">View your tasks</span>
                     </div>
                 </section>

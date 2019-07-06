@@ -207,7 +207,7 @@ class InstrumentComponent extends Component {
                                 </a>
                             </div>
                             <h4>Data</h4>
-                            <span className="text-muted"><i className="fas fa-lock"></i>&nbsp;Locked</span>
+                            <span className="text-muted"><strong><i className="fas fa-lock"></i>&nbsp;Locked</strong></span>
                         </div>
                     }
                     {isSubscribed &&
@@ -230,7 +230,7 @@ class InstrumentComponent extends Component {
                                 </a>
                             </div>
                             <h4>Analyses</h4>
-                            <span className="text-muted"><i className="fas fa-lock"></i>&nbsp;Locked</span>
+                            <span className="text-muted"><strong><i className="fas fa-lock"></i>&nbsp;Locked</strong></span>
                         </div>
                     }
                     {isSubscribed &&
@@ -253,7 +253,7 @@ class InstrumentComponent extends Component {
                                 </a>
                             </div>
                             <h4>Alerts</h4>
-                            <span className="text-muted"><i className="fas fa-lock"></i>&nbsp;Locked</span>
+                            <span className="text-muted"><strong><i className="fas fa-lock"></i>&nbsp;Locked</strong></span>
                         </div>
                     }
                     {isSubscribed &&
