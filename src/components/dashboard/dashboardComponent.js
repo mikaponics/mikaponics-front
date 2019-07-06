@@ -19,6 +19,8 @@ class DashboardComponent extends Component {
         const productionsCount = (productions !== undefined && productions !== null) ? productions.length : 0;
         const devicesCount = (devices !== undefined && devices !== null) ? devices.length : 0;
         const hasDevices = devicesCount > 0;
+        const isNotSubscribed = user.subscriptionStatus !== "active";
+        const isSubscribed = user.subscriptionStatus === "active";
 
         return (
             <div className="Dashboard">
@@ -44,15 +46,30 @@ class DashboardComponent extends Component {
                         <h4>Devices</h4>
                         <span className="text-muted">View your devices</span>
                     </div>
-                    <div className="col-sm-3 placeholder">
-                        <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-dblue">
-                            <Link to="/alerts" className="d-block link-ndecor" title="Alerts">
-                                <h1 className="circle-title">{activeAlertItemsCount}</h1>
-                            </Link>
+
+                    {isNotSubscribed &&
+                        <div className="col-sm-3 placeholder">
+                            <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-dblue">
+                                <a className="d-block link-ndecor" title="Alerts">
+                                    <span className="r-circle"><i className="fas fa-lock fa-3x"></i></span>
+                                </a>
+                            </div>
+                            <h4>Alerts</h4>
+                            <span className="text-muted"><i className="fas fa-lock"></i>&nbsp;Locked</span>
                         </div>
-                        <h4>Alerts</h4>
-                        <span className="text-muted">View your alertss</span>
-                    </div>
+                    }
+                    {isSubscribed &&
+                        <div className="col-sm-3 placeholder">
+                            <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-dblue">
+                                <Link to="/alerts" className="d-block link-ndecor" title="Alerts">
+                                    <h1 className="circle-title">{activeAlertItemsCount}</h1>
+                                </Link>
+                            </div>
+                            <h4>Alerts</h4>
+                            <span className="text-muted">View your alertss</span>
+                        </div>
+                    }
+
                     <div className="col-sm-3 placeholder">
                         <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-orange">
                             <Link to="/tasks" className="d-block link-ndecor" title="Tasks">

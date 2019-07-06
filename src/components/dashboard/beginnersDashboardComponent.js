@@ -4,15 +4,12 @@ import Moment from 'react-moment';
 import 'moment-timezone';
 import { Link } from "react-router-dom";
 
-import SubscriptionNoticeContainer from '../../containers/navigation/subscriptionNoticeContainer';
-
 
 class BeginnersDashboardComponent extends Component {
     render() {
         const { user } = this.props;
         return (
             <div className="Dashboard">
-                <SubscriptionNoticeContainer />
                 <h1><i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard</h1>
 
                     <div className="jumbotron">

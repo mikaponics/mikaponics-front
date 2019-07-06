@@ -114,16 +114,16 @@ class AppContainer extends React.Component {
                             <Route path="/devices/create/step-4-purchase-submission" exact component={requiresAuth(DeviceCreateStep4PurchaseSubmissionContainer)} />
                             <Route path="/devices/create/step-5-purchase-success" exact component={requiresAuth(DeviceCreateStep5PurchaseSuccessContainer)} />
                             <Route path="/instrument/:slug" exact component={requiresAuth(InstrumentDetailContainer)} />
-                            <Route path="/instrument/:slug/alerts" exact component={requiresAuth(InstrumentAlertItemListContainer)} />
-                            <Route path="/instrument-alert/:slug" exact component={requiresAuth(InstrumentAlertItemDetailContainer)} />
+                            <Route path="/instrument/:slug/alerts" exact component={requiresAuth(requiresSubscription(InstrumentAlertItemListContainer))} />
+                            <Route path="/instrument-alert/:slug" exact component={requiresAuth(requiresSubscription(InstrumentAlertItemDetailContainer))} />
                             <Route path="/instrument/:slug/alerts/config" exact component={requiresAuth(InstrumentAlertItemConfigContainer)} />
                             <Route path="/instrument/:slug/data" exact component={requiresAuth(requiresSubscription(InstrumentDataContainer))} />
                             <Route path="/instrument/:slug/data/download" exact component={requiresAuth(requiresSubscription(InstrumentDataDownloadContainer))} />
                             <Route path="/instrument/:slug/analyses" exact component={requiresAuth(requiresSubscription(InstrumentAnalysisListContainer))} />
                             <Route path="/instrument/:slug/create-analysis" exact component={requiresAuth(requiresSubscription(InstrumentAnalysisCreateContainer))} />
                             <Route path="/instrument/analysis/:slug" exact component={requiresAuth(requiresSubscription(InstrumentAnalysisDetailContainer))} />
-                            <Route path="/alerts" exact component={requiresAuth(AlertListContainer)} />
-                            <Route path="/alert/:slug" exact component={requiresAuth(AlertItemDetailContainer)} />
+                            <Route path="/alerts" exact component={requiresAuth(requiresSubscription(AlertListContainer))} />
+                            <Route path="/alert/:slug" exact component={requiresSubscription(requiresAuth(AlertItemDetailContainer))} />
                             <Route path="/invoices" exact component={requiresAuth(InvoiceListContainer)} />
                             <Route path="/invoice/:slug" exact component={requiresAuth(InvoiceDetailContainer)} />
                             <Route path="/invoice-send-email/:slug" exact component={requiresAuth(InvoiceSendContainer)} />

@@ -244,15 +244,29 @@ class InstrumentComponent extends Component {
                             <span className="text-muted">View your analysis reports<br />(<i className="fas fa-lock"></i>&nbsp;Locked)</span>
                         </div>
                     }
-                    <div className="col-sm-3 placeholder">
-                        <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-orange">
-                            <Link to={`/instrument/${instrument.slug}/alerts`} className="d-block link-ndecor" title="Alerts">
-                                <span className="r-circle"><i className="fas fa-bell fa-3x"></i></span>
-                            </Link>
+
+                    {isNotSubscribed &&
+                        <div className="col-sm-3 placeholder">
+                            <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-orange">
+                                <a className="d-block link-ndecor" title="Alerts">
+                                    <span className="r-circle"><i className="fas fa-bell fa-3x"></i></span>
+                                </a>
+                            </div>
+                            <h4>Alerts</h4>
+                            <span className="text-muted"><i className="fas fa-lock"></i>&nbsp;Locked</span>
                         </div>
-                        <h4>Alerts</h4>
-                        <span className="text-muted">View your alerts</span>
-                    </div>
+                    }
+                    {isSubscribed &&
+                        <div className="col-sm-3 placeholder">
+                            <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-orange">
+                                <Link to={`/instrument/${instrument.slug}/alerts`} className="d-block link-ndecor" title="Alerts">
+                                    <span className="r-circle"><i className="fas fa-bell fa-3x"></i></span>
+                                </Link>
+                            </div>
+                            <h4>Alerts</h4>
+                            <span className="text-muted">View your alerts</span>
+                        </div>
+                    }
                 </section>
 
                 <div className="row">
