@@ -6,42 +6,23 @@ import shortid from "shortid";
 
 
 /**
- *  Utility function used to find the "option" for the inputted parameter "value".
- */
-export function getSelectedOption(options, value) {
-    if (options !== null && options !== undefined) {
-        const optionsLength = options.length;
-        for (let i = 0; i < optionsLength; i++ ) {
-            let option = options[i];
-            if (option.value === value) {
-                return option
-            }
-        }
-    }
-    return null;
-}
-
-
-/**
  *  Primitive boostrap select element.
  */
-export const BootstrapSingleSelect = ({
+export const BootstrapMultipleSelect = ({
     label,
     name,
     options,
     defaultOptionLabel=null,
-    value = null,
+    selectedOptions = null,
     helpText,
     error,
-    onSelectChange,
+    onMultiChange,
     borderColour="border-primary"
 }) => {
     const id = shortid.generate();
 
     // // Generate our help ID variable used for ``aria``..
     // const helpID = id + "-help";
-
-    const selectedOption = getSelectedOption(options, value)
 
     // Set the border color based on text.
     const borderColourHex = borderColour === "border-primary" ? "#007bff"  : "#28a745";
@@ -61,7 +42,6 @@ export const BootstrapSingleSelect = ({
             }
         })
     }
-    // console.log("error: ", error);
 
     // Render our output for this component.
     return (
@@ -69,11 +49,12 @@ export const BootstrapSingleSelect = ({
             <label className="control-label">{label}</label>
 
             <Select
+                isMulti={true}
                 key={id}
                 className={classnames('react-select', { 'is-invalid': error })}
                 name={name}
-                value={selectedOption}
-                onChange={onSelectChange}
+                value={selectedOptions}
+                onChange={(...args) => onMultiChange(...args)}
                 options={options}
                 styles={customStyles}
             />
