@@ -12,7 +12,8 @@ import {
     PRODUCTION_CROPS_DIED,
     PRODUCTION_CROPS_WERE_TERMINATED,
     PRODUCTION_CROPS_TERRIBLE_HARVEST_REVIEW,
-    PRODUCTION_CROPS_BAD_HARVEST_REVIEW
+    PRODUCTION_CROPS_BAD_HARVEST_REVIEW,
+    PRODUCITON_OTHER_HARVEST_FAILURE_REASON
 } from '../../../constants/api';
 import ProductionTerminateWizardComponent from './productionTerminateWizardComponent';
 
@@ -24,20 +25,19 @@ export default class ProductionTerminateStep2CropComponent extends Component {
             onBackClick, onNextClick, onTextChange, onSelectChange, onRadioChange,
 
             // DEVELOPER NOTE: BELOW IS WHERE YOU ADD MORE FIELDS TO COLLECT
-            wasHarvested, wasHarvestedOptions, harvestFailureReason, harvestFailureReasonOptions,
+            wasHarvested, wasHarvestedOptions, harvestFailureReason, harvestFailureReasonOptions, harvestFailureReasonOther,
             harvestYield, harvestYieldOptions, harvestQuality, harvestQualityOptions,
         } = this.props;
 
         let shouldDisplayHarvestFailureReasons = wasHarvested === false || wasHarvested === 'false';
         let shouldDisplayHarvestSuccessReasons = wasHarvested === true || wasHarvested === 'true';
+        let shouldDisplayHarvestFailureReasonOther = harvestFailureReason === PRODUCITON_OTHER_HARVEST_FAILURE_REASON;
 
         // DEFENSIVE CODE: PREVENT NULLS.
         if (crop === undefined || crop === null) {
             console.error("ProductionTerminateStep2CropComponent | render | null crop.");
             return null;
         }
-
-
 
         return (
             <div>
@@ -96,6 +96,19 @@ export default class ProductionTerminateStep2CropComponent extends Component {
                                     error={errors.harvestFailureReason}
                                     onSelectChange={ option => onSelectChange(option.selectName, option.value, option.label) }
                                 />
+                                {shouldDisplayHarvestFailureReasonOther &&
+                                    <BootstrapInput
+                                        inputClassName="form-control"
+                                        borderColour="border-primary"
+                                        error={errors.harvestFailureReasonOther}
+                                        label="Reason for harvest failure - Other (*)"
+                                        onChange={onTextChange}
+                                        value={harvestFailureReasonOther}
+                                        name="harvestFailureReasonOther"
+                                        type="text"
+                                        placeholder="Please specify."
+                                    />
+                                }
                             </div>
                         }
                         {shouldDisplayHarvestSuccessReasons &&

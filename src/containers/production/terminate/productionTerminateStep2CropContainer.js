@@ -64,6 +64,7 @@ class ProductionTerminateStep2CropContainer extends Component {
             }],
             harvestFailureReasonOptions: PRODUCTION_HARVEST_FAILURE_REASON_OPTION_CHOICES,
             harvestFailureReason: crop.harvestFailureReason,
+            harvestFailureReasonOther: crop.harvestFailureReasonOther,
             harvestYieldOptions: PRODUCTION_HARVEST_YIELD_OPTION_CHOICES,
             harvestYield: crop.harvestYield,
             harvestQualityOptions: PRODUCTION_HARVEST_QUALITY_OPTION_CHOICES,
@@ -121,6 +122,7 @@ class ProductionTerminateStep2CropContainer extends Component {
                     // DEVELOPER NOTE: BELOW IS WHERE YOU ADD MORE FIELDS TO COLLECT
                     wasHarvested: crop.wasHarvested,
                     harvestFailureReason: crop.harvestFailureReason,
+                    harvestFailureReasonOther: crop.harvestFailureReasonOther,
                     harvestYield: crop.harvestYield,
                     harvestQuality: crop.harvestQuality,
                 },
@@ -159,6 +161,7 @@ class ProductionTerminateStep2CropContainer extends Component {
                         // DEVELOPER NOTE: BELOW IS WHERE YOU ADD MORE FIELDS TO COLLECT
                         wasHarvested: crop.wasHarvested,
                         harvestFailureReason: crop.harvestFailureReason,
+                        harvestFailureReasonOther: crop.harvestFailureReasonOther,
                         harvestYield: crop.harvestYield,
                         harvestQuality: crop.harvestQuality,
                     },
@@ -372,7 +375,7 @@ class ProductionTerminateStep2CropContainer extends Component {
             productionName, productionSlug, crops, crop, errors, isLoading,
 
             // DEVELOPER NOTE: BELOW IS WHERE YOU ADD MORE FIELDS TO COLLECT
-            wasHarvested, wasHarvestedOptions, harvestFailureReason, harvestFailureReasonOptions,
+            wasHarvested, wasHarvestedOptions, harvestFailureReason, harvestFailureReasonOptions, harvestFailureReasonOther,
             harvestYield, harvestYieldOptions, harvestQuality, harvestQualityOptions,
         } = this.state;
         return (
@@ -395,6 +398,7 @@ class ProductionTerminateStep2CropContainer extends Component {
                 wasHarvested={wasHarvested}
                 wasHarvestedOptions={wasHarvestedOptions}
                 harvestFailureReason={harvestFailureReason}
+                harvestFailureReasonOther={harvestFailureReasonOther}
                 harvestFailureReasonOptions={harvestFailureReasonOptions}
                 harvestYield={harvestYield}
                 harvestYieldOptions={harvestYieldOptions}

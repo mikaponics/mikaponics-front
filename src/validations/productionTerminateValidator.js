@@ -37,8 +37,12 @@ export function validateStep2Input(data) {
         errors.wasHarvested = 'This field is required.';
     }
     if (data.wasHarvested === false || data.wasHarvested === "false") {
-        if ( data.failureReason === undefined || data.failureReason === null || data.failureReason === "" || data.failureReason === "null" ) {
-            errors.failureReason = 'This field is required.';
+        if ( data.harvestFailureReason === undefined || data.harvestFailureReason === null || data.harvestFailureReason === "" || data.harvestFailureReason === "null" ) {
+            errors.harvestFailureReason = 'This field is required.';
+        } else {
+            if ( data.harvestFailureReasonOther === undefined || data.harvestFailureReasonOther === null || data.harvestFailureReasonOther === "" || data.harvestFailureReasonOther === "null") {
+                errors.harvestFailureReasonOther = 'This field is required.';
+            }
         }
     } else if (data.wasHarvested === true || data.wasHarvested === "true") {
         if ( data.harvestYield === undefined || data.harvestYield === null || data.harvestYield === "" || data.harvestYield === "null" ) {
