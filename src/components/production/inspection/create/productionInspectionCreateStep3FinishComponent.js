@@ -119,9 +119,9 @@ class ProductionCropInspectionTableComponent extends Component {
         } = this.props.crop;
         const id = shortid.generate();
         const reviewWasFailure = (review === PRODUCTION_CROPS_INSPECTION_TERRIBLE_REVIEW) || (review === PRODUCTION_CROPS_INSPECTION_BAD_REVIEW);
-        let shouldDisplayPestProblems = pestProblems !== undefined && pestProblems !== null && isEmpty(pestProblems);
-        let shouldDisplayDiseaseProblems = diseaseProblems !== undefined && diseaseProblems !== null && isEmpty(diseaseProblems);
-        let shouldDisplayAbioticProblems = abioticProblems !== undefined && abioticProblems !== null && isEmpty(abioticProblems);
+        let shouldDisplayPestProblems = pestProblems !== undefined && pestProblems !== null && isEmpty(pestProblems) === false;
+        let shouldDisplayDiseaseProblems = diseaseProblems !== undefined && diseaseProblems !== null && isEmpty(diseaseProblems) === false;
+        let shouldDisplayAbioticProblems = abioticProblems !== undefined && abioticProblems !== null && isEmpty(abioticProblems) === false;
         return (
             <table className="table table-bordered custom-cell-w" key={id}>
                 <tbody>
