@@ -69,6 +69,9 @@ class ProductionListContainer extends Component {
             item.harvestNotes = "";
             item.harvestWeight = "";
             item.harvestWeightUnit = "";
+            item.averageLength = "";
+            item.averageWidth = "";
+            item.averageHeight = "";
         }
 
         // Save to the persistent storage a COMPLETE COPY of the crops in the

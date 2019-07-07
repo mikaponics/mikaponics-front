@@ -72,6 +72,9 @@ class ProductionTerminateStep2CropContainer extends Component {
             harvestNotes: crop.harvestNotes,
             harvestWeight: crop.harvestWeight,
             harvestWeightUnit: crop.harvestWeightUnit,
+            averageLength: crop.averageLength,
+            averageWidth: crop.averageWidth,
+            averageHeight: crop.averageHeight,
         }
         this.onNextClick = this.onNextClick.bind(this);
         this.onBackClick = this.onBackClick.bind(this);
@@ -131,6 +134,9 @@ class ProductionTerminateStep2CropContainer extends Component {
                     harvestNotes: crop.harvestNotes,
                     harvestWeight: crop.harvestWeight,
                     harvestWeightUnit: crop.harvestWeightUnit,
+                    averageLength: crop.averageLength,
+                    averageWidth: crop.averageWidth,
+                    averageHeight: crop.averageHeight,
                 },
                 () => {
                     this.props.history.push('/production/'+ this.state.productionSlug + '/terminate-crop/'+this.state.index);
@@ -173,6 +179,9 @@ class ProductionTerminateStep2CropContainer extends Component {
                         harvestNotes: crop.harvestNotes,
                         harvestWeight: crop.harvestWeight,
                         harvestWeightUnit: crop.harvestWeightUnit,
+                        averageLength: crop.averageLength,
+                        averageWidth: crop.averageWidth,
+                        averageHeight: crop.averageHeight,
                     },
                     () => {
                         this.props.history.push('/production/'+ this.state.productionSlug + '/terminate-crop/'+this.state.index);
@@ -386,6 +395,7 @@ class ProductionTerminateStep2CropContainer extends Component {
             // DEVELOPER NOTE: BELOW IS WHERE YOU ADD MORE FIELDS TO COLLECT
             wasHarvested, wasHarvestedOptions, harvestFailureReason, harvestFailureReasonOptions, harvestFailureReasonOther,
             harvestYield, harvestYieldOptions, harvestQuality, harvestQualityOptions, harvestNotes, harvestWeight, harvestWeightUnit,
+            averageLength, averageWidth, averageHeight,
         } = this.state;
         return (
             <ProductionTerminateStep2CropComponent
@@ -416,6 +426,9 @@ class ProductionTerminateStep2CropContainer extends Component {
                 harvestNotes={harvestNotes}
                 harvestWeight={harvestWeight}
                 harvestWeightUnit={harvestWeightUnit}
+                averageLength={averageLength}
+                averageWidth={averageWidth}
+                averageHeight={averageHeight}
             />
         );
     }

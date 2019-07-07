@@ -27,6 +27,7 @@ export default class ProductionTerminateStep2CropComponent extends Component {
             // DEVELOPER NOTE: BELOW IS WHERE YOU ADD MORE FIELDS TO COLLECT
             wasHarvested, wasHarvestedOptions, harvestFailureReason, harvestFailureReasonOptions, harvestFailureReasonOther,
             harvestYield, harvestYieldOptions, harvestQuality, harvestQualityOptions, harvestNotes, harvestWeight, harvestWeightUnit,
+            averageLength, averageWidth, averageHeight,
         } = this.props;
 
         let shouldDisplayHarvestFailureReasons = wasHarvested === false || wasHarvested === 'false';
@@ -167,6 +168,43 @@ export default class ProductionTerminateStep2CropComponent extends Component {
 
                             </div>
                         }
+
+                        <p className="border-bottom mb-3 pb-1 text-secondary"><i className="fas fa-chart-line"></i>&nbsp;Crop Growth</p>
+
+                        <BootstrapInput
+                            inputClassName="form-control"
+                            borderColour="border-success"
+                            error={errors.averageLength}
+                            label="Average Length"
+                            onChange={onTextChange}
+                            value={averageLength}
+                            name="averageLength"
+                            type="text"
+                            placeholder="Please specify average length across."
+                        />
+                        <BootstrapInput
+                            inputClassName="form-control"
+                            borderColour="border-success"
+                            error={errors.averageWidth}
+                            label="Average Width"
+                            onChange={onTextChange}
+                            value={averageWidth}
+                            name="averageWidth"
+                            type="text"
+                            placeholder="Please specify average width across."
+                        />
+                        <BootstrapInput
+                            inputClassName="form-control"
+                            borderColour="border-success"
+                            error={errors.averageHeight}
+                            label="Average Height"
+                            onChange={onTextChange}
+                            value={averageHeight}
+                            name="averageHeight"
+                            type="text"
+                            placeholder="Please specify average height across."
+                        />
+
 
                         <div className="form-group">
                             <button type="text" className="btn btn-lg float-left pl-4 pr-4 btn-secondary" onClick={onBackClick}>
