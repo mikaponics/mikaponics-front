@@ -31,10 +31,20 @@ export default class ProductionInspectionCreateStepNavigationComponent extends C
                 isSelectedTab = (cropInspectionItem.slug === cropInspection.slug) && (isLast === false) && (isFirst === false);
             }
 
+            // Check to see if this crop has a variety.
+            let prettyNameWithVariety = cropInspectionItem.prettyName;
+            let hasVariety = false;
+            if (cropInspection) {
+                if (cropInspection.variety !== undefined || cropInspection.variety !== null || cropInspection.variety !== "") {
+                    prettyNameWithVariety += " (" + cropInspection.variety + ")";
+                }
+            }
+
             // GENERATE OUR STEP NAVIGATION FOR THE `CROP INSPECTION`.
             elements.push(
                 <div id="step-5" className={classnames('st-grey', { 'active': isSelectedTab })}>
-                    <span className="num">{num}.</span><span className="">{cropInspectionItem.prettyName}</span>
+                    <span className="num">{num}.</span>
+                    <span className="">{prettyNameWithVariety}</span>
                 </div>
             )
         }
