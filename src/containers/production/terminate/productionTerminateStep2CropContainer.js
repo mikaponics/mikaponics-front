@@ -69,6 +69,9 @@ class ProductionTerminateStep2CropContainer extends Component {
             harvestYield: crop.harvestYield,
             harvestQualityOptions: PRODUCTION_HARVEST_QUALITY_OPTION_CHOICES,
             harvestQuality: crop.harvestQuality,
+            harvestNotes: crop.harvestNotes,
+            harvestWeight: crop.harvestWeight,
+            harvestWeightUnit: crop.harvestWeightUnit,
         }
         this.onNextClick = this.onNextClick.bind(this);
         this.onBackClick = this.onBackClick.bind(this);
@@ -125,6 +128,9 @@ class ProductionTerminateStep2CropContainer extends Component {
                     harvestFailureReasonOther: crop.harvestFailureReasonOther,
                     harvestYield: crop.harvestYield,
                     harvestQuality: crop.harvestQuality,
+                    harvestNotes: crop.harvestNotes,
+                    harvestWeight: crop.harvestWeight,
+                    harvestWeightUnit: crop.harvestWeightUnit,
                 },
                 () => {
                     this.props.history.push('/production/'+ this.state.productionSlug + '/terminate-crop/'+this.state.index);
@@ -164,6 +170,9 @@ class ProductionTerminateStep2CropContainer extends Component {
                         harvestFailureReasonOther: crop.harvestFailureReasonOther,
                         harvestYield: crop.harvestYield,
                         harvestQuality: crop.harvestQuality,
+                        harvestNotes: crop.harvestNotes,
+                        harvestWeight: crop.harvestWeight,
+                        harvestWeightUnit: crop.harvestWeightUnit,
                     },
                     () => {
                         this.props.history.push('/production/'+ this.state.productionSlug + '/terminate-crop/'+this.state.index);
@@ -376,7 +385,7 @@ class ProductionTerminateStep2CropContainer extends Component {
 
             // DEVELOPER NOTE: BELOW IS WHERE YOU ADD MORE FIELDS TO COLLECT
             wasHarvested, wasHarvestedOptions, harvestFailureReason, harvestFailureReasonOptions, harvestFailureReasonOther,
-            harvestYield, harvestYieldOptions, harvestQuality, harvestQualityOptions,
+            harvestYield, harvestYieldOptions, harvestQuality, harvestQualityOptions, harvestNotes, harvestWeight, harvestWeightUnit,
         } = this.state;
         return (
             <ProductionTerminateStep2CropComponent
@@ -404,6 +413,9 @@ class ProductionTerminateStep2CropContainer extends Component {
                 harvestYieldOptions={harvestYieldOptions}
                 harvestQuality={harvestQuality}
                 harvestQualityOptions={harvestQualityOptions}
+                harvestNotes={harvestNotes}
+                harvestWeight={harvestWeight}
+                harvestWeightUnit={harvestWeightUnit}
             />
         );
     }

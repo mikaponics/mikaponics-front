@@ -7,14 +7,6 @@ import { BootstrapInput } from "../../bootstrap/bootstrapInput";
 import { BootstrapTextarea } from "../../bootstrap/bootstrapTextarea";
 import { BootstrapErrorsProcessingAlert } from "../../bootstrap/bootstrapAlert";
 import { BootstrapSingleSelect } from '../../bootstrap/bootstrapSingleSelect';
-import {
-    PRODUCTION_CROP_STATE_AT_FINISH_OPTION_CHOICES,
-    PRODUCTION_CROPS_HARVEST_REVIEW_AT_FINISH_OPTION_CHOICES,
-    PRODUCTION_CROPS_DIED,
-    PRODUCTION_CROPS_WERE_TERMINATED,
-    PRODUCTION_CROPS_TERRIBLE_HARVEST_REVIEW,
-    PRODUCTION_CROPS_BAD_HARVEST_REVIEW
-} from '../../../constants/api';
 import ProductionTerminateWizardComponent from './productionTerminateWizardComponent';
 
 
@@ -119,8 +111,6 @@ export default class ProductionTerminateStep3FinishComponent extends Component {
 class CropTable extends Component {
     render() {
         const { prettyName, stateAtFinish, stateAtFinishLabel, stateFailureReasonAtFinish, harvestAtFinish, harvestAtFinishLabel, harvestFailureReasonAtFinish, harvestNotesAtFinish, notesAtFinish } = this.props.crop;
-        const displayCropFailureError = (stateAtFinish===PRODUCTION_CROPS_DIED)||(stateAtFinish===PRODUCTION_CROPS_WERE_TERMINATED)
-        const displayHarvestFailureError = (harvestAtFinish===PRODUCTION_CROPS_TERRIBLE_HARVEST_REVIEW)||(harvestAtFinish===PRODUCTION_CROPS_BAD_HARVEST_REVIEW)
         return (
             <table className="table table-bordered custom-cell-w">
                 <tbody>
@@ -131,22 +121,7 @@ class CropTable extends Component {
                         <th scope="row" className="bg-light">State at finish</th>
                         <td>{stateAtFinishLabel}</td>
                     </tr>
-                    {displayCropFailureError &&
-                        <tr>
-                            <th scope="row" className="bg-light">Crop failure reason</th>
-                            <td>{stateFailureReasonAtFinish}</td>
-                        </tr>
-                    }
-                    <tr>
-                        <th scope="row" className="bg-light">Harvest</th>
-                        <td>{harvestAtFinishLabel}</td>
-                    </tr>
-                    {displayHarvestFailureError &&
-                        <tr>
-                            <th scope="row" className="bg-light">Crop failure reason</th>
-                            <td>{harvestFailureReasonAtFinish}</td>
-                        </tr>
-                    }
+
                     <tr>
                         <th scope="row" className="bg-light">Harvest Note(s)</th>
                         <td>{harvestNotesAtFinish}</td>

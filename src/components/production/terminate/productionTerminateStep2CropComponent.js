@@ -26,7 +26,7 @@ export default class ProductionTerminateStep2CropComponent extends Component {
 
             // DEVELOPER NOTE: BELOW IS WHERE YOU ADD MORE FIELDS TO COLLECT
             wasHarvested, wasHarvestedOptions, harvestFailureReason, harvestFailureReasonOptions, harvestFailureReasonOther,
-            harvestYield, harvestYieldOptions, harvestQuality, harvestQualityOptions,
+            harvestYield, harvestYieldOptions, harvestQuality, harvestQualityOptions, harvestNotes, harvestWeight, harvestWeightUnit,
         } = this.props;
 
         let shouldDisplayHarvestFailureReasons = wasHarvested === false || wasHarvested === 'false';
@@ -131,6 +131,40 @@ export default class ProductionTerminateStep2CropComponent extends Component {
                                     error={errors.harvestQuality}
                                     onSelectChange={ option => onSelectChange(option.selectName, option.value, option.label) }
                                 />
+                                <BootstrapTextarea
+                                    name="harvestNotes"
+                                    borderColour="border-success"
+                                    label="Harvest Notes (*)"
+                                    placeholder="Any additional notes or comments (s)."
+                                    rows={5}
+                                    value={harvestNotes}
+                                    helpText={null}
+                                    onChange={ onTextChange }
+                                    error={errors.harvestNotes}
+                                />
+                                <BootstrapInput
+                                    inputClassName="form-control"
+                                    borderColour="border-success"
+                                    error={errors.harvestWeight}
+                                    label="Total weight of harvest - Value"
+                                    onChange={onTextChange}
+                                    value={harvestWeight}
+                                    name="harvestWeight"
+                                    type="text"
+                                    placeholder="Please the total weight of the harvest."
+                                />
+                                <BootstrapInput
+                                    inputClassName="form-control"
+                                    borderColour="border-success"
+                                    error={errors.harvestWeightUnit}
+                                    label="Total weight of harvest - Unit of measure"
+                                    onChange={onTextChange}
+                                    value={harvestWeightUnit}
+                                    name="harvestWeightUnit"
+                                    type="text"
+                                    placeholder="Please specify unit of measure for the weight."
+                                />
+
                             </div>
                         }
 
