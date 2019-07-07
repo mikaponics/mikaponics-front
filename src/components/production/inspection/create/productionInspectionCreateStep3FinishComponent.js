@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import shortid from "shortid";
+import isEmpty from 'lodash/isEmpty';
 
 import {
     PRODUCTION_CROPS_INSPECTION_TERRIBLE_REVIEW,
@@ -118,6 +119,9 @@ class ProductionCropInspectionTableComponent extends Component {
         } = this.props.crop;
         const id = shortid.generate();
         const reviewWasFailure = (review === PRODUCTION_CROPS_INSPECTION_TERRIBLE_REVIEW) || (review === PRODUCTION_CROPS_INSPECTION_BAD_REVIEW);
+        let shouldDisplayPestProblems = pestProblems !== undefined && pestProblems !== null && isEmpty(pestProblems);
+        let shouldDisplayDiseaseProblems = diseaseProblems !== undefined && diseaseProblems !== null && isEmpty(diseaseProblems);
+        let shouldDisplayAbioticProblems = abioticProblems !== undefined && abioticProblems !== null && isEmpty(abioticProblems);
         return (
             <table className="table table-bordered custom-cell-w" key={id}>
                 <tbody>
@@ -150,7 +154,7 @@ class ProductionCropInspectionTableComponent extends Component {
                             </ul>
                         </td>
                     </tr>
-                    {pestProblems.length > 0 &&
+                    {shouldDisplayPestProblems &&
                         <tr>
                             <th scope="row" className="bg-light">Pest Problems</th>
                             <td>
@@ -158,7 +162,7 @@ class ProductionCropInspectionTableComponent extends Component {
                             </td>
                         </tr>
                     }
-                    {diseaseProblems.length > 0 &&
+                    {shouldDisplayDiseaseProblems &&
                         <tr>
                             <th scope="row" className="bg-light">Disease Problems</th>
                             <td>
@@ -166,7 +170,7 @@ class ProductionCropInspectionTableComponent extends Component {
                             </td>
                         </tr>
                     }
-                    {abioticProblems.length > 0 &&
+                    {shouldDisplayAbioticProblems &&
                         <tr>
                             <th scope="row" className="bg-light">Abiotic Problems</th>
                             <td>
