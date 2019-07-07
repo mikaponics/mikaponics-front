@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 import { BootstrapInput } from "../../../bootstrap/bootstrapInput";
+import { BootstrapMultipleSelect } from "../../../bootstrap/bootstrapMultipleSelect";
 import { BootstrapTextarea } from "../../../bootstrap/bootstrapTextarea";
 import { BootstrapErrorsProcessingAlert } from "../../../bootstrap/bootstrapAlert";
 import { BootstrapSingleSelect } from '../../../bootstrap/bootstrapSingleSelect';
@@ -20,9 +21,10 @@ class ProductionInspectionCreateStep2CropComponent extends Component {
             cropInspection, cropInspections,
             productionInspectionDetail,
             stageOptions=[], productionDetail,
-            review, failureReason, stage, notes, errors,
+            review, failureReason, stage, notes,
+            pests, pestOptions, pestsOther,
             averageLength, averageWidth, averageHeight, averageMeasureUnit,
-            onBackClick, onNextClick, onSelectChange, onTextChange
+            errors, onBackClick, onNextClick, onSelectChange, onMultiChange, onTextChange
         } = this.props;
         const { name, slug } = productionDetail;
 
@@ -123,8 +125,35 @@ class ProductionInspectionCreateStep2CropComponent extends Component {
                         }
 
                         <p className="border-bottom mb-3 pb-1 text-secondary">
+                           <i className="fas fa-spider"></i>&nbsp;Pests
+                        </p>
+
+                        <BootstrapMultipleSelect
+                            borderColour="border-success"
+                            label="Pests"
+                            name="pests"
+                            defaultOptionLabel="Please select any pest discovered."
+                            options={pestOptions}
+                            selectedOptions={pests}
+                            error={errors.pests}
+                            onMultiChange={onMultiChange}
+                        />
+
+                        <BootstrapInput
+                            inputClassName="form-control"
+                            borderColour="border-success"
+                            error={errors.pestsOther}
+                            label="Other pests"
+                            onChange={onTextChange}
+                            value={pestsOther}
+                            name="pestsOther"
+                            type="text"
+                            placeholder="Please specify other pests not listed in above."
+                        />
+
+                        <p className="border-bottom mb-3 pb-1 text-secondary">
                            <i className="fas fa-ruler"></i>&nbsp;Crop Measurements
-                          </p>
+                        </p>
 
                         <BootstrapInput
                             inputClassName="form-control"
@@ -169,6 +198,7 @@ class ProductionInspectionCreateStep2CropComponent extends Component {
                             name="averageMeasureUnit"
                             type="text"
                             placeholder="Please enter the unit of measurement used for the averages above."
+                            helpText="If pests are not listed above, please specify here."
                         />
 
                         <p className="border-bottom mb-3 pb-1 text-secondary">

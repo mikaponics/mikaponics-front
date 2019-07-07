@@ -5,6 +5,7 @@ import Scroll from 'react-scroll';
 
 import ProductionInspectionCreateStep2CropComponent from "../../../../components/production/inspection/create/productionInspectionCreateStep2CropComponent";
 import { pullCropLifeCycleStageList, getStageOptions } from "../../../../actions/cropLifeCycleStageListActions";
+import { getProblemReactSelectOptions } from "../../../../actions/productionInspectionActions";
 import { validateStep2Input } from "../../../../validations/productionInspectionCreateValidator";
 import {
     localStorageGetArrayItem,
@@ -46,18 +47,54 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
             review: cropInspection.review,
             failureReason: cropInspection.failureReason,
             stage: cropInspection.stage,
+            averageLength: cropInspection.averageLength,
+            averageWidth: cropInspection.averageWidth,
+            averageHeight: cropInspection.averageHeight,
+            averageMeasureUnit: cropInspection.averageMeasureUnit,
             notes: cropInspection.notes,
+            pests: cropInspection.pests,
+            pestsOther: cropInspection.pestsOther,
         }
         this.onNextClick = this.onNextClick.bind(this);
         this.onBackClick = this.onBackClick.bind(this);
         this.onSelectChange = this.onSelectChange.bind(this);
+        this.onMultiChange = this.onMultiChange.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
-        this.updateCropInspectionWithOnSelectionChange = this.updateCropInspectionWithOnSelectionChange.bind(this);
-        this.updateCropInspectionWithOnTextChange = this.updateCropInspectionWithOnTextChange.bind(this);
+        this.updateCropWithOnKeyValueLabelChange = this.updateCropWithOnKeyValueLabelChange.bind(this);
     }
 
     componentDidMount() {
         this.props.pullCropLifeCycleStageList(this.props.user, 1, this.state.cropInspection.typeOf); // Get latest data from API.
+
+        this.setState({
+            pestsData: {
+                results: [{
+                    name: 'Ants',
+                    slug: 'ants'
+                },{
+                    name: 'Aphids',
+                    slug: 'aphids'
+                },{
+                    name: 'Mealybugs',
+                    slug: 'mealybugs'
+                },{
+                    name: 'Mites',
+                    slug: 'mites'
+                },{
+                    name: 'Moth',
+                    slug: 'moth'
+                },{
+                    name: 'Scale',
+                    slug: 'scale'
+                },{
+                    name: 'Thrips',
+                    slug: 'thrips'
+                },{
+                    name: 'Whitefly',
+                    slug: 'whitefly'
+                }]
+            }
+        });
 
         // AUTOMATICALLY SCROLL TO THE TOP (WITHOUT ANIMATIONS!)
         window.scrollTo(0, 0);  // Start the page at the top of the page.
@@ -101,7 +138,12 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
                     review: cropInspection.review,
                     failureReason: cropInspection.failureReason,
                     stage: cropInspection.stage,
+                    averageLength: cropInspection.averageLength,
+                    averageWidth: cropInspection.averageWidth,
+                    averageHeight: cropInspection.averageHeight,
                     notes: cropInspection.notes,
+                    pests: cropInspection.pests,
+                    pestsOther: cropInspection.pestsOther,
                 },
                 () => {
                     this.props.history.push('/production/'+ this.state.slug + '/create-inspection/crop/'+this.state.index);
@@ -136,7 +178,12 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
                         review: cropInspection.review,
                         failureReason: cropInspection.failureReason,
                         stage: cropInspection.stage,
+                        averageLength: cropInspection.averageLength,
+                        averageWidth: cropInspection.averageWidth,
+                        averageHeight: cropInspection.averageHeight,
                         notes: cropInspection.notes,
+                        pests: cropInspection.pests,
+                        pestsOther: cropInspection.pestsOther,
                     },
                     () => {
                         this.props.history.push('/production/'+ this.state.slug + '/create-inspection/crop/'+this.state.index);
@@ -162,7 +209,22 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
             { [name]: value },
             ()=>{
                 // Step 2: After state has been updated, we the crop inspection & crop inspections array.
-                this.updateCropInspectionWithOnSelectionChange(name, value, label);
+                this.updateCropWithOnKeyValueLabelChange(name, value, label);
+            }
+        );
+    }
+
+    onMultiChange(...args) {
+        // Extract the select options from the parameter.
+        const selectedOptions = args[0];
+        const key = args[1].name;
+
+        // STEP 1: Update individual value.
+        this.setState(
+            { [key]: selectedOptions,},
+            () => {
+                // Step 2: After state has been updated, we the crop inspection & crop inspections array.
+                this.updateCropWithOnKeyValueLabelChange(key, selectedOptions, null);
             }
         );
     }
@@ -177,7 +239,7 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
             { [e.target.name]: value },
             ()=>{
                 // Step 2: After state has been updated, we the crop inspection & crop inspections array.
-                this.updateCropInspectionWithOnTextChange(key, value);
+                this.updateCropWithOnKeyValueLabelChange(key, value, null);
             }
         );
     }
@@ -188,11 +250,11 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
      */
 
     /**
-     *  Utility function which will take the `selectfield` chosen values
+     *  Utility function which will take the chosen parameters
      *  and update the persistent storage for the `cropInspections` array.
      */
-    updateCropInspectionWithOnSelectionChange(key, value, label) {
-        // console.log("updateCropInspectionWithOnSelectionChange", key, value, label); // For debugging purposes only.
+    updateCropWithOnKeyValueLabelChange(key, value, label) {
+        console.log("updateCropWithOnKeyValueLabelChange", key, value, label); // For debugging purposes only.
 
         // Shallow copy of the array to create a NEW ARRAY.
         let a = this.state.cropInspections.slice(); //creates the clone of the state
@@ -200,8 +262,8 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
         // Find our current crop inspection and update it.
         let foundCropInspection = null;
         for (let i = 0; i < a.length; i++) {
-            let cropInspectionItem = a[i];
-            if (cropInspectionItem.slug === this.state.cropInspection.slug) {
+            let searchItem = a[i];
+            if (searchItem.slug === this.state.cropInspection.slug) {
                 // DEVELOPERS NOTE:
                 // (1) Since we have a POINTER to the object, which we retrieved
                 //     from the dictionary, we can update the value like this and
@@ -209,50 +271,9 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
                 // (2) We are saving the `value` which the API uses.
                 // (3) We are saving the `label` which we will use for GUI
                 //     purposes in the last page.
-                cropInspectionItem[key] = value;
-                cropInspectionItem[key+"Label"] = label;
-                foundCropInspection = cropInspectionItem;
-                break;
-            }
-        }
-
-        // Finally update the state to have a new copy of our cart which we
-        // modified here. Also update the persistent storage with our data.
-        this.setState(
-            {
-                cropInspection: foundCropInspection,
-                cropInspections: a
-            },
-            () => {
-                // Save to the persistent storage a COMPLETE COPY of the crops in the
-                // production detail which we will use in the `create` pages to override
-                // with our own values pertaining to crop inspections.
-                localStorageSetObjectOrArrayItem("temp-production-inspection-create-cropInspections", a);
-            }
-        );
-    }
-
-    /**
-     *  Utility function which will take the textfield chosen values
-     *  and update the persistent storage for the `cropInspections` array.
-     */
-    updateCropInspectionWithOnTextChange(key, value) {
-        console.log("updateCropInspectionWithOnTextChange", key, value);
-
-        // Shallow copy of the array to create a NEW ARRAY.
-        let a = this.state.cropInspections.slice(); //creates the clone of the state
-
-        // Find our current crop inspection and update it.
-        let foundCropInspection = null;
-        for (let i = 0; i < a.length; i++) {
-            let cropInspectionItem = a[i];
-            if (cropInspectionItem.slug === this.state.cropInspection.slug) {
-                // DEVELOPERS NOTE:
-                // Since we have a POINTER to the object, which we retrieved
-                // from the dictionary, we can update the value like this and
-                // it will reflect in the dictionary automatically.
-                cropInspectionItem[key] = value;
-                foundCropInspection = cropInspectionItem;
+                searchItem[key] = value;
+                searchItem[key+"Label"] = label;
+                foundCropInspection = searchItem;
                 break;
             }
         }
@@ -280,21 +301,36 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
 
     render() {
         const { index } = this.props.match.params;
-        const { cropInspections, cropInspection, review, failureReason, stage, notes, errors } = this.state;
+        const {
+            cropInspections, cropInspection, review, failureReason,
+            averageLength, averageWidth, averageHeight, averageMeasureUnit,
+            stage,
+            notes,
+            pests, pestsOther,
+             errors } = this.state;
+        const pestOptions = getProblemReactSelectOptions(this.state.pestsData, "pests");
         return (
             <ProductionInspectionCreateStep2CropComponent
                 stageOptions={getStageOptions(this.props.cropLifeCycleStageList)}
                 stage={stage}
+                averageLength={averageLength}
+                averageWidth={averageWidth}
+                averageHeight={averageHeight}
+                averageMeasureUnit={averageMeasureUnit}
                 productionDetail={this.props.productionDetail}
                 cropInspections={cropInspections}
                 cropInspection={cropInspection}
                 review={review}
                 failureReason={failureReason}
                 notes={notes}
+                pests={pests}
+                pestOptions={pestOptions}
+                pestsOther={pestsOther}
                 errors={errors}
                 onNextClick={this.onNextClick}
                 onBackClick={this.onBackClick}
                 onSelectChange={this.onSelectChange}
+                onMultiChange={this.onMultiChange}
                 onTextChange={this.onTextChange}
             />
         );
