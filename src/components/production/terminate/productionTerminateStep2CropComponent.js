@@ -27,7 +27,7 @@ export default class ProductionTerminateStep2CropComponent extends Component {
             // DEVELOPER NOTE: BELOW IS WHERE YOU ADD MORE FIELDS TO COLLECT
             wasHarvested, wasHarvestedOptions, harvestFailureReason, harvestFailureReasonOptions, harvestFailureReasonOther,
             harvestYield, harvestYieldOptions, harvestQuality, harvestQualityOptions, harvestNotes, harvestWeight, harvestWeightUnit,
-            averageLength, averageWidth, averageHeight, wasAliveAfterHarvest, wasAliveAfterHarvestOptions,
+            averageLength, averageWidth, averageHeight, averageMeasureUnit, wasAliveAfterHarvest, wasAliveAfterHarvestOptions,
         } = this.props;
 
         let shouldDisplayHarvestFailureReasons = wasHarvested === false || wasHarvested === 'false';
@@ -203,6 +203,17 @@ export default class ProductionTerminateStep2CropComponent extends Component {
                             name="averageHeight"
                             type="number"
                             placeholder="Please specify average height across."
+                        />
+                        <BootstrapInput
+                            inputClassName="form-control"
+                            borderColour="border-success"
+                            error={errors.averageMeasureUnit}
+                            label="Unit of Measure"
+                            onChange={onTextChange}
+                            value={averageMeasureUnit}
+                            name="averageMeasureUnit"
+                            type="text"
+                            placeholder="Please enter the unit of measurement used for the averages above."
                         />
 
                         <p className="border-bottom mb-3 pb-1 text-secondary"><i className="fas fa-heartbeat"></i>&nbsp;Lifeline</p>

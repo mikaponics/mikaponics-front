@@ -124,7 +124,7 @@ class CropTable extends Component {
             prettyName, wasHarvested, wasHarvestedLabel,
             harvestYieldLabel, harvestQualityLabel, harvestNotes, harvestWeight, harvestWeightUnit,
             harvestFailureReason, harvestFailureReasonLabel, harvestFailureReasonOther,
-            averageWidth, averageHeight, averageLength,
+            averageWidth, averageHeight, averageLength, averageMeasureUnit,
             wasAliveAfterHarvestLabel
         } = this.props.crop;
 
@@ -167,9 +167,9 @@ class CropTable extends Component {
                                 <th scope="row" className="bg-light">Crop measurements</th>
                                 <td>
                                     <ul>
-                                        <li>Length:&nbsp;{averageLength}</li>
-                                        <li>Width:&nbsp;{averageWidth}</li>
-                                        <li>Height:&nbsp;{averageHeight}</li>
+                                        <li>Length:&nbsp;{averageLength}&nbsp;{averageMeasureUnit}</li>
+                                        <li>Width:&nbsp;{averageWidth}&nbsp;{averageMeasureUnit}</li>
+                                        <li>Height:&nbsp;{averageHeight}&nbsp;{averageMeasureUnit}</li>
                                     </ul>
                                 </td>
                             </tr>
@@ -207,9 +207,9 @@ class CropTable extends Component {
                                 <th scope="row" className="bg-light">Crop measurements</th>
                                 <td>
                                     <ul>
-                                        <li>Length:&nbsp;{averageLength}</li>
-                                        <li>Width:&nbsp;{averageWidth}</li>
-                                        <li>Height:&nbsp;{averageHeight}</li>
+                                        <li>Length:&nbsp;{averageLength}&nbsp;{averageMeasureUnit}</li>
+                                        <li>Width:&nbsp;{averageWidth}&nbsp;{averageMeasureUnit}</li>
+                                        <li>Height:&nbsp;{averageHeight}&nbsp;{averageMeasureUnit}</li>
                                     </ul>
                                 </td>
                             </tr>

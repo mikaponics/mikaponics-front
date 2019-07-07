@@ -77,6 +77,7 @@ class ProductionListContainer extends Component {
             item.averageLength = "";
             item.averageWidth = "";
             item.averageHeight = "";
+            item.averageMeasureUnit = "";
             item.wasAliveAfterHarvest = "";
         }
 

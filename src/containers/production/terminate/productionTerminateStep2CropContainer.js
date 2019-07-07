@@ -75,6 +75,7 @@ class ProductionTerminateStep2CropContainer extends Component {
             averageLength: crop.averageLength,
             averageWidth: crop.averageWidth,
             averageHeight: crop.averageHeight,
+            averageMeasureUnit: crop.averageMeasureUnit,
             wasAliveAfterHarvest: crop.wasAliveAfterHarvest,
             wasAliveAfterHarvestOptions: [{
                 id: 'wasAliveAfterHarvest-true-choice',
@@ -149,6 +150,7 @@ class ProductionTerminateStep2CropContainer extends Component {
                     averageLength: crop.averageLength,
                     averageWidth: crop.averageWidth,
                     averageHeight: crop.averageHeight,
+                    averageMeasureUnit: crop.averageMeasureUnit,
                     wasAliveAfterHarvest: crop.wasAliveAfterHarvest,
                 },
                 () => {
@@ -197,6 +199,7 @@ class ProductionTerminateStep2CropContainer extends Component {
                         averageLength: crop.averageLength,
                         averageWidth: crop.averageWidth,
                         averageHeight: crop.averageHeight,
+                        averageMeasureUnit: crop.averageMeasureUnit,
                         wasAliveAfterHarvest: crop.wasAliveAfterHarvest,
                     },
                     () => {
@@ -327,7 +330,7 @@ class ProductionTerminateStep2CropContainer extends Component {
             // DEVELOPER NOTE: BELOW IS WHERE YOU ADD MORE FIELDS TO COLLECT
             wasHarvested, wasHarvestedOptions, harvestFailureReason, harvestFailureReasonOptions, harvestFailureReasonOther,
             harvestYield, harvestYieldOptions, harvestQuality, harvestQualityOptions, harvestNotes, harvestWeight, harvestWeightUnit,
-            averageLength, averageWidth, averageHeight, wasAliveAfterHarvest, wasAliveAfterHarvestOptions,
+            averageLength, averageWidth, averageHeight, averageMeasureUnit, wasAliveAfterHarvest, wasAliveAfterHarvestOptions,
         } = this.state;
         return (
             <ProductionTerminateStep2CropComponent
@@ -361,6 +364,7 @@ class ProductionTerminateStep2CropContainer extends Component {
                 averageLength={averageLength}
                 averageWidth={averageWidth}
                 averageHeight={averageHeight}
+                averageMeasureUnit={averageMeasureUnit}
                 wasAliveAfterHarvest={wasAliveAfterHarvest}
                 wasAliveAfterHarvestOptions={wasAliveAfterHarvestOptions}
             />
