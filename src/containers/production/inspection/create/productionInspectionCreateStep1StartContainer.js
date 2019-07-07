@@ -84,9 +84,12 @@ class ProductionInspectionCreateStep1StartContainer extends Component {
         // --- didPass ---
         for (let i = 0; i < this.state.didPassOptions.length; i++) {
             let option = this.state.didPassOptions[i];
-            let isSelected = this.state.didPass.toString() === option.value.toString();
-            if (isSelected) {
-                localStorage.setItem('temp-production-inspection-create-didPassLabel', option.label);
+            let isSelected = false;
+            if (this.state.didPass !== undefined && this.state.didPass !== null) {
+                isSelected = this.state.didPass.toString() === option.value.toString();
+                if (isSelected) {
+                    localStorage.setItem('temp-production-inspection-create-didPassLabel', option.label);
+                }
             }
         }
 
