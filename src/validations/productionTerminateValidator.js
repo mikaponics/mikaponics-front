@@ -44,6 +44,9 @@ export function validateStep2Input(data) {
         if ( data.harvestYield === undefined || data.harvestYield === null || data.harvestYield === "" || data.harvestYield === "null" ) {
             errors.harvestYield = 'This field is required.';
         }
+        if ( data.harvestQuality === undefined || data.harvestQuality === null || data.harvestQuality === "" || data.harvestQuality === "null" ) {
+            errors.harvestQuality = 'This field is required.';
+        }
     }
 
     return {

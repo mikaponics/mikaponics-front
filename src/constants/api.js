@@ -462,7 +462,7 @@ export const PRODUCTION_HARVEST_FAILURE_REASON_OPTION_CHOICES = [
 
 
 /**
- *  The `harvest_review_at_finish` variable for the `ProductionCrop` API endpoint.
+ *  The `harvest_yield` variable for the `ProductionCrop` API endpoint.
  */
 export const PRODUCTION_CROPS_TERRIBLE_HARVEST_YIELD = 1;
 export const PRODUCTION_CROPS_BAD_HARVEST_YIELD = 2;
@@ -489,6 +489,40 @@ export const PRODUCTION_HARVEST_YIELD_OPTION_CHOICES = [
     },{
         selectName: "harvestYield",
         value: PRODUCTION_CROPS_EXCELLENT_HARVEST_YIELD,
+        label: "Excellent"
+    }
+];
+
+
+
+/**
+ *  The `harvest_quality` variable for the `ProductionCrop` API endpoint.
+ */
+export const PRODUCTION_CROPS_TERRIBLE_HARVEST_QUALITY = 1;
+export const PRODUCTION_CROPS_BAD_HARVEST_QUALITY = 2;
+export const PRODUCTION_CROPS_AVERAGE_HARVEST_QUALITY = 3;
+export const PRODUCTION_CROPS_GOOD_HARVEST_QUALITY = 4;
+export const PRODUCTION_CROPS_EXCELLENT_HARVEST_QUALITY = 5;
+export const PRODUCTION_HARVEST_QUALITY_OPTION_CHOICES = [
+    {
+        selectName: "harvestQuality",
+        value: PRODUCTION_CROPS_TERRIBLE_HARVEST_QUALITY,
+        label: "Terrible"
+    },{
+        selectName: "harvestQuality",
+        value: PRODUCTION_CROPS_BAD_HARVEST_QUALITY,
+        label: "Bad"
+    },{
+        selectName: "harvestQuality",
+        value: PRODUCTION_CROPS_AVERAGE_HARVEST_QUALITY,
+        label: "Average"
+    },{
+        selectName: "harvestQuality",
+        value: PRODUCTION_CROPS_GOOD_HARVEST_QUALITY,
+        label: "Good"
+    },{
+        selectName: "harvestQuality",
+        value: PRODUCTION_CROPS_EXCELLENT_HARVEST_QUALITY,
         label: "Excellent"
     }
 ];

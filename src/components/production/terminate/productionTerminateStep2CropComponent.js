@@ -25,7 +25,7 @@ export default class ProductionTerminateStep2CropComponent extends Component {
 
             // DEVELOPER NOTE: BELOW IS WHERE YOU ADD MORE FIELDS TO COLLECT
             wasHarvested, wasHarvestedOptions, harvestFailureReason, harvestFailureReasonOptions,
-            harvestYield, harvestYieldOptions
+            harvestYield, harvestYieldOptions, harvestQuality, harvestQualityOptions,
         } = this.props;
 
         let shouldDisplayHarvestFailureReasons = wasHarvested === false || wasHarvested === 'false';
@@ -107,6 +107,15 @@ export default class ProductionTerminateStep2CropComponent extends Component {
                                     options={harvestYieldOptions}
                                     value={harvestYield}
                                     error={errors.harvestYield}
+                                    onSelectChange={ option => onSelectChange(option.selectName, option.value, option.label) }
+                                />
+                                <BootstrapSingleSelect
+                                    label="Harvest quality (*)"
+                                    name="harvestQuality"
+                                    defaultOptionLabel="Please select the monitoring hardware for your production."
+                                    options={harvestQualityOptions}
+                                    value={harvestQuality}
+                                    error={errors.harvestQuality}
                                     onSelectChange={ option => onSelectChange(option.selectName, option.value, option.label) }
                                 />
                             </div>
