@@ -169,7 +169,7 @@ export default class ProductionTerminateStep2CropComponent extends Component {
                             </div>
                         }
 
-                        <p className="border-bottom mb-3 pb-1 text-secondary"><i className="fas fa-chart-line"></i>&nbsp;Crop Growth</p>
+                        <p className="border-bottom mb-3 pb-1 text-secondary"><i className="fas fa-ruler"></i>&nbsp;Crop Measurements</p>
 
                         <BootstrapInput
                             inputClassName="form-control"
