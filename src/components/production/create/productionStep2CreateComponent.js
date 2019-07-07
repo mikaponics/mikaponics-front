@@ -10,7 +10,7 @@ import { BootstrapSingleSelect } from '../../bootstrap/bootstrapSingleSelect';
 class ProductionStep2CreateComponent extends Component {
     render() {
         const {
-            stageOptions, stage, plantOptions, plant, plantOther, showPlantOther, quantity, plantsArray, onPlantSelectChange, onStageSelectChange,
+            variety, stageOptions, stage, plantOptions, plant, plantOther, showPlantOther, quantity, plantsArray, onPlantSelectChange, onStageSelectChange,
             substrateOptions, substrate, substrateOther, showSubstrateOther, substratesArray, onSubstrateSelectChange,
             onTextChange, onAddButtonClick, onRemoveButtonClick, onSaveModalClick, onCloseModalClick,  errors, showModal, onBackClick, onNextClick,
         } = this.props;
@@ -123,6 +123,19 @@ class ProductionStep2CreateComponent extends Component {
                                                        placeholder="Please specify the plant you will be growing."
                                                    />
                                                }
+
+                                               <BootstrapInput
+                                                   inputClassName="form-control"
+                                                   borderColour="border-success"
+                                                   error={errors.variety}
+                                                   label="Variety"
+                                                   onChange={onTextChange}
+                                                   value={variety}
+                                                   name="variety"
+                                                   type="text"
+                                                   placeholder="Please specify the plant variety if it is unique."
+                                                   helpText="Fill in this field if your plant is variety plant. For example, a valid `Tomato` variety choice would be `Kumato` or `Heirloom tomato`."
+                                               />
 
                                                <BootstrapSingleSelect
                                                    label="Stage of growth (*)"

@@ -17,13 +17,28 @@ class CropUnorderedList extends Component {
             let elements = [];
             for (let i = 0; i < cropsArray.length; i++) {
                 let cropObj = cropsArray[i];
+
+
+                let hasVariety = false;
+                if (cropObj.plant) {
+                    hasVariety = cropObj.variety !== undefined || cropObj.variety !== null || cropObj.variety !== "";
+                }
+
                 elements.push(
                     <div>
                         {cropObj.plant &&
-                            <li>{cropObj.plant}&nbsp;x&nbsp;{cropObj.quantity}</li>
+                            <li>
+                                {hasVariety
+                                    ? <div>{cropObj.plant}&nbsp;({cropObj.variety})&nbsp;x&nbsp;{cropObj.quantity}</div>
+                                    : <div>{cropObj.plant}&nbsp;x&nbsp;{cropObj.quantity}</div>
+                                }
+
+                            </li>
                         }
                         {cropObj.fish &&
-                            <li>{cropObj.fish}&nbsp;x&nbsp;{cropObj.quantity}</li>
+                            <li>
+                                {cropObj.fish}&nbsp;x&nbsp;{cropObj.quantity}
+                            </li>
                         }
                     </div>
                 );
@@ -95,7 +110,7 @@ class ProductionStep4CreateComponent extends Component {
 
                 <div className="row mt-4 pt-3 mb-4 pb-2">
                     <div className="col-md-10 mx-auto p-2">
-                    
+
                         <BootstrapErrorsProcessingAlert errors={errors} />
 
                         <p><strong>Please confirm these details before submitting the crop production:</strong></p>

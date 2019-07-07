@@ -45,21 +45,22 @@ class ProductionStep2CreateContainer extends Component {
 
             // DEVELOPERS NOTE: The following state objects are used to store
             // the data from the modal.
-            plant: null,
-            plantOther: null,
+            plant: "",
+            plantOther: "",
             showPlantOther: false,
-            quantity: null,
+            quantity: "",
 
             // ALL OUR OBJECTS ARE STORED HERE.
             plantsArray: plantsArr,
 
             // DEVELOPERS NOTE: The following state objects are used to store
             // the data from the modal.
-            stage: null,
-            substrate: null,
-            substrateOther: null,
+            variety: "",
+            stage: "",
+            substrate: "",
+            substrateOther: "",
             showSubstrateOther: false,
-            quantity: null,
+            quantity: "",
         }
         this.getStageOptions = this.getStageOptions.bind(this);
         this.getPlantOptions = this.getPlantOptions.bind(this);
@@ -250,6 +251,7 @@ class ProductionStep2CreateContainer extends Component {
                 plantSlug: this.state.plantOption.value,
                 plant: this.state.plantOption.label,
                 plantOther: this.state.plantOther,
+                variety: this.state.variety,
                 quantity: this.state.quantity,
                 stage: this.state.stageOption.label,
                 stageSlug: this.state.stageOption.value,
@@ -262,11 +264,12 @@ class ProductionStep2CreateContainer extends Component {
             this.setState({
                 showModal: false,
                 errors: {},
-                plant: null,
-                plantOther: null,
-                quantity: null,
-                substrate: null,
-                substrateOther: null,
+                plant: "",
+                plantOther: "",
+                variety: "",
+                quantity: "",
+                substrate: "",
+                substrateOther: "",
                 plantsArray: a
             });
 
@@ -320,6 +323,7 @@ class ProductionStep2CreateContainer extends Component {
             plant,
             plantOther,
             showPlantOther,
+            variety,
             quantity,
             stage,
             plantsArray,
@@ -335,6 +339,7 @@ class ProductionStep2CreateContainer extends Component {
         }
         return (
             <ProductionStep2CreateComponent
+                variety={variety}
                 stageOptions={this.getStageOptions()}
                 stage={stage}
                 plantOptions={this.getPlantOptions()}
