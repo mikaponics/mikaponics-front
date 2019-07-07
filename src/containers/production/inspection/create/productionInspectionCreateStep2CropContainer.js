@@ -5,16 +5,10 @@ import Scroll from 'react-scroll';
 
 import ProductionInspectionCreateStep2CropComponent from "../../../../components/production/inspection/create/productionInspectionCreateStep2CropComponent";
 import { pullCropLifeCycleStageList, getStageOptions } from "../../../../actions/cropLifeCycleStageListActions";
-import { getProblemReactSelectOptions } from "../../../../actions/productionInspectionActions";
+import { getProblemReactSelectOptions, pullProblemDataSheetList } from "../../../../actions/problemDataSheetListActions";
 import { validateStep2Input } from "../../../../validations/productionInspectionCreateValidator";
-import {
-    localStorageGetArrayItem,
-    localStorageSetObjectOrArrayItem
-} from "../../../../helpers/localStorageUtility";
-import {
-    PEST_PROBLEM_OPTIONS_RESULTS,
-    DISEASE_PROBLEM_OPTIONS_RESULTS
-} from "../../../../constants/api";
+import { localStorageGetArrayItem, localStorageSetObjectOrArrayItem } from "../../../../helpers/localStorageUtility";
+import { PEST_TYPE_OF, DISEASE_TYPE_OF, ABIOTIC_TYPE_OF } from "../../../../constants/api";
 
 
 class ProductionInspectionCreateStep2CropContainer extends Component {
@@ -56,9 +50,10 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
             averageHeight: cropInspection.averageHeight,
             averageMeasureUnit: cropInspection.averageMeasureUnit,
             notes: cropInspection.notes,
-            pests: cropInspection.pests,
-            pestsOther: cropInspection.pestsOther,
+            pestProblems: cropInspection.pestProblems,
+            pestProblemsOther: cropInspection.pestProblemsOther,
         }
+        this.getPestProblemOptionResultsFromAPI = this.getPestProblemOptionResultsFromAPI.bind(this);
         this.onNextClick = this.onNextClick.bind(this);
         this.onBackClick = this.onBackClick.bind(this);
         this.onSelectChange = this.onSelectChange.bind(this);
@@ -67,12 +62,18 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
         this.updateCropWithOnKeyValueLabelChange = this.updateCropWithOnKeyValueLabelChange.bind(this);
     }
 
+    getPestProblemOptionResultsFromAPI(response) {
+        const pestProblemOptions = getProblemReactSelectOptions(response, "pestProblems");
+        // console.log(pestOptions); // For debugging purposes only.
+        this.setState({ pestProblemOptions: pestProblemOptions });
+    }
+
     componentDidMount() {
         this.props.pullCropLifeCycleStageList(this.props.user, 1, this.state.cropInspection.typeOf); // Get latest data from API.
 
-        this.setState({
-            pestsData: PEST_PROBLEM_OPTIONS_RESULTS
-        });
+        var m = new Map();
+        m.set('typeOf', PEST_TYPE_OF);
+        this.props.pullProblemDataSheetList(1, m, this.getPestProblemOptionResultsFromAPI);
 
         // AUTOMATICALLY SCROLL TO THE TOP (WITHOUT ANIMATIONS!)
         window.scrollTo(0, 0);  // Start the page at the top of the page.
@@ -120,8 +121,8 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
                     averageWidth: cropInspection.averageWidth,
                     averageHeight: cropInspection.averageHeight,
                     notes: cropInspection.notes,
-                    pests: cropInspection.pests,
-                    pestsOther: cropInspection.pestsOther,
+                    pestProblems: cropInspection.pestProblems,
+                    pestProblemsOther: cropInspection.pestProblemsOther,
                 },
                 () => {
                     this.props.history.push('/production/'+ this.state.slug + '/create-inspection/crop/'+this.state.index);
@@ -160,8 +161,8 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
                         averageWidth: cropInspection.averageWidth,
                         averageHeight: cropInspection.averageHeight,
                         notes: cropInspection.notes,
-                        pests: cropInspection.pests,
-                        pestsOther: cropInspection.pestsOther,
+                        pestProblems: cropInspection.pestProblems,
+                        pestProblemsOther: cropInspection.pestProblemsOther,
                     },
                     () => {
                         this.props.history.push('/production/'+ this.state.slug + '/create-inspection/crop/'+this.state.index);
@@ -284,9 +285,8 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
             averageLength, averageWidth, averageHeight, averageMeasureUnit,
             stage,
             notes,
-            pests, pestsOther,
+            pestProblems, pestProblemsOther, pestProblemOptions,
              errors } = this.state;
-        const pestOptions = getProblemReactSelectOptions(this.state.pestsData, "pests");
         return (
             <ProductionInspectionCreateStep2CropComponent
                 stageOptions={getStageOptions(this.props.cropLifeCycleStageList)}
@@ -301,9 +301,9 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
                 review={review}
                 failureReason={failureReason}
                 notes={notes}
-                pests={pests}
-                pestOptions={pestOptions}
-                pestsOther={pestsOther}
+                pestProblems={pestProblems}
+                pestProblemOptions={pestProblemOptions}
+                pestProblemsOther={pestProblemsOther}
                 errors={errors}
                 onNextClick={this.onNextClick}
                 onBackClick={this.onBackClick}
@@ -321,6 +321,7 @@ const mapStateToProps = function(store) {
         user: store.userState,
         productionDetail: store.productionDetailState,
         cropLifeCycleStageList: store.cropLifeCycleStageListState,
+        problemDataSheetList: store.problemDataSheetListState,
     };
 }
 
@@ -330,7 +331,12 @@ const mapDispatchToProps = dispatch => {
             dispatch(
                 pullCropLifeCycleStageList(user, page, slug)
             )
-        }
+        },
+        pullProblemDataSheetList: (page, filtersMap, successCallback, failedCallback) => {
+            dispatch(
+                pullProblemDataSheetList(page, filtersMap, successCallback, failedCallback)
+            )
+        },
     }
 }
 

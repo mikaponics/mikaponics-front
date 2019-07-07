@@ -35,6 +35,7 @@ export const MIKAPONICS_PRODUCTION_RETRIEVE_UPDATE_API_URL = process.env.REACT_A
 export const MIKAPONICS_CROP_DATA_SHEET_LIST_API_URL = process.env.REACT_APP_API_HOST+'/api/crop-data-sheets';
 export const MIKAPONICS_CROP_LIFE_CYCLE_STAGE_LIST_API_URL = process.env.REACT_APP_API_HOST+'/api/crop-life-cycle-stages';
 export const MIKAPONICS_CROP_SUBSTRATE_LIST_API_URL = process.env.REACT_APP_API_HOST+'/api/crop-substrates';
+export const MIKAPONICS_PROBLEM_DATA_SHEET_LIST_API_URL = process.env.REACT_APP_API_HOST+'/api/problem-data-sheets';
 export const MIKAPONICS_PRODUCTION_TERMINATION_API_URL = process.env.REACT_APP_API_HOST+'/api/production-termination/';
 export const MIKAPONICS_PRODUCTION_CROP_LIST_CREATE_API_URL = process.env.REACT_APP_API_HOST+'/api/production-crops';
 export const MIKAPONICS_PRODUCTION_CROP_RETRIEVE_UPDATE_API_URL = process.env.REACT_APP_API_HOST+'/api/production-crop/';
@@ -462,56 +463,11 @@ export const PRODUCTION_HARVEST_QUALITY_OPTION_CHOICES = [
     }
 ];
 
-/**
- *  The available pest options used for the crop inspections. This is for the
- *  `pests` field in crop inspections. This data is structured in the same
- *  manner as if the API endpoint would return these results. We are doing this
- *  so we can replace this with API calls in the future.
- *  Special thanks: https://extension.psu.edu/preventing-diagnosing-and-correcting-common-houseplant-problems
- */
-export const PEST_PROBLEM_OPTIONS_RESULTS = {
-    results: [{
-        name: 'Ants',
-        slug: 'ants'
-    },{
-        name: 'Aphids',
-        slug: 'aphids'
-    },{
-        name: 'Mealybugs',
-        slug: 'mealybugs'
-    },{
-        name: 'Mites',
-        slug: 'mites'
-    },{
-        name: 'Moth',
-        slug: 'moth'
-    },{
-        name: 'Scale',
-        slug: 'scale'
-    },{
-        name: 'Thrips',
-        slug: 'thrips'
-    },{
-        name: 'Whitefly',
-        slug: 'whitefly'
-    }]
-}
 
 /**
- *  Special thanks: https://extension.psu.edu/preventing-diagnosing-and-correcting-common-houseplant-problems
+ * The available choices for the `type_of` field in the `ProblemDataSheet` API.
  */
-export const DISEASE_PROBLEM_OPTIONS_RESULTS = {
-    results: [{
-        name: 'Anthracnose',
-        slug: 'anthracnose'
-    },{
-        name: 'Leaf spots',
-        slug: 'leaf-spots'
-    },{
-        name: 'Powdery mildew',
-        slug: 'powdery-mildew'
-    },{
-        name: 'Root and stem rots',
-        slug: 'root-and-stem-rots'
-    }]
-}
+export const PEST_TYPE_OF = 1;
+export const DISEASE_TYPE_OF = 2;
+export const ABIOTIC_TYPE_OF = 3;
+export const NONE_TYPE_OF = 4;

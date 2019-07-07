@@ -15,6 +15,7 @@ import {
     CROP_LIFE_CYCLE_STAGE_LIST_SUCCESS,
     CROP_DATA_SHEET_LIST_SUCCESS,
     CROP_SUBSTRATE_LIST_SUCCESS,
+    PROBLEM_DATA_SHEET_LIST_SUCCESS,
     PRODUCTION_CROP_LIST_SUCCESS,
     PRODUCTION_CROP_DETAIL_SUCCESS,
     PRODUCTION_INSPECTION_LIST_SUCCESS,
@@ -45,6 +46,7 @@ import productionDetailReducer from "./reducers/productionDetailReducer";
 import cropLifeCycleStageListReducer from "./reducers/cropLifeCycleStageListReducer";
 import cropDataSheetListReducer from "./reducers/cropDataSheetListReducer";
 import cropSubstrateListReducer from "./reducers/cropSubstrateListReducer";
+import problemDataSheetListReducer from "./reducers/problemDataSheetListReducer";
 import productionCropListReducer from "./reducers/productionCropListReducer";
 import productionCropDetailReducer from "./reducers/productionCropDetailReducer";
 import productionInspectionListReducer from "./reducers/productionInspectionListReducer";
@@ -78,6 +80,7 @@ const appReducer = combineReducers({
     cropLifeCycleStageListState: cropLifeCycleStageListReducer,
     cropDataSheetListState: cropDataSheetListReducer,
     cropSubstrateListState: cropSubstrateListReducer,
+    problemDataSheetListState: problemDataSheetListReducer,
     productionCropListState: productionCropListReducer,
     productionCropDetailState: productionCropDetailReducer,
     productionInspectionListState: productionInspectionListReducer,
@@ -117,12 +120,14 @@ const localStorageMiddleware = ({ getState }) => {
         const result = next(action);
         if ([
             LOGIN_SUCCESS, LOGOUT_SUCCESS, DASHBOARD_SUCCESS,
-            PROFILE_SUCCESS, DEVICE_SUCCESS, INSTRUMENT_SUCCESS, 
-            PRODUCTION_LIST_SUCCESS, PRODUCTION_DETAIL_SUCCESS, CROP_LIFE_CYCLE_STAGE_LIST_SUCCESS,
-            CROP_DATA_SHEET_LIST_SUCCESS, CROP_SUBSTRATE_LIST_SUCCESS, PRODUCTION_CROP_LIST_SUCCESS,
-            PRODUCTION_CROP_DETAIL_SUCCESS, PRODUCTION_INSPECTION_LIST_SUCCESS,
-            PRODUCTION_INSPECTION_DETAIL_SUCCESS, TASK_ITEM_LIST_SUCCESS,
-            TASK_ITEM_DETAIL_SUCCESS, SUBSCRIPTION_SUCCESS, PRODUCT_LIST_SUCCESS
+            PROFILE_SUCCESS, DEVICE_SUCCESS, INSTRUMENT_SUCCESS,
+            PRODUCTION_LIST_SUCCESS, PRODUCTION_DETAIL_SUCCESS,
+            CROP_LIFE_CYCLE_STAGE_LIST_SUCCESS, CROP_DATA_SHEET_LIST_SUCCESS,
+            CROP_SUBSTRATE_LIST_SUCCESS, PROBLEM_DATA_SHEET_LIST_SUCCESS,
+            PRODUCTION_CROP_LIST_SUCCESS, PRODUCTION_CROP_DETAIL_SUCCESS,
+            PRODUCTION_INSPECTION_LIST_SUCCESS, PRODUCTION_INSPECTION_DETAIL_SUCCESS,
+            TASK_ITEM_LIST_SUCCESS, TASK_ITEM_DETAIL_SUCCESS,
+            SUBSCRIPTION_SUCCESS, PRODUCT_LIST_SUCCESS
         ].includes(result.type)) {
             // console.log("De-hydrating store...");
             localStorage.setItem(APP_STATE, JSON.stringify(getState()))

@@ -22,7 +22,7 @@ class ProductionInspectionCreateStep2CropComponent extends Component {
             productionInspectionDetail,
             stageOptions=[], productionDetail,
             review, failureReason, stage, notes,
-            pests, pestOptions, pestsOther,
+            pestProblems, pestProblemOptions, pestProblemsOther,
             averageLength, averageWidth, averageHeight, averageMeasureUnit,
             errors, onBackClick, onNextClick, onSelectChange, onMultiChange, onTextChange
         } = this.props;
@@ -131,22 +131,22 @@ class ProductionInspectionCreateStep2CropComponent extends Component {
                         <BootstrapMultipleSelect
                             borderColour="border-success"
                             label="Pests"
-                            name="pests"
+                            name="pestProblems"
                             defaultOptionLabel="Please select any pest discovered."
-                            options={pestOptions}
-                            selectedOptions={pests}
-                            error={errors.pests}
+                            options={pestProblemOptions}
+                            selectedOptions={pestProblems}
+                            error={errors.pestProblems}
                             onMultiChange={onMultiChange}
                         />
 
                         <BootstrapInput
                             inputClassName="form-control"
                             borderColour="border-success"
-                            error={errors.pestsOther}
-                            label="Other pests"
+                            error={errors.pestProblemsOther}
+                            label="Other pestProblems"
                             onChange={onTextChange}
-                            value={pestsOther}
-                            name="pestsOther"
+                            value={pestProblemsOther}
+                            name="pestProblemsOther"
                             type="text"
                             placeholder="Please specify other pests not listed in above."
                         />
