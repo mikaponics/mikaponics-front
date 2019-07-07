@@ -62,7 +62,7 @@ export default class ProductionTerminateStep3FinishComponent extends Component {
                                     </th>
                                 </tr>
                                 <tr>
-                                    <th scope="row" className="bg-light">Finished at</th>
+                                    <th scope="row" className="bg-light">Production finished at</th>
                                     <td>
                                         <Moment tz={user.timezone} format="YYYY/MM/DD">
                                             {finishedAt}
