@@ -51,23 +51,36 @@ class ProductionInspectionContainer extends Component {
     onAddClick(e) {
         e.preventDefault();
 
+        // Clear the `create inspection` form.
+        localStorage.removeItem("temp-production-inspection-create-didPass");
+        localStorage.removeItem("temp-production-inspection-create-failureReason");
+        localStorage.removeItem("temp-production-inspection-create-notes");
+        localStorage.removeItem("temp-production-inspection-create-cropInspections");
+
         // Shallow copy of the array to create a NEW ARRAY with a few modifications
         // which is required by the API web-service.
         let a = this.props.productionDetail.crops.slice(); //creates the clone of the state
         for (let i = 0; i < a.length; i++) {
             let item = a[i];
             item.productionCrop = item.slug;
+            item.stage = "";
+            item.review = "";
+            item.pestProblems = [];
+            item.pestProblemsOther = "";
+            item.diseaseProblems = [];
+            item.diseaseProblemsOther = "";
+            item.abioticProblems = [];
+            item.abioticProblemsOther = "";
+            item.averageHeight = "";
+            item.averageLength = "";
+            item.averageMeasureUnit = "";
+            item.averageWidth = "";
         }
 
         // Save to the persistent storage a COMPLETE COPY of the crops in the
         // production detail which we will use in the `create` pages to override
         // with our own values pertaining to crop inspections.
         localStorageSetObjectOrArrayItem("temp-production-inspection-create-cropInspections", a);
-
-        // Clear the `create inspection` form.
-        localStorage.removeItem("temp-production-inspection-create-didPass");
-        localStorage.removeItem("temp-production-inspection-create-failureReason");
-        localStorage.removeItem("temp-production-inspection-create-notes");
 
         // Start our create page.
         const aURL = "/production/" + this.props.productionDetail.slug + "/create-inspection/start";
