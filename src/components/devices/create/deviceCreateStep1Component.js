@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
+import SubscriptionNoticeContainer from '../../../containers/navigation/subscriptionNoticeContainer';
+
 
 class DeviceCreateStep1Component extends Component {
     render() {
+        const { user } = this.props;
+        const isSubscribed = user.subscriptionStatus === "active";
         return (
             <div>
+                <SubscriptionNoticeContainer />
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item">
@@ -46,9 +51,14 @@ class DeviceCreateStep1Component extends Component {
                             <div className="card-body">
                                 <h3 className="card-title">Integrate Custom Device</h3>
                                 <p className="card-text">Click here if you already have the IoT hardware and you would like to integrate it with our software; furthermore, if you build one of our <a href="https://github.com/mikaponics" target="_blank">open-source devices&nbsp;<i className="fas fa-external-link-alt"></i></a>, click here to integrate it with out system.</p>
-                                <Link to="/devices/create/step-2-integrate" className="btn btn-success btn-lg">
-                                    Select&nbsp;<i className="fas fa-arrow-circle-right"></i>
-                                </Link>
+                                {isSubscribed
+                                    ? <Link to="/devices/create/step-2-integrate" className="btn btn-success btn-lg">
+                                        Select&nbsp;<i className="fas fa-arrow-circle-right"></i>
+                                    </Link>
+                                    : <button className="btn btn-success btn-lg" disabled={true}>
+                                        <strong><i className="fas fa-lock"></i>&nbsp;Locked</strong>
+                                    </button>
+                                }
                             </div>
                         </div>
                     </div>

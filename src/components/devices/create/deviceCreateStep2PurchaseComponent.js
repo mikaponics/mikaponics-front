@@ -51,7 +51,7 @@ export default class DeviceCreateStep2PurchaseComponent extends Component {
 
                         <h2><i className="fas fa-hand-pointer"></i>&nbsp;Pick Device(s)</h2>
 
-                        {productList &&
+                        {productList && productList.results &&
                             <div className="card-group row">
                                 {productList.results.map(
                                     (product, i) => <DeviceItem product={product} user={user} key={i} addToCart={addToCart} minusFromCart={minusFromCart} />)
