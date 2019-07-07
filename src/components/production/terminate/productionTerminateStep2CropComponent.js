@@ -27,7 +27,7 @@ export default class ProductionTerminateStep2CropComponent extends Component {
             // DEVELOPER NOTE: BELOW IS WHERE YOU ADD MORE FIELDS TO COLLECT
             wasHarvested, wasHarvestedOptions, harvestFailureReason, harvestFailureReasonOptions, harvestFailureReasonOther,
             harvestYield, harvestYieldOptions, harvestQuality, harvestQualityOptions, harvestNotes, harvestWeight, harvestWeightUnit,
-            averageLength, averageWidth, averageHeight
+            averageLength, averageWidth, averageHeight, wasAliveAfterHarvest, wasAliveAfterHarvestOptions,
         } = this.props;
 
         let shouldDisplayHarvestFailureReasons = wasHarvested === false || wasHarvested === 'false';
@@ -204,6 +204,20 @@ export default class ProductionTerminateStep2CropComponent extends Component {
                             type="number"
                             placeholder="Please specify average height across."
                         />
+
+                        <p className="border-bottom mb-3 pb-1 text-secondary"><i className="fas fa-heartbeat"></i>&nbsp;Lifeline</p>
+
+                        <BootstrapRadio
+                            inputClassName="form-check-input form-check-input-lg"
+                            borderColour="border-primary"
+                            error={errors.wasAliveAfterHarvest}
+                            label="Was crop alive after harvest? (*)"
+                            name="wasAliveAfterHarvest"
+                            onChange={onRadioChange}
+                            selectedValue={wasAliveAfterHarvest}
+                            options={wasAliveAfterHarvestOptions}
+                        />
+
 
                         <div className="form-group">
                             <button type="text" className="btn btn-lg float-left pl-4 pr-4 btn-secondary" onClick={onBackClick}>

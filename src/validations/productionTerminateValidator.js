@@ -51,6 +51,9 @@ export function validateStep2Input(data) {
             errors.harvestQuality = 'This field is required.';
         }
     }
+    if ( data.wasAliveAfterHarvest === undefined || data.wasAliveAfterHarvest === null || data.wasAliveAfterHarvest === "" || data.wasAliveAfterHarvest === "null") {
+        errors.wasAliveAfterHarvest = 'This field is required.';
+    }
     return {
         errors,
         isValid: isEmpty(errors)

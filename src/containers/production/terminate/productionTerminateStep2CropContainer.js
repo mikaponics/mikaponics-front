@@ -75,6 +75,18 @@ class ProductionTerminateStep2CropContainer extends Component {
             averageLength: crop.averageLength,
             averageWidth: crop.averageWidth,
             averageHeight: crop.averageHeight,
+            wasAliveAfterHarvest: crop.wasAliveAfterHarvest,
+            wasAliveAfterHarvestOptions: [{
+                id: 'wasAliveAfterHarvest-true-choice',
+                name: 'wasAliveAfterHarvest',
+                value: true,
+                label: 'Yes',
+            },{
+                id: 'wasAliveAfterHarvest-false-choice',
+                name: 'wasAliveAfterHarvest',
+                value: false,
+                label: 'No',
+            }],
         }
         this.onNextClick = this.onNextClick.bind(this);
         this.onBackClick = this.onBackClick.bind(this);
@@ -137,6 +149,7 @@ class ProductionTerminateStep2CropContainer extends Component {
                     averageLength: crop.averageLength,
                     averageWidth: crop.averageWidth,
                     averageHeight: crop.averageHeight,
+                    wasAliveAfterHarvest: crop.wasAliveAfterHarvest,
                 },
                 () => {
                     console.log("BACK | UPDATED STATE |", this.state);
@@ -184,6 +197,7 @@ class ProductionTerminateStep2CropContainer extends Component {
                         averageLength: crop.averageLength,
                         averageWidth: crop.averageWidth,
                         averageHeight: crop.averageHeight,
+                        wasAliveAfterHarvest: crop.wasAliveAfterHarvest,
                     },
                     () => {
                         console.log("NEXT | UPDATED STATE |", this.state);
@@ -313,7 +327,7 @@ class ProductionTerminateStep2CropContainer extends Component {
             // DEVELOPER NOTE: BELOW IS WHERE YOU ADD MORE FIELDS TO COLLECT
             wasHarvested, wasHarvestedOptions, harvestFailureReason, harvestFailureReasonOptions, harvestFailureReasonOther,
             harvestYield, harvestYieldOptions, harvestQuality, harvestQualityOptions, harvestNotes, harvestWeight, harvestWeightUnit,
-            averageLength, averageWidth, averageHeight
+            averageLength, averageWidth, averageHeight, wasAliveAfterHarvest, wasAliveAfterHarvestOptions,
         } = this.state;
         return (
             <ProductionTerminateStep2CropComponent
@@ -347,6 +361,8 @@ class ProductionTerminateStep2CropContainer extends Component {
                 averageLength={averageLength}
                 averageWidth={averageWidth}
                 averageHeight={averageHeight}
+                wasAliveAfterHarvest={wasAliveAfterHarvest}
+                wasAliveAfterHarvestOptions={wasAliveAfterHarvestOptions}
             />
         );
     }
