@@ -8,7 +8,9 @@ import { BootstrapTextarea } from "../../bootstrap/bootstrapTextarea";
 import { BootstrapErrorsProcessingAlert } from "../../bootstrap/bootstrapAlert";
 import { BootstrapSingleSelect } from '../../bootstrap/bootstrapSingleSelect';
 import ProductionTerminateWizardComponent from './productionTerminateWizardComponent';
-
+import {
+    PRODUCITON_OTHER_HARVEST_FAILURE_REASON
+} from '../../../constants/api';
 
 
 export default class ProductionTerminateStep3FinishComponent extends Component {
@@ -110,28 +112,115 @@ export default class ProductionTerminateStep3FinishComponent extends Component {
 
 class CropTable extends Component {
     render() {
-        const { prettyName, stateAtFinish, stateAtFinishLabel, stateFailureReasonAtFinish, harvestAtFinish, harvestAtFinishLabel, harvestFailureReasonAtFinish, harvestNotesAtFinish, notesAtFinish } = this.props.crop;
-        return (
-            <table className="table table-bordered custom-cell-w">
-                <tbody>
-                    <tr className="bg-dark">
-                        <th scope="row" colSpan="2" className="text-light">{prettyName}</th>
-                    </tr>
-                    <tr>
-                        <th scope="row" className="bg-light">State at finish</th>
-                        <td>{stateAtFinishLabel}</td>
-                    </tr>
 
-                    <tr>
-                        <th scope="row" className="bg-light">Harvest Note(s)</th>
-                        <td>{harvestNotesAtFinish}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" className="bg-light">Additional Note(s)</th>
-                        <td>{notesAtFinish}</td>
-                    </tr>
-                </tbody>
-            </table>
+        /**
+
+        harvestFailureReasonOptions: PRODUCTION_HARVEST_FAILURE_REASON_OPTION_CHOICES,
+        : crop.harvestFailureReason,
+        harvestFailureReasonOther: crop.harvestFailureReasonOther,
+         */
+        console.log(this.props.crop); // For debugging purposes only.
+        const {
+            prettyName, wasHarvested, wasHarvestedLabel,
+            harvestYieldLabel, harvestQualityLabel, harvestNotes, harvestWeight, harvestWeightUnit,
+            harvestFailureReason, harvestFailureReasonLabel, harvestFailureReasonOther,
+            averageWidth, averageHeight, averageLength,
+            wasAliveAfterHarvestLabel
+        } = this.props.crop;
+
+        let shouldDisplayHarvestFailureGUI = wasHarvested === false || wasHarvested === 'false';
+        let shouldDisplayHarvestSuccessGUI = wasHarvested === true || wasHarvested === 'true';
+        let shouldDisplayHarvestFailureReasonOther = harvestFailureReason === PRODUCITON_OTHER_HARVEST_FAILURE_REASON;
+        let shoulNotdDisplayHarvestFailureReasonOther = harvestFailureReason !== PRODUCITON_OTHER_HARVEST_FAILURE_REASON;
+
+        return (
+            <div>
+                {shouldDisplayHarvestSuccessGUI &&
+                    <table className="table table-bordered custom-cell-w">
+                        <tbody>
+                            <tr className="bg-dark">
+                                <th scope="row" colSpan="2" className="text-light">
+                                    <i className="fas fa-shopping-basket"></i>&nbsp;{prettyName}
+                                </th>
+                            </tr>
+                            <tr>
+                                <th scope="row" className="bg-light">Was harvested</th>
+                                <td>{wasHarvestedLabel}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" className="bg-light">Harvest yield</th>
+                                <td>{harvestYieldLabel}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" className="bg-light">Harvest quality</th>
+                                <td>{harvestQualityLabel}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" className="bg-light">Harvest note(s) / additional comments</th>
+                                <td>{harvestNotes}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" className="bg-light">Harvested weight & unit</th>
+                                <td>{harvestWeight}&nbsp;{harvestWeightUnit}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" className="bg-light">Crop measurements</th>
+                                <td>
+                                    <ul>
+                                        <li>Length:&nbsp;{averageLength}</li>
+                                        <li>Width:&nbsp;{averageWidth}</li>
+                                        <li>Height:&nbsp;{averageHeight}</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row" className="bg-light">Was crop alive after harvest?</th>
+                                <td>{wasAliveAfterHarvestLabel}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                }
+                {shouldDisplayHarvestFailureGUI &&
+                    <table className="table table-bordered custom-cell-w">
+                        <tbody>
+                            <tr className="bg-dark">
+                                <th scope="row" colSpan="2" className="text-light">
+                                    <i className="fas fa-shopping-basket"></i>&nbsp;{prettyName}
+                                </th>
+                            </tr>
+                            <tr>
+                                <th scope="row" className="bg-light">Was harvested</th>
+                                <td>{wasHarvestedLabel}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" className="bg-light">Reason for harvest failure</th>
+                                <td>
+                                {shouldDisplayHarvestFailureReasonOther &&
+                                    <div>{harvestFailureReasonOther}</div>
+                                }
+                                {shoulNotdDisplayHarvestFailureReasonOther &&
+                                    <div>{harvestFailureReasonLabel}</div>
+                                }
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row" className="bg-light">Crop measurements</th>
+                                <td>
+                                    <ul>
+                                        <li>Length:&nbsp;{averageLength}</li>
+                                        <li>Width:&nbsp;{averageWidth}</li>
+                                        <li>Height:&nbsp;{averageHeight}</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row" className="bg-light">Was crop alive after harvest?</th>
+                                <td>{wasAliveAfterHarvestLabel}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                }
+            </div>
         );
     }
 }
