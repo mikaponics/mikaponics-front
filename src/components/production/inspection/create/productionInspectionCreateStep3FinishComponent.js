@@ -113,6 +113,7 @@ class ProductionCropInspectionTableComponent extends Component {
             failureReason,
             stageLabel,
             averageWidth, averageHeight, averageLength, averageMeasureUnit,
+            pestProblems, diseaseProblems, abioticProblems,
             notes
         } = this.props.crop;
         const id = shortid.generate();
@@ -149,12 +150,59 @@ class ProductionCropInspectionTableComponent extends Component {
                             </ul>
                         </td>
                     </tr>
+                    {pestProblems &&
+                        <tr>
+                            <th scope="row" className="bg-light">Pest Problems</th>
+                            <td>
+                                <ProblemUnorderedList problems={pestProblems} />
+                            </td>
+                        </tr>
+                    }
+                    {diseaseProblems &&
+                        <tr>
+                            <th scope="row" className="bg-light">Disease Problems</th>
+                            <td>
+                                <ProblemUnorderedList problems={diseaseProblems} />
+                            </td>
+                        </tr>
+                    }
+                    {abioticProblems &&
+                        <tr>
+                            <th scope="row" className="bg-light">Abiotic Problems</th>
+                            <td>
+                                <ProblemUnorderedList problems={abioticProblems} />
+                            </td>
+                        </tr>
+                    }
                     <tr>
                         <th scope="row" className="bg-light">Additional note(s)</th>
                         <td>{notes}</td>
                     </tr>
                 </tbody>
             </table>
+        );
+    }
+}
+
+
+class ProblemUnorderedList extends Component {
+    render() {
+        const { problems } = this.props;
+        return (
+            <ul key={shortid.generate()}>
+                {problems.map(
+                    (problem, i) => <ProblemUnorderedItem problem={problem} key={i+shortid.generate()} />)
+                }
+            </ul>
+        );
+    }
+}
+
+class ProblemUnorderedItem extends Component {
+    render() {
+        const { label } = this.props.problem;
+        return (
+            <li key={shortid.generate()}>{label}</li>
         );
     }
 }
