@@ -23,6 +23,8 @@ class ProductionInspectionCreateStep2CropComponent extends Component {
             stageOptions=[], productionDetail,
             review, failureReason, stage, notes,
             pestProblems, pestProblemOptions, pestProblemsOther,
+            diseaseProblems, diseaseProblemOptions, diseaseProblemsOther,
+            abioticProblems, abioticProblemOptions, abioticProblemsOther,
             averageLength, averageWidth, averageHeight, averageMeasureUnit,
             errors, onBackClick, onNextClick, onSelectChange, onMultiChange, onTextChange
         } = this.props;
@@ -125,7 +127,7 @@ class ProductionInspectionCreateStep2CropComponent extends Component {
                         }
 
                         <p className="border-bottom mb-3 pb-1 text-secondary">
-                           <i className="fas fa-spider"></i>&nbsp;Pests
+                           <i className="fas fa-spider"></i>&nbsp;Pest Problems
                         </p>
 
                         <BootstrapMultipleSelect
@@ -143,12 +145,66 @@ class ProductionInspectionCreateStep2CropComponent extends Component {
                             inputClassName="form-control"
                             borderColour="border-success"
                             error={errors.pestProblemsOther}
-                            label="Other pestProblems"
+                            label="Other pest problems"
                             onChange={onTextChange}
                             value={pestProblemsOther}
                             name="pestProblemsOther"
                             type="text"
-                            placeholder="Please specify other pests not listed in above."
+                            placeholder="Please specify other pest problems not listed in above."
+                        />
+
+                        <p className="border-bottom mb-3 pb-1 text-secondary">
+                           <i className="fas fa-first-aid"></i>&nbsp;Disease Problems
+                        </p>
+
+                        <BootstrapMultipleSelect
+                            borderColour="border-success"
+                            label="Diseases"
+                            name="diseaseProblems"
+                            defaultOptionLabel="Please select any disease discovered."
+                            options={diseaseProblemOptions}
+                            selectedOptions={diseaseProblems}
+                            error={errors.diseaseProblems}
+                            onMultiChange={onMultiChange}
+                        />
+
+                        <BootstrapInput
+                            inputClassName="form-control"
+                            borderColour="border-success"
+                            error={errors.diseaseProblemsOther}
+                            label="Other disease problems"
+                            onChange={onTextChange}
+                            value={diseaseProblemsOther}
+                            name="diseaseProblemsOther"
+                            type="text"
+                            placeholder="Please specify other diseases not listed in above."
+                        />
+
+                        <p className="border-bottom mb-3 pb-1 text-secondary">
+                           <i className="fas fa-syringe"></i>&nbsp;Abiotic Problems
+                        </p>
+
+                        <BootstrapMultipleSelect
+                            borderColour="border-success"
+                            label="Abiotic"
+                            name="abioticProblems"
+                            defaultOptionLabel="Please select any abiotic discovered."
+                            options={abioticProblemOptions}
+                            selectedOptions={abioticProblems}
+                            error={errors.abioticProblems}
+                            onMultiChange={onMultiChange}
+                        />
+
+                        <BootstrapInput
+                            inputClassName="form-control"
+                            borderColour="border-success"
+                            error={errors.abioticProblemsOther}
+                            label="Other abiotic problems"
+                            onChange={onTextChange}
+                            value={abioticProblemsOther}
+                            name="abioticProblemsOther"
+                            type="text"
+                            placeholder="Please specify other abiotics problems not listed in above."
                         />
 
                         <p className="border-bottom mb-3 pb-1 text-secondary">

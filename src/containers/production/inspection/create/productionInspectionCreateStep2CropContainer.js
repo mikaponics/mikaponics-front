@@ -51,9 +51,18 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
             averageMeasureUnit: cropInspection.averageMeasureUnit,
             notes: cropInspection.notes,
             pestProblems: cropInspection.pestProblems,
+            pestProblemOptions: [], // Populated in `componentDidMount` func.
             pestProblemsOther: cropInspection.pestProblemsOther,
+            diseaseProblems: cropInspection.diseaseProblems,
+            diseaseProblemOptions: [], // Populated in `componentDidMount` func.
+            diseaseProblemsOther: cropInspection.diseaseProblemsOther,
+            abioticProblems: cropInspection.abioticProblems,
+            abioticProblemOptions: [], // Populated in `componentDidMount` func.
+            abioticProblemsOther: cropInspection.abioticProblemsOther,
         }
         this.getPestProblemOptionResultsFromAPI = this.getPestProblemOptionResultsFromAPI.bind(this);
+        this.getDiseaseProblemOptionResultsFromAPI = this.getDiseaseProblemOptionResultsFromAPI.bind(this);
+        this.getAbioticProblemOptionResultsFromAPI = this.getAbioticProblemOptionResultsFromAPI.bind(this);
         this.onNextClick = this.onNextClick.bind(this);
         this.onBackClick = this.onBackClick.bind(this);
         this.onSelectChange = this.onSelectChange.bind(this);
@@ -64,8 +73,17 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
 
     getPestProblemOptionResultsFromAPI(response) {
         const pestProblemOptions = getProblemReactSelectOptions(response, "pestProblems");
-        // console.log(pestOptions); // For debugging purposes only.
         this.setState({ pestProblemOptions: pestProblemOptions });
+    }
+
+    getDiseaseProblemOptionResultsFromAPI(response) {
+        const diseaseProblemOptions = getProblemReactSelectOptions(response, "diseaseProblems");
+        this.setState({ diseaseProblemOptions: diseaseProblemOptions });
+    }
+
+    getAbioticProblemOptionResultsFromAPI(response) {
+        const abioticProblemOptions = getProblemReactSelectOptions(response, "abioticProblems");
+        this.setState({ pestProblemOptions: abioticProblemOptions });
     }
 
     componentDidMount() {
@@ -74,6 +92,12 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
         var m = new Map();
         m.set('typeOf', PEST_TYPE_OF);
         this.props.pullProblemDataSheetList(1, m, this.getPestProblemOptionResultsFromAPI);
+
+        m.set('typeOf', DISEASE_TYPE_OF);
+        this.props.pullProblemDataSheetList(1, m, this.getDiseaseProblemOptionResultsFromAPI);
+
+        m.set('typeOf', ABIOTIC_TYPE_OF);
+        this.props.pullProblemDataSheetList(1, m, this.getAbioticProblemOptionResultsFromAPI);
 
         // AUTOMATICALLY SCROLL TO THE TOP (WITHOUT ANIMATIONS!)
         window.scrollTo(0, 0);  // Start the page at the top of the page.
@@ -123,6 +147,10 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
                     notes: cropInspection.notes,
                     pestProblems: cropInspection.pestProblems,
                     pestProblemsOther: cropInspection.pestProblemsOther,
+                    diseaseProblems: cropInspection.diseaseProblems,
+                    diseaseProblemsOther: cropInspection.diseaseProblemsOther,
+                    abioticProblems: cropInspection.abioticProblems,
+                    abioticProblemsOther: cropInspection.abioticProblemsOther,
                 },
                 () => {
                     this.props.history.push('/production/'+ this.state.slug + '/create-inspection/crop/'+this.state.index);
@@ -163,6 +191,10 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
                         notes: cropInspection.notes,
                         pestProblems: cropInspection.pestProblems,
                         pestProblemsOther: cropInspection.pestProblemsOther,
+                        diseaseProblems: cropInspection.diseaseProblems,
+                        diseaseProblemsOther: cropInspection.diseaseProblemsOther,
+                        abioticProblems: cropInspection.abioticProblems,
+                        abioticProblemsOther: cropInspection.abioticProblemsOther,
                     },
                     () => {
                         this.props.history.push('/production/'+ this.state.slug + '/create-inspection/crop/'+this.state.index);
@@ -286,6 +318,8 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
             stage,
             notes,
             pestProblems, pestProblemsOther, pestProblemOptions,
+            diseaseProblems, diseaseProblemsOther, diseaseProblemOptions,
+            abioticProblems, abioticProblemsOther, abioticProblemOptions,
              errors } = this.state;
         return (
             <ProductionInspectionCreateStep2CropComponent
@@ -304,6 +338,13 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
                 pestProblems={pestProblems}
                 pestProblemOptions={pestProblemOptions}
                 pestProblemsOther={pestProblemsOther}
+                diseaseProblems={diseaseProblems}
+                diseaseProblemOptions={diseaseProblemOptions}
+                diseaseProblemsOther={diseaseProblemsOther}
+                abioticProblems={abioticProblems}
+                abioticProblemOptions={abioticProblemOptions}
+                abioticProblemsOther={abioticProblemsOther}
+
                 errors={errors}
                 onNextClick={this.onNextClick}
                 onBackClick={this.onBackClick}
