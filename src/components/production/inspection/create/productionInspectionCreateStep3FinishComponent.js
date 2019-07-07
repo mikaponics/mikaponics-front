@@ -150,7 +150,7 @@ class ProductionCropInspectionTableComponent extends Component {
                             </ul>
                         </td>
                     </tr>
-                    {pestProblems &&
+                    {pestProblems.length > 0 &&
                         <tr>
                             <th scope="row" className="bg-light">Pest Problems</th>
                             <td>
@@ -158,7 +158,7 @@ class ProductionCropInspectionTableComponent extends Component {
                             </td>
                         </tr>
                     }
-                    {diseaseProblems &&
+                    {diseaseProblems.length > 0 &&
                         <tr>
                             <th scope="row" className="bg-light">Disease Problems</th>
                             <td>
@@ -166,7 +166,7 @@ class ProductionCropInspectionTableComponent extends Component {
                             </td>
                         </tr>
                     }
-                    {abioticProblems &&
+                    {abioticProblems.length > 0 &&
                         <tr>
                             <th scope="row" className="bg-light">Abiotic Problems</th>
                             <td>
