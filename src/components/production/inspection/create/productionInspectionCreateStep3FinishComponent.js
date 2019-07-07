@@ -108,7 +108,6 @@ class ProductionCropInspectionTableComponent extends Component {
     render() {
         const {
             prettyName,
-            variety,
             review,
             reviewLabel,
             failureReason,
@@ -117,19 +116,12 @@ class ProductionCropInspectionTableComponent extends Component {
         } = this.props.crop;
         const id = shortid.generate();
         const reviewWasFailure = (review === PRODUCTION_CROPS_INSPECTION_TERRIBLE_REVIEW) || (review === PRODUCTION_CROPS_INSPECTION_BAD_REVIEW);
-
-        // Check to see if this crop has a variety.
-        let prettyNameWithVariety = prettyName;
-        if (variety !== undefined || variety !== null || variety !== "") {
-            prettyNameWithVariety += " (" + variety + ")";
-        }
-
         return (
             <table className="table table-bordered custom-cell-w" key={id}>
                 <tbody>
                     <tr className="bg-dark">
                         <th scope="row" colSpan="2" className="text-light">
-                            <i className="fas fa-eye"></i>&nbsp;{prettyNameWithVariety}
+                            <i className="fas fa-eye"></i>&nbsp;{prettyName}
                         </th>
                     </tr>
                     <tr>

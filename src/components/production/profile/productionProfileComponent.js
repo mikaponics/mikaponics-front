@@ -130,20 +130,11 @@ class CropUnorderedList extends Component {
                 let key = shortid.generate();
                 let cropObj = cropsArray[i];
 
-                // Check to see if this crop has a variety.
-                let hasVariety = false;
-                hasVariety = cropObj.variety !== undefined || cropObj.variety !== null || cropObj.variety !== "";
-
                 // Generate our JSX element.
                 elements.push(
                     <div key={key}>
                         {cropObj.prettyName &&
-                            <li>
-                                {hasVariety
-                                    ? <div>{cropObj.prettyName}&nbsp;({cropObj.variety})&nbsp;x&nbsp;{cropObj.quantity}</div>
-                                    : <div>{cropObj.prettyName}&nbsp;x&nbsp;{cropObj.quantity}</div>
-                                }
-                            </li>
+                            <div>{cropObj.prettyName}&nbsp;x&nbsp;{cropObj.quantity}</div>
                         }
 
                     </div>

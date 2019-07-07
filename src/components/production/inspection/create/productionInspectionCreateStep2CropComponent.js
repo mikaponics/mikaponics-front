@@ -37,12 +37,6 @@ class ProductionInspectionCreateStep2CropComponent extends Component {
         // IF PREVIOUS RESULT IS NULL THEN SET THIS TO BE EMPTY.
         const theNotes = (notes === null || notes === undefined) ? "" : notes
 
-        // Check to see if this crop has a variety.
-        let prettyNameWithVariety = cropInspection.prettyName;
-        if (cropInspection.variety !== undefined || cropInspection.variety !== null || cropInspection.variety !== "") {
-            prettyNameWithVariety += " (" + cropInspection.variety + ")";
-        }
-
         // RENDER OUR JSX CODE.
         return (
             <div>
@@ -81,7 +75,7 @@ class ProductionInspectionCreateStep2CropComponent extends Component {
                     <form className="needs-validation" noValidate>
                         <BootstrapErrorsProcessingAlert errors={errors} />
 
-                        <h2><i className="fas fa-eye"></i>&nbsp;{prettyNameWithVariety} Inspection</h2>
+                        <h2><i className="fas fa-eye"></i>&nbsp;{cropInspection.prettyName} Inspection</h2>
                         <p className="border-bottom mb-3 pb-1 text-secondary">Growth</p>
 
                         <BootstrapSingleSelect
