@@ -86,8 +86,8 @@ class ProductionInspectionCreateFinishContainer extends Component {
         console.log(this.state); // For debugging purposes only.
         this.setState({ errors: {}, isLoading: true, })
 
-        // // Once our state has been validated `client-side` then we will
-        // // make an API request with the server to create our new production.
+        // Once our state has been validated `client-side` then we will
+        // make an API request with the server to create our new production.
         this.props.postProductionInspectionDetail(
             this.state,
             this.onSuccessfulSubmissionCallback,

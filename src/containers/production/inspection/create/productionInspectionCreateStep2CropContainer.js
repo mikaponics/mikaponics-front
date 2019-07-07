@@ -217,7 +217,6 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
         // Extract the select options from the parameter.
         const selectedOptions = args[0];
         const key = args[1].name;
-        console.log(args);
 
         // STEP 1: Update individual value.
         this.setState(
