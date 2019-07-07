@@ -18,7 +18,6 @@ class CropUnorderedList extends Component {
             for (let i = 0; i < cropsArray.length; i++) {
                 let cropObj = cropsArray[i];
 
-
                 let hasVariety = false;
                 if (cropObj.plant) {
                     hasVariety = cropObj.variety !== undefined || cropObj.variety !== null || cropObj.variety !== "";
@@ -32,7 +31,6 @@ class CropUnorderedList extends Component {
                                     ? <div>{cropObj.plant}&nbsp;({cropObj.variety})&nbsp;x&nbsp;{cropObj.quantity}</div>
                                     : <div>{cropObj.plant}&nbsp;x&nbsp;{cropObj.quantity}</div>
                                 }
-
                             </li>
                         }
                         {cropObj.fish &&

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import isEmpty from 'lodash/isEmpty';
+import shortid from "shortid";
 
 
 class ProductionProfileComponent extends Component {
@@ -126,12 +127,23 @@ class CropUnorderedList extends Component {
         if (isEmpty(cropsArray) === false) {
             let elements = [];
             for (let i = 0; i < cropsArray.length; i++) {
+                let key = shortid.generate();
                 let cropObj = cropsArray[i];
-                console.log(cropObj);
+
+                // Check to see if this crop has a variety.
+                let hasVariety = false;
+                hasVariety = cropObj.variety !== undefined || cropObj.variety !== null || cropObj.variety !== "";
+
+                // Generate our JSX element.
                 elements.push(
-                    <div>
+                    <div key={key}>
                         {cropObj.prettyName &&
-                            <li>{cropObj.prettyName}</li>
+                            <li>
+                                {hasVariety
+                                    ? <div>{cropObj.prettyName}&nbsp;({cropObj.variety})&nbsp;x&nbsp;{cropObj.quantity}</div>
+                                    : <div>{cropObj.prettyName}&nbsp;x&nbsp;{cropObj.quantity}</div>
+                                }
+                            </li>
                         }
 
                     </div>
