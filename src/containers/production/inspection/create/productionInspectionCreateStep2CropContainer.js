@@ -71,24 +71,12 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
         this.updateCropWithOnKeyValueLabelChange = this.updateCropWithOnKeyValueLabelChange.bind(this);
     }
 
-    getPestProblemOptionResultsFromAPI(response) {
-        const pestProblemOptions = getProblemReactSelectOptions(response, "pestProblems");
-        this.setState({ pestProblemOptions: pestProblemOptions });
-    }
-
-    getDiseaseProblemOptionResultsFromAPI(response) {
-        const diseaseProblemOptions = getProblemReactSelectOptions(response, "diseaseProblems");
-        this.setState({ diseaseProblemOptions: diseaseProblemOptions });
-    }
-
-    getAbioticProblemOptionResultsFromAPI(response) {
-        const abioticProblemOptions = getProblemReactSelectOptions(response, "abioticProblems");
-        this.setState({ abioticProblemOptions: abioticProblemOptions });
-    }
-
     componentDidMount() {
         this.props.pullCropLifeCycleStageList(this.props.user, 1, this.state.cropInspection.typeOf); // Get latest data from API.
 
+        // DEVELOPERS NOTE:
+        // THE NEXT FEW LINES WILL MAKE API CALLS TO GET FILTERED RESULTS SO
+        // OUR OPTIONS WILL BE POPULATED.
         var m = new Map();
         m.set('typeOf', PEST_TYPE_OF);
         this.props.pullProblemDataSheetList(1, m, this.getPestProblemOptionResultsFromAPI);
@@ -229,6 +217,7 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
         // Extract the select options from the parameter.
         const selectedOptions = args[0];
         const key = args[1].name;
+        console.log(args);
 
         // STEP 1: Update individual value.
         this.setState(
@@ -303,6 +292,30 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
                 localStorageSetObjectOrArrayItem("temp-production-inspection-create-cropInspections", a);
             }
         );
+    }
+
+    /**
+     *  Utlity function takes the API results data and saves it to our state.
+     */
+    getPestProblemOptionResultsFromAPI(response) {
+        const pestProblemOptions = getProblemReactSelectOptions(response, "pestProblems");
+        this.setState({ pestProblemOptions: pestProblemOptions });
+    }
+
+    /**
+     *  Utlity function takes the API results data and saves it to our state.
+     */
+    getDiseaseProblemOptionResultsFromAPI(response) {
+        const diseaseProblemOptions = getProblemReactSelectOptions(response, "diseaseProblems");
+        this.setState({ diseaseProblemOptions: diseaseProblemOptions });
+    }
+
+    /**
+     *  Utlity function takes the API results data and saves it to our state.
+     */
+    getAbioticProblemOptionResultsFromAPI(response) {
+        const abioticProblemOptions = getProblemReactSelectOptions(response, "abioticProblems");
+        this.setState({ abioticProblemOptions: abioticProblemOptions });
     }
 
     /**
