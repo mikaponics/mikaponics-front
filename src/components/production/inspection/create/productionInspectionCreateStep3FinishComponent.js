@@ -112,6 +112,7 @@ class ProductionCropInspectionTableComponent extends Component {
             reviewLabel,
             failureReason,
             stageLabel,
+            averageWidth, averageHeight, averageLength, averageMeasureUnit,
             notes
         } = this.props.crop;
         const id = shortid.generate();
@@ -137,6 +138,16 @@ class ProductionCropInspectionTableComponent extends Component {
                     <tr>
                         <th scope="row" className="bg-light">Stage</th>
                         <td>{stageLabel}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" className="bg-light">Crop measurements</th>
+                        <td>
+                            <ul>
+                                <li>Length:&nbsp;{averageLength}&nbsp;{averageMeasureUnit}</li>
+                                <li>Width:&nbsp;{averageWidth}&nbsp;{averageMeasureUnit}</li>
+                                <li>Height:&nbsp;{averageHeight}&nbsp;{averageMeasureUnit}</li>
+                            </ul>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row" className="bg-light">Additional note(s)</th>

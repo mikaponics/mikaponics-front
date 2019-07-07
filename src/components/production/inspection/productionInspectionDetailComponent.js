@@ -15,6 +15,7 @@ class ProductionCropInspectionTableComponent extends Component {
             review,
             failureReason,
             stage,
+            averageWidth, averageHeight, averageLength, averageMeasureUnit,
             notes
         } = this.props.crop;
         const reviewWasFailure = (review === PRODUCTION_CROPS_INSPECTION_TERRIBLE_REVIEW) || (review === PRODUCTION_CROPS_INSPECTION_BAD_REVIEW);
@@ -22,7 +23,9 @@ class ProductionCropInspectionTableComponent extends Component {
             <table className="table table-bordered custom-cell-w">
                 <tbody>
                     <tr className="bg-dark">
-                        <th scope="row" colSpan="2" className="text-light">{productionCropName}</th>
+                        <th scope="row" colSpan="2" className="text-light">
+                            <i className="fas fa-eye"></i>&nbsp;{productionCropName}
+                        </th>
                     </tr>
                     <tr>
                         <th scope="row" className="bg-light">Review</th>
@@ -37,6 +40,16 @@ class ProductionCropInspectionTableComponent extends Component {
                     <tr>
                         <th scope="row" className="bg-light">Stage</th>
                         <td>{stage.name}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" className="bg-light">Crop measurements</th>
+                        <td>
+                            <ul>
+                                <li>Length:&nbsp;{averageLength}&nbsp;{averageMeasureUnit}</li>
+                                <li>Width:&nbsp;{averageWidth}&nbsp;{averageMeasureUnit}</li>
+                                <li>Height:&nbsp;{averageHeight}&nbsp;{averageMeasureUnit}</li>
+                            </ul>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row" className="bg-light">Additional note(s)</th>
@@ -96,7 +109,9 @@ class ProductionInspectionDetailomponent extends Component {
                         <table className="table table-bordered custom-cell-w">
                             <tbody>
                                 <tr className="bg-dark">
-                                    <th scope="row" colSpan="2" className="text-light">Overall</th>
+                                    <th scope="row" colSpan="2" className="text-light">
+                                        <i className="fas fa-stethoscope"></i>&nbsp;Overall
+                                    </th>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Did this inspection pass?</th>

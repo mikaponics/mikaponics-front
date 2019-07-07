@@ -21,6 +21,7 @@ class ProductionInspectionCreateStep2CropComponent extends Component {
             productionInspectionDetail,
             stageOptions=[], productionDetail,
             review, failureReason, stage, notes, errors,
+            averageLength, averageWidth, averageHeight, averageMeasureUnit,
             onBackClick, onNextClick, onSelectChange, onTextChange
         } = this.props;
         const { name, slug } = productionDetail;
@@ -76,7 +77,12 @@ class ProductionInspectionCreateStep2CropComponent extends Component {
                         <BootstrapErrorsProcessingAlert errors={errors} />
 
                         <h2><i className="fas fa-eye"></i>&nbsp;{cropInspection.prettyName} Inspection</h2>
-                        <p className="border-bottom mb-3 pb-1 text-secondary">Growth</p>
+                        <p>Please inspect your crop and answer the following quesitons.</p>
+                        <p>All fields which have the (*) symbol are <strong>required</strong> to be filled out.</p>
+
+                        <p className="border-bottom mb-3 pb-1 text-secondary">
+                            <i className="fas fa-heartbeat"></i>&nbsp;Lifeline
+                        </p>
 
                         <BootstrapSingleSelect
                             label="What stage is your crop at? (*)"
@@ -88,7 +94,9 @@ class ProductionInspectionCreateStep2CropComponent extends Component {
                             onSelectChange={ option => onSelectChange(option.selectName, option.value, option.label) }
                         />
 
-                        <p className="border-bottom mb-3 pb-1 text-secondary">Quality</p>
+                        <p className="border-bottom mb-3 pb-1 text-secondary">
+                            <i className="fas fa-star"></i>&nbsp;Quality
+                        </p>
 
                         <BootstrapSingleSelect
                             label="How do the crops look today? (*)"
@@ -114,7 +122,58 @@ class ProductionInspectionCreateStep2CropComponent extends Component {
                             />
                         }
 
-                        <p className="border-bottom mb-3 pb-1 text-secondary">Additional</p>
+                        <p className="border-bottom mb-3 pb-1 text-secondary">
+                           <i className="fas fa-ruler"></i>&nbsp;Crop Measurements
+                          </p>
+
+                        <BootstrapInput
+                            inputClassName="form-control"
+                            borderColour="border-success"
+                            error={errors.averageLength}
+                            label="Average Length"
+                            onChange={onTextChange}
+                            value={averageLength}
+                            name="averageLength"
+                            type="number"
+                            placeholder="Please specify average length across."
+                        />
+                        <BootstrapInput
+                            inputClassName="form-control"
+                            borderColour="border-success"
+                            error={errors.averageWidth}
+                            label="Average Width"
+                            onChange={onTextChange}
+                            value={averageWidth}
+                            name="averageWidth"
+                            type="number"
+                            placeholder="Please specify average width across."
+                        />
+                        <BootstrapInput
+                            inputClassName="form-control"
+                            borderColour="border-success"
+                            error={errors.averageHeight}
+                            label="Average Height"
+                            onChange={onTextChange}
+                            value={averageHeight}
+                            name="averageHeight"
+                            type="number"
+                            placeholder="Please specify average height across."
+                        />
+                        <BootstrapInput
+                            inputClassName="form-control"
+                            borderColour="border-success"
+                            error={errors.averageMeasureUnit}
+                            label="Unit of Measure"
+                            onChange={onTextChange}
+                            value={averageMeasureUnit}
+                            name="averageMeasureUnit"
+                            type="text"
+                            placeholder="Please enter the unit of measurement used for the averages above."
+                        />
+
+                        <p className="border-bottom mb-3 pb-1 text-secondary">
+                            <i className="fas fa-asterisk"></i>&nbsp;Additional
+                        </p>
 
                         <BootstrapTextarea
                             name="notes"
