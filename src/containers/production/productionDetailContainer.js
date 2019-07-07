@@ -66,7 +66,7 @@ class ProductionListContainer extends Component {
             item.productionCrop = item.slug;
 
             // BUGFIX: Make sure you set the values to be blank strings or else React will cause problems in our GUI.
-            item.wasHarvested = null;
+            item.wasHarvested = "";
             item.harvestFailureReason = "";
             item.harvestFailureReasonOther = "";
             item.harvestYield = "";
@@ -77,7 +77,7 @@ class ProductionListContainer extends Component {
             item.averageLength = "";
             item.averageWidth = "";
             item.averageHeight = "";
-            item.wasAliveAfterHarvest = null;
+            item.wasAliveAfterHarvest = "";
         }
 
         // Save to the persistent storage a COMPLETE COPY of the crops in the

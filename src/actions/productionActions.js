@@ -149,7 +149,7 @@ export function pullProductionDetail(user, slug) {
             profile['isAPIRequestRunning'] = false;
             profile['errors'] = {};
 
-            // console.log(profile); // For debugging purposes.
+            console.log("pullProductionDetail | Success:", profile); // For debugging purposes.
 
             // Update the global state of the application to store our
             // user profile for the application.
