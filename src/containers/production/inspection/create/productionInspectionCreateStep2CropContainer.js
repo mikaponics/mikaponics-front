@@ -83,7 +83,7 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
 
     getAbioticProblemOptionResultsFromAPI(response) {
         const abioticProblemOptions = getProblemReactSelectOptions(response, "abioticProblems");
-        this.setState({ pestProblemOptions: abioticProblemOptions });
+        this.setState({ abioticProblemOptions: abioticProblemOptions });
     }
 
     componentDidMount() {
