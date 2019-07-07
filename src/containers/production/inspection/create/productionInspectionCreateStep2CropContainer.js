@@ -11,6 +11,10 @@ import {
     localStorageGetArrayItem,
     localStorageSetObjectOrArrayItem
 } from "../../../../helpers/localStorageUtility";
+import {
+    PEST_PROBLEM_OPTIONS_RESULTS,
+    DISEASE_PROBLEM_OPTIONS_RESULTS
+} from "../../../../constants/api";
 
 
 class ProductionInspectionCreateStep2CropContainer extends Component {
@@ -67,33 +71,7 @@ class ProductionInspectionCreateStep2CropContainer extends Component {
         this.props.pullCropLifeCycleStageList(this.props.user, 1, this.state.cropInspection.typeOf); // Get latest data from API.
 
         this.setState({
-            pestsData: {
-                results: [{
-                    name: 'Ants',
-                    slug: 'ants'
-                },{
-                    name: 'Aphids',
-                    slug: 'aphids'
-                },{
-                    name: 'Mealybugs',
-                    slug: 'mealybugs'
-                },{
-                    name: 'Mites',
-                    slug: 'mites'
-                },{
-                    name: 'Moth',
-                    slug: 'moth'
-                },{
-                    name: 'Scale',
-                    slug: 'scale'
-                },{
-                    name: 'Thrips',
-                    slug: 'thrips'
-                },{
-                    name: 'Whitefly',
-                    slug: 'whitefly'
-                }]
-            }
+            pestsData: PEST_PROBLEM_OPTIONS_RESULTS
         });
 
         // AUTOMATICALLY SCROLL TO THE TOP (WITHOUT ANIMATIONS!)

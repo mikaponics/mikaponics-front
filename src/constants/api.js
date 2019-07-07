@@ -461,3 +461,57 @@ export const PRODUCTION_HARVEST_QUALITY_OPTION_CHOICES = [
         label: "Excellent"
     }
 ];
+
+/**
+ *  The available pest options used for the crop inspections. This is for the
+ *  `pests` field in crop inspections. This data is structured in the same
+ *  manner as if the API endpoint would return these results. We are doing this
+ *  so we can replace this with API calls in the future.
+ *  Special thanks: https://extension.psu.edu/preventing-diagnosing-and-correcting-common-houseplant-problems
+ */
+export const PEST_PROBLEM_OPTIONS_RESULTS = {
+    results: [{
+        name: 'Ants',
+        slug: 'ants'
+    },{
+        name: 'Aphids',
+        slug: 'aphids'
+    },{
+        name: 'Mealybugs',
+        slug: 'mealybugs'
+    },{
+        name: 'Mites',
+        slug: 'mites'
+    },{
+        name: 'Moth',
+        slug: 'moth'
+    },{
+        name: 'Scale',
+        slug: 'scale'
+    },{
+        name: 'Thrips',
+        slug: 'thrips'
+    },{
+        name: 'Whitefly',
+        slug: 'whitefly'
+    }]
+}
+
+/**
+ *  Special thanks: https://extension.psu.edu/preventing-diagnosing-and-correcting-common-houseplant-problems
+ */
+export const DISEASE_PROBLEM_OPTIONS_RESULTS = {
+    results: [{
+        name: 'Anthracnose',
+        slug: 'anthracnose'
+    },{
+        name: 'Leaf spots',
+        slug: 'leaf-spots'
+    },{
+        name: 'Powdery mildew',
+        slug: 'powdery-mildew'
+    },{
+        name: 'Root and stem rots',
+        slug: 'root-and-stem-rots'
+    }]
+}
