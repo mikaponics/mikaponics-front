@@ -151,7 +151,7 @@ export default class ProductionTerminateStep2CropComponent extends Component {
                                     onChange={onTextChange}
                                     value={harvestWeight}
                                     name="harvestWeight"
-                                    type="text"
+                                    type="number"
                                     placeholder="Please the total weight of the harvest."
                                 />
                                 <BootstrapInput
@@ -179,7 +179,7 @@ export default class ProductionTerminateStep2CropComponent extends Component {
                             onChange={onTextChange}
                             value={averageLength}
                             name="averageLength"
-                            type="text"
+                            type="number"
                             placeholder="Please specify average length across."
                         />
                         <BootstrapInput
@@ -190,7 +190,7 @@ export default class ProductionTerminateStep2CropComponent extends Component {
                             onChange={onTextChange}
                             value={averageWidth}
                             name="averageWidth"
-                            type="text"
+                            type="number"
                             placeholder="Please specify average width across."
                         />
                         <BootstrapInput
@@ -201,7 +201,7 @@ export default class ProductionTerminateStep2CropComponent extends Component {
                             onChange={onTextChange}
                             value={averageHeight}
                             name="averageHeight"
-                            type="text"
+                            type="number"
                             placeholder="Please specify average height across."
                         />
 
