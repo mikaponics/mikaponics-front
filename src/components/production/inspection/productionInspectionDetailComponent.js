@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import shortid from "shortid";
 
 import {
     PRODUCTION_CROPS_INSPECTION_TERRIBLE_REVIEW,
@@ -7,62 +8,7 @@ import {
 } from '../../../constants/api';
 
 
-class ProductionCropInspectionTableComponent extends Component {
-    render() {
-        const {
-            productionCropName,
-            prettyReview,
-            review,
-            failureReason,
-            stage,
-            averageWidth, averageHeight, averageLength, averageMeasureUnit,
-            notes
-        } = this.props.crop;
-        const reviewWasFailure = (review === PRODUCTION_CROPS_INSPECTION_TERRIBLE_REVIEW) || (review === PRODUCTION_CROPS_INSPECTION_BAD_REVIEW);
-        return (
-            <table className="table table-bordered custom-cell-w">
-                <tbody>
-                    <tr className="bg-dark">
-                        <th scope="row" colSpan="2" className="text-light">
-                            <i className="fas fa-eye"></i>&nbsp;{productionCropName}
-                        </th>
-                    </tr>
-                    <tr>
-                        <th scope="row" className="bg-light">Review</th>
-                        <td>{prettyReview}</td>
-                    </tr>
-                    {reviewWasFailure &&
-                        <tr>
-                            <th scope="row" className="bg-light">Failure reason</th>
-                            <td>{failureReason}</td>
-                        </tr>
-                    }
-                    <tr>
-                        <th scope="row" className="bg-light">Stage</th>
-                        <td>{stage.name}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" className="bg-light">Crop measurements</th>
-                        <td>
-                            <ul>
-                                <li>Length:&nbsp;{averageLength}&nbsp;{averageMeasureUnit}</li>
-                                <li>Width:&nbsp;{averageWidth}&nbsp;{averageMeasureUnit}</li>
-                                <li>Height:&nbsp;{averageHeight}&nbsp;{averageMeasureUnit}</li>
-                            </ul>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row" className="bg-light">Additional note(s)</th>
-                        <td>{notes}</td>
-                    </tr>
-                </tbody>
-            </table>
-        );
-    }
-}
-
-
-class ProductionInspectionDetailomponent extends Component {
+export default class ProductionInspectionDetailomponent extends Component {
     render() {
         const {
             productionDetail,
@@ -154,4 +100,71 @@ class ProductionInspectionDetailomponent extends Component {
     }
 }
 
-export default ProductionInspectionDetailomponent;
+
+class ProductionCropInspectionTableComponent extends Component {
+    render() {
+        const {
+            productionCropName,
+            prettyReview,
+            review,
+            failureReason,
+            stage,
+            averageWidth, averageHeight, averageLength, averageMeasureUnit,
+            notes,
+            problems
+        } = this.props.crop;
+        const reviewWasFailure = (review === PRODUCTION_CROPS_INSPECTION_TERRIBLE_REVIEW) || (review === PRODUCTION_CROPS_INSPECTION_BAD_REVIEW);
+        const shouldDisplayProblems = problems.length > 0;
+        return (
+            <table className="table table-bordered custom-cell-w" key={shortid.generate()}>
+                <tbody>
+                    <tr className="bg-dark">
+                        <th scope="row" colSpan="2" className="text-light">
+                            <i className="fas fa-eye"></i>&nbsp;{productionCropName}
+                        </th>
+                    </tr>
+                    <tr>
+                        <th scope="row" className="bg-light">Review</th>
+                        <td>{prettyReview}</td>
+                    </tr>
+                    {reviewWasFailure &&
+                        <tr>
+                            <th scope="row" className="bg-light">Failure reason</th>
+                            <td>{failureReason}</td>
+                        </tr>
+                    }
+                    <tr>
+                        <th scope="row" className="bg-light">Stage</th>
+                        <td>{stage.name}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" className="bg-light">Crop measurements</th>
+                        <td>
+                            <ul>
+                                <li>Length:&nbsp;{averageLength}&nbsp;{averageMeasureUnit}</li>
+                                <li>Width:&nbsp;{averageWidth}&nbsp;{averageMeasureUnit}</li>
+                                <li>Height:&nbsp;{averageHeight}&nbsp;{averageMeasureUnit}</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    {shouldDisplayProblems &&
+                        <tr>
+                            <th scope="row" className="bg-light">Problems</th>
+                            <td>
+                                <ul>
+                                    {problems.map(
+                                        (problem) => <li key={problem.slug}>{problem.text}</li>
+                                    )}
+                                </ul>
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <th scope="row" className="bg-light">Additional note(s)</th>
+                        <td>{notes}</td>
+                    </tr>
+                </tbody>
+            </table>
+        );
+    }
+}
