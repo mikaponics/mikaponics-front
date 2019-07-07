@@ -139,7 +139,9 @@ class ProductionTerminateStep2CropContainer extends Component {
                     averageHeight: crop.averageHeight,
                 },
                 () => {
+                    console.log("BACK | UPDATED STATE |", this.state);
                     this.props.history.push('/production/'+ this.state.productionSlug + '/terminate-crop/'+this.state.index);
+                    window.scrollTo(0, 0);  // Start the page at the top of the page.
                 }
             );
         }
@@ -184,14 +186,16 @@ class ProductionTerminateStep2CropContainer extends Component {
                         averageHeight: crop.averageHeight,
                     },
                     () => {
+                        console.log("NEXT | UPDATED STATE |", this.state);
                         this.props.history.push('/production/'+ this.state.productionSlug + '/terminate-crop/'+this.state.index);
+                        window.scrollTo(0, 0);  // Start the page at the top of the page.
                     }
                 );
             } else {
                 this.props.history.push('/production/'+ this.state.productionSlug + '/terminate-finish');
             }
         } else {
-            this.setState({ errors: errors });
+            this.setState({ errors: errors, isLoading: false });
 
             // The following code will cause the screen to scroll to the top of
             // the page. Please see ``react-scroll`` for more information:
@@ -276,92 +280,6 @@ class ProductionTerminateStep2CropContainer extends Component {
                 //     purposes in the last page.
                 cropItem[key] = value;
                 cropItem[key+"Label"] = label;
-                foundCrop = cropItem;
-                break;
-            }
-        }
-
-        // Finally update the state to have a new copy of our cart which we
-        // modified here. Also update the persistent storage with our data.
-        this.setState(
-            {
-                crop: foundCrop,
-                crops: a
-            },
-            () => {
-                // Save to the persistent storage a COMPLETE COPY of the crops in the
-                // production detail which we will use in the `create` pages to override
-                // with our own values pertaining to crop inspections.
-                localStorageSetObjectOrArrayItem("temp-production-terminate-crops", a);
-            }
-        );
-    }
-
-    /**
-     *  Utility function which will take the `selectfield` chosen values
-     *  and update the persistent storage for the `crops` array.
-     */
-    updateCropWithOnSelectionChange(key, value, label) {
-        console.log("updateCropWithOnSelectionChange", key, value, label); // For debugging purposes only.
-
-        // Shallow copy of the array to create a NEW ARRAY.
-        let a = this.state.crops.slice(); //creates the clone of the state
-
-        // Find our current crop inspection and update it.
-        let foundCrop = null;
-        for (let i = 0; i < a.length; i++) {
-            let cropItem = a[i];
-            if (cropItem.slug === this.state.crop.slug) {
-                // DEVELOPERS NOTE:
-                // (1) Since we have a POINTER to the object, which we retrieved
-                //     from the dictionary, we can update the value like this and
-                //     it will reflect in the dictionary automatically.
-                // (2) We are saving the `value` which the API uses.
-                // (3) We are saving the `label` which we will use for GUI
-                //     purposes in the last page.
-                cropItem[key] = value;
-                cropItem[key+"Label"] = label;
-                foundCrop = cropItem;
-                break;
-            }
-        }
-
-        // Finally update the state to have a new copy of our cart which we
-        // modified here. Also update the persistent storage with our data.
-        this.setState(
-            {
-                crop: foundCrop,
-                crops: a
-            },
-            () => {
-                // Save to the persistent storage a COMPLETE COPY of the crops in the
-                // production detail which we will use in the `create` pages to override
-                // with our own values pertaining to crop inspections.
-                localStorageSetObjectOrArrayItem("temp-production-terminate-crops", a);
-            }
-        );
-    }
-
-    /**
-     *  Utility function which will take the textfield chosen values
-     *  and update the persistent storage for the `crops` array.
-     */
-    updateCropWithOnTextChange(key, value) {
-        console.log("updateCropWithOnTextChange", key, value);
-
-        // Shallow copy of the array to create a NEW ARRAY.
-        let a = this.state.crops.slice(); //creates the clone of the state
-
-        // Find our current crop inspection and update it.
-        let foundCrop = null;
-        for (let i = 0; i < a.length; i++) {
-            let cropItem = a[i];
-            if (cropItem.slug === this.state.crop.slug) {
-                // DEVELOPERS NOTE:
-                // Since we have a POINTER to the object, which we retrieved
-                // from the dictionary, we can update the value like this and
-                // it will reflect in the dictionary automatically.
-                cropItem[key] = value;
                 foundCrop = cropItem;
                 break;
             }

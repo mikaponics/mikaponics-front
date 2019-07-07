@@ -2,10 +2,7 @@ import validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
 import {
-    PRODUCTION_CROPS_DIED,
-    PRODUCTION_CROPS_WERE_TERMINATED,
-    PRODUCTION_CROPS_TERRIBLE_HARVEST_REVIEW,
-    PRODUCTION_CROPS_BAD_HARVEST_REVIEW
+    PRODUCITON_OTHER_HARVEST_FAILURE_REASON
 } from "../constants/api";
 
 
@@ -40,8 +37,10 @@ export function validateStep2Input(data) {
         if ( data.harvestFailureReason === undefined || data.harvestFailureReason === null || data.harvestFailureReason === "" || data.harvestFailureReason === "null" ) {
             errors.harvestFailureReason = 'This field is required.';
         } else {
-            if ( data.harvestFailureReasonOther === undefined || data.harvestFailureReasonOther === null || data.harvestFailureReasonOther === "" || data.harvestFailureReasonOther === "null") {
-                errors.harvestFailureReasonOther = 'This field is required.';
+            if ( data.harvestFailureReason === PRODUCITON_OTHER_HARVEST_FAILURE_REASON ) {
+                if ( data.harvestFailureReasonOther === undefined || data.harvestFailureReasonOther === null || data.harvestFailureReasonOther === "" || data.harvestFailureReasonOther === "null") {
+                    errors.harvestFailureReasonOther = 'This field is required.';
+                }
             }
         }
     } else if (data.wasHarvested === true || data.wasHarvested === "true") {
