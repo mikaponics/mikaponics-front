@@ -40,6 +40,10 @@ export function validateStep2Input(data) {
         if ( data.failureReason === undefined || data.failureReason === null || data.failureReason === "" || data.failureReason === "null" ) {
             errors.failureReason = 'This field is required.';
         }
+    } else if (data.wasHarvested === true || data.wasHarvested === "true") {
+        if ( data.harvestYield === undefined || data.harvestYield === null || data.harvestYield === "" || data.harvestYield === "null" ) {
+            errors.harvestYield = 'This field is required.';
+        }
     }
 
     return {

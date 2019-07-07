@@ -459,3 +459,36 @@ export const PRODUCTION_HARVEST_FAILURE_REASON_OPTION_CHOICES = [
         label: "Other (Please specify)"
     }
 ];
+
+
+/**
+ *  The `harvest_review_at_finish` variable for the `ProductionCrop` API endpoint.
+ */
+export const PRODUCTION_CROPS_TERRIBLE_HARVEST_YIELD = 1;
+export const PRODUCTION_CROPS_BAD_HARVEST_YIELD = 2;
+export const PRODUCTION_CROPS_AVERAGE_HARVEST_YIELD = 3;
+export const PRODUCTION_CROPS_GOOD_HARVEST_YIELD = 4;
+export const PRODUCTION_CROPS_EXCELLENT_HARVEST_YIELD = 5;
+export const PRODUCTION_HARVEST_YIELD_OPTION_CHOICES = [
+    {
+        selectName: "harvestYield",
+        value: PRODUCTION_CROPS_TERRIBLE_HARVEST_YIELD,
+        label: "Terrible"
+    },{
+        selectName: "harvestYield",
+        value: PRODUCTION_CROPS_BAD_HARVEST_YIELD,
+        label: "Bad"
+    },{
+        selectName: "harvestYield",
+        value: PRODUCTION_CROPS_AVERAGE_HARVEST_YIELD,
+        label: "Average"
+    },{
+        selectName: "harvestYield",
+        value: PRODUCTION_CROPS_GOOD_HARVEST_YIELD,
+        label: "Good"
+    },{
+        selectName: "harvestYield",
+        value: PRODUCTION_CROPS_EXCELLENT_HARVEST_YIELD,
+        label: "Excellent"
+    }
+];

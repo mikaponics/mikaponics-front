@@ -25,9 +25,11 @@ export default class ProductionTerminateStep2CropComponent extends Component {
 
             // DEVELOPER NOTE: BELOW IS WHERE YOU ADD MORE FIELDS TO COLLECT
             wasHarvested, wasHarvestedOptions, harvestFailureReason, harvestFailureReasonOptions,
+            harvestYield, harvestYieldOptions
         } = this.props;
 
         let shouldDisplayHarvestFailureReasons = wasHarvested === false || wasHarvested === 'false';
+        let shouldDisplayHarvestSuccessReasons = wasHarvested === true || wasHarvested === 'true';
 
         // DEFENSIVE CODE: PREVENT NULLS.
         if (crop === undefined || crop === null) {
@@ -84,15 +86,30 @@ export default class ProductionTerminateStep2CropComponent extends Component {
                         />
 
                         {shouldDisplayHarvestFailureReasons &&
-                            <BootstrapSingleSelect
-                                label="Reason for harvest failure (*)"
-                                name="harvestFailureReason"
-                                defaultOptionLabel="Please select the monitoring hardware for your production."
-                                options={harvestFailureReasonOptions}
-                                value={harvestFailureReason}
-                                error={errors.harvestFailureReason}
-                                onSelectChange={ option => onSelectChange(option.selectName, option.value, option.label) }
-                            />
+                            <div>
+                                <BootstrapSingleSelect
+                                    label="Reason for harvest failure (*)"
+                                    name="harvestFailureReason"
+                                    defaultOptionLabel="Please select the monitoring hardware for your production."
+                                    options={harvestFailureReasonOptions}
+                                    value={harvestFailureReason}
+                                    error={errors.harvestFailureReason}
+                                    onSelectChange={ option => onSelectChange(option.selectName, option.value, option.label) }
+                                />
+                            </div>
+                        }
+                        {shouldDisplayHarvestSuccessReasons &&
+                            <div>
+                                <BootstrapSingleSelect
+                                    label="Harvest yield (*)"
+                                    name="harvestYield"
+                                    defaultOptionLabel="Please select the monitoring hardware for your production."
+                                    options={harvestYieldOptions}
+                                    value={harvestYield}
+                                    error={errors.harvestYield}
+                                    onSelectChange={ option => onSelectChange(option.selectName, option.value, option.label) }
+                                />
+                            </div>
                         }
 
                         <div className="form-group">

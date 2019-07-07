@@ -9,7 +9,8 @@ import {
     localStorageSetObjectOrArrayItem
 } from "../../../helpers/localStorageUtility";
 import {
-    PRODUCTION_HARVEST_FAILURE_REASON_OPTION_CHOICES
+    PRODUCTION_HARVEST_FAILURE_REASON_OPTION_CHOICES,
+    PRODUCTION_HARVEST_YIELD_OPTION_CHOICES
 } from "../../../constants/api";
 import ProductionTerminateStep2CropComponent from "../../../components/production/terminate/productionTerminateStep2CropComponent";
 
@@ -62,6 +63,8 @@ class ProductionTerminateStep2CropContainer extends Component {
             }],
             harvestFailureReasonOptions: PRODUCTION_HARVEST_FAILURE_REASON_OPTION_CHOICES,
             harvestFailureReason: crop.harvestFailureReason,
+            harvestYieldOptions: PRODUCTION_HARVEST_YIELD_OPTION_CHOICES,
+            harvestYield: crop.harvestYield,
         }
         this.onNextClick = this.onNextClick.bind(this);
         this.onBackClick = this.onBackClick.bind(this);
@@ -115,8 +118,7 @@ class ProductionTerminateStep2CropContainer extends Component {
                     // DEVELOPER NOTE: BELOW IS WHERE YOU ADD MORE FIELDS TO COLLECT
                     wasHarvested: crop.wasHarvested,
                     harvestFailureReason: crop.harvestFailureReason,
-
-
+                    harvestYield: crop.harvestYield,
                 },
                 () => {
                     this.props.history.push('/production/'+ this.state.productionSlug + '/terminate-crop/'+this.state.index);
@@ -153,6 +155,7 @@ class ProductionTerminateStep2CropContainer extends Component {
                         // DEVELOPER NOTE: BELOW IS WHERE YOU ADD MORE FIELDS TO COLLECT
                         wasHarvested: crop.wasHarvested,
                         harvestFailureReason: crop.harvestFailureReason,
+                        harvestYield: crop.harvestYield,
                     },
                     () => {
                         this.props.history.push('/production/'+ this.state.productionSlug + '/terminate-crop/'+this.state.index);
@@ -365,6 +368,7 @@ class ProductionTerminateStep2CropContainer extends Component {
 
             // DEVELOPER NOTE: BELOW IS WHERE YOU ADD MORE FIELDS TO COLLECT
             wasHarvested, wasHarvestedOptions, harvestFailureReason, harvestFailureReasonOptions,
+            harvestYield, harvestYieldOptions,
         } = this.state;
         return (
             <ProductionTerminateStep2CropComponent
@@ -387,6 +391,8 @@ class ProductionTerminateStep2CropContainer extends Component {
                 wasHarvestedOptions={wasHarvestedOptions}
                 harvestFailureReason={harvestFailureReason}
                 harvestFailureReasonOptions={harvestFailureReasonOptions}
+                harvestYield={harvestYield}
+                harvestYieldOptions={harvestYieldOptions}
             />
         );
     }
