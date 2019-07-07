@@ -52,6 +52,9 @@ export function validateStep2Input(data) {
             errors.harvestQuality = 'This field is required.';
         }
     }
+    if ( data.wasLeftAliveAfterHarvest === undefined || data.wasLeftAliveAfterHarvest === null || data.wasLeftAliveAfterHarvest === "" || data.wasLeftAliveAfterHarvest === "null") {
+        errors.wasLeftAliveAfterHarvest = 'This field is required.';
+    }
 
     return {
         errors,

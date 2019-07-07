@@ -27,7 +27,7 @@ export default class ProductionTerminateStep2CropComponent extends Component {
             // DEVELOPER NOTE: BELOW IS WHERE YOU ADD MORE FIELDS TO COLLECT
             wasHarvested, wasHarvestedOptions, harvestFailureReason, harvestFailureReasonOptions, harvestFailureReasonOther,
             harvestYield, harvestYieldOptions, harvestQuality, harvestQualityOptions, harvestNotes, harvestWeight, harvestWeightUnit,
-            averageLength, averageWidth, averageHeight,
+            averageLength, averageWidth, averageHeight
         } = this.props;
 
         let shouldDisplayHarvestFailureReasons = wasHarvested === false || wasHarvested === 'false';
@@ -204,7 +204,6 @@ export default class ProductionTerminateStep2CropComponent extends Component {
                             type="number"
                             placeholder="Please specify average height across."
                         />
-
 
                         <div className="form-group">
                             <button type="text" className="btn btn-lg float-left pl-4 pr-4 btn-secondary" onClick={onBackClick}>

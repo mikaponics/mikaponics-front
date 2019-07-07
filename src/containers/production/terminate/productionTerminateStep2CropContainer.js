@@ -395,7 +395,7 @@ class ProductionTerminateStep2CropContainer extends Component {
             // DEVELOPER NOTE: BELOW IS WHERE YOU ADD MORE FIELDS TO COLLECT
             wasHarvested, wasHarvestedOptions, harvestFailureReason, harvestFailureReasonOptions, harvestFailureReasonOther,
             harvestYield, harvestYieldOptions, harvestQuality, harvestQualityOptions, harvestNotes, harvestWeight, harvestWeightUnit,
-            averageLength, averageWidth, averageHeight,
+            averageLength, averageWidth, averageHeight
         } = this.state;
         return (
             <ProductionTerminateStep2CropComponent

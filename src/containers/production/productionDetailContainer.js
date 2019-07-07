@@ -66,6 +66,11 @@ class ProductionListContainer extends Component {
             item.productionCrop = item.slug;
 
             // BUGFIX: Make sure you set the values to be blank strings or else React will cause problems in our GUI.
+            item.wasHarvested = "";
+            item.harvestFailureReason = "";
+            item.harvestFailureReasonOther = "";
+            item.harvestYield = "";
+            item.harvestQuality = "";
             item.harvestNotes = "";
             item.harvestWeight = "";
             item.harvestWeightUnit = "";
