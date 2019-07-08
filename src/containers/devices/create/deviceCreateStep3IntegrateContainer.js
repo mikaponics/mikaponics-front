@@ -2,13 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import DeviceCreateStep3IntegrateComponent from "../../../components/devices/create/deviceCreateStep3IntegrateComponent";
+import { localStorageGetArrayItem } from "../../../helpers/localStorageUtility";
 import { pullProfile } from "../../../actions/profileAction";
 
 
 class DeviceCreateStep3IntegrateContainer extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            instruments: localStorageGetArrayItem("add-device-instruments"),
+            errors: {},
+            isLoading: false,
+        }
+        this.onSubmitClick = this.onSubmitClick.bind(this);
     }
 
     componentDidMount() {
@@ -21,12 +27,39 @@ class DeviceCreateStep3IntegrateContainer extends Component {
 
         // Start the page at the top of the page.
         window.scrollTo(0, 0);
-    } // end FUNC.
+    }
+
+    onSubmitClick(e) {
+        e.preventDefault();
+        this.setState(
+            { errors: {}, isLoading: true },
+            ()=>{
+
+            }
+        );
+    }
+
+    onSuccessfulSubmissionCallback(data) {
+        this.setState(
+            { errors: {}, isLoading: false },
+            ()=>{
+
+            }
+        );
+    }
+
+    onFailedSubmissionCallback(errors) {
+        this.setState({ errors: errors, isLoading: false });
+    }
 
     render() {
         return (
             <DeviceCreateStep3IntegrateComponent
                 user={this.props.user}
+                instruments={this.state.instruments}
+                errors={this.state.errors}
+                isLoading={this.state.isLoading}
+                onSubmitClick={this.onSubmitClick}
             />
         );
     }

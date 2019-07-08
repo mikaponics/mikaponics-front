@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import shortid from "shortid";
 
 
-class DeviceCreateStep3IntegrateComponent extends Component {
+export default class DeviceCreateStep3IntegrateComponent extends Component {
     render() {
-        const { user } = this.props;
+        const { user, instruments, isLoading, onSubmitClick } = this.props;
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -43,11 +44,41 @@ class DeviceCreateStep3IntegrateComponent extends Component {
                             <tbody>
                                 <tr className="bg-dark">
                                     <th scope="row" colSpan="2" className="text-light">
-                                        <i className="fas fa-address-card"></i>&nbsp;Billing Details
+                                        <i className="fas fa-microchip"></i>&nbsp;Instruments
                                     </th>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Parts</th>
+                                    <td>
+                                        <ul>
+                                            {instruments.map(
+                                                (instrument, i) => <DevicePartsUnorderListItem instrument={instrument} user={user} key={i} />)
+                                            }
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">API Restrictions</th>
+                                    <td>
+                                        Please make sure when your device submits time-series data with the following conditions:
+                                        <ul>
+                                            <li>Submit once every minute</li>
+                                            <li>Submit must be when seconds are zero</li>
+                                        </ul>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
+
+                        <div className="form-group">
+                            <Link to="/devices/create/step-2-integrate" className="btn btn-lg float-left pl-4 pr-4 btn-secondary">
+                                <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
+                            </Link>
+                            <button type="text" className="btn btn-lg float-right pl-4 pr-4 btn-success" disabled={isLoading} onClick={onSubmitClick}>
+                                <i className="fas fa-check-circle"></i>&nbsp;Submit
+                            </button>
+                        </div>
+
                     </div>
                 </div>
 
@@ -57,4 +88,13 @@ class DeviceCreateStep3IntegrateComponent extends Component {
     }
 }
 
-export default DeviceCreateStep3IntegrateComponent;
+
+class DevicePartsUnorderListItem extends Component {
+    render() {
+        const { instrument } = this.props;
+        const id = shortid.generate();
+        return (
+            <li key={id}>{instrument.label}</li>
+        );
+    }
+}

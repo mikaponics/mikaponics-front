@@ -49,8 +49,8 @@ class DeviceCreateStep1Component extends Component {
                                 <i className="fas fa-tools fa-3x"></i>
                             </div>
                             <div className="card-body">
-                                <h3 className="card-title">Integrate Custom Device</h3>
-                                <p className="card-text">Click here if you already have the IoT hardware and you would like to integrate it with our software; furthermore, if you build one of our <a href="https://github.com/mikaponics" target="_blank">open-source devices&nbsp;<i className="fas fa-external-link-alt"></i></a>, click here to integrate it with out system.</p>
+                                <h3 className="card-title">Authorize Device</h3>
+                                <p className="card-text">Click here if you already have the IoT device and you would like to integrate it with our software. By clicking here, you will be granted <strong>oAuth 2.0 access credentials</strong> which your device will use to make API calls with our web-service; furthermore, if you build one of our <a href="https://github.com/mikaponics" target="_blank">open-source devices&nbsp;<i className="fas fa-external-link-alt"></i></a>, click here to integrate it with out system.</p>
                                 {isSubscribed
                                     ? <Link to="/devices/create/step-2-integrate" className="btn btn-success btn-lg">
                                         Select&nbsp;<i className="fas fa-arrow-circle-right"></i>
