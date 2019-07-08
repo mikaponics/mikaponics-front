@@ -158,6 +158,12 @@ class NavigationContainer extends React.Component {
             menuTitle = "Hi, "+user.firstName;
             menuData = authenticatedMenuData;
         }
+
+        // If the user is not `subscribed` to our service then we need to
+        // restrict access to the following menu items.
+        if (user.subscriptionStatus !== "active") {
+            delete menuData[3]; // Alerts
+        }
     }
 
     // If no menu was set then we will create our anonymous menu by default.
