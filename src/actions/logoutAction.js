@@ -5,7 +5,7 @@ import msgpack from 'msgpack-lite';
 
 import { LOGOUT_REQUEST, LOGOUT_FAILURE, LOGOUT_SUCCESS } from "../constants/actionTypes"
 import { MIKAPONICS_LOGOUT_API_URL } from "../constants/api"
-import { getAccessTokenFromLocalStorage, attachAxiosRefreshTokenHandler } from '../helpers/tokenUtility';
+import getCustomAxios from '../helpers/customAxios';
 
 
 export const setLogoutRequest = () => ({
@@ -57,7 +57,7 @@ export function postLogout(user) {
 
         // Generate our app's Axios instance.
         const customAxios = getCustomAxios();
-        
+
         const decamelizedData = {
             token: user.token
         }
