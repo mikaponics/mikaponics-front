@@ -55,23 +55,9 @@ export function postLogout(user) {
         // Generate the URL.
         let aURL = MIKAPONICS_LOGOUT_API_URL;
 
-        // IMPORTANT: THIS IS THE ONLY WAY WE CAN GET THE ACCESS TOKEN.
-        const accessToken = getAccessTokenFromLocalStorage();
-
-        // Create a new Axios instance using our oAuth 2.0 bearer token
-        // and various other headers.
-        const customAxios = axios.create({
-            headers: {
-                'Authorization': "Bearer " + accessToken.token,
-                'Content-Type': 'application/msgpack;',
-                'Accept': 'application/msgpack',
-            },
-            responseType: 'arraybuffer'
-        });
-
-        // Attach our Axios "refesh token" interceptor.
-        attachAxiosRefreshTokenHandler(customAxios);
-
+        // Generate our app's Axios instance.
+        const customAxios = getCustomAxios();
+        
         const decamelizedData = {
             token: user.token
         }

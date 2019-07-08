@@ -11,84 +11,9 @@ import {
     MIKAPONICS_PRODUCTION_CROP_INSPECTION_LIST_CREATE_API_URL,
     MIKAPONICS_PRODUCTION_CROP_INSPECTION_RETRIEVE_UPDATE_API_URL
 } from "../constants/api";
+import { getAccessTokenFromLocalStorage } from '../helpers/tokenUtility';
 import getCustomAxios from '../helpers/customAxios';
 
-
-// export const setProductionCropInspectionListRequest = () => ({
-//     type: PRODUCTION_CROP_INSPECTION_LIST_REQUEST,
-//     payload: {
-//         isAPIRequestRunning: true,
-//         errors: {}
-//     },
-// });
-//
-//
-// export const setProductionCropInspectionListSuccess = productionList => ({
-//     type: PRODUCTION_CROP_INSPECTION_LIST_SUCCESS,
-//     payload: productionList,
-// });
-//
-//
-// export const setProductionCropInspectionListFailure = productionList => ({
-//     type: PRODUCTION_CROP_INSPECTION_LIST_FAILURE,
-//     payload: productionList,
-// });
-//
-//
-// export function pullProductionCropInspectionList(user, page=1) {
-//     return dispatch => {
-//         // Change the global state to attempting to fetch latest user details.
-//         store.dispatch(
-//             setProductionCropInspectionListRequest()
-//         );
-//
-//         // Create our oAuth 2.0 authenticated API header to use with our
-//         // submission.
-//         const config = {
-//             headers: {'Authorization': "Bearer " + user.token}
-//         };
-//
-//         axios.get(
-//             MIKAPONICS_PRODUCTION_CROP_INSPECTION_LIST_CREATE_API_URL+"?page="+page,
-//             config
-//         ).then( (successResult) => { // SUCCESS
-//             // console.log(successResult); // For debugging purposes.
-//
-//             const responseData = successResult.data;
-//             let productionList = camelizeKeys(responseData);
-//
-//             // Extra.
-//             productionList['isAPIRequestRunning'] = false;
-//             productionList['errors'] = {};
-//
-//             // console.log(productionList); // For debugging purposes.
-//
-//             // Update the global state of the application to store our
-//             // user productionList for the application.
-//             store.dispatch(
-//                 setProductionCropInspectionListSuccess(productionList)
-//             );
-//
-//         }).catch( (errorResult) => { // ERROR
-//             // // console.log(errorResult);
-//             // alert("Error fetching latest productionList");
-//
-//             const responseData = errorResult.data;
-//             let errors = camelizeKeys(responseData);
-//
-//             store.dispatch(
-//                 setProductionCropInspectionListFailure({
-//                     isAPIRequestRunning: false,
-//                     errors: errors
-//                 })
-//             );
-//
-//         }).then( () => { // FINALLY
-//             // Do nothing.
-//         });
-//
-//     }
-// }
 
 
 export const setProductionCropInspectionDetailRequest = () => ({
@@ -122,7 +47,7 @@ export function pullProductionCropInspectionDetail(user, slug, successCallback=n
 
         // Generate our app's Axios instance.
         const customAxios = getCustomAxios();
-        
+
         const aURL = MIKAPONICS_PRODUCTION_CROP_INSPECTION_RETRIEVE_UPDATE_API_URL+slug;
 
         customAxios.get(aURL).then( (successResponse) => { // SUCCESS
@@ -186,69 +111,6 @@ export function pullProductionCropInspectionDetail(user, slug, successCallback=n
 }
 
 
-
-// /**
-//  *  Function will pull the ``production`` API endpoint and override our
-//  *  global application state for the 'dashboard'.
-//  */
-// export function pullProductionCropInspectionDetail(user, slug) {
-//     return dispatch => {
-//         // Change the global state to attempting to fetch latest user details.
-//         store.dispatch(
-//             setProductionCropInspectionDetailRequest()
-//         );
-//
-//         // Create our oAuth 2.0 authenticated API header to use with our
-//         // submission.
-//         const config = {
-//             headers: {'Authorization': "Bearer " + user.token}
-//         };
-//
-//         const aURL = MIKAPONICS_PRODUCTION_CROP_INSPECTION_RETRIEVE_UPDATE_API_URL+slug;
-//
-//         axios.get(
-//             aURL,
-//             config
-//         ).then( (successResult) => { // SUCCESS
-//             // console.log(successResult); // For debugging purposes.
-//
-//             const responseData = successResult.data;
-//             let profile = camelizeKeys(responseData);
-//
-//             // Extra.
-//             profile['isAPIRequestRunning'] = false;
-//             profile['errors'] = {};
-//
-//             // console.log(profile); // For debugging purposes.
-//
-//             // Update the global state of the application to store our
-//             // user profile for the application.
-//             store.dispatch(
-//                 setProductionCropInspectionDetailSuccess(profile)
-//             );
-//
-//         }).catch( (errorResult) => { // ERROR
-//             // console.log(errorResult);
-//             // alert("Error fetching latest invoice.");
-//
-//             const responseData = errorResult.data;
-//             let errors = camelizeKeys(responseData);
-//
-//             store.dispatch(
-//                 setProductionCropInspectionDetailFailure({
-//                     isAPIRequestRunning: false,
-//                     errors: errors
-//                 })
-//             );
-//
-//         }).then( () => { // FINALLY
-//             // Do nothing.
-//         });
-//
-//     }
-// }
-
-
 export function putProductionCropInspectionDetail(user, data, slug, successCallback, failedCallback) {
     return dispatch => {
         // Change the global state to attempting to log in.
@@ -262,16 +124,8 @@ export function putProductionCropInspectionDetail(user, data, slug, successCallb
             return;
         }
 
-        // Create a new Axios instance using our oAuth 2.0 bearer token
-        // and various other headers.
-        const customAxios = axios.create({
-            headers: {
-                'Authorization': "Bearer " + user.token,
-                'Content-Type': 'application/msgpack;',
-                'Accept': 'application/msgpack',
-            },
-            responseType: 'arraybuffer'
-        });
+        // Generate our app's Axios instance.
+        const customAxios = getCustomAxios();
 
         // The following code will convert the `camelized` data into `snake case`
         // data so our API endpoint will be able to read it.
