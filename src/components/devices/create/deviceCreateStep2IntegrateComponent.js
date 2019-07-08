@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 import { BootstrapErrorsProcessingAlert } from "../../bootstrap/bootstrapAlert";
+import { BootstrapInput } from '../../bootstrap/bootstrapInput';
+import { BootstrapTextarea } from '../../bootstrap/bootstrapTextarea';
 import { BootstrapMultipleSelect } from "../../bootstrap/bootstrapMultipleSelect";
 
 
 class DeviceCreateStep2IntegrateComponent extends Component {
     render() {
         const {
+            name, description, onTextChange,
             user, errors, isLoading, instruments, instrumentOptions, onMultiChange, onNextClick
         } = this.props;
         const isSubscribed = user.subscriptionStatus === "active";
@@ -31,7 +34,7 @@ class DeviceCreateStep2IntegrateComponent extends Component {
                 <div className="row">
                     <div className="step-navigation">
                         <div id="step-1" className="st-grey active">
-                            <span className="num">1.</span><span className="">Pick Instruments</span>
+                            <span className="num">1.</span><span className="">Configurator</span>
                         </div>
                         <div id="step-2" className="st-grey">
                             <span className="num">2.</span><span className="">Review</span>
@@ -39,7 +42,7 @@ class DeviceCreateStep2IntegrateComponent extends Component {
                     </div>
                 </div>
 
-                <h2 className="pt-4 pb-2 text-center"><i className="fas fa-microchip"></i>&nbsp;Pick Instruments</h2>
+                <h2 className="pt-4 pb-2 text-center"><i className="fas fa-cube"></i>&nbsp;Device Configurator</h2>
                 <div className="row">
                     <div className="col-md-5 mx-auto mt-2">
                         <form className="needs-validation" noValidate>
@@ -48,7 +51,37 @@ class DeviceCreateStep2IntegrateComponent extends Component {
 
                             <BootstrapErrorsProcessingAlert errors={errors} />
 
-                            <p className="border-bottom mb-3 pb-1 text-secondary">Available Instruments</p>
+                            <p className="border-bottom mb-3 pb-1 text-secondary">
+                                <i className="fas fa-id-card"></i>&nbsp;Identification
+                            </p>
+
+                            <BootstrapInput
+                                inputClassName="form-control form-control-lg"
+                                borderColour="border-primary"
+                                error={errors.name}
+                                label="Name (*)"
+                                onChange={onTextChange}
+                                value={name}
+                                name="name"
+                                helpText="This is the name of the device."
+                                placeholder="Please set the device name"
+                                type="text"
+                            />
+                            <BootstrapTextarea
+                                name="description"
+                                borderColour="border-primary"
+                                label="Description (*)"
+                                placeholder="Please set the device description"
+                                rows="5"
+                                value={description}
+                                helpText="This is the description of the device."
+                                onChange={onTextChange}
+                                error={errors.description}
+                            />
+
+                            <p className="border-bottom mb-3 pb-1 text-secondary">
+                                <i className="fas fa-microchip"></i>&nbsp;Available Instruments
+                            </p>
 
                             <BootstrapMultipleSelect
                                 borderColour="border-primary"

@@ -14,6 +14,8 @@ class DeviceCreateStep3IntegrateContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            name: localStorage.getItem("add-device-name"),
+            description: localStorage.getItem("add-device-description"),
             instruments: localStorageGetArrayItem("add-device-instruments"),
             errors: {},
             isLoading: false,
@@ -122,6 +124,8 @@ class DeviceCreateStep3IntegrateContainer extends Component {
         return (
             <DeviceCreateStep3IntegrateComponent
                 user={this.props.user}
+                name={this.state.name}
+                description={this.state.description}
                 instruments={this.state.instruments}
                 errors={this.state.errors}
                 isLoading={this.state.isLoading}

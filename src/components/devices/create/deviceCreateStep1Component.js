@@ -34,7 +34,7 @@ class DeviceCreateStep1Component extends Component {
                                 <i className="fas fa-shopping-cart fa-3x"></i>
                             </div>
                             <div className="card-body">
-                                <h3 className="card-title">Purchase New Device</h3>
+                                <h3 className="card-title">Purchase</h3>
                                 <p className="card-text">Click here if you would like to buy a ready-made device from us. We will take care of the hardware and software.</p>
                                 <Link to="/devices/create/step-2-purchase" className="btn btn-success btn-lg">
                                     Select&nbsp;<i className="fas fa-arrow-circle-right"></i>

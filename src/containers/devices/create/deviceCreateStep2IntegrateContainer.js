@@ -16,10 +16,13 @@ class DeviceCreateStep2IntegrateContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            name: localStorage.getItem("add-device-name"),
+            description: localStorage.getItem("add-device-description"),
             instruments: localStorageGetArrayItem("add-device-instruments"),
             errors: {},
             isLoading: false,
         }
+        this.onTextChange = this.onTextChange.bind(this);
         this.onMultiChange = this.onMultiChange.bind(this);
         this.onNextClick = this.onNextClick.bind(this);
     }
@@ -31,6 +34,17 @@ class DeviceCreateStep2IntegrateContainer extends Component {
 
         // Start the page at the top of the page.
         window.scrollTo(0, 0);
+    }
+
+    onTextChange(e) {
+        // Update our state.
+        this.setState({
+            [e.target.name]: e.target.value,
+        });
+
+        // Update our persistent storage.
+        const key = "add-device-"+[e.target.name];
+        localStorage.setItem(key, e.target.value)
     }
 
     onMultiChange(...args) {
@@ -75,10 +89,13 @@ class DeviceCreateStep2IntegrateContainer extends Component {
         return (
             <DeviceCreateStep2IntegrateComponent
                 user={this.props.user}
+                name={this.state.name}
+                description={this.state.description}
                 instruments={this.state.instruments}
                 instrumentOptions={this.state.instrumentOptions}
                 errors={this.state.errors}
                 isLoading={this.state.isLoading}
+                onTextChange={this.onTextChange}
                 onMultiChange={this.onMultiChange}
                 onNextClick={this.onNextClick}
             />

@@ -82,6 +82,12 @@ export function validatePurchaseStep3Input(data) {
 export function validateIntegrateStep2Input(data) {
     let errors = {};
 
+    if ( data.name === undefined || data.name === null || data.name === "") {
+        errors.name = 'This field is required.';
+    }
+    if ( data.description === undefined || data.description === null || data.description === "") {
+        errors.description = 'This field is required.';
+    }
     if ( data.instruments === undefined || data.instruments === null || data.instruments === "" || data.instruments.length === 0 ) {
         errors.instruments = 'This field is required.';
     }

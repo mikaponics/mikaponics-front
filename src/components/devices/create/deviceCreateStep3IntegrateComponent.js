@@ -5,7 +5,7 @@ import shortid from "shortid";
 
 export default class DeviceCreateStep3IntegrateComponent extends Component {
     render() {
-        const { user, instruments, isLoading, onSubmitClick } = this.props;
+        const { user, name, description, instruments, isLoading, onSubmitClick } = this.props;
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -27,7 +27,7 @@ export default class DeviceCreateStep3IntegrateComponent extends Component {
                     <div className="step-navigation">
                         <div id="step-1" className="st-grey">
                             <Link to="/devices/create/step-2-integrate">
-                                <span className="num">1.</span><span className="">Pick Instruments</span>
+                                <span className="num">1.</span><span className="">Configuration</span>
                             </Link>
                         </div>
                         <div id="step-2" className="st-grey active">
@@ -40,6 +40,25 @@ export default class DeviceCreateStep3IntegrateComponent extends Component {
                     <div className="col-md-10 mx-auto p-2">
 
                         <p><strong>Please confirm these details before submitting your authorization request.</strong></p>
+
+                        <table className="table table-bordered custom-cell-w">
+                            <tbody>
+                                <tr className="bg-dark">
+                                    <th scope="row" colSpan="2" className="text-light">
+                                        <i className="fas fa-id-card"></i>&nbsp;Identification
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Name</th>
+                                    <td>{name}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Description</th>
+                                    <td>{description}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
                         <table className="table table-bordered custom-cell-w">
                             <tbody>
                                 <tr className="bg-dark">
