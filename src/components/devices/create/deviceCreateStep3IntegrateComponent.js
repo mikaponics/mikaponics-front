@@ -16,7 +16,7 @@ export default class DeviceCreateStep3IntegrateComponent extends Component {
                         <li className="breadcrumb-item">
                            <Link to="/devices"><i className="fas fa-cubes"></i>&nbsp;Devices</Link>
                         </li>
-                        <li className="breadcrumb-item active" aria-current="page"><i className="fas fa-plus"></i>&nbsp;Add</li>
+                        <li className="breadcrumb-item active" aria-current="page"><i className="fas fa-plus"></i>&nbsp;Add (Authorize)</li>
                     </ol>
                 </nav>
                 <h1>
@@ -39,7 +39,7 @@ export default class DeviceCreateStep3IntegrateComponent extends Component {
                 <div className="row mt-4 pt-3 mb-4 pb-2">
                     <div className="col-md-10 mx-auto p-2">
 
-                        <p><strong>Please confirm these details before submitting your device creation request.</strong></p>
+                        <p><strong>Please confirm these details before submitting your authorization request.</strong></p>
                         <table className="table table-bordered custom-cell-w">
                             <tbody>
                                 <tr className="bg-dark">
@@ -64,6 +64,7 @@ export default class DeviceCreateStep3IntegrateComponent extends Component {
                                         <ul>
                                             <li>Submit once every minute</li>
                                             <li>Submit must be when seconds are zero</li>
+                                            <li>Follow the <a href="#">API reference&nbsp;<i className="fas fa-external-link-alt"></i></a> documentation</li>
                                         </ul>
                                     </td>
                                 </tr>

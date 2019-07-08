@@ -21,7 +21,7 @@ class DeviceCreateStep2IntegrateComponent extends Component {
                         <li className="breadcrumb-item">
                            <Link to="/devices"><i className="fas fa-cubes"></i>&nbsp;Devices</Link>
                         </li>
-                        <li className="breadcrumb-item active" aria-current="page"><i className="fas fa-plus"></i>&nbsp;Add</li>
+                        <li className="breadcrumb-item active" aria-current="page"><i className="fas fa-plus"></i>&nbsp;Add (Authorize)</li>
                     </ol>
                 </nav>
                 <h1>

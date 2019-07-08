@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import axios from 'axios';
+import { camelizeKeys } from 'humps';
+import msgpack from 'msgpack-lite';
+
 import DeviceCreateStep3IntegrateComponent from "../../../components/devices/create/deviceCreateStep3IntegrateComponent";
 import { localStorageGetArrayItem } from "../../../helpers/localStorageUtility";
 import { pullProfile } from "../../../actions/profileAction";
@@ -15,6 +19,9 @@ class DeviceCreateStep3IntegrateContainer extends Component {
             isLoading: false,
         }
         this.onSubmitClick = this.onSubmitClick.bind(this);
+        this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
+        this.onFailedSubmissionCallback = this.onFailedSubmissionCallback.bind(this);
+        this.onAPICall = this.onAPICall.bind(this);
     }
 
     componentDidMount() {
@@ -34,9 +41,68 @@ class DeviceCreateStep3IntegrateContainer extends Component {
         this.setState(
             { errors: {}, isLoading: true },
             ()=>{
-
+                alert("TODO: IMPLEMENT");
             }
         );
+    }
+
+    onAPICall() {
+        // Create a new Axios instance which will be sending and receiving in
+        // MessagePack (Buffer) format.
+        const customAxios = axios.create({
+            headers: {
+                'Content-Type': 'application/msgpack;',
+                'Accept': 'application/msgpack',
+            },
+            responseType: 'arraybuffer'
+        });
+
+        // Encode from JS Object to MessagePack (Buffer)
+        var buffer = msgpack.encode({
+            // 'email': email,
+            // 'password': password,
+        });
+
+        const aURL = process.env.REACT_APP_API_HOST+'/api/devices/authorize';
+
+        customAxios.post(aURL, buffer).then( (successResponse) => {
+            // Decode our MessagePack (Buffer) into JS Object.
+            const responseData = msgpack.decode(Buffer(successResponse.data));
+            let data = camelizeKeys(responseData);
+
+            // console.log("postLogin | successResponse:", data); // For debugging purposes.
+
+            // Extra.
+            data['isAPIRequestRunning'] = false;
+            data['errors'] = {};
+
+            // // DEVELOPERS NOTE:
+            // // IF A CALLBACK FUNCTION WAS SET THEN WE WILL RETURN THE JSON
+            // // OBJECT WE GOT FROM THE API.
+            // if (successCallback) {
+            //     successCallback(data);
+            // }
+
+        }).catch( (exception) => {
+            if (exception.response) {
+                const responseBinaryData = exception.response.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
+
+                // Decode our MessagePack (Buffer) into JS Object.
+                const responseData = msgpack.decode(Buffer(responseBinaryData));
+
+                let errors = camelizeKeys(responseData);
+
+                // // DEVELOPERS NOTE:
+                // // IF A CALLBACK FUNCTION WAS SET THEN WE WILL RETURN THE JSON
+                // // OBJECT WE GOT FROM THE API.
+                // if (failedCallback) {
+                //     failedCallback(errors);
+                // }
+            }
+
+        }).then( () => {
+            // Do nothing.
+        });
     }
 
     onSuccessfulSubmissionCallback(data) {
