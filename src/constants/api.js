@@ -471,3 +471,106 @@ export const PEST_TYPE_OF = 1;
 export const DISEASE_TYPE_OF = 2;
 export const ABIOTIC_TYPE_OF = 3;
 export const NONE_TYPE_OF = 4;
+
+
+
+export const HUMIDITY = 1
+export const AIR_TEMPERATURE = 2
+export const WATER_TEMPERATURE = 3
+export const TVOC = 4
+export const CO2 = 5
+export const AIR_PRESSURE = 6
+export const ALTITUDE = 7
+export const WATER_LEVEL = 8
+export const POWER_USAGE = 9
+export const PH = 10
+export const EC = 11
+export const ORP = 12
+export const CAMERA = 13
+export const HEAT_VISION = 14
+export const UV_LIGHT = 15
+export const TRIAD_SPECTROSCOPY = 16
+export const ILLUMINANCE = 17
+export const SOIL_MOISTURE = 18
+export const SOIL_TEMPERATURE = 19
+
+
+export const INSTRUMENT_OPTIONS = [
+    {
+        selectName: "instruments",
+        value: HUMIDITY,
+        label: "Humidity"
+    },{
+        selectName: "instruments",
+        value: AIR_TEMPERATURE,
+        label: "Air Temperature"
+    },{
+        selectName: "instruments",
+        value: WATER_TEMPERATURE,
+        label: "Water Temperature"
+    },{
+        selectName: "instruments",
+        value: TVOC,
+        label: "Total Volatile Organic Compound"
+    },{
+        selectName: "instruments",
+        value: CO2,
+        label: "Carbon Dioxide"
+    },{
+        selectName: "instruments",
+        value: AIR_PRESSURE,
+        label: "Air Pressure"
+    },{
+        selectName: "instruments",
+        value: ALTITUDE,
+        label: "Altitude"
+    },{
+        selectName: "instruments",
+        value: WATER_LEVEL,
+        label: "Water Level"
+    },{
+        selectName: "instruments",
+        value: POWER_USAGE,
+        label: "Power Usage"
+    },{
+        selectName: "instruments",
+        value: PH,
+        label: "pH"
+    },{
+        selectName: "instruments",
+        value: EC,
+        label: "Electrical Conductivity"
+    },{
+        selectName: "instruments",
+        value: ORP,
+        label: "Oxidation-Reduction Potential"
+    },{
+        selectName: "instruments",
+        value: CAMERA,
+        label: "Camera"
+    },{
+        selectName: "instruments",
+        value: HEAT_VISION,
+        label: "Heat Vision"
+    },{
+        selectName: "instruments",
+        value: UV_LIGHT,
+        label: "UV Light"
+    },{
+        selectName: "instruments",
+        value: TRIAD_SPECTROSCOPY,
+        label: "Triad Spectroscopy"
+    },{
+        selectName: "instruments",
+        value: ILLUMINANCE,
+        label: "Illuminance"
+    },{
+        selectName: "instruments",
+        value: SOIL_MOISTURE,
+        label: "Soil Moisture"
+    },{
+        selectName: "instruments",
+        value: SOIL_TEMPERATURE,
+        label: "Soil Temperature"
+    }
+];

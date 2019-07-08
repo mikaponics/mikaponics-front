@@ -77,3 +77,16 @@ export function validatePurchaseStep3Input(data) {
         isValid: isEmpty(errors)
     }
 }
+
+
+export function validateIntegrateStep2Input(data) {
+    let errors = {};
+
+    if ( data.instruments === undefined || data.instruments === null || data.instruments === "" || data.instruments.length === 0 ) {
+        errors.instruments = 'This field is required.';
+    }
+    return {
+        errors,
+        isValid: isEmpty(errors)
+    }
+}

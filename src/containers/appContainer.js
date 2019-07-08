@@ -21,6 +21,7 @@ import ResetPasswordSuccessContainer from "./account/resetPasswordSuccessContain
 import ReferralContainer from "./account/referralContainer";
 import DashboardContainer from "./dashboard/dashboardContainer";
 import DeviceCreateStep1Container from "./devices/create/deviceCreateStep1Container";
+import DeviceCreateStep2IntegrateContainer from "./devices/create/deviceCreateStep2IntegrateContainer";
 import DeviceCreateStep2PurchaseContainer from "./devices/create/deviceCreateStep2PurchaseContainer";
 import DeviceCreateStep3PurchaseContainer from "./devices/create/deviceCreateStep3PurchaseContainer";
 import DeviceCreateStep4PurchaseContainer from "./devices/create/deviceCreateStep4PurchaseContainer";
@@ -108,6 +109,7 @@ class AppContainer extends React.Component {
                             <Route path="/device/:slug" exact component={requiresAuth(DeviceDetailContainer)} />
                             <Route path="/device/:slug/profile" exact component={requiresAuth(DeviceProfileContainer)} />
                             <Route path="/devices/create/step-1" exact component={requiresAuth(DeviceCreateStep1Container)} />
+                            <Route path="/devices/create/step-2-integrate" exact component={requiresAuth(requiresSubscription(DeviceCreateStep2IntegrateContainer))} />
                             <Route path="/devices/create/step-2-purchase" exact component={requiresAuth(DeviceCreateStep2PurchaseContainer)} />
                             <Route path="/devices/create/step-3-purchase" exact component={requiresAuth(DeviceCreateStep3PurchaseContainer)} />
                             <Route path="/devices/create/step-4-purchase" exact component={requiresAuth(DeviceCreateStep4PurchaseContainer)} />
