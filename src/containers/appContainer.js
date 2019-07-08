@@ -23,6 +23,7 @@ import DashboardContainer from "./dashboard/dashboardContainer";
 import DeviceCreateStep1Container from "./devices/create/deviceCreateStep1Container";
 import DeviceCreateStep2IntegrateContainer from "./devices/create/deviceCreateStep2IntegrateContainer";
 import DeviceCreateStep2PurchaseContainer from "./devices/create/deviceCreateStep2PurchaseContainer";
+import DeviceCreateStep3IntegrateContainer from "./devices/create/deviceCreateStep3IntegrateContainer";
 import DeviceCreateStep3PurchaseContainer from "./devices/create/deviceCreateStep3PurchaseContainer";
 import DeviceCreateStep4PurchaseContainer from "./devices/create/deviceCreateStep4PurchaseContainer";
 import DeviceCreateStep4PurchaseSubmissionContainer from "./devices/create/deviceCreateStep4PurchaseSubmissionContainer";
@@ -111,6 +112,7 @@ class AppContainer extends React.Component {
                             <Route path="/devices/create/step-1" exact component={requiresAuth(DeviceCreateStep1Container)} />
                             <Route path="/devices/create/step-2-integrate" exact component={requiresAuth(requiresSubscription(DeviceCreateStep2IntegrateContainer))} />
                             <Route path="/devices/create/step-2-purchase" exact component={requiresAuth(DeviceCreateStep2PurchaseContainer)} />
+                            <Route path="/devices/create/step-3-integrate" exact component={requiresAuth(requiresSubscription(DeviceCreateStep3IntegrateContainer))} />
                             <Route path="/devices/create/step-3-purchase" exact component={requiresAuth(DeviceCreateStep3PurchaseContainer)} />
                             <Route path="/devices/create/step-4-purchase" exact component={requiresAuth(DeviceCreateStep4PurchaseContainer)} />
                             <Route path="/devices/create/step-4-purchase-submission" exact component={requiresAuth(DeviceCreateStep4PurchaseSubmissionContainer)} />

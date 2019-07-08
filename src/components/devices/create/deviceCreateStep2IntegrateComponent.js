@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
-import SubscriptionNoticeContainer from '../../../containers/navigation/subscriptionNoticeContainer';
 import { BootstrapErrorsProcessingAlert } from "../../bootstrap/bootstrapAlert";
 import { BootstrapMultipleSelect } from "../../bootstrap/bootstrapMultipleSelect";
 
@@ -14,7 +13,6 @@ class DeviceCreateStep2IntegrateComponent extends Component {
         const isSubscribed = user.subscriptionStatus === "active";
         return (
             <div>
-                <SubscriptionNoticeContainer />
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item">
@@ -38,9 +36,6 @@ class DeviceCreateStep2IntegrateComponent extends Component {
                         <div id="step-2" className="st-grey">
                             <span className="num">2.</span><span className="">Review</span>
                         </div>
-                        <div id="step-3" className="st-grey">
-                            <span className="num">3.</span><span className="">TODO</span>
-                        </div>
                     </div>
                 </div>
 
@@ -53,7 +48,7 @@ class DeviceCreateStep2IntegrateComponent extends Component {
 
                             <BootstrapErrorsProcessingAlert errors={errors} />
 
-                            <p className="border-bottom mb-3 pb-1 text-secondary">General Information</p>
+                            <p className="border-bottom mb-3 pb-1 text-secondary">Available Instruments</p>
 
                             <BootstrapMultipleSelect
                                 borderColour="border-primary"

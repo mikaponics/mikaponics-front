@@ -17,8 +17,8 @@ class DeviceCreateStep2IntegrateContainer extends Component {
         super(props);
         this.state = {
             instruments: localStorageGetArrayItem("add-device-instruments"),
-            errors: {}
-            isLoading: true,
+            errors: {},
+            isLoading: false,
         }
         this.onMultiChange = this.onMultiChange.bind(this);
         this.onNextClick = this.onNextClick.bind(this);
