@@ -53,7 +53,7 @@ class ApplicationCreateStep2Container extends Component {
 
         // CASE 1 OF 2: Validation passed successfully.
         if (isValid) {
-            this.props.history.push("/applications/create/step-2");
+            this.props.history.push("/applications/add/step-2");
             return;
         }
 

@@ -78,6 +78,7 @@ import SubscriptionCheckoutSuccessContainer from "./account/subscription/subscri
 import SubscriptionCheckoutCancellationContainer from "./account/subscription/subscriptionCheckoutCancellationContainer";
 import ApplicationListContainer from "./account/applications/applicationListContainer";
 import ApplicationCreateStep1Container from "./account/applications/create/applicationCreateStep1Container";
+import ApplicationCreateStep2Container from "./account/applications/create/applicationCreateStep2Container";
 
 
 class AppContainer extends React.Component {
@@ -170,6 +171,7 @@ class AppContainer extends React.Component {
                             <Route path="/subscription/cancellation" exact component={requiresAuth(SubscriptionCheckoutCancellationContainer)} />
                             <Route path="/applications" exact component={requiresAuth(ApplicationListContainer)} />
                             <Route path="/applications/add/step-1" exact component={requiresAuth(ApplicationCreateStep1Container)} />
+                            <Route path="/applications/add/step-2" exact component={requiresAuth(ApplicationCreateStep2Container)} />
                             <Route component={NotFound404Container} />
                         </Switch>
                     </main>
