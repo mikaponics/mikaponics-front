@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
+import { FlashMessageComponent } from "../flashMessageComponent";
+
 
 class DeviceItem extends Component {
     render() {
@@ -27,7 +29,7 @@ class DeviceItem extends Component {
 
 class DeviceListComponent extends Component {
     render() {
-        const { deviceList } = this.props;
+        const { deviceList, flashMessage } = this.props;
         let elements = [];
 
         if (deviceList && deviceList.results) {
@@ -57,6 +59,7 @@ class DeviceListComponent extends Component {
 
         return (
             <div>
+                <FlashMessageComponent object={flashMessage} />
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item">

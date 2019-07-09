@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import shortid from "shortid";
 
+import { BootstrapErrorsProcessingAlert } from "../../bootstrap/bootstrapAlert";
+
 
 export default class DeviceCreateStep3IntegrateComponent extends Component {
     render() {
-        const { user, name, description, instruments, isLoading, onSubmitClick } = this.props;
+        const { user, name, description, instruments, errors, isLoading, onSubmitClick } = this.props;
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -38,6 +40,8 @@ export default class DeviceCreateStep3IntegrateComponent extends Component {
 
                 <div className="row mt-4 pt-3 mb-4 pb-2">
                     <div className="col-md-10 mx-auto p-2">
+
+                        <BootstrapErrorsProcessingAlert errors={errors} />
 
                         <p><strong>Please confirm these details before submitting your authorization request.</strong></p>
 

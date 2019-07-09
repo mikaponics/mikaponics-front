@@ -1,13 +1,14 @@
+import Scroll from 'react-scroll';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
-import axios from 'axios';
 import { camelizeKeys } from 'humps';
 import msgpack from 'msgpack-lite';
 
 import DeviceCreateStep3IntegrateComponent from "../../../components/devices/create/deviceCreateStep3IntegrateComponent";
 import { localStorageGetArrayItem } from "../../../helpers/localStorageUtility";
 import { pullProfile } from "../../../actions/profileAction";
+import { setFlashMessage } from "../../../actions/flashMessageActions";
+import getCustomAxios from '../../../helpers/customAxios';
 
 
 class DeviceCreateStep3IntegrateContainer extends Component {
@@ -43,29 +44,23 @@ class DeviceCreateStep3IntegrateContainer extends Component {
         this.setState(
             { errors: {}, isLoading: true },
             ()=>{
-                alert("TODO: IMPLEMENT");
+                this.onAPICall();
             }
         );
     }
 
     onAPICall() {
-        // Create a new Axios instance which will be sending and receiving in
-        // MessagePack (Buffer) format.
-        const customAxios = axios.create({
-            headers: {
-                'Content-Type': 'application/msgpack;',
-                'Accept': 'application/msgpack',
-            },
-            responseType: 'arraybuffer'
-        });
+        // Generate our app's Axios instance.
+        const customAxios = getCustomAxios();
 
         // Encode from JS Object to MessagePack (Buffer)
         var buffer = msgpack.encode({
-            // 'email': email,
-            // 'password': password,
+            'name': this.state.name,
+            'description': this.state.description,
+            'instruments': this.state.instruments,
         });
 
-        const aURL = process.env.REACT_APP_API_HOST+'/api/devices/authorize';
+        const aURL = process.env.REACT_APP_API_HOST+'/api/device-authorize';
 
         customAxios.post(aURL, buffer).then( (successResponse) => {
             // Decode our MessagePack (Buffer) into JS Object.
@@ -77,13 +72,7 @@ class DeviceCreateStep3IntegrateContainer extends Component {
             // Extra.
             data['isAPIRequestRunning'] = false;
             data['errors'] = {};
-
-            // // DEVELOPERS NOTE:
-            // // IF A CALLBACK FUNCTION WAS SET THEN WE WILL RETURN THE JSON
-            // // OBJECT WE GOT FROM THE API.
-            // if (successCallback) {
-            //     successCallback(data);
-            // }
+            this.onSuccessfulSubmissionCallback(data);
 
         }).catch( (exception) => {
             if (exception.response) {
@@ -93,13 +82,7 @@ class DeviceCreateStep3IntegrateContainer extends Component {
                 const responseData = msgpack.decode(Buffer(responseBinaryData));
 
                 let errors = camelizeKeys(responseData);
-
-                // // DEVELOPERS NOTE:
-                // // IF A CALLBACK FUNCTION WAS SET THEN WE WILL RETURN THE JSON
-                // // OBJECT WE GOT FROM THE API.
-                // if (failedCallback) {
-                //     failedCallback(errors);
-                // }
+                this.onFailedSubmissionCallback(errors);
             }
 
         }).then( () => {
@@ -108,16 +91,18 @@ class DeviceCreateStep3IntegrateContainer extends Component {
     }
 
     onSuccessfulSubmissionCallback(data) {
-        this.setState(
-            { errors: {}, isLoading: false },
-            ()=>{
-
-            }
-        );
+        this.props.setFlashMessage("success", "Device has been successfully authorized.");
+        this.props.history.push("/devices");
     }
 
     onFailedSubmissionCallback(errors) {
         this.setState({ errors: errors, isLoading: false });
+
+        // The following code will cause the screen to scroll to the top of
+        // the page. Please see ``react-scroll`` for more information:
+        // https://github.com/fisshy/react-scroll
+        var scroll = Scroll.animateScroll;
+        scroll.scrollToTop();
     }
 
     render() {
@@ -146,6 +131,9 @@ const mapDispatchToProps = dispatch => {
         pullProfile: (user) => {
             dispatch(pullProfile(user))
         },
+        setFlashMessage: (typeOf, text) => {
+            dispatch(setFlashMessage(typeOf, text))
+        }
     }
 }
 
