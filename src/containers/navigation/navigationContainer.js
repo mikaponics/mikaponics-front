@@ -68,6 +68,11 @@ const authenticatedMenuData = [
                 title: "Subscription",
                 url: "/subscription"
             },{
+                id: "full-api",
+                icon: "server",
+                title: "API",
+                url: "/api"
+            },{
                 id: "full-referral",
                 icon: "heart",
                 title: "Referrals",

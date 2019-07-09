@@ -41,6 +41,11 @@ class SubscriptionDetailComponent extends Component {
                             <span className="num"><i className="fas fa-gem"></i></span><span className="">Subscription</span>
                         </div>
                         <div id="step-4" className="st-grey">
+                            <Link to="/api">
+                                <span className="num"><i className="fas fa-server"></i></span><span className="">API</span>
+                            </Link>
+                        </div>
+                        <div id="step-5" className="st-grey">
                             <Link to="/referrals">
                                 <span className="num"><i className="fas fa-heart"></i></span><span className="">Referrals</span>
                             </Link>

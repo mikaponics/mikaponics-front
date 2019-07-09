@@ -37,7 +37,12 @@ class ReferralComponent extends Component {
                                 <span className="num"><i className="fas fa-gem"></i></span><span className="">Subscription</span>
                             </Link>
                         </div>
-                        <div id="step-4" className="st-grey active">
+                        <div id="step-4" className="st-grey">
+                            <Link to="/api">
+                                <span className="num"><i className="fas fa-server"></i></span><span className="">API</span>
+                            </Link>
+                        </div>
+                        <div id="step-5" className="st-grey active">
                             <span className="num"><i className="fas fa-heart"></i></span><span className="">Referrals</span>
                         </div>
                     </div>
