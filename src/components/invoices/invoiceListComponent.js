@@ -117,8 +117,8 @@ class InvoiceListComponent extends Component {
                             </Link>
                         </div>
                         <div id="step-4" className="st-grey">
-                            <Link to="/api">
-                                <span className="num"><i className="fas fa-server"></i></span><span className="">API</span>
+                            <Link to="/applications">
+                                <span className="num"><i className="fas fa-server"></i></span><span className="">Applications</span>
                             </Link>
                         </div>
                         <div id="step-5" className="st-grey">

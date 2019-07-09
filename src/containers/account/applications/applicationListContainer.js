@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 
-import ApplicationListComponent from '../../../components/account/api/applicationListComponent';
+import ApplicationListComponent from '../../../components/account/applications/applicationListComponent';
 
 
 class ApplicationListContainer extends Component {
@@ -32,6 +32,7 @@ class ApplicationListContainer extends Component {
         return (
             <ApplicationListComponent
                 user={user}
+                applicationsList={[]}
             />
         );
     }
