@@ -31,7 +31,7 @@ import DeviceCreateStep5PurchaseSuccessContainer from "./devices/create/deviceCr
 import DeviceListContainer from "./devices/deviceListContainer";
 import DeviceLiteRetrieveContainer from "./devices/retrieve/deviceLiteRetrieveContainer";
 import DeviceFullRetrieveContainer from "./devices/retrieve/deviceFullRetrieveContainer";
-import DeviceProfileContainer from "./devices/deviceProfileContainer";
+import DeviceProfileContainer from "./devices/update/deviceProfileContainer";
 import InstrumentDetailContainer from "./instruments/instrumentDetailContainer";
 import InstrumentAlertItemListContainer from "./instruments/alert/alertItemListContainer";
 import InstrumentAlertItemDetailContainer from "./instruments/alert/alertItemDetailContainer";

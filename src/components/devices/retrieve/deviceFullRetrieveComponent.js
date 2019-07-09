@@ -11,7 +11,7 @@ import { DEVICE_NEW_STATE } from "../../../constants/api";
 
 export default class DeviceFullRetrieveComponent extends Component {
     render() {
-        const { user, device } = this.props;
+        const { user, device, flashMessage } = this.props;
         const { instruments } = device;
         return (
             <div>
@@ -26,8 +26,11 @@ export default class DeviceFullRetrieveComponent extends Component {
                         <li className="breadcrumb-item active" aria-current="page"><i className="fas fa-cube"></i>&nbsp;Device</li>
                     </ol>
                 </nav>
+
+                <FlashMessageComponent object={flashMessage} />
+
                 <h1>
-                    <i className="fas fa-plus"></i>&nbsp;Add Device
+                    <i className="fas fa-cube"></i>&nbsp;Device
                 </h1>
 
                 <div className="row">
@@ -35,12 +38,12 @@ export default class DeviceFullRetrieveComponent extends Component {
                         <div id="step-1" className="st-grey">
                             <Link to={`/device/${device.slug}`}>
                                 <span className="num"><i className="fas fa-columns"></i></span>
-                                <span className="">Brief</span>
+                                <span className="">Brief View</span>
                             </Link>
                         </div>
                         <div id="step-2" className="st-grey active">
                             <span className="num"><i className="fas fa-table"></i>&nbsp;</span>
-                            <span className="">Full</span>
+                            <span className="">Full View</span>
                         </div>
                     </div>
                 </div>

@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import Scroll from 'react-scroll';
 import { connect } from 'react-redux';
-import { Redirect } from "react-router-dom";
 
-import DeviceProfileComponent from "../../components/devices/deviceProfileComponent";
-import { putDevice } from "../../actions/deviceActions";
-import { setFlashMessage } from "../../actions/flashMessageActions";
+import DeviceProfileComponent from "../../../components/devices/update/deviceProfileComponent";
+import { putDevice } from "../../../actions/deviceActions";
+import { setFlashMessage } from "../../../actions/flashMessageActions";
 
 
 class DeviceProfileContainer extends Component {
@@ -19,11 +18,11 @@ class DeviceProfileContainer extends Component {
         // fetch the URL argument as follows.
         const { slug } = this.props.match.params;
         this.state = {
+            slug: slug,
             deviceSlug: slug,
             name: name,
             description: description,
             dataIntervalInSeconds: dataIntervalInSeconds,
-            referrer: null,
         }
         this.onChange = this.onChange.bind(this);
         this.onClick = this.onClick.bind(this);
@@ -43,9 +42,7 @@ class DeviceProfileContainer extends Component {
      */
     onSuccessfulSubmissionCallback() {
         this.props.setFlashMessage("success", "The device has been successfully updated.");
-        this.setState({
-            referrer: this.props.device.absoluteUrl
-        })
+        this.props.history.push("/device/"+this.state.slug+"/full");
     }
 
     onFailedSubmissionCallback() {
@@ -74,13 +71,8 @@ class DeviceProfileContainer extends Component {
     } // end FUNC.
 
     render() {
-        const { name, description, dataIntervalInSeconds, referrer } = this.state;
+        const { name, description, dataIntervalInSeconds } = this.state;
         const { isAPIRequestRunning, errors } = this.props.device;
-
-        if (referrer) {
-            return <Redirect to={referrer} />;
-        }
-
         return (
             <DeviceProfileComponent
                 device={this.props.device}

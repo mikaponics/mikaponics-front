@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
-import { BootstrapInput } from "../bootstrap/bootstrapInput";
-import { BootstrapTextarea } from "../bootstrap/bootstrapTextarea";
-import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
+import { BootstrapInput } from "../../bootstrap/bootstrapInput";
+import { BootstrapTextarea } from "../../bootstrap/bootstrapTextarea";
+import { BootstrapErrorsProcessingAlert } from "../../bootstrap/bootstrapAlert";
 
 
 class DeviceProfileComponent extends Component {
@@ -20,7 +20,7 @@ class DeviceProfileComponent extends Component {
                            <Link to="/devices"><i className="fas fa-cubes"></i>&nbsp;Devices</Link>
                         </li>
                         <li className="breadcrumb-item">
-                           <Link to={`/device/${device.slug}`}><i className="fas fa-cube"></i>&nbsp;Device</Link>
+                           <Link to={`/device/${device.slug}/full`}><i className="fas fa-cube"></i>&nbsp;Device</Link>
                         </li>
                         <li className="breadcrumb-item active" aria-current="page"><i className="fas fa-info"></i>&nbsp;Profile</li>
                     </ol>
@@ -53,7 +53,7 @@ class DeviceProfileComponent extends Component {
                             onChange={onChange}
                             error={errors.description}
                         />
-                        <Link to={device.absoluteUrl} className="btn btn-lg btn-secondary float-left">
+                        <Link to={`/device/${device.slug}/full`} className="btn btn-lg btn-secondary float-left">
                             <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
                         </Link>
                         <button
