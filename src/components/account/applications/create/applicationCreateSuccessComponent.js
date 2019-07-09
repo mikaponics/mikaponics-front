@@ -53,12 +53,30 @@ export default class ApplicationCreateSuccessComponent extends Component {
                                     <th scope="row" className="bg-light">Description</th>
                                     <td>{description}</td>
                                 </tr>
+                            </tbody>
+                        </table>
+
+                        <table className="table table-bordered custom-cell-w">
+                            <tbody>
+                                <tr className="bg-dark">
+                                    <th scope="row" colSpan="2" className="text-light">
+                                        <i className="fas fa-key"></i>&nbsp;OAuth 2.0 Credentials
+                                    </th>
+                                </tr>
                                 <tr>
-                                    <th scope="row" className="bg-light">Client ID</th>
+                                    <th scope="row" className="bg-light">Client type</th>
+                                    <td>Confidential</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Authorization grant type:</th>
+                                    <td>Client Credentials</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" className="bg-light">Client id</th>
                                     <td><i>{clientId}</i></td>
                                 </tr>
                                 <tr>
-                                    <th scope="row" className="bg-light">Client Secret</th>
+                                    <th scope="row" className="bg-light">Client secret</th>
                                     <td><i>{clientSecret}</i></td>
                                 </tr>
                             </tbody>
