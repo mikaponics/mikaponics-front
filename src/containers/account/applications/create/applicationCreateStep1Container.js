@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import ApplicationCreateStep1Component from "../../../../components/account/applications/create/applicationCreateStep1Component";
-import { pullProfile } from "../../../../actions/profileAction";
 import {
     // localStorageGetObjectItem,
     localStorageSetObjectOrArrayItem, localStorageGetDateItem, localStorageGetArrayItem

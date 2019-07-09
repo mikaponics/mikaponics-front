@@ -7,7 +7,6 @@ import msgpack from 'msgpack-lite';
 import ApplicationCreateSuccessComponent from "../../../../components/account/applications/create/applicationCreateSuccessComponent";
 import { localStorageGetArrayItem } from "../../../../helpers/localStorageUtility";
 import { pullProfile } from "../../../../actions/profileAction";
-import { setFlashMessage } from "../../../../actions/flashMessageActions";
 import getCustomAxios from '../../../../helpers/customAxios';
 
 
@@ -65,9 +64,6 @@ const mapDispatchToProps = dispatch => {
     return {
         pullProfile: (user) => {
             dispatch(pullProfile(user))
-        },
-        setFlashMessage: (typeOf, text) => {
-            dispatch(setFlashMessage(typeOf, text))
         }
     }
 }

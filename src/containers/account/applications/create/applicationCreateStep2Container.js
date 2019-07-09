@@ -6,8 +6,6 @@ import msgpack from 'msgpack-lite';
 
 import ApplicationCreateStep2Component from "../../../../components/account/applications/create/applicationCreateStep2Component";
 import { localStorageGetArrayItem } from "../../../../helpers/localStorageUtility";
-import { pullProfile } from "../../../../actions/profileAction";
-import { setFlashMessage } from "../../../../actions/flashMessageActions";
 import getCustomAxios from '../../../../helpers/customAxios';
 
 
@@ -27,13 +25,6 @@ class ApplicationCreateStep2Container extends Component {
     }
 
     componentDidMount() {
-        const { user } = this.props;
-
-        // Run the async code to fetch the latest profile information from the
-        // server and save the latest user's details into our global state.
-        // Make the authenticated call to our web-service.
-        this.props.pullProfile(user);
-
         // Start the page at the top of the page.
         window.scrollTo(0, 0);
     }
@@ -131,14 +122,7 @@ const mapStateToProps = function(store) {
 }
 
 const mapDispatchToProps = dispatch => {
-    return {
-        pullProfile: (user) => {
-            dispatch(pullProfile(user))
-        },
-        setFlashMessage: (typeOf, text) => {
-            dispatch(setFlashMessage(typeOf, text))
-        }
-    }
+    return {}
 }
 
 
