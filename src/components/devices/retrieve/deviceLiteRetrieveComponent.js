@@ -131,6 +131,11 @@ class DeviceLiteRetrieveComponent extends Component {
                         <p className="lead">Please connect your device to the power and connect it to the internet. Once your device is connected, it will activate with our system and become available for usage.</p>
                     </div>
                 }
+                <div className="form-group">
+                    <Link to="/devices" className="btn btn-lg float-left pl-4 pr-4 btn-secondary">
+                        <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
+                    </Link>
+                </div>
             </div>
         );
     }

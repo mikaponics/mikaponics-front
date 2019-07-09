@@ -73,6 +73,15 @@ export default class DeviceFullRetrieveComponent extends Component {
                             (instrument, i) => <InstrumentTable instrument={instrument} user={user} key={i+shortid.generate()} />
                         )}
 
+                        <div className="form-group">
+                            <Link to="/devices" className="btn btn-lg float-left pl-4 pr-4 btn-secondary">
+                                <i className="fas fa-arrow-circle-left"></i>&nbsp;Back
+                            </Link>
+                            <Link to={`/device/${device.slug}/profile`} className="btn btn-lg float-right pl-4 pr-4 btn-primary">
+                                <i className="fas fa-edit"></i>&nbsp;Edit
+                            </Link>
+                        </div>
+
                     </div>
                 </div>
             </div>
