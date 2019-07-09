@@ -139,7 +139,7 @@ export default class ApplicationListComponent extends Component {
                     </div>
                 </div>
 
-                <h1><i className="fas fa-applications"></i>&nbsp;Applications</h1>
+                <h1><i className="fas fa-server"></i>&nbsp;Applications</h1>
 
                 <div className="row">
                     <div className="col-md-12">

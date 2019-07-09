@@ -27,7 +27,7 @@ export default class ApplicationCreateStep2Component extends Component {
                 </nav>
 
                 <h1>
-                    <i className="fas fa-plus"></i>&nbsp;Add Device
+                    <i className="fas fa-plus"></i>&nbsp;Add Application
                 </h1>
 
                 <div className="row">
