@@ -105,13 +105,13 @@ class DeviceLiteRetrieveComponent extends Component {
                 <div className="row">
                     <div className="step-navigation">
                         <div id="step-1" className="st-grey active">
-                            <span className="num"><i className="fas fa-microchip"></i></span>
-                            <span className="">Instruments</span>
+                            <span className="num"><i className="fas fa-columns"></i></span>
+                            <span className="">Brief</span>
                         </div>
                         <div id="step-2" className="st-grey">
-                            <Link to={`/device/${device.slug}/info`}>
-                               <span className="num"><i className="fas fa-info"></i>&nbsp;</span>
-                               <span className="">Information</span>
+                            <Link to={`/device/${device.slug}/full`}>
+                               <span className="num"><i className="fas fa-table"></i>&nbsp;</span>
+                               <span className="">Full</span>
                             </Link>
                         </div>
                     </div>

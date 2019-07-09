@@ -9,7 +9,7 @@ import { FlashMessageComponent } from "../../flashMessageComponent";
 import { DEVICE_NEW_STATE } from "../../../constants/api";
 
 
-export default class DeviceInfoRetrieveComponent extends Component {
+export default class DeviceFullRetrieveComponent extends Component {
     render() {
         const { user, device } = this.props;
         const { instruments } = device;
@@ -34,13 +34,13 @@ export default class DeviceInfoRetrieveComponent extends Component {
                     <div className="step-navigation">
                         <div id="step-1" className="st-grey">
                             <Link to={`/device/${device.slug}`}>
-                                <span className="num"><i className="fas fa-microchip"></i></span>
-                                <span className="">Instruments</span>
+                                <span className="num"><i className="fas fa-columns"></i></span>
+                                <span className="">Brief</span>
                             </Link>
                         </div>
                         <div id="step-2" className="st-grey active">
-                            <span className="num"><i className="fas fa-info"></i>&nbsp;</span>
-                            <span className="">Information</span>
+                            <span className="num"><i className="fas fa-table"></i>&nbsp;</span>
+                            <span className="">Full</span>
                         </div>
                     </div>
                 </div>

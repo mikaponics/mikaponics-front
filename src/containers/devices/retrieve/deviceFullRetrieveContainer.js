@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import DeviceInfoRetrieveComponent from "../../../components/devices/retrieve/deviceInfoRetrieveComponent";
+import DeviceFullRetrieveComponent from "../../../components/devices/retrieve/deviceFullRetrieveComponent";
 import { pullDevice } from "../../../actions/deviceActions";
 import { clearFlashMessage } from "../../../actions/flashMessageActions";
 
 
-class DeviceInfoRetrieveContainer extends Component {
+class DeviceFullRetrieveContainer extends Component {
     constructor(props) {
         super(props);
 
@@ -54,7 +54,7 @@ class DeviceInfoRetrieveContainer extends Component {
     render() {
         const { flashMessage } = this.props;
         return (
-            <DeviceInfoRetrieveComponent
+            <DeviceFullRetrieveComponent
                 use={this.props.user}
                 device={this.props.device}
                 flashMessage={flashMessage}
@@ -88,4 +88,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(DeviceInfoRetrieveContainer);
+)(DeviceFullRetrieveContainer);

@@ -30,7 +30,7 @@ import DeviceCreateStep4PurchaseSubmissionContainer from "./devices/create/devic
 import DeviceCreateStep5PurchaseSuccessContainer from "./devices/create/deviceCreateStep5PurchaseSuccessContainer";
 import DeviceListContainer from "./devices/deviceListContainer";
 import DeviceLiteRetrieveContainer from "./devices/retrieve/deviceLiteRetrieveContainer";
-import DeviceInfoRetrieveContainer from "./devices/retrieve/deviceInfoRetrieveContainer";
+import DeviceFullRetrieveContainer from "./devices/retrieve/deviceFullRetrieveContainer";
 import DeviceProfileContainer from "./devices/deviceProfileContainer";
 import InstrumentDetailContainer from "./instruments/instrumentDetailContainer";
 import InstrumentAlertItemListContainer from "./instruments/alert/alertItemListContainer";
@@ -109,7 +109,7 @@ class AppContainer extends React.Component {
                             <Route path="/dashboard" exact component={requiresAuth(DashboardContainer)} />
                             <Route path="/devices" exact component={requiresAuth(DeviceListContainer)} />
                             <Route path="/device/:slug" exact component={requiresAuth(DeviceLiteRetrieveContainer)} />
-                            <Route path="/device/:slug/info" exact component={requiresAuth(DeviceInfoRetrieveContainer)} />
+                            <Route path="/device/:slug/full" exact component={requiresAuth(DeviceFullRetrieveContainer)} />
                             <Route path="/device/:slug/profile" exact component={requiresAuth(DeviceProfileContainer)} />
                             <Route path="/devices/create/step-1" exact component={requiresAuth(DeviceCreateStep1Container)} />
                             <Route path="/devices/create/step-2-integrate" exact component={requiresAuth(requiresSubscription(DeviceCreateStep2IntegrateContainer))} />
