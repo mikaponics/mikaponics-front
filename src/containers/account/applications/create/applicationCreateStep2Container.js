@@ -89,8 +89,15 @@ class ApplicationCreateStep2Container extends Component {
     }
 
     onSuccessfulSubmissionCallback(data) {
-        this.props.setFlashMessage("success", "Application has been successfully added.");
-        this.props.history.push("/applications");
+        // console.log(data); // For debugging purposes only.
+
+        // Save our data (temporarily store)
+        localStorage.setItem("add-application-client-slug", data.slug);
+        localStorage.setItem("add-application-client-id", data.clientId);
+        localStorage.setItem("add-application-client-secret", data.clientSecret);
+
+        // Redirect to our success page.
+        this.props.history.push("/applications/add/success");
     }
 
     onFailedSubmissionCallback(errors) {
