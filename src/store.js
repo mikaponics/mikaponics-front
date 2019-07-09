@@ -25,7 +25,8 @@ import {
     TASK_ITEM_LIST_SUCCESS,
     TASK_ITEM_DETAIL_SUCCESS,
     SUBSCRIPTION_SUCCESS,
-    PRODUCT_LIST_SUCCESS
+    PRODUCT_LIST_SUCCESS,
+    APPLICATION_LIST_SUCCESS,
 } from "./constants/actionTypes";
 import userReducer from "./reducers/userReducer";
 import dashboardReducer from "./reducers/dashboardReducer";
@@ -57,6 +58,7 @@ import taskItemListReducer from "./reducers/taskItemListReducer";
 import taskItemDetailReducer from "./reducers/taskItemDetailReducer";
 import subscriptionReducer from "./reducers/subscriptionReducer";
 import productListReducer from "./reducers/productListReducer";
+import applicationListReducer from "./reducers/applicationListReducer";
 
 
 // Combine Reducers
@@ -91,6 +93,7 @@ const appReducer = combineReducers({
     taskItemDetailState: taskItemDetailReducer,
     subscriptionState: subscriptionReducer,
     productListState: productListReducer,
+    applicationListState: applicationListReducer,
 });
 
 

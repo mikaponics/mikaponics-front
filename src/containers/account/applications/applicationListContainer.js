@@ -3,21 +3,35 @@ import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 
 import ApplicationListComponent from '../../../components/account/applications/applicationListComponent';
+import { pullApplicationList } from "../../../actions/applicationActions";
 
 
 class ApplicationListContainer extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
-            referrer: '',
+            errors: []
         }
+        this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
+        this.onFailedSubmissionCallback = this.onFailedSubmissionCallback.bind(this);
     }
 
     componentDidMount() {
+        this.props.pullApplicationList();
+
         // Start the page at the top of the page.
         window.scrollTo(0, 0);
-    } // end FUNC.
+    }
+
+    onSuccessfulSubmissionCallback() {
+        // Do nothing.
+    }
+
+    onFailedSubmissionCallback(errors) {
+        this.setState({
+            errors: errors
+        })
+    }
 
     render() {
         const { referrer } = this.state;
@@ -32,7 +46,7 @@ class ApplicationListContainer extends Component {
         return (
             <ApplicationListComponent
                 user={user}
-                applicationsList={[]}
+                applicationList={this.props.applicationList}
             />
         );
     }
@@ -41,11 +55,15 @@ class ApplicationListContainer extends Component {
 const mapStateToProps = function(store) {
     return {
         user: store.userState,
+        applicationList: store.applicationListState,
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
+        pullApplicationList: (successCallback, failureCallback) => {
+            dispatch(pullApplicationList(successCallback, failureCallback))
+        },
     }
 }
 

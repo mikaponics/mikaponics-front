@@ -10,6 +10,7 @@ import { TASK_ITEM_UNREAD_STATE } from "../../../constants/api";
 class ApplicationItemTable extends Component {
     render() {
         let elements = [];
+        const { user } = this.props;
         const { results } = this.props.dataList;
         if (results === undefined || results === null) { // Defensive code.
             return null;
@@ -17,23 +18,26 @@ class ApplicationItemTable extends Component {
         const dataLength = results.length;
         for (let i = 0; i < dataLength; i++) {
             let applicationItem = results[i];
+            // console.log(applicationItem);
             let isUnread = false;
-            let stateText = applicationItem.isClosed ? "Closed" : "Open";
             elements.push(
-                <tr key={applicationItem.createdAt} className={classnames('', { 'table-danger': isUnread })}>
-                    <th scope="row">{stateText}</th>
+                <tr key={applicationItem.createdAt}>
+                    <th scope="row">{applicationItem.name}</th>
                     <td>
-                        {applicationItem.prettyTypeOf}
-                    </td>
-                    <td>
-                        <Moment tz={applicationItem.deviceTimezone} format="YYYY/MM/DD hh:mm:ss a">
-                            {applicationItem.dueDate}
+                        <Moment tz={user.timezone} format="YYYY/MM/DD hh:mm:ss a">
+                            {applicationItem.createdAt}
                         </Moment>
                     </td>
                     <td>
-                        <Link to={`/application-start/${applicationItem.slug}`}>
-                            View&nbsp;<i className="fas fa-chevron-right"></i>
-                        </Link>
+                        Confidential
+                    </td>
+                    <td>
+                        Client Credentials
+                    </td>
+                    <td>
+                        <button  className="btn btn-sm float-right pl-4 pr-4 btn-danger" onClick={null}>
+                            <i className="fas fa-minus"></i>&nbsp;Remove
+                        </button>
                     </td>
                 </tr>
             );
@@ -44,9 +48,10 @@ class ApplicationItemTable extends Component {
                 <table className="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col">State</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Created At</th>
                             <th scope="col">Type</th>
-                            <th scope="col">Due Date</th>
+                            <th scope="col">Authorization Grant Type</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -81,7 +86,6 @@ class NoApplicationsJumbotron extends Component {
 export default class ApplicationListComponent extends Component {
     render() {
         const { user, applicationList } = this.props;
-
         let elements;
         if (applicationList !== undefined && applicationList !== null) {
             const { results } = applicationList;
