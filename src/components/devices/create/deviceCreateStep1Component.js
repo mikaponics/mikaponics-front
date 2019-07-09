@@ -6,7 +6,7 @@ import SubscriptionNoticeContainer from '../../../containers/navigation/subscrip
 
 class DeviceCreateStep1Component extends Component {
     render() {
-        const { user } = this.props;
+        const { user, onPurchaseDeviceClick, onAuthorizeDeviceClick } = this.props;
         const isSubscribed = user.subscriptionStatus === "active";
         return (
             <div>
@@ -36,9 +36,9 @@ class DeviceCreateStep1Component extends Component {
                             <div className="card-body">
                                 <h3 className="card-title">Purchase</h3>
                                 <p className="card-text">Click here if you would like to buy a ready-made device from us. We will take care of the hardware and software.</p>
-                                <Link to="/devices/create/step-2-purchase" className="btn btn-success btn-lg">
+                                <button className="btn btn-success btn-lg" onClick={onPurchaseDeviceClick}>
                                     Select&nbsp;<i className="fas fa-arrow-circle-right"></i>
-                                </Link>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -52,9 +52,9 @@ class DeviceCreateStep1Component extends Component {
                                 <h3 className="card-title">Authorize</h3>
                                 <p className="card-text">Click here if you already have the IoT device and you would like to integrate it with our software. By clicking here, you will be granted <strong>oAuth 2.0 access credentials</strong> which your device will use to make API calls with our web-service; furthermore, if you build one of our <a href="https://github.com/mikaponics" target="_blank">open-source devices&nbsp;<i className="fas fa-external-link-alt"></i></a>, click here to integrate it with out system.</p>
                                 {isSubscribed
-                                    ? <Link to="/devices/create/step-2-integrate" className="btn btn-success btn-lg">
+                                    ? <button className="btn btn-success btn-lg" onClick={onAuthorizeDeviceClick}>
                                         Select&nbsp;<i className="fas fa-arrow-circle-right"></i>
-                                    </Link>
+                                    </button>
                                     : <button className="btn btn-success btn-lg" disabled={true}>
                                         <strong><i className="fas fa-lock"></i>&nbsp;Locked</strong>
                                     </button>

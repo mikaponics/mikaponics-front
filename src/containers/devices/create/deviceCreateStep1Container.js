@@ -9,6 +9,8 @@ class DeviceCreateStep1Container extends Component {
     constructor(props) {
         super(props);
         this.state = {}
+        this.onPurchaseDeviceClick = this.onPurchaseDeviceClick.bind(this);
+        this.onAuthorizeDeviceClick = this.onAuthorizeDeviceClick.bind(this);
     }
 
     componentDidMount() {
@@ -21,12 +23,27 @@ class DeviceCreateStep1Container extends Component {
 
         // Start the page at the top of the page.
         window.scrollTo(0, 0);
-    } // end FUNC.
+    }
+
+    onPurchaseDeviceClick(e) {
+        e.preventDefault();
+        this.props.history.push("/devices/create/step-2-purchase");
+    }
+
+    onAuthorizeDeviceClick(e) {
+        e.preventDefault();
+        localStorage.removeItem("add-device-name");
+        localStorage.removeItem("add-device-description");
+        localStorage.removeItem("add-device-instruments");
+        this.props.history.push("/devices/create/step-2-integrate");
+    }
 
     render() {
         return (
             <DeviceCreateStep1Component
                 user={this.props.user}
+                onPurchaseDeviceClick={this.onPurchaseDeviceClick}
+                onAuthorizeDeviceClick={this.onAuthorizeDeviceClick}
             />
         );
     }
