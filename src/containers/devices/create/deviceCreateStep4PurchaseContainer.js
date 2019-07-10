@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 
 import DeviceCreateStep4PurchaseComponent from "../../../components/devices/create/deviceCreateStep4PurchaseComponent";
 import { localStorageGetArrayItem, localStorageGetObjectItem, localStorageSetObjectOrArrayItem } from "../../../helpers/localStorageUtility";
+import getCustomAxios from '../../../helpers/customAxios';
 
 const STRIPE_PUBLISHABLE = "pk_test_fw1OJnoeXL2Zp8zMTvxD3s5M";
 // const PAYMENT_SERVER_URL = "http://127.0.0.1:8080";
@@ -62,16 +63,8 @@ class DeviceCreateStep4PurchaseContainer extends Component {
         // INSTEAD OF CREATING AN ACTION USING REDUX, LETS JUST MAKE AN API
         // CALL HERE.
         //--------------------------------------------------------------------//
-        // Create a new Axios instance using our oAuth 2.0 bearer token
-        // and various other headers.
-        const customAxios = axios.create({
-            headers: {
-                'Authorization': "Bearer " + this.props.user.token,
-                'Content-Type': 'application/msgpack;',
-                'Accept': 'application/msgpack',
-            },
-            responseType: 'arraybuffer'
-        });
+        // Generate our app's Axios instance.
+        const customAxios = getCustomAxios();
 
         // Generate the URL.
         let aURL = process.env.REACT_APP_API_HOST+'/api/calculate-purchase-device-receipt';
