@@ -94,7 +94,7 @@ export function pullProfile(user) {
 
                 let errors = camelizeKeys(responseData);
 
-                console.log("pullProductionInspectionList | error:", errors); // For debuggin purposes only.
+                console.log("pullProfile | error:", errors); // For debuggin purposes only.
 
                 // Send our failure to the redux.
                 store.dispatch(
@@ -231,6 +231,11 @@ export function postActivateProfile(accessCode, successCallback, failedCallback)
             // Extra.
             profile['isAPIRequestRunning'] = false;
             profile['errors'] = {};
+
+            // SAVE OUR CREDENTIALS IN PERSISTENT STORAGE. THIS IS AN IMPORTANT
+            // STEP BECAUSE OUR TOKEN UTILITY HELPER NEEDS THIS.
+            setAccessTokenInLocalStorage(profile.accessToken);
+            setRefreshTokenInLocalStorage(profile.refreshToken);
 
             // Update the global state of the application to store our
             // user profile for the application.
