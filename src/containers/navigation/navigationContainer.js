@@ -167,7 +167,9 @@ class NavigationContainer extends React.Component {
         // If the user is not `subscribed` to our service then we need to
         // restrict access to the following menu items.
         if (user.subscriptionStatus !== "active") {
-            delete menuData[3]; // Alerts
+            if (menuData !== undefined && menuData !== null) { // Defensive code.
+                delete menuData[3]; // Alerts
+            }
         }
     }
 
