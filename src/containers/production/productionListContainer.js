@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import ProductionListComponent from "../../components/production/productionListComponent";
 import { pullProductionList } from "../../actions/productionActions";
-import { pullDeviceList } from "../../actions/deviceListActions";
 import { clearFlashMessage } from "../../actions/flashMessageActions";
 
 
@@ -32,7 +31,6 @@ class ProductionListContainer extends Component {
      */
     tick() {
         this.props.pullProductionList(this.props.user, 1);
-        this.props.pullDeviceList(this.props.user);
     }
 
     componentWillUnmount() {
@@ -49,11 +47,11 @@ class ProductionListContainer extends Component {
     }
 
     render() {
-        const { user, productionList, deviceList, flashMessage } = this.props;
+        const { user, dashboard, productionList, deviceList, flashMessage } = this.props;
         return (
             <ProductionListComponent
                 user={user}
-                deviceList={deviceList}
+                dashboard={dashboard}
                 productionList={productionList}
                 flashMessage={flashMessage}
             />
@@ -65,7 +63,7 @@ const mapStateToProps = function(store) {
     return {
         user: store.userState,
         productionList: store.productionListState,
-        deviceList: store.deviceListState,
+        dashboard: store.dashboardState,
         flashMessage: store.flashMessageState,
     };
 }
@@ -75,11 +73,6 @@ const mapDispatchToProps = dispatch => {
         pullProductionList: (user, page) => {
             dispatch(
                 pullProductionList(user, page)
-            )
-        },
-        pullDeviceList: (user, page) => {
-            dispatch(
-                pullDeviceList(user, page)
             )
         },
         clearFlashMessage: () => {

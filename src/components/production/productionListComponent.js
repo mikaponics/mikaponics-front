@@ -102,35 +102,18 @@ class NoProductionJumbotron extends Component {
 
 class ProductionListComponent extends Component {
     render() {
-        const { user, productionList, deviceList, flashMessage } = this.props;
-
-        // DEFENSIVE CODE: DO NOT LOAD VIEW UNTIL WE HAVE DATA FROM API ENDPOINT.
-        if (isEmpty(productionList)) { return null; }
-        if (isEmpty(deviceList)) { return null; }
-
-        let operatingElements = [];
-        let terminatedElements = [];
-        const isProductionListNotEmpty = isEmpty(productionList.results) === false;
-        const isProductionListEmpty = isEmpty(productionList.results) === true;
-        const isDeviceListEmpty = isEmpty(deviceList.results) === true;
-
-        if (isProductionListNotEmpty) {
-            const { results } = productionList;
-            if (results !== undefined && results !== null) {
-                operatingElements = <ProductionCards productionList={productionList} state={PRODUCTION_OPERATING_STATE} />;
-            }
-        }
-        if (isProductionListNotEmpty) {
-            const { results } = productionList;
-            if (results !== undefined && results !== null) {
-                terminatedElements = <ProductionCards productionList={productionList} state={PRODUCTION_TERMINATED_STATE} />;
-            }
-        }
+        const { user, productionList, flashMessage } = this.props;
+        const { devices } = this.props.dashboard;
 
         //-------------------------//
         // CASE 1 OF 2: NO DEVICES //
         //-------------------------//
-        if (isDeviceListEmpty) {
+
+        // Get how many devices we have and if we have no devices then we need to create
+        const devicesCount = (devices !== undefined && devices !== null) ? devices.length : 0;
+        const hasNoDevices = devicesCount <= 0;
+        if (hasNoDevices) {
+            // Return our `no devices` GUI.
             return (
                 <div>
                     <nav aria-label="breadcrumb">
@@ -167,6 +150,28 @@ class ProductionListComponent extends Component {
         //--------------------------//
         // CASE 2 OF 2: HAS DEVICES //
         //--------------------------//
+
+        // DEFENSIVE CODE: DO NOT LOAD VIEW UNTIL WE HAVE DATA FROM API ENDPOINT.
+        if (isEmpty(productionList)) { return null; }
+
+        let operatingElements = [];
+        let terminatedElements = [];
+        const isProductionListNotEmpty = isEmpty(productionList.results) === false;
+        const isProductionListEmpty = isEmpty(productionList.results) === true;
+
+        if (isProductionListNotEmpty) {
+            const { results } = productionList;
+            if (results !== undefined && results !== null) {
+                operatingElements = <ProductionCards productionList={productionList} state={PRODUCTION_OPERATING_STATE} />;
+            }
+        }
+        if (isProductionListNotEmpty) {
+            const { results } = productionList;
+            if (results !== undefined && results !== null) {
+                terminatedElements = <ProductionCards productionList={productionList} state={PRODUCTION_TERMINATED_STATE} />;
+            }
+        }
+
         return (
             <div>
                 <nav aria-label="breadcrumb">
