@@ -24,7 +24,7 @@ class ActivateComponent extends React.Component {
                         <p className="lead">Your account has begin <strong>activated</strong>, you may now begin using your account. Click the button below to get started.</p>
 
                         <p className="lead">
-                            <Link className="btn btn-primary btn-lg" to="/onboard">
+                            <Link className="btn btn-primary btn-lg" to="/dashboard">
                                 <i className="fas fa-tachometer-alt"></i>&nbsp;Dashboard
                             </Link>
                         </p>
