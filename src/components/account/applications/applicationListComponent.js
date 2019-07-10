@@ -4,7 +4,7 @@ import Moment from 'react-moment';
 import classnames from 'classnames';
 import 'moment-timezone';
 
-import { TASK_ITEM_UNREAD_STATE } from "../../../constants/api";
+import SubscriptionNoticeContainer from '../../../containers/navigation/subscriptionNoticeContainer';
 
 
 class ApplicationItemTable extends Component {
@@ -82,6 +82,27 @@ class NoApplicationsJumbotron extends Component {
     }
 }
 
+class NoSubscriptionJumbotron extends Component {
+    render() {
+        return (
+            <div className="jumbotron">
+                <h1 className="display-4">
+                    <i className="fas fa-bullhorn"></i>&nbsp;Attention
+                </h1>
+                <p className="lead">You currently do not have a subscription. Applications require a subscription to be created.</p>
+                <hr className="my-4" />
+                <p>To get yourself a subscription, please click below.</p>
+                <p className="lead">
+                    <Link className="btn btn-success btn-lg" to="/subscription">
+                        Go&nbsp;<i className="fas fa-arrow-circle-right"></i>
+                    </Link>
+                </p>
+            </div>
+        );
+    }
+}
+
+
 
 export default class ApplicationListComponent extends Component {
     render() {
@@ -102,8 +123,14 @@ export default class ApplicationListComponent extends Component {
             elements = <NoApplicationsJumbotron />;
         }
 
+        // OVERRIDE ALL GUI CREATED IF THE USER DOES NOT HAVE A SUBSCRIPTION.
+        if (user.subscriptionStatus !== 'active') {
+            elements = <NoSubscriptionJumbotron />;
+        }
+
         return (
             <div>
+                <SubscriptionNoticeContainer />
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item">
