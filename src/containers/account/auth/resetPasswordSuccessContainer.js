@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import ResetPasswordSuccessComponent from '../../components/account/resetPasswordSuccessComponent';
+import ResetPasswordSuccessComponent from '../../../components/account/auth/resetPasswordSuccessComponent';
 
 
 class ResetPasswordSuccessContainer extends React.Component {

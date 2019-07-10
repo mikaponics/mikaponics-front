@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import Scroll from 'react-scroll';
 import { Redirect } from "react-router-dom";
 
-import ResetPasswordComponent from '../../components/account/resetPasswordComponent';
-import { postResetPassword } from '../../actions/resetPasswordAction';
+import ResetPasswordComponent from '../../../components/account/auth/resetPasswordComponent';
+import { postResetPassword } from '../../../actions/resetPasswordAction';
 
 
 class ResetPasswordContainer extends React.Component {

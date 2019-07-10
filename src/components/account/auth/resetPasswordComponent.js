@@ -1,26 +1,15 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
-import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
-import { BootstrapInputGroup } from '../bootstrap/bootstrapInputGroup';
+import { BootstrapErrorsProcessingAlert } from "../../bootstrap/bootstrapAlert";
+import { BootstrapInputGroup } from '../../bootstrap/bootstrapInputGroup';
 
 
-class SendResetPasswordComponent extends React.Component {
+class ResetPasswordComponent extends React.Component {
     render() {
-        const { email, onChange, onSubmit, errors = {}, isLoading } = this.props;
+        const { password, passwordConfirmation, onChange, onSubmit, errors = {}, isLoading } = this.props;
         return (
             <div>
-                <nav aria-label="breadcrumb">
-                    <ol className="breadcrumb">
-                        <li className="breadcrumb-item">
-                            <Link to="/"><i className="fas fa-home"></i>&nbsp;Home</Link>
-                        </li>
-                        <li className="breadcrumb-item active" aria-current="page">
-                             <i className="fas fa-undo"></i>&nbsp;Reset Password
-                        </li>
-                    </ol>
-                </nav>
-
                 <div className="row">
                     <div className="col-sm-6 mx-auto">
                         <BootstrapErrorsProcessingAlert errors={errors} />
@@ -36,31 +25,42 @@ class SendResetPasswordComponent extends React.Component {
                     <div className="col-sm-6 mx-auto">
                         <h2 className="text-center mb-3">Reset Password</h2>
                         <form id="sign-in" className="form-signin needs-validation" onSubmit={onSubmit}>
+                            {errors.nonFieldErrors && <div className="alert alert-danger" role="alert">{errors.nonFieldErrors}</div>}
+
                             <BootstrapInputGroup
                                 layoutSize="large"
-                                labelIconClassName="fa fa-envelope color-blue"
-                                name="email"
-                                type="email"
-                                placeholder="Email Address"
-                                value={email}
+                                labelIconClassName="fa fa-lock color-blue"
+                                name="password"
+                                type="password"
+                                placeholder="New Password"
+                                value={password}
                                 onChange={onChange}
                                 disabled={isLoading}
-                                error={errors.email}
+                                error={errors.password}
+                            />
+
+                            <BootstrapInputGroup
+                                layoutSize="large"
+                                labelIconClassName="fa fa-lock color-blue"
+                                name="passwordConfirmation"
+                                type="password"
+                                placeholder="Repeat New Password"
+                                value={passwordConfirmation}
+                                onChange={onChange}
+                                disabled={isLoading}
+                                error={errors.password}
                             />
 
                             <div className="custom-control custom-checkbox mb-1 mt-1"></div>
 
                             <input
                                 type="submit"
-                                value="Send Password Reset"
+                                value="Save Password and Continue"
                                 className="btn btn-lg btn-primary btn-block"
                                 disabled={isLoading}
                             />
                             <h5 className="text-center mt-3 mb-3">
-                                <Link to="/login" className="text-primary plain-link">Sign-in</Link>
-                            </h5>
-                            <h5 className="text-center mt-3 mb-3">
-                                <Link to="/register" className="text-primary plain-link">Register</Link>
+                                <Link to="/" className="text-primary plain-link">Cancel</Link>
                             </h5>
 
                         </form>
@@ -71,4 +71,4 @@ class SendResetPasswordComponent extends React.Component {
     }
 }
 
-export default SendResetPasswordComponent
+export default ResetPasswordComponent

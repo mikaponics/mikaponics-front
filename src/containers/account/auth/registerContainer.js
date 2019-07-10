@@ -3,8 +3,8 @@ import Scroll from 'react-scroll';
 import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
 
-import RegisterComponent from '../../components/account/registerComponent';
-import { postRegister, clearRegister } from "../../actions/registerAction";
+import RegisterComponent from '../../../components/account/auth/registerComponent';
+import { postRegister, clearRegister } from "../../../actions/registerAction";
 
 
 class RegisterContainer extends React.Component {

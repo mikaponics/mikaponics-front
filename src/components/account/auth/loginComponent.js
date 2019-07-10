@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import { BootstrapInputGroup } from '../bootstrap/bootstrapInputGroup';
-import { FlashMessageComponent } from "../flashMessageComponent";
+import { BootstrapInputGroup } from '../../bootstrap/bootstrapInputGroup';
+import { FlashMessageComponent } from "../../flashMessageComponent";
 
 
 class AlertComponent extends Component {

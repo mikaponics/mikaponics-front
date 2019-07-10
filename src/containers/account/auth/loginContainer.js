@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
 import Scroll from 'react-scroll';
 
-import LoginComponent from '../../components/account/loginComponent';
-import validateInput from "../../validations/login";
-import { postLogin } from "../../actions/loginAction";
-import { clearFlashMessage } from "../../actions/flashMessageActions";
+import LoginComponent from '../../../components/account/auth/loginComponent';
+import validateInput from "../../../validations/login";
+import { postLogin } from "../../../actions/loginAction";
+import { clearFlashMessage } from "../../../actions/flashMessageActions";
 
 
 class LoginContainer extends Component {

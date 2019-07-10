@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import SendResetPasswordSuccessComponent from '../../components/account/sendResetPasswordSuccessComponent';
+import SendResetPasswordSuccessComponent from '../../../components/account/auth/sendResetPasswordSuccessComponent';
 
 
 class SendResetPasswordSuccessContainer extends React.Component {

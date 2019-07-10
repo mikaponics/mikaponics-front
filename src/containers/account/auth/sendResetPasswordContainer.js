@@ -5,8 +5,8 @@ import Scroll from 'react-scroll';
 import { camelizeKeys } from 'humps';
 import { Redirect } from "react-router-dom";
 
-import { MIKAPONICS_SEND_PASSWORD_RESET_API_URL } from '../../constants/api';
-import SendResetPasswordComponent from '../../components/account/sendResetPasswordComponent';
+import { MIKAPONICS_SEND_PASSWORD_RESET_API_URL } from '../../../constants/api';
+import SendResetPasswordComponent from '../../../components/account/auth/sendResetPasswordComponent';
 
 
 class SendResetPasswordContainer extends React.Component {

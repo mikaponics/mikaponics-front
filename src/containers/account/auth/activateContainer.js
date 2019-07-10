@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import ActivateComponent from '../../components/account/activateComponent';
-import { postActivateProfile } from "../../actions/profileAction";
+import ActivateComponent from '../../../components/account/auth/activateComponent';
+import { postActivateProfile } from "../../../actions/profileAction";
 
 
 class ActivateContainer extends React.Component {

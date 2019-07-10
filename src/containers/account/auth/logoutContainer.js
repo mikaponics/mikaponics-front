@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
 
-// import LogoutComponent from '../../components/account/logoutComponent';
-import { postLogout, attemptLogout } from "../../actions/logoutAction";
-import { setFlashMessage } from "../../actions/flashMessageActions";
+// import LogoutComponent from '../../components/account/auth/logoutComponent';
+import { postLogout, attemptLogout } from "../../../actions/logoutAction";
+import { setFlashMessage } from "../../../actions/flashMessageActions";
 
 
 class LogoutContainer extends Component {
