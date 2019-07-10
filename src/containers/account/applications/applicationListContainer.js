@@ -1,52 +1,69 @@
 import React, { Component } from 'react';
-import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 
 import ApplicationListComponent from '../../../components/account/applications/applicationListComponent';
-import { pullApplicationList } from "../../../actions/applicationActions";
+import { pullApplicationList, deleteApplication } from "../../../actions/applicationActions";
 
 
 class ApplicationListContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            errors: []
+            errors: [],
+            isLoading: false,
         }
-        this.onSuccessfulSubmissionCallback = this.onSuccessfulSubmissionCallback.bind(this);
-        this.onFailedSubmissionCallback = this.onFailedSubmissionCallback.bind(this);
+        this.onDeleteClick = this.onDeleteClick.bind(this);
+        this.onListSuccessCallback = this.onListSuccessCallback.bind(this);
+        this.onListFailCallback = this.onListFailCallback.bind(this);
+        this.onDeleteSuccessCallback = this.onDeleteSuccessCallback.bind(this);
+        this.onDeleteFailCallback = this.onDeleteFailCallback.bind(this);
     }
 
     componentDidMount() {
-        this.props.pullApplicationList();
+        this.props.pullApplicationList(this.onListSuccessCallback, this.onListFailCallback);
 
         // Start the page at the top of the page.
         window.scrollTo(0, 0);
     }
 
-    onSuccessfulSubmissionCallback() {
-        // Do nothing.
+    onDeleteClick(e, slug) {
+        this.setState({ errors: [], isLoading: true });
+        this.props.deleteApplication(
+            slug,
+            this.onDeleteSuccessCallback,
+            this.onDeleteFailCallback
+        );
     }
 
-    onFailedSubmissionCallback(errors) {
-        this.setState({
-            errors: errors
-        })
+    onListSuccessCallback() {
+        this.setState({ errors: [], isLoading: false });
+    }
+
+    onListFailCallback(errors) {
+        this.setState({ errors: errors, isLoading: false });
+    }
+
+    onDeleteSuccessCallback() {
+        this.setState(
+            { errors: [], isLoading: false },
+            ()=> {
+                this.props.pullApplicationList(this.onListSuccessCallback, this.onListFailCallback);
+            }
+        );
+    }
+
+    onDeleteFailCallback(errors) {
+        this.setState({ errors: errors, isLoading: false });
     }
 
     render() {
-        const { referrer } = this.state;
         const { user } = this.props;
-
-        // If a `referrer` was set then that means we can redirect
-        // to a different page in our application.
-        if (referrer) {
-            return <Redirect to={referrer} />;
-        }
-
         return (
             <ApplicationListComponent
                 user={user}
+                isLoading={this.state.isLoading}
                 applicationList={this.props.applicationList}
+                onDeleteClick={this.onDeleteClick}
             />
         );
     }
@@ -63,6 +80,9 @@ const mapDispatchToProps = dispatch => {
     return {
         pullApplicationList: (successCallback, failureCallback) => {
             dispatch(pullApplicationList(successCallback, failureCallback))
+        },
+        deleteApplication: (slug, successCallback, failureCallback) => {
+            dispatch(deleteApplication(slug, successCallback, failureCallback))
         },
     }
 }

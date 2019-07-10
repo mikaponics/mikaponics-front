@@ -10,7 +10,7 @@ import { TASK_ITEM_UNREAD_STATE } from "../../../constants/api";
 class ApplicationItemTable extends Component {
     render() {
         let elements = [];
-        const { user } = this.props;
+        const { user, onDeleteClick, isLoading } = this.props;
         const { results } = this.props.dataList;
         if (results === undefined || results === null) { // Defensive code.
             return null;
@@ -35,7 +35,7 @@ class ApplicationItemTable extends Component {
                         Client Credentials
                     </td>
                     <td>
-                        <button  className="btn btn-sm float-right pl-4 pr-4 btn-danger" onClick={null}>
+                        <button  className="btn btn-sm float-right pl-4 pr-4 btn-danger" onClick={ (event)=> { onDeleteClick(event, applicationItem.slug) } } disabled={isLoading}>
                             <i className="fas fa-minus"></i>&nbsp;Remove
                         </button>
                     </td>
@@ -85,7 +85,7 @@ class NoApplicationsJumbotron extends Component {
 
 export default class ApplicationListComponent extends Component {
     render() {
-        const { user, applicationList } = this.props;
+        const { user, applicationList, onDeleteClick, isLoading } = this.props;
         let elements;
         if (applicationList !== undefined && applicationList !== null) {
             const { results } = applicationList;
@@ -94,7 +94,7 @@ export default class ApplicationListComponent extends Component {
                     elements = <NoApplicationsJumbotron />;
                 } else {
                     elements = (
-                        <ApplicationItemTable dataList={applicationList} user={user} />
+                        <ApplicationItemTable dataList={applicationList} user={user} onDeleteClick={onDeleteClick} isLoading={isLoading} />
                     );
                 }
             }

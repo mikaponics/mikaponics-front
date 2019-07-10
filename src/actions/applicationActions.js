@@ -7,10 +7,9 @@ import msgpack from 'msgpack-lite';
 import {
     APPLICATION_LIST_REQUEST,
     APPLICATION_LIST_FAILURE,
-    APPLICATION_LIST_SUCCESS,
-    CLEAR_APPLICATION_LIST
+    APPLICATION_LIST_SUCCESS
 } from '../constants/actionTypes';
-import { MIKAPONICS_APPLICATION_LIST_API_URL } from '../constants/api';
+import { MIKAPONICS_APPLICATION_LIST_API_URL, MIKAPONICS_APPLICATION_DELETE_API_URL } from '../constants/api';
 import getCustomAxios from '../helpers/customAxios';
 
 
@@ -107,6 +106,65 @@ export function pullApplicationList(successCallback=null, failureCallback=null) 
             }
 
         }).then( () => { // FINALLY
+            // Do nothing.
+        });
+
+    }
+}
+
+
+export function deleteApplication(slug, successCallback, failedCallback) {
+    return dispatch => {
+        // Change the global state to attempting to log in.
+        store.dispatch(
+            setApplicationListRequest()
+        );
+
+        // Generate our app's Axios instance.
+        const customAxios = getCustomAxios();
+
+        // Perform our API submission.
+        customAxios.delete(MIKAPONICS_APPLICATION_DELETE_API_URL+slug).then( (successResponse) => {
+            // Decode our MessagePack (Buffer) into JS Object.
+            const responseData = msgpack.decode(Buffer(successResponse.data));
+            let subscriptionReceipt = camelizeKeys(responseData);
+
+            // Extra.
+            subscriptionReceipt['isAPIRequestRunning'] = false;
+            subscriptionReceipt['errors'] = {};
+
+            // Update the global state of the application to store our
+            // user subscription receipt for the application.
+            store.dispatch(
+                setApplicationListSuccess(subscriptionReceipt)
+            );
+
+            // Run our success callback function.
+            successCallback(subscriptionReceipt);
+
+        }).catch( (exception) => {
+            if (exception.response) {
+                const responseBinaryData = exception.response.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
+
+                // Decode our MessagePack (Buffer) into JS Object.
+                const responseData = msgpack.decode(Buffer(responseBinaryData));
+
+                let errors = camelizeKeys(responseData);
+
+                console.error(errors); // For debugging purposes only.
+
+                // Run our failure callback function.
+                failedCallback(errors);
+
+                store.dispatch(
+                    setApplicationListFailure({
+                        isAPIRequestRunning: false,
+                        errors: errors
+                    })
+                );
+            }
+
+        }).then( () => {
             // Do nothing.
         });
 
