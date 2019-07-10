@@ -3,8 +3,9 @@ import store from '../store';
 import { camelizeKeys } from 'humps';
 import msgpack from 'msgpack-lite';
 
-import { LOGOUT_REQUEST, LOGOUT_FAILURE, LOGOUT_SUCCESS } from "../constants/actionTypes"
-import { MIKAPONICS_LOGOUT_API_URL } from "../constants/api"
+import { LOGOUT_REQUEST, LOGOUT_FAILURE, LOGOUT_SUCCESS } from "../constants/actionTypes";
+import { MIKAPONICS_LOGOUT_API_URL, APP_STATE } from "../constants/api";
+import { getAccessTokenFromLocalStorage } from "../helpers/tokenUtility";
 import getCustomAxios from '../helpers/customAxios';
 
 
@@ -43,7 +44,7 @@ export const setLogoutFailure = payload => ({
 });
 
 
-export function postLogout(user) {
+export function postLogout() {
     return dispatch => {
         // Change the global state to attempting to log in.
         store.dispatch(
@@ -58,12 +59,12 @@ export function postLogout(user) {
         // Generate our app's Axios instance.
         const customAxios = getCustomAxios();
 
-        const decamelizedData = {
-            token: user.token
-        }
+        const authObj = getAccessTokenFromLocalStorage();
 
         // Encode from JS Object to MessagePack (Buffer)
-        var buffer = msgpack.encode(decamelizedData);
+        let buffer = msgpack.encode({
+            token: authObj.token,
+        });
 
         customAxios.post(aURL, buffer).then( (successResponse) => {
             // Decode our MessagePack (Buffer) into JS Object.
@@ -108,7 +109,12 @@ export function postLogout(user) {
             }
 
         }).then( () => {
-            // Do nothing.
+
+            // Either a sucessful or unsuccessful call was made to the API web-
+            // service, then we will clear our entire local storage for this
+            // domain so the application will be in the state as in an anonymous
+            // user arrived.
+            localStorage.clear();
         });
     }
 }

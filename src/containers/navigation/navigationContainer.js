@@ -155,20 +155,24 @@ class NavigationContainer extends React.Component {
     let menuTitle;
     let menuData;
 
-    if (user !== null && user !== undefined) {
-        const keysArr = Object.keys(user);
-        const count = keysArr.length;
-        if (count > 0) {
-            // Generate a friendly message in the menu for authenitcatd users.
-            menuTitle = "Hi, "+user.firstName;
-            menuData = authenticatedMenuData;
-        }
+    // console.log("NavigationContainer | user:", user); // For debugging purposes only.
 
-        // If the user is not `subscribed` to our service then we need to
-        // restrict access to the following menu items.
-        if (user.subscriptionStatus !== "active") {
-            if (menuData !== undefined && menuData !== null) { // Defensive code.
-                delete menuData[3]; // Alerts
+    if (user !== null && user !== undefined) {
+        if (user.wasEmailActivated) {
+            const keysArr = Object.keys(user);
+            const count = keysArr.length;
+            if (count > 0) {
+                // Generate a friendly message in the menu for authenitcatd users.
+                menuTitle = "Hi, "+user.firstName;
+                menuData = authenticatedMenuData;
+            }
+
+            // If the user is not `subscribed` to our service then we need to
+            // restrict access to the following menu items.
+            if (user.subscriptionStatus !== "active") {
+                if (menuData !== undefined && menuData !== null) { // Defensive code.
+                    delete menuData[3]; // Alerts
+                }
             }
         }
     }

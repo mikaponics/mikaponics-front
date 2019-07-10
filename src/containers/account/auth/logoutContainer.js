@@ -32,18 +32,14 @@ class LogoutContainer extends Component {
 
     render() {
         const { user } = this.props;
-        if (user !== undefined && user.token !== undefined && user.token !== null) {
-            // Call the API endpoint to log out.
-            this.props.postLogout(this.props.user);
 
-            // CLEAR THE LOCAL STORAGE IF WE SUCCESSFULLY LOGGED OUT!
-            localStorage.clear();
+        // Call the API endpoint to log out.
+        this.props.postLogout();
 
-            // Create a flash message telling the user that they successfully logged out.
-            this.props.setFlashMessage("success", "You have successfully logged out.");
-            this.props.attemptLogout();
+        // Create a flash message telling the user that they successfully logged out.
+        this.props.setFlashMessage("success", "You have successfully logged out.");
+        this.props.attemptLogout();
 
-        }
         return <Redirect to="/login" />;
     }
 }
