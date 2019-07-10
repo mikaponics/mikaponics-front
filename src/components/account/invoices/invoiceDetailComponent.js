@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import { FlashMessageComponent } from "../flashMessageComponent";
+import { FlashMessageComponent } from "../../flashMessageComponent";
 
 
 class InvoiceItemRow extends Component {

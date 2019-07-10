@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { clearFlashMessage } from "../../actions/flashMessageActions";
-import InvoiceDetailComponent from "../../components/invoices/invoiceDetailComponent";
-import { pullInvoiceDetail } from "../../actions/invoiceDetailActions";
+import InvoiceDetailComponent from "../../../components/account/invoices/invoiceDetailComponent";
+import { clearFlashMessage } from "../../../actions/flashMessageActions";
+import { pullInvoiceDetail } from "../../../actions/invoiceDetailActions";
 
 
 class InvoiceDetailContainer extends Component {

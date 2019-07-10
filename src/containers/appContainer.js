@@ -18,7 +18,6 @@ import SendResetPasswordContainer from "./account/auth/sendResetPasswordContaine
 import SendResetPasswordSuccessContainer from "./account/auth/sendResetPasswordSuccessContainer";
 import ResetPasswordContainer from "./account/auth/resetPasswordContainer";
 import ResetPasswordSuccessContainer from "./account/auth/resetPasswordSuccessContainer";
-import ReferralContainer from "./account/referralContainer";
 import DashboardContainer from "./dashboard/dashboardContainer";
 import DeviceCreateStep1Container from "./devices/create/deviceCreateStep1Container";
 import DeviceCreateStep2IntegrateContainer from "./devices/create/deviceCreateStep2IntegrateContainer";
@@ -43,11 +42,6 @@ import InstrumentAnalysisCreateContainer from  "./instruments/analyses/instrumen
 import InstrumentAnalysisDetailContainer from "./instruments/analyses/instrumentAnalysisDetailContainer";
 import AlertListContainer from "./alerts/alertListContainer";
 import AlertItemDetailContainer from "./alerts/alertItemDetailContainer";
-import InvoiceListContainer from "./invoices/invoiceListContainer";
-import InvoiceDetailContainer from "./invoices/invoiceDetailContainer";
-import InvoiceSendContainer from "./invoices/invoiceSendContainer";
-import ProfileContainer from "./account/profile/profileContainer";
-import ProfileEditContainer from "./account/profile/profileEditContainer";
 import ProductionListContainer from  "./production/productionListContainer";
 import ProductionDetailContainer from  "./production/productionDetailContainer";
 import ProductionStep1CreateContainer from  "./production/create/productionStep1CreateContainer";
@@ -70,6 +64,11 @@ import TaskItemStartContainer from "./tasks/taskItemStartContainer";
 import TaskProductionInspectionCreateStartContainer from "./tasks/inspection/taskProductionInspectionCreateStartContainer";
 import TaskProductionInspectionCreateCropContainer from "./tasks/inspection/taskProductionInspectionCreateCropContainer";
 import TaskProductionInspectionCreateFinishContainer from "./tasks/inspection/taskProductionInspectionCreateFinishContainer";
+import ProfileContainer from "./account/profile/profileContainer";
+import ProfileEditContainer from "./account/profile/profileEditContainer";
+import InvoiceListContainer from "./account/invoices/invoiceListContainer";
+import InvoiceDetailContainer from "./account/invoices/invoiceDetailContainer";
+import InvoiceSendContainer from "./account/invoices/invoiceSendContainer";
 import SubscriptionDetailContainer from "./account/subscription/subscriptionDetailContainer";
 import SubscriptionCheckoutContainer from "./account/subscription/subscriptionCheckoutContainer";
 import SubscriptionCheckoutReviewContainer from "./account/subscription/subscriptionCheckoutReviewContainer";
@@ -80,6 +79,7 @@ import ApplicationListContainer from "./account/applications/applicationListCont
 import ApplicationCreateStep1Container from "./account/applications/create/applicationCreateStep1Container";
 import ApplicationCreateStep2Container from "./account/applications/create/applicationCreateStep2Container";
 import ApplicationCreateSuccessContainer from "./account/applications/create/applicationCreateSuccessContainer";
+import ReferralContainer from "./account/referralContainer";
 
 
 class AppContainer extends React.Component {

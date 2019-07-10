@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
 import { camelizeKeys } from 'humps';
 
-import { setFlashMessage } from "../../actions/flashMessageActions";
-import InvoiceSendComponent from "../../components/invoices/invoiceSendComponent";
-import { MIKAPONICS_INVOICE_SEND_EMAIL_API_URL } from "../../constants/api";
+import { setFlashMessage } from "../../../actions/flashMessageActions";
+import InvoiceSendComponent from "../../../components/account/invoices/invoiceSendComponent";
+import { MIKAPONICS_INVOICE_SEND_EMAIL_API_URL } from "../../../constants/api";
 
 
 class InvoiceSendContainer extends Component {

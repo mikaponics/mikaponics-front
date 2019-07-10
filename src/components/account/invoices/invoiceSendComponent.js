@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
-import { BootstrapErrorsProcessingAlert } from "../bootstrap/bootstrapAlert";
-import { BootstrapInput } from '../bootstrap/bootstrapInput';
+import { BootstrapErrorsProcessingAlert } from "../../bootstrap/bootstrapAlert";
+import { BootstrapInput } from '../../bootstrap/bootstrapInput';
 
 
 class InvoiceSendComponent extends Component {

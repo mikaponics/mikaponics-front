@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import InvoiceListComponent from "../../components/invoices/invoiceListComponent";
-import { pullInvoiceList } from "../../actions/invoiceListActions";
+import InvoiceListComponent from "../../../components/account/invoices/invoiceListComponent";
+import { pullInvoiceList } from "../../../actions/invoiceListActions";
 
 
 class InvoiceListContainer extends Component {
