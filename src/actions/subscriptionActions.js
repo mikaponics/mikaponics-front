@@ -6,6 +6,7 @@ import msgpack from 'msgpack-lite';
 import { SUBSCRIPTION_REQUEST, SUBSCRIPTION_SUCCESS, SUBSCRIPTION_FAILURE } from "../constants/actionTypes";
 import { MIKAPONICS_SUBSCRIPTION_API_URL } from "../constants/api";
 import getCustomAxios from '../helpers/customAxios';
+import { getAccessTokenFromLocalStorage, attachAxiosRefreshTokenHandler } from '../helpers/tokenUtility';
 
 
 export const setSubscriptionRequest = () => ({
@@ -100,8 +101,21 @@ export function postSubscription(data, successCallback, failedCallback) {
             setSubscriptionRequest()
         );
 
-        // Generate our app's Axios instance.
-        const customAxios = getCustomAxios();
+        // IMPORTANT: THIS IS THE ONLY WAY WE CAN GET THE ACCESS TOKEN.
+        const accessToken = getAccessTokenFromLocalStorage();
+
+        // Create a new Axios instance using our oAuth 2.0 bearer token
+        // and various other headers.
+        const customAxios = axios.create({
+            headers: {
+                'Authorization': "Bearer " + accessToken.token,
+                'Content-Type': 'application/json;',
+                'Accept': 'application/json',
+            },
+        });
+
+        // Attach our Axios "refesh token" interceptor.
+        attachAxiosRefreshTokenHandler(customAxios);
 
         // The following code will convert the `camelized` data into `snake case`
         // data so our API endpoint will be able to read it.
@@ -109,10 +123,7 @@ export function postSubscription(data, successCallback, failedCallback) {
 
         // Perform our API submission.
         customAxios.post(MIKAPONICS_SUBSCRIPTION_API_URL, decamelizedData).then( (successResponse) => {
-            // Decode our MessagePack (Buffer) into JS Object.
-            const responseData = msgpack.decode(Buffer(successResponse.data));
-
-            let subscriptionReceipt = camelizeKeys(responseData);
+            let subscriptionReceipt = camelizeKeys(successResponse.data);
 
             // Extra.
             subscriptionReceipt['isAPIRequestRunning'] = false;
@@ -129,11 +140,7 @@ export function postSubscription(data, successCallback, failedCallback) {
 
         }).catch( (exception) => {
             if (exception.response) {
-                const responseBinaryData = exception.response.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
-
-                // Decode our MessagePack (Buffer) into JS Object.
-                const responseData = msgpack.decode(Buffer(responseBinaryData));
-
+                const responseData = exception.response.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
                 let errors = camelizeKeys(responseData);
 
                 console.error(errors); // For debugging purposes only.
