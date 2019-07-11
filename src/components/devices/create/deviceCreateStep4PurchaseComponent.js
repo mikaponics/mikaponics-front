@@ -236,7 +236,14 @@ export default class DeviceCreateStep4PurchaseComponent extends React.Component 
                                 <tr>
                                     <th scope="row" className="bg-light">Grand total:</th>
                                     <td>
-                                        <NumberFormat value={grandTotal} displayType={'text'} thousandSeparator={true} decimalScale={2} prefix={'$'} />
+                                        <NumberFormat
+                                            value={grandTotal}
+                                            displayType={'text'}
+                                            thousandSeparator={true}
+                                            decimalScale={2}
+                                            fixedDecimalScale={true}
+                                            prefix={'$'}
+                                        />
                                     </td>
                                 </tr>
                             </tbody>
