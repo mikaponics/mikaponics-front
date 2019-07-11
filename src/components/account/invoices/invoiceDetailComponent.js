@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import NumberFormat from 'react-number-format';
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 import { FlashMessageComponent } from "../../flashMessageComponent";
 
@@ -88,6 +90,7 @@ class InvoiceCard extends Component {
 
             totalBeforeTax, tax, taxPercent, totalAfterTax, shipping, credit, grandTotal
         } = this.props.invoiceDetail;
+        const { user } = this.props;
 
         // Generate our table row of tiems.
         let tableElement;
@@ -148,7 +151,13 @@ class InvoiceCard extends Component {
                             </div>
                             <div className="clearfix">
                                 <p className="float-left">Created Date</p>
-                                <p className="float-right mr-2">{createdAt}</p>
+                                <p className="float-right mr-2">
+                                    {user &&
+                                        <Moment tz={user.timezone} format="YYYY/MM/DD hh:mm:ss a">
+                                            {createdAt}
+                                        </Moment>
+                                    }
+                                </p>
                             </div>
                             <div className="clearfix">
                                 <p className="float-left">Due Date</p>
@@ -283,7 +292,7 @@ class InvoiceCard extends Component {
 
 class InvoiceDetailComponent extends Component {
     render() {
-        const { flashMessage, invoiceDetail, onPrintClick } = this.props;
+        const { user, flashMessage, invoiceDetail, onPrintClick } = this.props;
 
         return (
             <div>
@@ -307,6 +316,7 @@ class InvoiceDetailComponent extends Component {
                 </nav>
                 <h1>Invoice</h1>
                 <InvoiceCard
+                    user={user}
                     invoiceDetail={invoiceDetail}
                     onPrintClick={onPrintClick}
                 />

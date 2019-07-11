@@ -41,9 +41,9 @@ class InvoiceDetailContainer extends Component {
     }
 
     render() {
-        // console.log(this.props.invoiceDetail); // For debugging purposes only.
         return (
             <InvoiceDetailComponent
+               user={this.props.user}
                invoiceDetail={this.props.invoiceDetail}
                flashMessage={this.props.flashMessage}
                onPrintClick={this.onPrintClick}
