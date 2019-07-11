@@ -49,13 +49,12 @@ class SubscriptionCheckoutSubmissionContainer extends Component {
         const paymentReceiptDictionary = JSON.parse(paymentReceiptString);
 
         // Add extra fields that our API requires.
-        subscription['payment_token'] = paymentReceiptDictionary.id;
-        subscription['payment_created_at'] = paymentReceiptDictionary.created;
+        subscription['paymentToken'] = paymentReceiptDictionary.id;
+        subscription['paymentCeatedAt'] = paymentReceiptDictionary.created;
 
         // SUBMIT OUR PAYMENT TOKEN RECEIVED FROM OUR PAYMENT MERCHANT.
         // Asynchronously submit our ``update`` to our API endpoint.
         this.props.postSubscription(
-            this.props.user,
             subscription,
             this.onSuccessfulSubmissionCallback,
             this.onFailedSubmissionCallback

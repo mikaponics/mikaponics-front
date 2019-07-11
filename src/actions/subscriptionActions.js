@@ -93,7 +93,7 @@ export function pullSubscription(user) {
 }
 
 
-export function postSubscription(user, data, successCallback, failedCallback) {
+export function postSubscription(data, successCallback, failedCallback) {
     return dispatch => {
         // Change the global state to attempting to log in.
         store.dispatch(
