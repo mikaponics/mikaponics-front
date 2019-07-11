@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import NumberFormat from 'react-number-format';
 
 import StripeComponent from "../../stripeComponent";
 
@@ -169,27 +170,74 @@ export default class DeviceCreateStep4PurchaseComponent extends React.Component 
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Total before tax:</th>
-                                    <td>{totalBeforeTax}</td>
+                                    <td>
+                                        <NumberFormat
+                                            value={totalBeforeTax}
+                                            displayType={'text'}
+                                            thousandSeparator={true}
+                                            decimalScale={2}
+                                            fixedDecimalScale={true}
+                                            prefix={'$'}
+                                        />
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Tax:</th>
-                                    <td>{tax}</td>
+                                    <td>
+                                        <NumberFormat
+                                            value={tax}
+                                            displayType={'text'}
+                                            thousandSeparator={true}
+                                            decimalScale={2}
+                                            fixedDecimalScale={true}
+                                            prefix={'$'}
+                                        />
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Total after tax:</th>
-                                    <td>{totalAfterTax} </td>
+                                    <td>
+                                        <NumberFormat
+                                            value={totalAfterTax}
+                                            displayType={'text'}
+                                            thousandSeparator={true}
+                                            decimalScale={2}
+                                            fixedDecimalScale={true}
+                                            prefix={'$'}
+                                        />
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Shipping:</th>
-                                    <td>{shipping} </td>
+                                    <td>
+                                        <NumberFormat
+                                            value={shipping}
+                                            displayType={'text'}
+                                            thousandSeparator={true}
+                                            decimalScale={2}
+                                            fixedDecimalScale={true}
+                                            prefix={'$'}
+                                        />
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Credit:</th>
-                                    <td>{credit}</td>
+                                    <td>
+                                        <NumberFormat
+                                            value={credit}
+                                            displayType={'text'}
+                                            thousandSeparator={true}
+                                            decimalScale={2}
+                                            fixedDecimalScale={true}
+                                            prefix={'$'}
+                                        />
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th scope="row" className="bg-light">Grand total:</th>
-                                    <td>{grandTotal} </td>
+                                    <td>
+                                        <NumberFormat value={grandTotal} displayType={'text'} thousandSeparator={true} decimalScale={2} prefix={'$'} />
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
