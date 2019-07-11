@@ -8,6 +8,7 @@ import { Redirect } from 'react-router-dom';
 import { pullProfile } from "../../../actions/profileAction";
 import { localStorageGetArrayItem, localStorageGetObjectItem } from "../../../helpers/localStorageUtility";
 import DeviceCreateStep4PurchaseSubmissionComponent from "../../../components/devices/create/deviceCreateStep4PurchaseSubmissionComponent";
+import getCustomAxios from '../../../helpers/customAxios';
 
 
 /**
@@ -112,16 +113,9 @@ class DeviceCreateStep4PurchaseSubmissionContainer extends Component {
         // INSTEAD OF CREATING AN ACTION USING REDUX, LETS JUST MAKE AN API
         // CALL HERE.
         //--------------------------------------------------------------------//
-        // Create a new Axios instance using our oAuth 2.0 bearer token
-        // and various other headers.
-        const customAxios = axios.create({
-            headers: {
-                'Authorization': "Bearer " + this.props.user.token,
-                'Content-Type': 'application/msgpack;',
-                'Accept': 'application/msgpack',
-            },
-            responseType: 'arraybuffer'
-        });
+
+        // Generate our app's Axios instance.
+        const customAxios = getCustomAxios();
 
         // Generate the URL.
         let aURL = process.env.REACT_APP_API_HOST+'/api/purchase';
