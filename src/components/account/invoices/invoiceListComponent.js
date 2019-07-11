@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import NumberFormat from 'react-number-format';
 
 
 class InvoiceRow extends Component {
@@ -8,7 +9,16 @@ class InvoiceRow extends Component {
         return (
             <tr key={invoice.slug}>
                 <th scope="row">{invoice.state}</th>
-                <td>{invoice.grandTotal}</td>
+                <td>
+                    <NumberFormat
+                        value={invoice.grandTotal}
+                        displayType={'text'}
+                        thousandSeparator={true}
+                        decimalScale={2}
+                        fixedDecimalScale={true}
+                        prefix={'$'}
+                    />
+                </td>
                 <td>
                     <Link to={invoice.absoluteUrl}>View&nbsp;<i className="fas fa-chevron-right"></i>&nbsp;</Link>
                 </td>
