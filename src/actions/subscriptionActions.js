@@ -105,7 +105,10 @@ export function postSubscription(data, successCallback, failedCallback) {
         const accessToken = getAccessTokenFromLocalStorage();
 
         // Create a new Axios instance using our oAuth 2.0 bearer token
-        // and various other headers.
+        // and JSON request header. Why are we doing this? We tried using
+        // `MessagePack` but the code we returned from `Stripe.com` caused
+        // a message unpack error - to fix this issue we just decided to use
+        // `JSON` format instead.
         const customAxios = axios.create({
             headers: {
                 'Authorization': "Bearer " + accessToken.token,
