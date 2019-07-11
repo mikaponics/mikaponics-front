@@ -4,10 +4,12 @@ import Scroll from 'react-scroll';
 import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
 import { camelizeKeys } from 'humps';
+import msgpack from 'msgpack-lite';
 
 import { setFlashMessage } from "../../../actions/flashMessageActions";
 import InvoiceSendComponent from "../../../components/account/invoices/invoiceSendComponent";
 import { MIKAPONICS_INVOICE_SEND_EMAIL_API_URL } from "../../../constants/api";
+import getCustomAxios from '../../../helpers/customAxios';
 
 
 class InvoiceSendContainer extends Component {
@@ -49,47 +51,56 @@ class InvoiceSendContainer extends Component {
         this.setState({
             isLoading: true,
             errors: {}
-        })
+        });
 
-        // Create our oAuth 2.0 authenticated API header to use with our
-        // submission.
-        const config = {
-            headers: {'Authorization': "Bearer " + this.props.user.token}
-        };
+        // Generate our app's Axios instance.
+        const customAxios = getCustomAxios();
 
-        axios.put(
-            MIKAPONICS_INVOICE_SEND_EMAIL_API_URL+this.props.invoiceDetail.slug, {
-                email: this.state.email
-            }, config
-        ).then( (successResult) => { // SUCCESS
+        // Encode from JS Object to MessagePack (Buffer)
+        var buffer = msgpack.encode({
+            'email': this.state.email
+        });
+
+        customAxios.put(
+            MIKAPONICS_INVOICE_SEND_EMAIL_API_URL+this.props.invoiceDetail.slug, buffer
+        ).then( (successResponse) => { // SUCCESS
+
+            // Decode our MessagePack (Buffer) into JS Object.
+            const responseData = msgpack.decode(Buffer(successResponse.data));
+            let data = camelizeKeys(responseData);
 
             this.props.setFlashMessage("success", "Invoice email was sent.");
 
             this.setState({
                 isLoading: false,
                 errors: {},
-                referrer: this.props.invoiceDetail.absoluteUrl
+                referrer: this.props.invoiceDetail.absoluteUrl,
+                data: data,
             })
 
-        }).catch( (errorResult) => { // ERROR
-            // console.log(errorResult);
-            // alert("Error fetching latest device.");
+        }).catch( (exception) => { // ERROR
+            if (exception.response) {
+                const responseBinaryData = exception.response.data; // <=--- NOTE: https://github.com/axios/axios/issues/960
 
-            const responseData = errorResult.response.data;
-            let errors = camelizeKeys(responseData);
+                // Decode our MessagePack (Buffer) into JS Object.
+                const responseData = msgpack.decode(Buffer(responseBinaryData));
 
-            console.log(errors);
-            this.setState({
-                isLoading: false,
-                errors: errors
-            })
+                // console.log(errorResult);
+                // alert("Error fetching latest device.");
 
-            // The following code will cause the screen to scroll to the top of
-            // the page. Please see ``react-scroll`` for more information:
-            // https://github.com/fisshy/react-scroll
-            var scroll = Scroll.animateScroll;
-            scroll.scrollToTop();
+                let errors = camelizeKeys(responseData);
 
+                this.setState({
+                    isLoading: false,
+                    errors: errors
+                })
+
+                // The following code will cause the screen to scroll to the top of
+                // the page. Please see ``react-scroll`` for more information:
+                // https://github.com/fisshy/react-scroll
+                var scroll = Scroll.animateScroll;
+                scroll.scrollToTop();
+            }
         }).then( () => { // FINALLY
             // Do nothing.
         });
@@ -109,6 +120,8 @@ class InvoiceSendContainer extends Component {
         if (referrer) {
             return <Redirect to={referrer} />;
         }
+
+        console.log("-=>", this.props.invoiceDetail);
 
         return (
             <InvoiceSendComponent
