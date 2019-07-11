@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import NumberFormat from 'react-number-format';
+
 import { FlashMessageComponent } from "../../flashMessageComponent";
 
 
@@ -11,8 +13,26 @@ class InvoiceItemRow extends Component {
                 <td>{product}</td>
                 <td>{description}</td>
                 <td>{quantity}</td>
-                <td>{unitPrice}</td>
-                <td>{totalPrice}</td>
+                <td>
+                    <NumberFormat
+                        value={unitPrice}
+                        displayType={'text'}
+                        thousandSeparator={true}
+                        decimalScale={2}
+                        fixedDecimalScale={true}
+                        prefix={'$'}
+                    />
+                </td>
+                <td>
+                    <NumberFormat
+                        value={totalPrice}
+                        displayType={'text'}
+                        thousandSeparator={true}
+                        decimalScale={2}
+                        fixedDecimalScale={true}
+                        prefix={'$'}
+                    />
+                </td>
             </tr>
         );
     }
@@ -151,31 +171,76 @@ class InvoiceCard extends Component {
                             <div className="row mb-3">
                                 <div className="col-8">Subtotal</div>
                                 <div className="col-4">
-                                <div className="text-right">{totalBeforeTax}</div>
+                                <div className="text-right">
+                                    <NumberFormat
+                                        value={totalBeforeTax}
+                                        displayType={'text'}
+                                        thousandSeparator={true}
+                                        decimalScale={2}
+                                        fixedDecimalScale={true}
+                                        prefix={'$'}
+                                    />
+                                </div>
                                 </div>
                             </div>
                             <div className="row mb-3">
                                 <div className="col-8">Tax ({taxPercent}%)</div>
                                 <div className="col-4">
-                                    <div className="text-right">{tax}</div>
+                                    <div className="text-right">
+                                        <NumberFormat
+                                            value={tax}
+                                            displayType={'text'}
+                                            thousandSeparator={true}
+                                            decimalScale={2}
+                                            fixedDecimalScale={true}
+                                            prefix={'$'}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                             <div className="row mb-3">
                                 <div className="col-8">Subtotal after tax</div>
                                 <div className="col-4">
-                                    <div className="text-right">{totalAfterTax}</div>
+                                    <div className="text-right">
+                                        <NumberFormat
+                                            value={totalAfterTax}
+                                            displayType={'text'}
+                                            thousandSeparator={true}
+                                            decimalScale={2}
+                                            fixedDecimalScale={true}
+                                            prefix={'$'}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                             <div className="row mb-3">
                                 <div className="col-8">Shipping</div>
                                 <div className="col-4">
-                                    <div className="text-right">{shipping}</div>
+                                    <div className="text-right">
+                                        <NumberFormat
+                                            value={shipping}
+                                            displayType={'text'}
+                                            thousandSeparator={true}
+                                            decimalScale={2}
+                                            fixedDecimalScale={true}
+                                            prefix={'$'}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                             <div className="row mb-3">
                                 <div className="col-8">Credit</div>
                                 <div className="col-4">
-                                    <div className="text-right">{credit}</div>
+                                    <div className="text-right">
+                                        <NumberFormat
+                                            value={credit}
+                                            displayType={'text'}
+                                            thousandSeparator={true}
+                                            decimalScale={2}
+                                            fixedDecimalScale={true}
+                                            prefix={'$'}
+                                        />
+                                    </div>
                                 </div>
                             </div>
 
@@ -184,7 +249,16 @@ class InvoiceCard extends Component {
                                 <div className="h3">GRAND TOTAL</div>
                                 </div>
                                 <div className="col-5">
-                                    <div className="text-right h3">{grandTotal}</div>
+                                    <div className="text-right h3">
+                                        <NumberFormat
+                                            value={grandTotal}
+                                            displayType={'text'}
+                                            thousandSeparator={true}
+                                            decimalScale={2}
+                                            fixedDecimalScale={true}
+                                            prefix={'$'}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>
