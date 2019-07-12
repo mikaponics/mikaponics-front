@@ -1,3 +1,9 @@
+# Mikaponics Frontend
+
+[![Documentation Status](https://readthedocs.org/projects/mikaponics-docs/badge/?version=latest)](https://mikaponics-docs.readthedocs.io/en/latest/?badge=latest)
+
+## Introduction
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
