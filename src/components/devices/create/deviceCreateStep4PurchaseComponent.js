@@ -53,7 +53,9 @@ export default class DeviceCreateStep4PurchaseComponent extends React.Component 
                             </Link>
                         </div>
                         <div id="step-3" className="st-grey active">
-                            <span className="num">3.</span><span className="">Checkout</span>
+                            <strong>
+                                <span className="num">3.</span><span className="">Checkout</span>
+                            </strong>
                         </div>
                     </div>
                 </div>

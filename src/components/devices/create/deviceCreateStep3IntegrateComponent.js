@@ -33,7 +33,9 @@ export default class DeviceCreateStep3IntegrateComponent extends Component {
                             </Link>
                         </div>
                         <div id="step-2" className="st-grey active">
-                            <span className="num">2.</span><span className="">Review</span>
+                            <strong>
+                                <span className="num">2.</span><span className="">Review</span>
+                            </strong>
                         </div>
                     </div>
                 </div>

@@ -241,7 +241,7 @@ class InstrumentComponent extends Component {
                                 </Link>
                             </div>
                             <h4>Analyses</h4>
-                            <span className="text-muted">View your analysis reports<br />(<i className="fas fa-lock"></i>&nbsp;Locked)</span>
+                            <span className="text-muted">View your analysis reports</span>
                         </div>
                     }
 

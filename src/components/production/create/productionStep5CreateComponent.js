@@ -100,7 +100,9 @@ class ProductionStep4CreateComponent extends Component {
                             </Link>
                         </div>
                         <div id="step-5" className="st-grey active">
-                            <span className="num">5.</span><span className="">Review</span>
+                            <strong>
+                                <span className="num">5.</span><span className="">Review</span>
+                            </strong>
                         </div>
                     </div>
                 </div><h3 className="pt-4 text-center"><i className="fas fa-table"></i>&nbsp;Review</h3>

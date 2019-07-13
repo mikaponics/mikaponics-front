@@ -61,7 +61,9 @@ class PurchaseDeviceComponent extends React.Component {
                             </Link>
                         </div>
                         <div id="step-2" className="st-grey active">
-                            <span className="num">2.</span><span className="">Billing / Shipping</span>
+                            <strong>
+                                <span className="num">2.</span><span className="">Billing / Shipping</span>
+                            </strong>
                         </div>
                         <div id="step-3" className="st-grey">
                             <span className="num">3.</span><span className="">Checkout</span>

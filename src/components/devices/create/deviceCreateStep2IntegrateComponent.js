@@ -34,7 +34,9 @@ class DeviceCreateStep2IntegrateComponent extends Component {
                 <div className="row">
                     <div className="step-navigation">
                         <div id="step-1" className="st-grey active">
-                            <span className="num">1.</span><span className="">Configurator</span>
+                            <strong>
+                                <span className="num">1.</span><span className="">Configurator</span>
+                            </strong>
                         </div>
                         <div id="step-2" className="st-grey">
                             <span className="num">2.</span><span className="">Review</span>

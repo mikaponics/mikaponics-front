@@ -42,8 +42,10 @@ export default class DeviceFullRetrieveComponent extends Component {
                             </Link>
                         </div>
                         <div id="step-2" className="st-grey active">
-                            <span className="num"><i className="fas fa-table"></i>&nbsp;</span>
-                            <span className="">Full View</span>
+                            <strong>
+                                <span className="num"><i className="fas fa-table"></i>&nbsp;</span>
+                                <span className="">Full View</span>
+                            </strong>
                         </div>
                     </div>
                 </div>
