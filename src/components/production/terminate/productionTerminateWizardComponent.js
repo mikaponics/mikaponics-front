@@ -16,7 +16,10 @@ export default class ProductionTerminateWizardComponent extends Component {
             let isThis = (searchCrop === crop) && (isLast === false) && (isFirst === false);
             elements.push(
                 <div id="step-5" className={classnames('st-grey', { 'active': isThis })}>
-                    <span className="num">{num}.</span><span className="">{searchCrop.prettyName}</span>
+                    {isThis
+                        ? <strong><span className="num">{num}.</span><span className="">{searchCrop.prettyName}</span></strong>
+                        : <div><span className="num">{num}.</span><span className="">{searchCrop.prettyName}</span></div>
+                    }
                 </div>
             )
         }
@@ -24,11 +27,18 @@ export default class ProductionTerminateWizardComponent extends Component {
             <div className="row">
                 <div className="step-navigation">
                     <div id="step-1" className={classnames('st-grey', { 'active': isFirst })}>
-                        <span className="num">1.</span><span className="">Overall</span>
+                        {isFirst
+                            ? <strong><span className="num">1.</span><span className="">Overall</span></strong>
+                            : <div><span className="num">1.</span><span className="">Overall</span></div>
+                        }
+
                     </div>
                     {elements}
                     <div id="step-5" className={classnames('st-grey', { 'active': isLast })}>
-                        <span className="num">{finalNum}.</span><span className="">Review</span>
+                        {isLast
+                            ? <strong><span className="num">{finalNum}.</span><span className="">Review</span></strong>
+                            : <div><span className="num">{finalNum}.</span><span className="">Review</span></div>
+                        }
                     </div>
                 </div>
             </div>

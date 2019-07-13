@@ -30,12 +30,15 @@ export default class ProductionInspectionCreateStepNavigationComponent extends C
             if (cropInspection !== undefined && cropInspection !== null) {
                 isSelectedTab = (cropInspectionItem.slug === cropInspection.slug) && (isLast === false) && (isFirst === false);
             }
-            
+
             // GENERATE OUR STEP NAVIGATION FOR THE `CROP INSPECTION`.
             elements.push(
                 <div id="step-5" className={classnames('st-grey', { 'active': isSelectedTab })}>
-                    <span className="num">{num}.</span>
-                    <span className="">{cropInspectionItem.prettyName}</span>
+                    {isSelectedTab
+                        ? <strong><span className="num">{num}.</span><span className="">{cropInspectionItem.prettyName}</span></strong>
+                        : <div><span className="num">{num}.</span><span className="">{cropInspectionItem.prettyName}</span></div>
+                    }
+
                 </div>
             )
         }
@@ -44,11 +47,17 @@ export default class ProductionInspectionCreateStepNavigationComponent extends C
             <div className="row">
                 <div className="step-navigation">
                     <div id="step-1" className={classnames('st-grey', { 'active': isFirst })}>
-                        <span className="num">1.</span><span className="">Overall</span>
+                        {isFirst
+                            ? <strong><span className="num">1.</span><span className="">Overall</span></strong>
+                            : <div><span className="num">1.</span><span className="">Overall</span></div>
+                        }
                     </div>
                     {elements}
                     <div id="step-5" className={classnames('st-grey', { 'active': isLast })}>
-                        <span className="num">{finalNum}.</span><span className="">Review</span>
+                        {isLast
+                            ? <strong><span className="num">{finalNum}.</span><span className="">Review</span></strong>
+                            : <div><span className="num">{finalNum}.</span><span className="">Review</span></div>
+                        }
                     </div>
                 </div>
             </div>
