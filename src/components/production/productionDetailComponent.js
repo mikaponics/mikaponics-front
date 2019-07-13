@@ -6,6 +6,7 @@ import classnames from 'classnames';
 import isEmpty from 'lodash/isEmpty';
 
 import { FlashMessageComponent } from "../flashMessageComponent";
+import { PRODUCTION_TERMINATED_STATE } from "../../constants/api";
 
 
 class ProductionCropPassedEvaluationRowsComponent extends Component {
@@ -132,7 +133,8 @@ class ProductionTableComponent extends Component {
 class ProductionDetailComponent extends Component {
     render() {
         const { user, productionDetail, flashMessage, onHarvestClick } = this.props;
-        const isLocked = productionDetail.state === 4;
+        const isLocked = productionDetail.state === PRODUCTION_TERMINATED_STATE;
+        const isNotLocked = productionDetail.state !== PRODUCTION_TERMINATED_STATE;
         const isNotProductionCropsEmpty = isEmpty(productionDetail.crops) === false;
         return (
             <div>
@@ -174,15 +176,18 @@ class ProductionDetailComponent extends Component {
                         <h4>Inspections</h4>
                         <span className="text-muted">View your inspections</span>
                     </div>
-                    <div className="col-sm-3 placeholder">
-                        <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-dblue">
-                            <a className={classnames('d-block link-ndecor', { 'disabled': isLocked })} title="Harvest" onClick={onHarvestClick}>
-                                <span className="r-circle"><i className="fas fa-shopping-basket fa-3x"></i></span>
-                            </a>
+                    {isNotLocked &&
+                        <div className="col-sm-3 placeholder">
+                            <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-dblue">
+                                <a className={classnames('d-block link-ndecor', { 'disabled': isLocked })} title="Harvest" onClick={onHarvestClick}>
+                                    <span className="r-circle"><i className="fas fa-shopping-basket fa-3x"></i></span>
+                                </a>
+                            </div>
+                            <h4>Harvest</h4>
+                            <span className="text-muted">Terminate your production</span>
                         </div>
-                        <h4>Harvest</h4>
-                        <span className="text-muted">Terminate your production</span>
-                    </div>
+                    }
+
                     { /*
                     <div className="col-sm-3 placeholder">
                         <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-orange">

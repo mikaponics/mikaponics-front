@@ -6,6 +6,7 @@ import Moment from 'react-moment';
 import 'moment-timezone';
 
 import { FlashMessageComponent } from "../../flashMessageComponent";
+import { PRODUCTION_TERMINATED_STATE } from "../../../constants/api";
 
 
 class ProductionInspectionaRowComponent extends Component {
@@ -145,6 +146,7 @@ class ProductionInspectionComponent extends Component {
         const objectList = productionInspectionList.results;
         const isObjectListNotEmpty = isEmpty(objectList) === false;
         const isObjectListEmpty = isEmpty(objectList) === true;
+        const isNotLocked = productionDetail.state !== PRODUCTION_TERMINATED_STATE;
         return (
             <div>
                 <nav aria-label="breadcrumb">
@@ -172,19 +174,21 @@ class ProductionInspectionComponent extends Component {
 
                 {isObjectListNotEmpty &&
                     <div>
-                        <section className="row text-center placeholders">
-                            <div className="col-sm-3 placeholder">
-                                <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-pink">
-                                    <a onClick={onAddClick} className="d-block link-ndecor" title="Clients">
-                                        <h1 className="circle-title">
-                                            <i className="fas fa-plus"></i>
-                                        </h1>
-                                    </a>
+                        {isNotLocked &&
+                            <section className="row text-center placeholders">
+                                <div className="col-sm-3 placeholder">
+                                    <div className="rounded-circle mx-auto mt-4 mb-4 circle-200 bg-pink">
+                                        <a onClick={onAddClick} className="d-block link-ndecor" title="Clients">
+                                            <h1 className="circle-title">
+                                                <i className="fas fa-plus"></i>
+                                            </h1>
+                                        </a>
+                                    </div>
+                                    <h4>Add Inspection</h4>
+                                    <div className="text-muted">Add your production inspection</div>
                                 </div>
-                                <h4>Add Inspection</h4>
-                                <div className="text-muted">Add your production inspection</div>
-                            </div>
-                        </section>
+                            </section>
+                        }
                         <div className="row">
                             <div className="col-md-12">
                                 <h2><i className="fas fa-th-list"></i>&nbsp;Table</h2>
